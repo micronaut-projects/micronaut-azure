@@ -1,3 +1,3 @@
-rootProject.name = 'xxx'
+rootProject.name = 'azure'
 
-include 'xxx'
+include 'azure-function'
