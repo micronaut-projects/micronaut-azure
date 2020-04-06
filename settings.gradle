@@ -1,3 +1,3 @@
 rootProject.name = 'azure'
 
-include 'azure-function'
+include 'azure-function-http'
