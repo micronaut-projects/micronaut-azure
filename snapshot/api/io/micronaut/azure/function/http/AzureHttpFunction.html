@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -36,7 +36,8 @@ var activeTableTab = "activeTableTab";
 <!--   -->
 </a>
 <ul class="navList" title="Navigation">
-<li><a href="../../../../../io/micronaut/azure/function/http/package-summary.html">Package</a></li>
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
@@ -100,7 +101,12 @@ var activeTableTab = "activeTableTab";
 <li>io.micronaut.function.executor.FunctionInitializer</li>
 <li>
 <ul class="inheritance">
+<li><a href="../../../../../io/micronaut/azure/function/AzureFunction.html" title="class in io.micronaut.azure.function">io.micronaut.azure.function.AzureFunction</a></li>
+<li>
+<ul class="inheritance">
 <li>io.micronaut.azure.function.http.AzureHttpFunction</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -116,7 +122,7 @@ var activeTableTab = "activeTableTab";
 <hr>
 <br>
 <pre>public class <span class="typeNameLabel">AzureHttpFunction</span>
-extends io.micronaut.function.executor.FunctionInitializer
+extends <a href="../../../../../io/micronaut/azure/function/AzureFunction.html" title="class in io.micronaut.azure.function">AzureFunction</a>
 implements io.micronaut.http.context.ServerContextPathProvider</pre>
 <div class="block">This class can be used as a base class for Azure HTTP functions that wish to route requests
  to classes annotated with <code>Controller</code> and the others annotations in the
@@ -227,37 +233,40 @@ implements io.micronaut.http.context.ServerContextPathProvider</pre>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>protected io.micronaut.context.ApplicationContextBuilder</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/azure/function/http/AzureHttpFunction.html#newApplicationContextBuilder--">newApplicationContextBuilder</a></span>()</code>&nbsp;</td>
-</tr>
-<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="../../../../../io/micronaut/azure/function/http/HttpRequestMessageBuilder.html" title="interface in io.micronaut.azure.function.http">HttpRequestMessageBuilder</a>&lt;?&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/azure/function/http/AzureHttpFunction.html#request-com.microsoft.azure.functions.HttpMethod-java.lang.String-">request</a></span>(com.microsoft.azure.functions.HttpMethod&nbsp;method,
        java.lang.String&nbsp;uri)</code>
 <div class="block">Start a new request.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="../../../../../io/micronaut/azure/function/http/HttpRequestMessageBuilder.html" title="interface in io.micronaut.azure.function.http">HttpRequestMessageBuilder</a>&lt;?&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/azure/function/http/AzureHttpFunction.html#request-io.micronaut.http.HttpMethod-java.lang.String-">request</a></span>(io.micronaut.http.HttpMethod&nbsp;method,
        java.lang.String&nbsp;uri)</code>
 <div class="block">Start a new request.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>protected io.micronaut.inject.ExecutableMethod&lt;java.lang.Object,java.lang.Object&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/azure/function/http/AzureHttpFunction.html#resolveFunction-io.micronaut.function.LocalFunctionRegistry-java.lang.String-">resolveFunction</a></span>(io.micronaut.function.LocalFunctionRegistry&nbsp;arg0,
                java.lang.String&nbsp;arg1)</code>&nbsp;</td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>protected java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/azure/function/http/AzureHttpFunction.html#resolveFunctionName-io.micronaut.context.env.Environment-">resolveFunctionName</a></span>(io.micronaut.context.env.Environment&nbsp;arg0)</code>&nbsp;</td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>protected io.micronaut.context.env.Environment</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/azure/function/http/AzureHttpFunction.html#startEnvironment-io.micronaut.context.ApplicationContext-">startEnvironment</a></span>(io.micronaut.context.ApplicationContext&nbsp;arg0)</code>&nbsp;</td>
 </tr>
 </table>
+<ul class="blockList">
+<li class="blockList"><a name="methods.inherited.from.class.io.micronaut.azure.function.AzureFunction">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;io.micronaut.azure.function.<a href="../../../../../io/micronaut/azure/function/AzureFunction.html" title="class in io.micronaut.azure.function">AzureFunction</a></h3>
+<code><a href="../../../../../io/micronaut/azure/function/AzureFunction.html#newApplicationContextBuilder--">newApplicationContextBuilder</a></code></li>
+</ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.io.micronaut.function.executor.FunctionInitializer">
 <!--   -->
@@ -392,16 +401,6 @@ implements io.micronaut.http.context.ServerContextPathProvider</pre>
 </dl>
 </li>
 </ul>
-<a name="newApplicationContextBuilder--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>newApplicationContextBuilder</h4>
-<pre>@NonNull
-protected&nbsp;io.micronaut.context.ApplicationContextBuilder&nbsp;newApplicationContextBuilder()</pre>
-</li>
-</ul>
 <a name="resolveFunction-io.micronaut.function.LocalFunctionRegistry-java.lang.String-">
 <!--   -->
 </a>
@@ -458,7 +457,8 @@ protected&nbsp;io.micronaut.context.ApplicationContextBuilder&nbsp;newApplicatio
 <!--   -->
 </a>
 <ul class="navList" title="Navigation">
-<li><a href="../../../../../io/micronaut/azure/function/http/package-summary.html">Package</a></li>
+<li><a href="../../../../../overview-summary.html">Overview</a></li>
+<li><a href="package-summary.html">Package</a></li>
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../../../deprecated-list.html">Deprecated</a></li>
