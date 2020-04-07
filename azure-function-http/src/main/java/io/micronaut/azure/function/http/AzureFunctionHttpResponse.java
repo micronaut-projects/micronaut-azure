@@ -139,29 +139,34 @@ public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpRes
 
     @Override
     public HttpResponseMessage getNativeResponse() {
-        HttpResponseMessage.Builder responseBuilder = azureRequest.createResponseBuilder(
-                com.microsoft.azure.functions.HttpStatus.valueOf(status.getCode())
-        );
-        getHeaders().forEach((s, strings) -> {
-            for (String string : strings) {
-                responseBuilder.header(s, string);
-            }
-        });
-        getBody().ifPresent(b -> {
-            if (b instanceof byte[]) {
-                responseBuilder.body(b);
-            } else {
-                MediaTypeCodec codec = mediaTypeCodecRegistry
-                        .findCodec(getContentType().orElse(MediaType.APPLICATION_JSON_TYPE), b.getClass())
-                        .orElse(null);
-                if (codec != null) {
-                    responseBuilder.body(codec.encode(b));
-                } else {
-                    responseBuilder.body(b);
+        if (this.body instanceof HttpResponseMessage.Builder) {
+            return ((HttpResponseMessage.Builder) this.body).build();
+        } else {
+
+            HttpResponseMessage.Builder responseBuilder = azureRequest.createResponseBuilder(
+                    com.microsoft.azure.functions.HttpStatus.valueOf(status.getCode())
+            );
+            getHeaders().forEach((s, strings) -> {
+                for (String string : strings) {
+                    responseBuilder.header(s, string);
                 }
-            }
-        });
-        return responseBuilder.build();
+            });
+            getBody().ifPresent(b -> {
+                if (b instanceof byte[]) {
+                    responseBuilder.body(b);
+                } else {
+                    MediaTypeCodec codec = mediaTypeCodecRegistry
+                            .findCodec(getContentType().orElse(MediaType.APPLICATION_JSON_TYPE), b.getClass())
+                            .orElse(null);
+                    if (codec != null) {
+                        responseBuilder.body(codec.encode(b));
+                    } else {
+                        responseBuilder.body(b);
+                    }
+                }
+            });
+            return responseBuilder.build();
+        }
     }
 
 }

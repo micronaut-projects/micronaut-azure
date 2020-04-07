@@ -302,6 +302,16 @@ public class AzureFunctionHttpRequest<B>
 
         @Override
         public <T> Optional<T> get(CharSequence name, ArgumentConversionContext<T> conversionContext) {
+            if (name != null) {
+                String value = azureRequest.getQueryParameters().get(name.toString());
+                if (value != null) {
+                    if (conversionContext.getArgument().getType().isInstance(value)) {
+                        return (Optional<T>) Optional.of(value);
+                    } else {
+                        return ConversionService.SHARED.convert(value, conversionContext);
+                    }
+                }
+            }
             return Optional.empty();
         }
     }

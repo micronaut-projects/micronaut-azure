@@ -1,6 +1,7 @@
 package io.micronaut.azure.function.http;
 
 import com.microsoft.azure.functions.ExecutionContext;
+import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.TraceContext;
 import io.micronaut.context.annotation.Replaces;
 import io.micronaut.core.annotation.Internal;
@@ -33,6 +34,7 @@ public class AzureBinderRegistry extends ServletBinderRegistry {
     private static final Argument<ExecutionContext> EXECUTION_CONTEXT_ARGUMENT = Argument.of(ExecutionContext.class);
     private static final Argument<TraceContext> TRACE_CONTEXT_ARGUMENT = Argument.of(TraceContext.class);
     private static final Argument<Logger> LOGGER_ARGUMENT = Argument.of(Logger.class);
+    private static final Argument<HttpRequestMessage> REQUEST_MESSAGE_ARGUMENT = Argument.of(HttpRequestMessage.class);
 
     /**
      * Default constructor.
@@ -46,6 +48,22 @@ public class AzureBinderRegistry extends ServletBinderRegistry {
             ConversionService conversionService,
             List<RequestArgumentBinder> binders) {
         super(mediaTypeCodecRegistry, conversionService, binders);
+        this.byType.put(HttpRequestMessage.class, new TypedRequestArgumentBinder<HttpRequestMessage>() {
+            @Override
+            public BindingResult<HttpRequestMessage> bind(
+                    ArgumentConversionContext<HttpRequestMessage> context, HttpRequest<?> source) {
+                if (source instanceof AzureFunctionHttpRequest) {
+                    return () -> Optional.of(((AzureFunctionHttpRequest<?>) source).getNativeRequest());
+                } else {
+                    return BindingResult.EMPTY;
+                }
+            }
+
+            @Override
+            public Argument<HttpRequestMessage> argumentType() {
+                return REQUEST_MESSAGE_ARGUMENT;
+            }
+        });
         this.byType.put(ExecutionContext.class, new TypedRequestArgumentBinder<ExecutionContext>() {
             @Override
             public BindingResult<ExecutionContext> bind(
