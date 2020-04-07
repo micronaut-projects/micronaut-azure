@@ -6,11 +6,18 @@ import io.micronaut.http.MutableHttpHeaders;
 
 import java.util.Map;
 
+/**
+ * Implementation of {@link MutableHttpHeaders} for Azure.
+ *
+ * @author graemerocher
+ * @since 1.0
+ */
 @Internal
 class AzureMutableHeaders extends AzureMultiValueMap implements MutableHttpHeaders {
     /**
      * Default constructor.
      * @param map The target map. Never null
+     * @param conversionService The conversion service
      */
     AzureMutableHeaders(Map<String, String> map, ConversionService<?> conversionService) {
         super(map, conversionService);

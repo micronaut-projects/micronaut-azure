@@ -145,6 +145,10 @@ public class AzureHttpFunction extends FunctionInitializer implements ServerCont
         return builder;
     }
 
+    /**
+     * Internal class for building request messages.
+     * @param <T> The body type
+     */
     private class DefaultHttpRequestMessageBuilder<T> implements HttpRequestMessageBuilder<T>, HttpRequestMessage<T> {
 
         private HttpMethod method = HttpMethod.GET;

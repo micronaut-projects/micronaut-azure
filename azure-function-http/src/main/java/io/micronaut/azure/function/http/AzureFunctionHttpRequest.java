@@ -32,6 +32,13 @@ import java.net.URI;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Implementation of Micronaut's request interface for Azure.
+ *
+ * @param <B> The body type
+ * @since 1.0
+ * @author graemerocher
+ */
 @Internal
 public class AzureFunctionHttpRequest<B>
         implements ServletHttpRequest<HttpRequestMessage<Optional<byte[]>>, B>,
