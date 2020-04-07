@@ -2,3 +2,6 @@ rootProject.name = 'azure'
 
 include 'azure-function'
 include 'azure-function-http'
+include 'doc-examples:example-java'
+include 'doc-examples:example-groovy'
+include 'doc-examples:example-kotlin'

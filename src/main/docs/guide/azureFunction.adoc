@@ -1,0 +1,46 @@
+The Azure function module provides support for writing Serverless functions with Micronaut that target the Azure Function environment.
+
+=== Simple Azure Functions
+
+There are two modules, the first of which (`micronaut-azure-function`) is more low level and allows you to define functions that can be dependency injected with Micronaut.
+
+To get started follow the instructions to create an Azure Function project with https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-java-gradle[Gradle] or with https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function-azure-cli?pivots=programming-language-java&tabs=bash%2Cbrowser[Maven].
+
+Then add the following dependency to the project:
+
+dependency:io.microaut.azure:micronaut-azure-function:{version}[]
+
+And ensure the Micronaut annotation processors are configured:
+
+dependency:io.microaut.azure:micronaut-inject-java[scope="annotationProcessor"]
+
+You can then write a function that subclasses api:azure.function.AzureFunction[] and it will be dependency injected when executed. For example:
+
+snippet::example.BlobFunction[project-base="doc-examples/example", indent="0"]
+
+<1> The class subclasses api:azure.function.AzureFunction[]. Note that a zero argument public constructor is required
+<2> Use can dependency inject fields with `@Inject`. In this case we publish an event.
+<3> You can specify the function bindings as per the Azure Function API
+<4> Injected objects can be used in your function code
+
+=== Azure HTTP Functions
+
+An additional module exists called `micronaut-azure-function-http` that allows you to write regular Micronaut controllers and have them executed using Azure Function. To get started add the `micronaut-azure-function-http` module.
+
+dependency:io.microaut.azure:micronaut-azure-function-http:{version}[]
+
+You then need to define a function that subclasses api:azure.function.http.AzureHttpFunction[] and overrides the `invoke` method:
+
+snippet::example.MyHttpFunction[project-base="doc-examples/example", indent="0"]
+
+<1> The function class subclasses api:azure.function.http.AzureHttpFunction[] and includes a zero argument constructor.
+<2> The function name can be whatever you prefer
+<3> You can choose to handle ony specific HTTP methods
+<4> In general you want a catch all route as in the example, but you can customize it.
+<5> The auth level specifies who can access the function. Using `ANONYMOUS` allows everyone.
+<6> The received request optionally contains the raw bytes
+<7> The body of the method should just invoke the super implementation.
+
+With this in place you can write regular Micronaut controllers as documented in the https://docs.micronaut.io/latest/guide/index.html#httpServer[user guide] for the HTTP server and incoming function requests will be routed to the controllers and executed.
+
+This approach allows you to develop a regular Micronaut application and deploy slices of the application as Serverless functions as desired.
