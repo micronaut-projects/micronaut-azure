@@ -1,11 +1,8 @@
 package io.micronaut.azure.function.http;
 
 import com.microsoft.azure.functions.*;
-import edu.umd.cs.findbugs.annotations.NonNull;
-import io.micronaut.context.ApplicationContextBuilder;
-import io.micronaut.context.env.Environment;
+import io.micronaut.azure.function.AzureFunction;
 import io.micronaut.core.util.StringUtils;
-import io.micronaut.function.executor.FunctionInitializer;
 import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.codec.MediaTypeCodec;
@@ -49,13 +46,12 @@ import java.util.logging.Logger;
  * @author graemerocher
  * @since 1.0.0
  */
-public class AzureHttpFunction extends FunctionInitializer implements ServerContextPathProvider {
+public class AzureHttpFunction extends AzureFunction implements ServerContextPathProvider {
     static {
         byte[] bestMacAddr = new byte[8];
         PlatformDependent.threadLocalRandom().nextBytes(bestMacAddr);
         System.setProperty("io.netty.machineId", MacAddressUtil.formatAddress(bestMacAddr));
     }
-
     private final ServletHttpHandler<HttpRequestMessage<Optional<byte[]>>, HttpResponseMessage> httpHandler;
 
     /**
@@ -134,15 +130,6 @@ public class AzureHttpFunction extends FunctionInitializer implements ServerCont
     public HttpRequestMessageBuilder<?> request(io.micronaut.http.HttpMethod method, String uri) {
         Objects.requireNonNull(method, "The method cannot be null");
         return request(HttpMethod.value(method.name()), uri);
-    }
-
-    @NonNull
-    @Override
-    protected ApplicationContextBuilder newApplicationContextBuilder() {
-        ApplicationContextBuilder builder = super.newApplicationContextBuilder();
-        builder.environments(Environment.AZURE);
-        builder.deduceEnvironment(false);
-        return builder;
     }
 
     /**
