@@ -3,6 +3,7 @@ package io.micronaut.azure.function.http;
 import com.microsoft.azure.functions.ExecutionContext;
 import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
+import edu.umd.cs.findbugs.annotations.NonNull;
 import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.convert.ArgumentConversionContext;
 import io.micronaut.core.convert.ConversionService;
@@ -50,11 +51,13 @@ public class AzureFunctionHttpRequest<B>
     /**
      * Default constructor.
      *
+     * @param contextPath      The context path
      * @param azureRequest     The native google request
      * @param codecRegistry    The codec registry
      * @param executionContext The execution context.
      */
     AzureFunctionHttpRequest(
+            String contextPath,
             HttpRequestMessage<Optional<byte[]>> azureRequest,
             MediaTypeCodecRegistry codecRegistry,
             ExecutionContext executionContext) {
@@ -71,6 +74,12 @@ public class AzureFunctionHttpRequest<B>
         this.method = method;
         this.headers = new AzureMutableHeaders(azureRequest.getHeaders(), ConversionService.SHARED);
         this.codecRegistry = codecRegistry;
+    }
+
+    @NonNull
+    @Override
+    public String getMethodName() {
+        return azureRequest.getHttpMethod().name();
     }
 
     /**

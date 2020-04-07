@@ -12,9 +12,9 @@ class ParameterBindingSpec extends Specification {
     void "test URI parameters"() {
 
         given:
-        def azureRequest = new MockAzureRequest(HttpMethod.GET, "/parameters/uri/Foo")
         def responseMessage = new AzureHttpFunction()
-                .invoke(azureRequest, Mock(ExecutionContext))
+                .request(HttpMethod.GET, "/parameters/uri/Foo")
+                .invoke()
 
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
@@ -22,18 +22,17 @@ class ParameterBindingSpec extends Specification {
         responseMessage.bodyAsString == 'Hello Foo'
     }
 
-//    void "test invalid HTTP method"() {
-//        given:
-//        def googleResponse = new MockGoogleResponse()
-//        def googleRequest = new MockGoogleRequest(HttpMethod.POST, "/parameters/uri/Foo")
-//        new HttpFunction()
-//                .service(googleRequest, googleResponse)
-//
-//        expect:
-//        googleResponse.statusCode == HttpStatus.METHOD_NOT_ALLOWED.code
-//        def allow = googleResponse.headers[HttpHeaders.ALLOW]
-//        allow == ["HEAD,GET"]
-//    }
+    void "test invalid HTTP method"() {
+        given:
+        def responseMessage = new AzureHttpFunction()
+                .request(HttpMethod.POST, "/parameters/uri/Foo")
+                .invoke()
+
+        expect:
+        responseMessage.statusCode == HttpStatus.METHOD_NOT_ALLOWED.code
+        def allow = responseMessage.getHeader(HttpHeaders.ALLOW)
+        allow == "HEAD,GET"
+    }
 //
 //    void "test query value"() {
 //
