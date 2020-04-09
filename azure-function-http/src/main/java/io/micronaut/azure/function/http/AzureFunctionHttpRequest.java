@@ -3,7 +3,6 @@ package io.micronaut.azure.function.http;
 import com.microsoft.azure.functions.ExecutionContext;
 import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
-import edu.umd.cs.findbugs.annotations.NonNull;
 import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.convert.ArgumentConversionContext;
 import io.micronaut.core.convert.ConversionService;
@@ -83,7 +82,6 @@ public class AzureFunctionHttpRequest<B>
         this.codecRegistry = codecRegistry;
     }
 
-    @NonNull
     @Override
     public String getMethodName() {
         return azureRequest.getHttpMethod().name();

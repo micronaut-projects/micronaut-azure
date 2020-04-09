@@ -1,6 +1,5 @@
 package io.micronaut.azure.function;
 
-import edu.umd.cs.findbugs.annotations.NonNull;
 import io.micronaut.context.ApplicationContextBuilder;
 import io.micronaut.context.env.Environment;
 import io.micronaut.function.executor.FunctionInitializer;
@@ -12,7 +11,6 @@ import io.micronaut.function.executor.FunctionInitializer;
  * @since 1.0.0
  */
 public abstract class AzureFunction extends FunctionInitializer {
-    @NonNull
     @Override
     protected ApplicationContextBuilder newApplicationContextBuilder() {
         ApplicationContextBuilder builder = super.newApplicationContextBuilder();
