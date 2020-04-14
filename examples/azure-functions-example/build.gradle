@@ -11,7 +11,6 @@ sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
 repositories {
-    maven { url "https://oss.jfrog.org/oss-snapshot-local" }
     jcenter()
 }
 
@@ -21,7 +20,7 @@ dependencies {
     annotationProcessor "io.micronaut:micronaut-validation"
  
     implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
-    implementation "io.micronaut.azure:micronaut-azure-function-http:1.0.0.BUILD-SNAPSHOT"
+    implementation "io.micronaut.azure:micronaut-azure-function-http:1.0.0.M1"
     implementation "io.micronaut:micronaut-inject"
     implementation "io.micronaut:micronaut-validation"
     runtimeOnly "ch.qos.logback:logback-classic:1.2.3"

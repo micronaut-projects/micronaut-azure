@@ -1,15 +1,13 @@
 # Micronaut Azure
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.micronaut.azure/micronaut-azure.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.micronaut.azure%22%20AND%20a:%22micronaut-azure%22)
+[![Maven Central](https://img.shields.io/maven-central/v/io.micronaut.azure/micronaut-azure-function.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.micronaut.azure%22%20AND%20a:%22micronaut-azure-function%22)
 [![Build Status](https://github.com/micronaut-projects/micronaut-azure/workflows/Java%20CI/badge.svg)](https://github.com/micronaut-projects/micronaut-azure/actions)
-
-(THIS PROJECT IS A WIP AND NOT YET RELEASED)
 
 Micronaut Azure contains integrations with Microsoft Azure 
 
 ## Documentation
 
-<!-- See the [Documentation](https://micronaut-projects.github.io/micronaut-azure/latest/guide/) for more information.  -->
+See the [Documentation](https://micronaut-projects.github.io/micronaut-azure/latest/guide/) for more information. 
 
 See the [Snapshot Documentation](https://micronaut-projects.github.io/micronaut-azure/snapshot/guide/) for the current development docs.
 
