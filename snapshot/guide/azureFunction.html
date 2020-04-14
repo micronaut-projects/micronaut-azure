@@ -292,7 +292,6 @@ import java.util.Optional;
 
 public class MyHttpFunction extends AzureHttpFunction { <b class="conum">(1)</b>
     @FunctionName("ExampleTrigger") <b class="conum">(2)</b>
-    @Override
     public HttpResponseMessage invoke(
             @HttpTrigger(
                     name = "req",
@@ -301,7 +300,7 @@ public class MyHttpFunction extends AzureHttpFunction { <b class="conum">(1)</b>
                     authLevel = AuthorizationLevel.ANONYMOUS) <b class="conum">(5)</b>
                     HttpRequestMessage&lt;Optional&lt;byte[]&gt;&gt; request, <b class="conum">(6)</b>
             final ExecutionContext context) {
-        return super.invoke(request, context); <b class="conum">(7)</b>
+        return super.route(request, context); <b class="conum">(7)</b>
     }
 }</code></pre>
 </div>
@@ -316,7 +315,6 @@ import io.micronaut.azure.function.http.AzureHttpFunction
 
 class MyHttpFunction extends AzureHttpFunction { <b class="conum">(1)</b>
     @FunctionName("ExampleTrigger") <b class="conum">(2)</b>
-    @Override
     HttpResponseMessage invoke(
             @HttpTrigger(
                     name = "req",
@@ -325,7 +323,7 @@ class MyHttpFunction extends AzureHttpFunction { <b class="conum">(1)</b>
                     authLevel = AuthorizationLevel.ANONYMOUS) <b class="conum">(5)</b>
                     HttpRequestMessage&lt;Optional&lt;byte[]&gt;&gt; request, <b class="conum">(6)</b>
             final ExecutionContext context) {
-        return super.invoke(request, context) <b class="conum">(7)</b>
+        return super.route(request, context) <b class="conum">(7)</b>
     }
 }</code></pre>
 </div>
@@ -341,14 +339,14 @@ import java.util.*
 
 class MyHttpFunction : AzureHttpFunction() { <b class="conum">(1)</b>
     @FunctionName("ExampleTrigger") <b class="conum">(2)</b>
-    override fun invoke(
+    fun invoke(
             @HttpTrigger(name = "req",
                     methods = [HttpMethod.GET, HttpMethod.POST], <b class="conum">(3)</b>
                     route = "{*route}", <b class="conum">(4)</b>
                     authLevel = AuthorizationLevel.ANONYMOUS) <b class="conum">(5)</b>
             request: HttpRequestMessage&lt;Optional&lt;ByteArray&gt;&gt;,  <b class="conum">(6)</b>
             context: ExecutionContext): HttpResponseMessage {
-        return super.invoke(request, context) <b class="conum">(7)</b>
+        return super.route(request, context) <b class="conum">(7)</b>
     }
 }</code></pre>
 </div>
@@ -381,7 +379,7 @@ class MyHttpFunction : AzureHttpFunction() { <b class="conum">(1)</b>
 </tr>
 <tr>
 <td><i class="conum" data-value="7"></i><b>7</b></td>
-<td>The body of the method should just invoke the super implementation.</td>
+<td>The body of the method should just invoke the <code>route</code> method of the super implementation.</td>
 </tr>
 </table>
 </div>
