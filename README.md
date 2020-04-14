@@ -7,7 +7,7 @@ Micronaut Azure contains integrations with Microsoft Azure
 
 ## Documentation
 
-See the [Documentation](https://micronaut-projects.github.io/micronaut-azure/latest/guide/) for more information. 
+See the [Documentation](https://micronaut-projects.github.io/micronaut-azure/1.0.x/guide/) for more information. 
 
 See the [Snapshot Documentation](https://micronaut-projects.github.io/micronaut-azure/snapshot/guide/) for the current development docs.
 
