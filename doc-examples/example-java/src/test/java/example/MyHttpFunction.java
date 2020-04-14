@@ -7,7 +7,6 @@ import java.util.Optional;
 
 public class MyHttpFunction extends AzureHttpFunction { // <1>
     @FunctionName("ExampleTrigger") // <2>
-    @Override
     public HttpResponseMessage invoke(
             @HttpTrigger(
                     name = "req",
@@ -16,6 +15,6 @@ public class MyHttpFunction extends AzureHttpFunction { // <1>
                     authLevel = AuthorizationLevel.ANONYMOUS) // <5>
                     HttpRequestMessage<Optional<byte[]>> request, // <6>
             final ExecutionContext context) {
-        return super.invoke(request, context); // <7>
+        return super.route(request, context); // <7>
     }
 }

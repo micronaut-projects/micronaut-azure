@@ -23,7 +23,6 @@ public class Function extends AzureHttpFunction {
      * More details: https://aka.ms/functions_authorization_keys
      */
     @FunctionName("ExampleTrigger")
-    @Override
     public HttpResponseMessage invoke(
             @HttpTrigger(
                 name = "req", 
@@ -32,6 +31,6 @@ public class Function extends AzureHttpFunction {
                 authLevel = AuthorizationLevel.ANONYMOUS)
                 HttpRequestMessage<Optional<byte[]>> request,
                 final ExecutionContext context) {
-        return super.invoke(request, context);
+        return super.route(request, context);
     }
 }

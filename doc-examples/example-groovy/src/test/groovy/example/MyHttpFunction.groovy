@@ -6,7 +6,6 @@ import io.micronaut.azure.function.http.AzureHttpFunction
 
 class MyHttpFunction extends AzureHttpFunction { // <1>
     @FunctionName("ExampleTrigger") // <2>
-    @Override
     HttpResponseMessage invoke(
             @HttpTrigger(
                     name = "req",
@@ -15,6 +14,6 @@ class MyHttpFunction extends AzureHttpFunction { // <1>
                     authLevel = AuthorizationLevel.ANONYMOUS) // <5>
                     HttpRequestMessage<Optional<byte[]>> request, // <6>
             final ExecutionContext context) {
-        return super.invoke(request, context) // <7>
+        return super.route(request, context) // <7>
     }
 }

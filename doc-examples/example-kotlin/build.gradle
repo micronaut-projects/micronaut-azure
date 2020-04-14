@@ -6,7 +6,6 @@ dependencies {
     kapt platform("io.micronaut:micronaut-bom:$micronautVersion")
     kaptTest platform("io.micronaut:micronaut-bom:$micronautVersion")
     implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
-    annotationProcessor "io.micronaut:micronaut-inject-java"
     compileOnly "io.micronaut:micronaut-inject-groovy"
     implementation project(":azure-function-http")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.71"

@@ -27,7 +27,7 @@ import java.util.logging.Logger;
  * to classes annotated with {@link io.micronaut.http.annotation.Controller} and the others annotations in the
  * {@link io.micronaut.http.annotation} package.
  *
- * <p>To use this class you should define a new function that subclasses this class and then override the {@link #invoke(HttpRequestMessage, ExecutionContext)} method to customize the function mapping as per the Azure documentation. For example the following definition will route all requests to the function:</p>
+ * <p>To use this class you should define a new function that subclasses this class and then override the {@link #route(HttpRequestMessage, ExecutionContext)} (HttpRequestMessage, ExecutionContext)} method to customize the function mapping as per the Azure documentation. For example the following definition will route all requests to the function:</p>
  *
  * <pre>{@code
  *    @FunctionName("myFunction")
@@ -82,7 +82,7 @@ public class AzureHttpFunction extends AzureFunction implements ServerContextPat
      * @param executionContext The execution context
      * @return THe response message
      */
-    public HttpResponseMessage invoke(
+    public HttpResponseMessage route(
             HttpRequestMessage<Optional<byte[]>> request,
             ExecutionContext executionContext) {
         AzureFunctionHttpRequest<?> azureFunctionHttpRequest =
@@ -202,7 +202,7 @@ public class AzureHttpFunction extends AzureFunction implements ServerContextPat
 
         @Override
         public AzureHttpResponseMessage invoke() {
-            HttpResponseMessage result = AzureHttpFunction.this.invoke(
+            HttpResponseMessage result = AzureHttpFunction.this.route(
                     buildEncodedRequest(),
                     new DefaultExecutionContext()
             );

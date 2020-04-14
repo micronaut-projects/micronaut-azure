@@ -39,7 +39,7 @@ snippet::example.MyHttpFunction[project-base="doc-examples/example", indent="0"]
 <4> In general you want a catch all route as in the example, but you can customize it.
 <5> The auth level specifies who can access the function. Using `ANONYMOUS` allows everyone.
 <6> The received request optionally contains the raw bytes
-<7> The body of the method should just invoke the super implementation.
+<7> The body of the method should just invoke the `route` method of the super implementation.
 
 With this in place you can write regular Micronaut controllers as documented in the https://docs.micronaut.io/latest/guide/index.html#httpServer[user guide] for the HTTP server and incoming function requests will be routed to the controllers and executed.
 

@@ -11,7 +11,8 @@ sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
 repositories {
-    maven { url "https://oss.jfrog.org/oss-snapshot-local" }
+    // maven { url "https://oss.jfrog.org/oss-snapshot-local" }
+    mavenLocal()
     jcenter()    
 }
 
