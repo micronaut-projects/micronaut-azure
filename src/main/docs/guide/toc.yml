@@ -2,7 +2,7 @@ introduction:
   title: Introduction
 azureFunction:
   title: Azure Function Support
-
-
+  simpleAzureFunctions: Simple Azure Functions
+  azureHttpFunctions: Azure HTTP Functions
 repository: Repository
 releaseHistory: Release History

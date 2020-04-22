@@ -1,0 +1,20 @@
+There are two modules, the first of which (`micronaut-azure-function`) is more low level and allows you to define functions that can be dependency injected with Micronaut.
+
+To get started follow the instructions to create an Azure Function project with https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-java-gradle[Gradle] or with https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function-azure-cli?pivots=programming-language-java&tabs=bash%2Cbrowser[Maven].
+
+Then add the following dependency to the project:
+
+dependency:io.microaut.azure:micronaut-azure-function:{version}[]
+
+And ensure the Micronaut annotation processors are configured:
+
+dependency:io.microaut.azure:micronaut-inject-java[scope="annotationProcessor"]
+
+You can then write a function that subclasses api:azure.function.AzureFunction[] and it will be dependency injected when executed. For example:
+
+snippet::example.BlobFunction[project-base="doc-examples/example", indent="0"]
+
+<1> The class subclasses api:azure.function.AzureFunction[]. Note that a zero argument public constructor is required
+<2> Use can dependency inject fields with `@Inject`. In this case we publish an event.
+<3> You can specify the function bindings as per the Azure Function API
+<4> Injected objects can be used in your function code
