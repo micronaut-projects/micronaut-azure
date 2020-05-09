@@ -11,7 +11,7 @@
 
         gtag('config', 'UA-82213539-2');
     </script>
-    <title>2 Azure Function Support 1.0.0.BUILD-SNAPSHOT</title>
+    <title>2.1 Simple Azure Functions 1.0.0.BUILD-SNAPSHOT</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
     <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
@@ -34,20 +34,20 @@ function addJsClass() {
         <ul>
             <li>
                 <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
-                    <a href="../guide/index.html" class="button">Table of contents</a>
+                    <a href="../../guide/index.html" class="button">Table of contents</a>
 
                     <div id="nav-summary-childs" style="display:none;">
                         
-                        <div class="toc-item" style="margin-left:0"><a href="../guide/introduction.html"><strong>1</strong><span>Introduction</span></a>
+                        <div class="toc-item" style="margin-left:0"><a href="../../guide/introduction.html"><strong>1</strong><span>Introduction</span></a>
                         </div>
                         
-                        <div class="toc-item" style="margin-left:0"><a href="../guide/azureFunction.html"><strong>2</strong><span>Azure Function Support</span></a>
+                        <div class="toc-item" style="margin-left:0"><a href="../../guide/azureFunction.html"><strong>2</strong><span>Azure Function Support</span></a>
                         </div>
                         
-                        <div class="toc-item" style="margin-left:0"><a href="../guide/repository.html"><strong>3</strong><span>Repository</span></a>
+                        <div class="toc-item" style="margin-left:0"><a href="../../guide/repository.html"><strong>3</strong><span>Repository</span></a>
                         </div>
                         
-                        <div class="toc-item" style="margin-left:0"><a href="../guide/releaseHistory.html"><strong>4</strong><span>Release History</span></a>
+                        <div class="toc-item" style="margin-left:0"><a href="../../guide/releaseHistory.html"><strong>4</strong><span>Release History</span></a>
                         </div>
                         
                     </div>
@@ -68,49 +68,25 @@ function addJsClass() {
             <div id="main" class="corner-all">
 
                 
-                    <div class="toc-item prev-left"><a href="../guide/introduction.html">&lt;&lt; <strong>1</strong><span>Introduction</span></a></div>
+                    <div class="toc-item prev-left"><a href="../../guide/introduction.html">&lt;&lt; <strong>1</strong><span>Introduction</span></a></div>
                 
 
                 <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
 
                 
-                    <div class="toc-item next-right"><a href="../guide/repository.html"><strong>3</strong><span>Repository</span> >></a></div>
+                    <div class="toc-item next-right"><a href="../../guide/repository.html"><strong>3</strong><span>Repository</span> >></a></div>
                 
 
 
                 <div class="project">
-                    <h1>2 Azure Function Support</h1>
+                    <h1>2.1 Simple Azure Functions</h1>
 
                     <p><strong>Version:</strong> 1.0.0.BUILD-SNAPSHOT</p>
                 </div>
 
                 
-                <div id="table-of-content">
-                    <h2>Table of Contents</h2>
-                    
-                    <div class="toc-item" style="margin-left:0px"><a href="#simpleAzureFunctions"><strong>2.1</strong><span>Simple Azure Functions</span></a>
-                    </div>
-                    
-                    <div class="toc-item" style="margin-left:0px"><a href="#azureHttpFunctions"><strong>2.2</strong><span>Azure HTTP Functions</span></a>
-                    </div>
-                    
-                </div>
-                
 
                 
-<h1 id="azureFunction"><a class="anchor" href="#azureFunction"></a>2 Azure Function Support</h1>
-
-<div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureFunction.adoc"'>
-        <i class='fa fa-pencil-square-o'></i> Improve this doc
-    </button>
-</div>
-
-
-<div class="paragraph">
-<p>The Azure function module provides support for writing Serverless functions with Micronaut that target the Azure Function environment.</p>
-</div>
-
 <h2 id="simpleAzureFunctions"><a class="anchor" href="#simpleAzureFunctions"></a>2.1 Simple Azure Functions</h2>
 
 <div class='contribute-btn'>
@@ -282,154 +258,12 @@ class BlobFunction : AzureFunction() { <b class="conum">(1)</b>
 </table>
 </div>
 
-<h2 id="azureHttpFunctions"><a class="anchor" href="#azureHttpFunctions"></a>2.2 Azure HTTP Functions</h2>
-
-<div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureFunction/azureHttpFunctions.adoc"'>
-        <i class='fa fa-pencil-square-o'></i> Improve this doc
-    </button>
-</div>
-
-
-<div class="paragraph">
-<p>An additional module exists called <code>micronaut-azure-function-http</code> that allows you to write regular Micronaut controllers and have them executed using Azure Function. To get started add the <code>micronaut-azure-function-http</code> module.</p>
-</div>
-<div class="paragraph">
-<p>        <div class="listingblock multi-language-sample">
-<div class="title"></div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.microaut.azure:micronaut-azure-function-http:1.0.0.BUILD-SNAPSHOT")</span></code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
-    &lt;groupId&gt;io.microaut.azure&lt;/groupId&gt;
-    &lt;artifactId&gt;micronaut-azure-function-http&lt;/artifactId&gt;
-    &lt;version&gt;1.0.0.BUILD-SNAPSHOT&lt;/version&gt;
-&lt;/dependency&gt;</code></pre>
-</div>
-</div>
-</p>
-</div>
-<div class="paragraph">
-<p>You then need to define a function that subclasses <a href="../api/io/micronaut/azure/function/http/AzureHttpFunction.html">AzureHttpFunction</a> and overrides the <code>invoke</code> method:</p>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package example;
-
-import com.microsoft.azure.functions.*;
-import com.microsoft.azure.functions.annotation.*;
-import io.micronaut.azure.function.http.AzureHttpFunction;
-import java.util.Optional;
-
-public class MyHttpFunction extends AzureHttpFunction { <b class="conum">(1)</b>
-    @FunctionName("ExampleTrigger") <b class="conum">(2)</b>
-    public HttpResponseMessage invoke(
-            @HttpTrigger(
-                    name = "req",
-                    methods = {HttpMethod.GET, HttpMethod.POST}, <b class="conum">(3)</b>
-                    route = "{*route}", <b class="conum">(4)</b>
-                    authLevel = AuthorizationLevel.ANONYMOUS) <b class="conum">(5)</b>
-                    HttpRequestMessage&lt;Optional&lt;byte[]&gt;&gt; request, <b class="conum">(6)</b>
-            final ExecutionContext context) {
-        return super.route(request, context); <b class="conum">(7)</b>
-    }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">package example
-
-import com.microsoft.azure.functions.*
-import com.microsoft.azure.functions.annotation.*
-import io.micronaut.azure.function.http.AzureHttpFunction
-
-class MyHttpFunction extends AzureHttpFunction { <b class="conum">(1)</b>
-    @FunctionName("ExampleTrigger") <b class="conum">(2)</b>
-    HttpResponseMessage invoke(
-            @HttpTrigger(
-                    name = "req",
-                    methods = [HttpMethod.GET, HttpMethod.POST], <b class="conum">(3)</b>
-                    route = "{*route}", <b class="conum">(4)</b>
-                    authLevel = AuthorizationLevel.ANONYMOUS) <b class="conum">(5)</b>
-                    HttpRequestMessage&lt;Optional&lt;byte[]&gt;&gt; request, <b class="conum">(6)</b>
-            final ExecutionContext context) {
-        return super.route(request, context) <b class="conum">(7)</b>
-    }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">package example
-
-import com.microsoft.azure.functions.*
-import com.microsoft.azure.functions.annotation.*
-import io.micronaut.azure.function.http.AzureHttpFunction
-import java.util.*
-
-class MyHttpFunction : AzureHttpFunction() { <b class="conum">(1)</b>
-    @FunctionName("ExampleTrigger") <b class="conum">(2)</b>
-    fun invoke(
-            @HttpTrigger(name = "req",
-                    methods = [HttpMethod.GET, HttpMethod.POST], <b class="conum">(3)</b>
-                    route = "{*route}", <b class="conum">(4)</b>
-                    authLevel = AuthorizationLevel.ANONYMOUS) <b class="conum">(5)</b>
-            request: HttpRequestMessage&lt;Optional&lt;ByteArray&gt;&gt;,  <b class="conum">(6)</b>
-            context: ExecutionContext): HttpResponseMessage {
-        return super.route(request, context) <b class="conum">(7)</b>
-    }
-}</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>The function class subclasses <a href="../api/io/micronaut/azure/function/http/AzureHttpFunction.html">AzureHttpFunction</a> and includes a zero argument constructor.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>The function name can be whatever you prefer</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>You can choose to handle ony specific HTTP methods</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>In general you want a catch all route as in the example, but you can customize it.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>The auth level specifies who can access the function. Using <code>ANONYMOUS</code> allows everyone.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>The received request optionally contains the raw bytes</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="7"></i><b>7</b></td>
-<td>The body of the method should just invoke the <code>route</code> method of the super implementation.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>With this in place you can write regular Micronaut controllers as documented in the <a href="https://docs.micronaut.io/latest/guide/index.html#httpServer">user guide</a> for the HTTP server and incoming function requests will be routed to the controllers and executed.</p>
-</div>
-<div class="paragraph">
-<p>This approach allows you to develop a regular Micronaut application and deploy slices of the application as Serverless functions as desired.</p>
-</div>
-
 
                 <div style="clear:both;margin-top:15px;"></div>
                 
-                    <div class="toc-item prev-left"><a href="../guide/introduction.html">&lt;&lt; <strong>1</strong><span>Introduction</span></a></div>
+                    <div class="toc-item prev-left"><a href="../../guide/introduction.html">&lt;&lt; <strong>1</strong><span>Introduction</span></a></div>
                 
-                    <div class="toc-item next-right"><a href="../guide/repository.html"><strong>3</strong><span>Repository</span> >></a></div>
+                    <div class="toc-item next-right"><a href="../../guide/repository.html"><strong>3</strong><span>Repository</span> >></a></div>
                 
                 <div style="clear:both"></div>
             </div>
@@ -437,7 +271,7 @@ class MyHttpFunction : AzureHttpFunction() { <b class="conum">(1)</b>
         <td id="col2">
             <div class="local clearfix">
                 <div class="local-title">
-                    <a href="../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <a href="../../guide/index.html" target="mainFrame">Quick Reference</a>
                     <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
                 </div>
                 <div class="menu">
