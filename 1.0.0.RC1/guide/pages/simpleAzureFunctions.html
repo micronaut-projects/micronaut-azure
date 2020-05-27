@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script src="/cdn-cgi/apps/head/3cOPSgo5Omz84ycX7CvigfX4cpw.js"></script><script async src="https://www.googletagmanager.com/gtag/js?id=UA-82213539-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-82213539-2');
+    </script>
+    <title>2.1 Simple Azure Functions 1.0.0.RC1</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <script type="text/javascript">
+function addJsClass() {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+</head>
+
+<body class="body" onload="addJsClass();">
+<div id="navigation">
+    <div class="navTitle">
+        
+        Micronaut Azure
+    </div>
+    <div class="navLinks">
+        <ul>
+            <li>
+                <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                    <a href="../../guide/index.html" class="button">Table of contents</a>
+
+                    <div id="nav-summary-childs" style="display:none;">
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../../guide/introduction.html"><strong>1</strong><span>Introduction</span></a>
+                        </div>
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../../guide/azureFunction.html"><strong>2</strong><span>Azure Function Support</span></a>
+                        </div>
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../../guide/repository.html"><strong>3</strong><span>Repository</span></a>
+                        </div>
+                        
+                        <div class="toc-item" style="margin-left:0"><a href="../../guide/releaseHistory.html"><strong>4</strong><span>Release History</span></a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </li>
+            <li class="separator selected">
+                <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+            </li>
+        </ul>
+    </div>
+
+
+</div>
+
+<table id="colset" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="col1">
+            <div id="main" class="corner-all">
+
+                
+                    <div class="toc-item prev-left"><a href="../../guide/introduction.html">&lt;&lt; <strong>1</strong><span>Introduction</span></a></div>
+                
+
+                <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                
+                    <div class="toc-item next-right"><a href="../../guide/repository.html"><strong>3</strong><span>Repository</span> >></a></div>
+                
+
+
+                <div class="project">
+                    <h1>2.1 Simple Azure Functions</h1>
+
+                    <p><strong>Version:</strong> 1.0.0.RC1</p>
+                </div>
+
+                
+
+                
+<h2 id="simpleAzureFunctions"><a class="anchor" href="#simpleAzureFunctions"></a>2.1 Simple Azure Functions</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureFunction/simpleAzureFunctions.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>There are two modules, the first of which (<code>micronaut-azure-function</code>) is more low level and allows you to define functions that can be dependency injected with Micronaut.</p>
+</div>
+<div class="paragraph">
+<p>To get started follow the instructions to create an Azure Function project with <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-java-gradle">Gradle</a> or with <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function-azure-cli?pivots=programming-language-java&amp;tabs=bash%2Cbrowser">Maven</a>.</p>
+</div>
+<div class="paragraph">
+<p>Then add the following dependency to the project:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.microaut.azure:micronaut-azure-function:1.0.0.RC1")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.microaut.azure&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-azure-function&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0.RC1&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="paragraph">
+<p>And ensure the Micronaut annotation processors are configured:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">annotationProcessor(<span class="hljs-string">"io.microaut.azure:micronaut-inject-java")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;annotationProcessorPaths&gt;
+    &lt;path&gt;
+        &lt;groupId&gt;io.microaut.azure&lt;/groupId&gt;
+        &lt;artifactId&gt;micronaut-inject-java&lt;/artifactId&gt;
+    &lt;/path&gt;
+&lt;/annotationProcessorPaths&gt;</code></pre>
+</div>
+</div>
+</p>
+</div>
+<div class="paragraph">
+<p>You can then write a function that subclasses <a href="../api/io/micronaut/azure/function/AzureFunction.html">AzureFunction</a> and it will be dependency injected when executed. For example:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">package example;
+
+import com.microsoft.azure.functions.annotation.*;
+import io.micronaut.azure.function.AzureFunction;
+import io.micronaut.context.event.*;
+import javax.inject.Inject;
+
+public class BlobFunction extends AzureFunction { <b class="conum">(1)</b>
+    @Inject
+    ApplicationEventPublisher eventPublisher; <b class="conum">(2)</b>
+
+    @FunctionName("copy")
+    @StorageAccount("AzureWebJobsStorage")
+    @BlobOutput(name = "$return", path = "samples-output-java/{name}") <b class="conum">(3)</b>
+    public String copy(@BlobTrigger(
+            name = "blob",
+            path = "samples-input-java/{name}") String content) {
+        eventPublisher.publishEvent(new BlobEvent(content)); <b class="conum">(4)</b>
+        return content;
+    }
+
+    public static class BlobEvent extends ApplicationEvent {
+        public BlobEvent(String content) {
+            super(content);
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">package example
+
+import com.microsoft.azure.functions.annotation.*
+import io.micronaut.azure.function.AzureFunction
+import io.micronaut.context.event.*
+import javax.inject.Inject
+
+class BlobFunction extends AzureFunction { <b class="conum">(1)</b>
+    @Inject
+    ApplicationEventPublisher eventPublisher <b class="conum">(2)</b>
+
+    @FunctionName("copy")
+    @StorageAccount("AzureWebJobsStorage")
+    @BlobOutput(name = '$return', path = "samples-output-java/{name}") <b class="conum">(3)</b>
+    String copy(@BlobTrigger(
+            name = "blob",
+            path = "samples-input-java/{name}") String content) {
+        eventPublisher.publishEvent(new BlobEvent(content)) <b class="conum">(4)</b>
+        return content
+    }
+
+    static class BlobEvent extends ApplicationEvent {
+        BlobEvent(String content) {
+            super(content)
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">package example
+
+import com.microsoft.azure.functions.annotation.*
+import io.micronaut.azure.function.AzureFunction
+import io.micronaut.context.event.ApplicationEvent
+import io.micronaut.context.event.ApplicationEventPublisher
+import javax.inject.Inject
+
+class BlobFunction : AzureFunction() { <b class="conum">(1)</b>
+    @Inject
+    lateinit var eventPublisher : ApplicationEventPublisher <b class="conum">(2)</b>
+
+    @FunctionName("copy")
+    @StorageAccount("AzureWebJobsStorage")
+    @BlobOutput(name = "\$return", path = "samples-output-java/{name}") <b class="conum">(3)</b>
+    fun copy(@BlobTrigger(name = "blob", path = "samples-input-java/{name}") content: String): String {
+        eventPublisher.publishEvent(BlobEvent(content)) <b class="conum">(4)</b>
+        return content
+    }
+
+    class BlobEvent(content: String) : ApplicationEvent(content)
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The class subclasses <a href="../api/io/micronaut/azure/function/AzureFunction.html">AzureFunction</a>. Note that a zero argument public constructor is required</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Use can dependency inject fields with <code>@Inject</code>. In this case we publish an event.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>You can specify the function bindings as per the Azure Function API</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Injected objects can be used in your function code</td>
+</tr>
+</table>
+</div>
+
+
+                <div style="clear:both;margin-top:15px;"></div>
+                
+                    <div class="toc-item prev-left"><a href="../../guide/introduction.html">&lt;&lt; <strong>1</strong><span>Introduction</span></a></div>
+                
+                    <div class="toc-item next-right"><a href="../../guide/repository.html"><strong>3</strong><span>Repository</span> >></a></div>
+                
+                <div style="clear:both"></div>
+            </div>
+        </td>
+        <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="footer">
+    
+    
+</div>
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+</body>
+</html>
