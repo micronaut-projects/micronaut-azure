@@ -137,7 +137,7 @@ public class MyHttpFunction extends AzureHttpFunction { <b class="conum">(1)</b>
                     methods = {HttpMethod.GET, HttpMethod.POST}, <b class="conum">(3)</b>
                     route = "{*route}", <b class="conum">(4)</b>
                     authLevel = AuthorizationLevel.ANONYMOUS) <b class="conum">(5)</b>
-                    HttpRequestMessage&lt;Optional&lt;byte[]&gt;&gt; request, <b class="conum">(6)</b>
+                    HttpRequestMessage&lt;Optional&lt;String&gt;&gt; request, <b class="conum">(6)</b>
             final ExecutionContext context) {
         return super.route(request, context); <b class="conum">(7)</b>
     }
@@ -160,7 +160,7 @@ class MyHttpFunction extends AzureHttpFunction { <b class="conum">(1)</b>
                     methods = [HttpMethod.GET, HttpMethod.POST], <b class="conum">(3)</b>
                     route = "{*route}", <b class="conum">(4)</b>
                     authLevel = AuthorizationLevel.ANONYMOUS) <b class="conum">(5)</b>
-                    HttpRequestMessage&lt;Optional&lt;byte[]&gt;&gt; request, <b class="conum">(6)</b>
+                    HttpRequestMessage&lt;Optional&lt;String&gt;&gt; request, <b class="conum">(6)</b>
             final ExecutionContext context) {
         return super.route(request, context) <b class="conum">(7)</b>
     }
@@ -183,7 +183,7 @@ class MyHttpFunction : AzureHttpFunction() { <b class="conum">(1)</b>
                     methods = [HttpMethod.GET, HttpMethod.POST], <b class="conum">(3)</b>
                     route = "{*route}", <b class="conum">(4)</b>
                     authLevel = AuthorizationLevel.ANONYMOUS) <b class="conum">(5)</b>
-            request: HttpRequestMessage&lt;Optional&lt;ByteArray&gt;&gt;,  <b class="conum">(6)</b>
+            request: HttpRequestMessage&lt;Optional&lt;String&gt;&gt;,  <b class="conum">(6)</b>
             context: ExecutionContext): HttpResponseMessage {
         return super.route(request, context) <b class="conum">(7)</b>
     }
