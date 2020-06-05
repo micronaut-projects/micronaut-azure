@@ -47,7 +47,7 @@ import java.util.Optional;
 public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpResponseMessage, B> {
 
     private final MediaTypeCodecRegistry mediaTypeCodecRegistry;
-    private final HttpRequestMessage<Optional<byte[]>> azureRequest;
+    private final HttpRequestMessage<Optional<String>> azureRequest;
     private MutableConvertibleValues<Object> attributes;
     private B body;
     private HttpStatus status = HttpStatus.OK;
@@ -61,7 +61,7 @@ public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpRes
      * @param mediaTypeCodecRegistry The media type codec registry
      */
     AzureFunctionHttpResponse(
-            HttpRequestMessage<Optional<byte[]>> azureRequest,
+            HttpRequestMessage<Optional<String>> azureRequest,
             MediaTypeCodecRegistry mediaTypeCodecRegistry) {
         this.azureRequest = azureRequest;
         this.mediaTypeCodecRegistry = mediaTypeCodecRegistry;

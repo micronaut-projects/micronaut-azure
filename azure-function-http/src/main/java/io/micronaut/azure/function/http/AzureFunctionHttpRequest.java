@@ -55,9 +55,9 @@ import java.util.stream.Collectors;
  */
 @Internal
 public class AzureFunctionHttpRequest<B>
-        implements ServletHttpRequest<HttpRequestMessage<Optional<byte[]>>, B>,
-        ServletExchange<HttpRequestMessage<Optional<byte[]>>, HttpResponseMessage> {
-    private final HttpRequestMessage<Optional<byte[]>> azureRequest;
+        implements ServletHttpRequest<HttpRequestMessage<Optional<String>>, B>,
+        ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> {
+    private final HttpRequestMessage<Optional<String>> azureRequest;
     private final URI uri;
     private final HttpMethod method;
     private final AzureMutableHeaders headers;
@@ -79,7 +79,7 @@ public class AzureFunctionHttpRequest<B>
      */
     AzureFunctionHttpRequest(
             String contextPath,
-            HttpRequestMessage<Optional<byte[]>> azureRequest,
+            HttpRequestMessage<Optional<String>> azureRequest,
             MediaTypeCodecRegistry codecRegistry,
             ExecutionContext executionContext) {
         this.executionContext = executionContext;
@@ -112,7 +112,7 @@ public class AzureFunctionHttpRequest<B>
     @Override
     public InputStream getInputStream() throws IOException {
         return new ByteArrayInputStream(
-                azureRequest.getBody().orElseThrow(() -> new IOException("Empty Body"))
+                azureRequest.getBody().map(s -> s.getBytes(getCharacterEncoding())).orElseThrow(() -> new IOException("Empty Body"))
         );
     }
 
@@ -122,7 +122,7 @@ public class AzureFunctionHttpRequest<B>
     }
 
     @Override
-    public HttpRequestMessage<Optional<byte[]>> getNativeRequest() {
+    public HttpRequestMessage<Optional<String>> getNativeRequest() {
         return azureRequest;
     }
 
@@ -262,7 +262,7 @@ public class AzureFunctionHttpRequest<B>
     }
 
     @Override
-    public ServletHttpRequest<HttpRequestMessage<Optional<byte[]>>, ? super Object> getRequest() {
+    public ServletHttpRequest<HttpRequestMessage<Optional<String>>, ? super Object> getRequest() {
         //noinspection unchecked
         return (ServletHttpRequest) this;
     }

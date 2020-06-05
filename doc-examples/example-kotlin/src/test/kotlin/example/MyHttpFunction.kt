@@ -12,7 +12,7 @@ class MyHttpFunction : AzureHttpFunction() { // <1>
                     methods = [HttpMethod.GET, HttpMethod.POST], // <3>
                     route = "{*route}", // <4>
                     authLevel = AuthorizationLevel.ANONYMOUS) // <5>
-            request: HttpRequestMessage<Optional<ByteArray>>,  // <6>
+            request: HttpRequestMessage<Optional<String>>,  // <6>
             context: ExecutionContext): HttpResponseMessage {
         return super.route(request, context) // <7>
     }
