@@ -64,13 +64,13 @@
         <dependency>
             <groupId>io.micronaut.azure</groupId>
             <artifactId>micronaut-azure-function-http</artifactId>
-            <version>1.0.0.M1</version>
+            <version>1.0.0.BUILD-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.micronaut.servlet</groupId>
             <artifactId>micronaut-servlet-core</artifactId>
-            <version>1.0.0.M2</version>
+            <version>1.0.0.RC1</version>
             <scope>compile</scope>
         </dependency>        
         <dependency>

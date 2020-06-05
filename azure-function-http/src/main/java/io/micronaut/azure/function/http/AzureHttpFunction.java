@@ -51,7 +51,7 @@ import java.util.logging.Logger;
  *       @HttpTrigger(name = "req",
  *                    route = "{*url}", // catch all route
  *                    authLevel = AuthorizationLevel.ANONYMOUS)
- *       HttpRequestMessage<Optional<byte[]>> request,
+ *       HttpRequestMessage<Optional<String>> request,
  *       ExecutionContext executionContext) {
  *
  *    }
@@ -67,20 +67,20 @@ public class AzureHttpFunction extends AzureFunction implements ServerContextPat
         PlatformDependent.threadLocalRandom().nextBytes(bestMacAddr);
         System.setProperty("io.netty.machineId", MacAddressUtil.formatAddress(bestMacAddr));
     }
-    private final ServletHttpHandler<HttpRequestMessage<Optional<byte[]>>, HttpResponseMessage> httpHandler;
+    private final ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> httpHandler;
 
     /**
      * Default constructor.
      */
     public AzureHttpFunction() {
-        this.httpHandler = new ServletHttpHandler<HttpRequestMessage<Optional<byte[]>>, HttpResponseMessage>(applicationContext) {
+        this.httpHandler = new ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage>(applicationContext) {
             @Override
             public boolean isRunning() {
                 return applicationContext.isRunning();
             }
 
             @Override
-            protected ServletExchange<HttpRequestMessage<Optional<byte[]>>, HttpResponseMessage> createExchange(HttpRequestMessage<Optional<byte[]>> request, HttpResponseMessage response) {
+            protected ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> createExchange(HttpRequestMessage<Optional<String>> request, HttpResponseMessage response) {
                 throw new UnsupportedOperationException("Creating the exchange directly is not supported");
             }
         };
@@ -98,7 +98,7 @@ public class AzureHttpFunction extends AzureFunction implements ServerContextPat
      * @return THe response message
      */
     public HttpResponseMessage route(
-            HttpRequestMessage<Optional<byte[]>> request,
+            HttpRequestMessage<Optional<String>> request,
             ExecutionContext executionContext) {
         AzureFunctionHttpRequest<?> azureFunctionHttpRequest =
                 new AzureFunctionHttpRequest<>(
@@ -108,7 +108,7 @@ public class AzureHttpFunction extends AzureFunction implements ServerContextPat
                         executionContext
                 );
 
-        ServletExchange<HttpRequestMessage<Optional<byte[]>>, HttpResponseMessage> exchange =
+        ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> exchange =
                 httpHandler.exchange(azureFunctionHttpRequest);
 
         return exchange.getResponse().getNativeResponse();
@@ -239,12 +239,12 @@ public class AzureHttpFunction extends AzureFunction implements ServerContextPat
             };
         }
 
-        private HttpRequestMessage<Optional<byte[]>> buildEncodedRequest() {
+        private HttpRequestMessage<Optional<String>> buildEncodedRequest() {
             if (this.body != null) {
                 if (this.body instanceof byte[]) {
                     this.body = Optional.of((byte[]) this.body);
                 } else if (this.body instanceof CharSequence) {
-                    this.body = Optional.of(this.body.toString().getBytes(StandardCharsets.UTF_8));
+                    this.body = Optional.of(this.body.toString());
                 } else {
                     MediaTypeCodecRegistry codecRegistry = AzureHttpFunction.this.httpHandler.getMediaTypeCodecRegistry();
                     String ct = getHeaders().get(HttpHeaders.CONTENT_TYPE);
@@ -254,15 +254,15 @@ public class AzureHttpFunction extends AzureFunction implements ServerContextPat
                     }
                     MediaTypeCodec codec = codecRegistry.findCodec(mediaType, body.getClass()).orElse(null);
                     if (codec != null) {
-                        this.body = Optional.of(codec.encode(body));
+                        this.body = Optional.of(new String(codec.encode(body), StandardCharsets.UTF_8));
                     } else {
-                        this.body = Optional.of(this.body.toString().getBytes(StandardCharsets.UTF_8));
+                        this.body = Optional.of(this.body.toString());
                     }
                 }
             } else {
                 this.body = Optional.empty();
             }
-            return (HttpRequestMessage<Optional<byte[]>>) this;
+            return (HttpRequestMessage<Optional<String>>) this;
         }
 
         @Override

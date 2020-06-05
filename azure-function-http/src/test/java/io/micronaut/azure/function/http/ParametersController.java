@@ -43,7 +43,7 @@ public class ParametersController {
 
     @Get("/reqAndRes")
     HttpResponseMessage requestAndResponse(
-            HttpRequestMessage<Optional<byte[]>> request) throws IOException {
+            HttpRequestMessage<Optional<String>> request) throws IOException {
         HttpResponseMessage.Builder builder = request.createResponseBuilder(com.microsoft.azure.functions.HttpStatus.OK);
         builder.header(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN);
         builder.status(HttpStatusType.custom(HttpStatus.ACCEPTED.getCode()));
