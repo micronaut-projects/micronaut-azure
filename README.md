@@ -13,7 +13,10 @@ See the [Snapshot Documentation](https://micronaut-projects.github.io/micronaut-
 
 ## Examples
 
-Examples can be found in the [examples](https://github.com/micronaut-projects/micronaut-azure/tree/master/examples) directory.
+You can generate example Azure Functions applications at https://launch.micronaut.io:
+
+* Azure Simple Function - Select Application Type `Serverless Function` and the `azure-function` feature and generate!
+* Azure HTTP Function - Select Application Type `Application` and the `azure-function` feature and generate!
 
 ## Snapshots and Releases
 
