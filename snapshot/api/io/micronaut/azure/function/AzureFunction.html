@@ -17,12 +17,6 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
-var altColor = "altColor";
-var rowColor = "rowColor";
-var tableTab = "tableTab";
-var activeTableTab = "activeTableTab";
 </script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
@@ -72,16 +66,16 @@ var activeTableTab = "activeTableTab";
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li><a href="#nested.classes.inherited.from.class.io.micronaut.function.executor.FunctionInitializer">Nested</a>&nbsp;|&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#method.summary">Method</a></li>
+<li><a href="#methods.inherited.from.class.java.lang.Object">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#method.detail">Method</a></li>
+<li>Method</li>
 </ul>
 </div>
 <a name="skip.navbar.top">
@@ -98,12 +92,7 @@ var activeTableTab = "activeTableTab";
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>io.micronaut.function.executor.FunctionInitializer</li>
-<li>
-<ul class="inheritance">
 <li>io.micronaut.azure.function.AzureFunction</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -111,17 +100,13 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <dl>
-<dt>All Implemented Interfaces:</dt>
-<dd>java.io.Closeable, java.lang.AutoCloseable</dd>
-</dl>
-<dl>
 <dt>Direct Known Subclasses:</dt>
 <dd><a href="../../../../io/micronaut/azure/function/http/AzureHttpFunction.html" title="class in io.micronaut.azure.function.http">AzureHttpFunction</a></dd>
 </dl>
 <hr>
 <br>
 <pre>public abstract class <span class="typeNameLabel">AzureFunction</span>
-extends io.micronaut.function.executor.FunctionInitializer</pre>
+extends java.lang.Object</pre>
 <div class="block">A base Azure function class that sets up the Azure environment and preferred configuration.</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
@@ -135,21 +120,6 @@ extends io.micronaut.function.executor.FunctionInitializer</pre>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- ======== NESTED CLASS SUMMARY ======== -->
-<ul class="blockList">
-<li class="blockList"><a name="nested.class.summary">
-<!--   -->
-</a>
-<h3>Nested Class Summary</h3>
-<ul class="blockList">
-<li class="blockList"><a name="nested.classes.inherited.from.class.io.micronaut.function.executor.FunctionInitializer">
-<!--   -->
-</a>
-<h3>Nested classes/interfaces inherited from class&nbsp;io.micronaut.function.executor.FunctionInitializer</h3>
-<code>io.micronaut.function.executor.FunctionInitializer.ParseContext</code></li>
-</ul>
-</li>
-</ul>
 <!-- =========== FIELD SUMMARY =========== -->
 <ul class="blockList">
 <li class="blockList"><a name="field.summary">
@@ -163,17 +133,10 @@ extends io.micronaut.function.executor.FunctionInitializer</pre>
 <th class="colLast" scope="col">Field and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>protected io.micronaut.context.ApplicationContext</code></td>
+<td class="colFirst"><code>protected static io.micronaut.context.ApplicationContext</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/micronaut/azure/function/AzureFunction.html#applicationContext">applicationContext</a></span></code>&nbsp;</td>
 </tr>
 </table>
-<ul class="blockList">
-<li class="blockList"><a name="fields.inherited.from.class.io.micronaut.function.executor.FunctionInitializer">
-<!--   -->
-</a>
-<h3>Fields inherited from class&nbsp;io.micronaut.function.executor.FunctionInitializer</h3>
-<code>closeContext</code></li>
-</ul>
 </li>
 </ul>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -185,10 +148,14 @@ extends io.micronaut.function.executor.FunctionInitializer</pre>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
 <caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
-<th class="colOne" scope="col">Constructor and Description</th>
+<th class="colFirst" scope="col">Modifier</th>
+<th class="colLast" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../io/micronaut/azure/function/AzureFunction.html#AzureFunction--">AzureFunction</a></span>()</code>&nbsp;</td>
+<td class="colFirst"><code>protected </code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/micronaut/azure/function/AzureFunction.html#AzureFunction--">AzureFunction</a></span>()</code>
+<div class="block">Default constructor.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -199,41 +166,6 @@ extends io.micronaut.function.executor.FunctionInitializer</pre>
 <!--   -->
 </a>
 <h3>Method Summary</h3>
-<table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colLast" scope="col">Method and Description</th>
-</tr>
-<tr id="i0" class="altColor">
-<td class="colFirst"><code>protected io.micronaut.context.ApplicationContext</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/micronaut/azure/function/AzureFunction.html#buildApplicationContext-C-">buildApplicationContext</a></span>(C&nbsp;arg0)</code>&nbsp;</td>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>protected io.micronaut.context.ApplicationContextBuilder</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/micronaut/azure/function/AzureFunction.html#newApplicationContextBuilder--">newApplicationContextBuilder</a></span>()</code>&nbsp;</td>
-</tr>
-<tr id="i2" class="altColor">
-<td class="colFirst"><code>protected io.micronaut.inject.ExecutableMethod&lt;java.lang.Object,java.lang.Object&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/micronaut/azure/function/AzureFunction.html#resolveFunction-io.micronaut.function.LocalFunctionRegistry-java.lang.String-">resolveFunction</a></span>(io.micronaut.function.LocalFunctionRegistry&nbsp;arg0,
-               java.lang.String&nbsp;arg1)</code>&nbsp;</td>
-</tr>
-<tr id="i3" class="rowColor">
-<td class="colFirst"><code>protected java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/micronaut/azure/function/AzureFunction.html#resolveFunctionName-io.micronaut.context.env.Environment-">resolveFunctionName</a></span>(io.micronaut.context.env.Environment&nbsp;arg0)</code>&nbsp;</td>
-</tr>
-<tr id="i4" class="altColor">
-<td class="colFirst"><code>protected io.micronaut.context.env.Environment</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/micronaut/azure/function/AzureFunction.html#startEnvironment-io.micronaut.context.ApplicationContext-">startEnvironment</a></span>(io.micronaut.context.ApplicationContext&nbsp;arg0)</code>&nbsp;</td>
-</tr>
-</table>
-<ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.io.micronaut.function.executor.FunctionInitializer">
-<!--   -->
-</a>
-<h3>Methods inherited from class&nbsp;io.micronaut.function.executor.FunctionInitializer</h3>
-<code>close, injectThis, run, startThis</code></li>
-</ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
 <!--   -->
@@ -261,7 +193,7 @@ extends io.micronaut.function.executor.FunctionInitializer</pre>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>applicationContext</h4>
-<pre>protected&nbsp;io.micronaut.context.ApplicationContext applicationContext</pre>
+<pre>protected static&nbsp;io.micronaut.context.ApplicationContext applicationContext</pre>
 </li>
 </ul>
 </li>
@@ -278,64 +210,8 @@ extends io.micronaut.function.executor.FunctionInitializer</pre>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>AzureFunction</h4>
-<pre>public&nbsp;AzureFunction()</pre>
-</li>
-</ul>
-</li>
-</ul>
-<!-- ============ METHOD DETAIL ========== -->
-<ul class="blockList">
-<li class="blockList"><a name="method.detail">
-<!--   -->
-</a>
-<h3>Method Detail</h3>
-<a name="newApplicationContextBuilder--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>newApplicationContextBuilder</h4>
-<pre>protected&nbsp;io.micronaut.context.ApplicationContextBuilder&nbsp;newApplicationContextBuilder()</pre>
-</li>
-</ul>
-<a name="resolveFunction-io.micronaut.function.LocalFunctionRegistry-java.lang.String-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>resolveFunction</h4>
-<pre>protected&nbsp;io.micronaut.inject.ExecutableMethod&lt;java.lang.Object,java.lang.Object&gt;&nbsp;resolveFunction(io.micronaut.function.LocalFunctionRegistry&nbsp;arg0,
-                                                                                                  java.lang.String&nbsp;arg1)</pre>
-</li>
-</ul>
-<a name="resolveFunctionName-io.micronaut.context.env.Environment-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>resolveFunctionName</h4>
-<pre>protected&nbsp;java.lang.String&nbsp;resolveFunctionName(io.micronaut.context.env.Environment&nbsp;arg0)</pre>
-</li>
-</ul>
-<a name="buildApplicationContext-java.lang.Object-">
-<!--   -->
-</a><a name="buildApplicationContext-C-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>buildApplicationContext</h4>
-<pre>protected&nbsp;io.micronaut.context.ApplicationContext&nbsp;buildApplicationContext(@Nullable
-                                                                          C&nbsp;arg0)</pre>
-</li>
-</ul>
-<a name="startEnvironment-io.micronaut.context.ApplicationContext-">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>startEnvironment</h4>
-<pre>protected&nbsp;io.micronaut.context.env.Environment&nbsp;startEnvironment(io.micronaut.context.ApplicationContext&nbsp;arg0)</pre>
+<pre>protected&nbsp;AzureFunction()</pre>
+<div class="block">Default constructor.</div>
 </li>
 </ul>
 </li>
@@ -390,16 +266,16 @@ extends io.micronaut.function.executor.FunctionInitializer</pre>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li><a href="#nested.classes.inherited.from.class.io.micronaut.function.executor.FunctionInitializer">Nested</a>&nbsp;|&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#method.summary">Method</a></li>
+<li><a href="#methods.inherited.from.class.java.lang.Object">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#method.detail">Method</a></li>
+<li>Method</li>
 </ul>
 </div>
 <a name="skip.navbar.bottom">
