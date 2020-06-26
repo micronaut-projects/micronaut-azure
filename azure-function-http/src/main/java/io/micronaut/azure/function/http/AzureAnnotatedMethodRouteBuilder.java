@@ -59,9 +59,10 @@ class AzureAnnotatedMethodRouteBuilder extends AnnotatedMethodRouteBuilder {
     @Override
     protected UriRoute buildBeanRoute(String httpMethodName, HttpMethod httpMethod, String uri, BeanDefinition<?> beanDefinition, ExecutableMethod<?, ?> method) {
         String cp = contextPathProvider.getContextPath();
-        if (cp != null) {
-            uri = StringUtils.prependUri(cp, uri);
+        if (cp == null) {
+            cp = "/api";
         }
+        uri = StringUtils.prependUri(cp, uri);
         return super.buildBeanRoute(httpMethodName, httpMethod, uri, beanDefinition, method);
     }
 }
