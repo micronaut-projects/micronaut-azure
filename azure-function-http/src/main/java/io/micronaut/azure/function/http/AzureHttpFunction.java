@@ -61,19 +61,15 @@ import java.util.logging.Logger;
  * @author graemerocher
  * @since 1.0.0
  */
-public class AzureHttpFunction extends AzureFunction implements ServerContextPathProvider {
+public class AzureHttpFunction extends AzureFunction {
+    protected static ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> httpHandler;
+
     static {
         byte[] bestMacAddr = new byte[8];
         PlatformDependent.threadLocalRandom().nextBytes(bestMacAddr);
         System.setProperty("io.netty.machineId", MacAddressUtil.formatAddress(bestMacAddr));
-    }
-    private final ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> httpHandler;
 
-    /**
-     * Default constructor.
-     */
-    public AzureHttpFunction() {
-        this.httpHandler = new ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage>(applicationContext) {
+        httpHandler = new ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage>(applicationContext) {
             @Override
             public boolean isRunning() {
                 return applicationContext.isRunning();
@@ -86,8 +82,23 @@ public class AzureHttpFunction extends AzureFunction implements ServerContextPat
         };
 
         Runtime.getRuntime().addShutdownHook(
-                new Thread(httpHandler::close)
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        httpHandler = null;
+                    }
+                })
         );
+    }
+
+    private final String contextPath;
+
+    /**
+     * Default constructor.
+     */
+    public AzureHttpFunction() {
+        applicationContext.registerSingleton(this);
+        this.contextPath = applicationContext.findBean(ServerContextPathProvider.class).map(ServerContextPathProvider::getContextPath).orElse("/api");
     }
 
     /**
@@ -100,28 +111,22 @@ public class AzureHttpFunction extends AzureFunction implements ServerContextPat
     public HttpResponseMessage route(
             HttpRequestMessage<Optional<String>> request,
             ExecutionContext executionContext) {
-        AzureFunctionHttpRequest<?> azureFunctionHttpRequest =
-                new AzureFunctionHttpRequest<>(
-                        getContextPath(),
-                        request,
-                        this.httpHandler.getMediaTypeCodecRegistry(),
-                        executionContext
-                );
+        try {
+            AzureFunctionHttpRequest<?> azureFunctionHttpRequest =
+                    new AzureFunctionHttpRequest<>(
+                            contextPath,
+                            request,
+                            httpHandler.getMediaTypeCodecRegistry(),
+                            executionContext
+                    );
 
-        ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> exchange =
-                httpHandler.exchange(azureFunctionHttpRequest);
+            ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> exchange =
+                    httpHandler.exchange(azureFunctionHttpRequest);
 
-        return exchange.getResponse().getNativeResponse();
-    }
-
-    /**
-     * Return the context path configured. Defaults to {@code /api} and should be
-     * overridden if a different context path is configured for the function in Azure.
-     * @return The context path configured.
-     */
-    @Override
-    public String getContextPath() {
-        return "/api";
+            return exchange.getResponse().getNativeResponse();
+        } finally {
+            applicationContext.destroyBean(getClass());
+        }
     }
 
     /**
@@ -132,7 +137,7 @@ public class AzureHttpFunction extends AzureFunction implements ServerContextPat
      */
     public HttpRequestMessageBuilder<?> request(HttpMethod method, String uri) {
         Objects.requireNonNull(uri, "The URI cannot be null");
-        uri = StringUtils.prependUri(getContextPath(), uri);
+        uri = StringUtils.prependUri(contextPath, uri);
         return new DefaultHttpRequestMessageBuilder<>(method, URI.create(uri));
     }
 

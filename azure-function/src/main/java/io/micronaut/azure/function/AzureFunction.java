@@ -15,9 +15,8 @@
  */
 package io.micronaut.azure.function;
 
-import io.micronaut.context.ApplicationContextBuilder;
+import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.env.Environment;
-import io.micronaut.function.executor.FunctionInitializer;
 
 /**
  * A base Azure function class that sets up the Azure environment and preferred configuration.
@@ -25,12 +24,28 @@ import io.micronaut.function.executor.FunctionInitializer;
  * @author graemerocher
  * @since 1.0.0
  */
-public abstract class AzureFunction extends FunctionInitializer {
-    @Override
-    protected ApplicationContextBuilder newApplicationContextBuilder() {
-        ApplicationContextBuilder builder = super.newApplicationContextBuilder();
-        builder.environments(Environment.AZURE);
-        builder.deduceEnvironment(false);
-        return builder;
+public abstract class AzureFunction {
+    protected static ApplicationContext applicationContext;
+
+    static {
+        applicationContext = ApplicationContext.builder(Environment.AZURE, Environment.FUNCTION)
+                          .deduceEnvironment(false)
+                          .build();
+
+        applicationContext.start();
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            @Override
+            public void run() {
+                applicationContext.close();
+                applicationContext = null;
+            }
+        }));
+    }
+
+    /**
+     * Default constructor.
+     */
+    protected AzureFunction() {
+        applicationContext.inject(this);
     }
 }
