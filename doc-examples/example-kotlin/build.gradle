@@ -8,8 +8,8 @@ dependencies {
     implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
     compileOnly "io.micronaut:micronaut-inject-groovy"
     implementation project(":azure-function-http")
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.72"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.3.72"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.0-rc"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.0-rc"
 
     implementation 'com.microsoft.azure.functions:azure-functions-java-library:1.3.1'
 }
