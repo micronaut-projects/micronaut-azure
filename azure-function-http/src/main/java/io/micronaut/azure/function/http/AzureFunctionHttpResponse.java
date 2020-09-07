@@ -17,6 +17,8 @@ package io.micronaut.azure.function.http;
 
 import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import edu.umd.cs.findbugs.annotations.Nullable;
 import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.convert.ConversionService;
 import io.micronaut.core.convert.value.MutableConvertibleValues;
@@ -30,8 +32,6 @@ import io.micronaut.http.netty.cookies.NettyCookie;
 import io.micronaut.servlet.http.ServletHttpResponse;
 import io.netty.handler.codec.http.cookie.ServerCookieEncoder;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.io.*;
 import java.util.LinkedHashMap;
 import java.util.Optional;
@@ -98,11 +98,22 @@ public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpRes
     }
 
     @Override
+    public <T> MutableHttpResponse<T> body(@Nullable T body) {
+        if (body instanceof CharSequence) {
+            if (!getContentType().isPresent()) {
+                contentType(MediaType.TEXT_PLAIN_TYPE);
+            }
+        }
+        this.body = (B) body;
+        return (MutableHttpResponse<T>) this;
+    }
+
+    @Override
     public MutableHttpHeaders getHeaders() {
         return this.headers;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public MutableConvertibleValues<Object> getAttributes() {
         MutableConvertibleValues<Object> attributes = this.attributes;
@@ -119,7 +130,7 @@ public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpRes
     }
 
     @SuppressWarnings("unchecked")
-    @Nonnull
+    @NonNull
     @Override
     public Optional<B> getBody() {
         if (outputStream != null) {
@@ -127,17 +138,6 @@ public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpRes
         } else {
             return Optional.ofNullable(this.body);
         }
-    }
-
-    @Override
-    public MutableHttpResponse<B> body(@Nullable B body) {
-        if (body instanceof CharSequence) {
-            if (!getContentType().isPresent()) {
-                contentType(MediaType.TEXT_PLAIN_TYPE);
-            }
-        }
-        this.body = body;
-        return this;
     }
 
     @Override

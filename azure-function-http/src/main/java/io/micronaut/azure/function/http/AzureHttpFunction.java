@@ -160,8 +160,8 @@ public class AzureHttpFunction extends AzureFunction {
 
         private HttpMethod method = HttpMethod.GET;
         private URI uri;
-        private Map<String, String> headers = new LinkedHashMap<>(3);
-        private Map<String, String> queryParams = new LinkedHashMap<>(3);
+        private final Map<String, String> headers = new LinkedHashMap<>(3);
+        private final Map<String, String> queryParams = new LinkedHashMap<>(3);
         private Object body;
 
         public DefaultHttpRequestMessageBuilder(HttpMethod method, URI uri) {
