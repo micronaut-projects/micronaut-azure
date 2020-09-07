@@ -23,6 +23,7 @@ import io.micronaut.azure.function.http.AzureFunctionHttpRequest;
 import io.micronaut.azure.function.http.HttpRequestMessageBuilder;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.env.Environment;
+import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.io.IOUtils;
 import io.micronaut.core.io.socket.SocketUtils;
 import io.micronaut.http.HttpHeaders;
@@ -53,8 +54,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+/**
+ * Server used for testing Azure HTTP functions.
+ * 
+ * @author gkrocher
+ * @since 2.0.0
+ */
 @Singleton
-public class AzureFunctionEmbeddedServer implements EmbeddedServer {
+@Internal
+final class AzureFunctionEmbeddedServer implements EmbeddedServer {
     private final ApplicationContext applicationContext;
     private final boolean randomPort;
     private final ServerContextPathProvider contextPathProvider;
@@ -62,7 +70,13 @@ public class AzureFunctionEmbeddedServer implements EmbeddedServer {
     private final AtomicBoolean running = new AtomicBoolean(false);
     private Server server;
 
-    public AzureFunctionEmbeddedServer(
+    /**
+     * Default cosntructor.
+     * @param applicationContext the app context
+     * @param httpServerConfiguration the http server configuration
+     * @param contextPathProvider THe context path provider
+     */
+    AzureFunctionEmbeddedServer(
             ApplicationContext applicationContext,
             HttpServerConfiguration httpServerConfiguration,
             ServerContextPathProvider contextPathProvider) {
