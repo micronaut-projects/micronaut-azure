@@ -56,7 +56,7 @@ import java.util.logging.Logger;
 
 /**
  * Server used for testing Azure HTTP functions.
- * 
+ *
  * @author gkrocher
  * @since 2.0.0
  */
@@ -69,6 +69,7 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
     private int port;
     private final AtomicBoolean running = new AtomicBoolean(false);
     private Server server;
+    private String contextPath;
 
     /**
      * Default cosntructor.
@@ -110,14 +111,14 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
                 try {
                     this.server = new Server(port);
                     ContextHandler context = new ContextHandler();
-                    String contextPath = contextPathProvider.getContextPath();
+                    this.contextPath = contextPathProvider.getContextPath();
                     if (contextPath == null) {
                         contextPath = "/api";
                     }
                     context.setContextPath(contextPath);
                     context.setResourceBase(".");
                     context.setClassLoader(Thread.currentThread().getContextClassLoader());
-                    context.setHandler(new AzureHandler(getApplicationContext()));
+                    context.setHandler(new AzureHandler(getApplicationContext(), contextPath));
                     server.setHandler(context);
                     this.server.setHandler(context);
                     this.server.start();
@@ -201,11 +202,21 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
         return running.get();
     }
 
-    private static class AzureHandler extends AbstractHandler {
+    /**
+     * Internal handler.
+     */
+    private final static class AzureHandler extends AbstractHandler {
 
         private final ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> httpHandler;
+        private final String contextPath;
 
-        public AzureHandler(ApplicationContext applicationContext) {
+        /**
+         * Default constructor.
+         * @param applicationContext The app context
+         * @param contextPath The context path
+         */
+        AzureHandler(ApplicationContext applicationContext, String contextPath) {
+            this.contextPath = contextPath;
             httpHandler = new ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage>(applicationContext) {
                 @Override
                 public boolean isRunning() {
@@ -258,7 +269,7 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
             HttpRequestMessage<Optional<String>> requestMessage = requestMessageBuilder.buildEncoded();
             AzureFunctionHttpRequest<?> azureFunctionHttpRequest =
                     new AzureFunctionHttpRequest<>(
-                            "/",
+                            contextPath,
                             requestMessage,
                             httpHandler.getMediaTypeCodecRegistry(),
                             new DefaultExecutionContext()
