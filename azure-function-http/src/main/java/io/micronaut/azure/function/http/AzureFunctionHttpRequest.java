@@ -77,7 +77,7 @@ public class AzureFunctionHttpRequest<B>
      * @param codecRegistry    The codec registry
      * @param executionContext The execution context.
      */
-    AzureFunctionHttpRequest(
+    public AzureFunctionHttpRequest(
             String contextPath,
             HttpRequestMessage<Optional<String>> azureRequest,
             MediaTypeCodecRegistry codecRegistry,

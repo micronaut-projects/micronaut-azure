@@ -1,0 +1,13 @@
+dependencies {
+    annotationProcessor "io.micronaut:micronaut-inject-java"
+    api "io.micronaut:micronaut-inject:$micronautVersion"
+    api "io.micronaut:micronaut-http-server:$micronautVersion"
+    api project(":azure-function-http")
+    api 'com.microsoft.azure.functions:azure-functions-java-library:1.4.0'
+    api "io.micronaut.servlet:micronaut-servlet-core:1.0.2"
+    implementation 'org.eclipse.jetty:jetty-server:9.4.31.v20200723'
+    testCompileOnly "io.micronaut:micronaut-inject-groovy"
+    testImplementation "io.micronaut.test:micronaut-test-spock:1.2.3"
+    testImplementation "io.micronaut:micronaut-http-client"
+    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
+}

@@ -17,11 +17,14 @@ package io.micronaut.azure.function.http;
 
 import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
+import edu.umd.cs.findbugs.annotations.NonNull;
+import io.micronaut.context.ApplicationContext;
 import io.micronaut.http.HttpMethod;
 
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Utility interface to help with testing of Azure cloud functions.
@@ -75,6 +78,11 @@ public interface HttpRequestMessageBuilder<T> {
     HttpRequestMessage<T> build();
 
     /**
+     * @return Builds the message
+     */
+    HttpRequestMessage<Optional<String>> buildEncoded();
+
+    /**
      * @return Invokes the function
      */
     AzureHttpResponseMessage invoke();
@@ -104,6 +112,22 @@ public interface HttpRequestMessageBuilder<T> {
      */
     default HttpRequestMessageBuilder<T> uri(String uri) {
         return uri(URI.create(uri));
+    }
+
+    /**
+     * Create a builder for the given application context.
+     * @param <T> The builder body type
+     * @param method The HTTP method
+     * @param uri The URI
+     * @param applicationContext The context
+     * @return The builder
+     */
+    static <T> HttpRequestMessageBuilder<T> builder(com.microsoft.azure.functions.HttpMethod method, String uri, @NonNull ApplicationContext applicationContext) {
+        return new DefaultHttpRequestMessageBuilder<>(
+                Objects.requireNonNull(method, "method cannot be null"),
+                URI.create(Objects.requireNonNull(uri, "URI cannot be null")),
+                Objects.requireNonNull(applicationContext, "application context cannot be null")
+        );
     }
 
     /**
