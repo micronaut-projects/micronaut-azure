@@ -74,13 +74,13 @@ var activeTableTab = "activeTableTab";
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
@@ -145,6 +145,28 @@ implements io.micronaut.servlet.http.ServletHttpRequest&lt;com.microsoft.azure.f
 <h3>Fields inherited from interface&nbsp;io.micronaut.http.HttpRequest</h3>
 <code>SCHEME_HTTP, SCHEME_HTTPS</code></li>
 </ul>
+</li>
+</ul>
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor.summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Constructor and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../io/micronaut/azure/function/http/AzureFunctionHttpRequest.html#AzureFunctionHttpRequest-java.lang.String-com.microsoft.azure.functions.HttpRequestMessage-io.micronaut.http.codec.MediaTypeCodecRegistry-com.microsoft.azure.functions.ExecutionContext-">AzureFunctionHttpRequest</a></span>(java.lang.String&nbsp;contextPath,
+                        com.microsoft.azure.functions.HttpRequestMessage&lt;java.util.Optional&lt;java.lang.String&gt;&gt;&nbsp;azureRequest,
+                        io.micronaut.http.codec.MediaTypeCodecRegistry&nbsp;codecRegistry,
+                        com.microsoft.azure.functions.ExecutionContext&nbsp;executionContext)</code>
+<div class="block">Default constructor.</div>
+</td>
+</tr>
+</table>
 </li>
 </ul>
 <!-- ========== METHOD SUMMARY =========== -->
@@ -270,6 +292,34 @@ implements io.micronaut.servlet.http.ServletHttpRequest&lt;com.microsoft.azure.f
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<ul class="blockList">
+<li class="blockList"><a name="constructor.detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a name="AzureFunctionHttpRequest-java.lang.String-com.microsoft.azure.functions.HttpRequestMessage-io.micronaut.http.codec.MediaTypeCodecRegistry-com.microsoft.azure.functions.ExecutionContext-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>AzureFunctionHttpRequest</h4>
+<pre>public&nbsp;AzureFunctionHttpRequest(java.lang.String&nbsp;contextPath,
+                                com.microsoft.azure.functions.HttpRequestMessage&lt;java.util.Optional&lt;java.lang.String&gt;&gt;&nbsp;azureRequest,
+                                io.micronaut.http.codec.MediaTypeCodecRegistry&nbsp;codecRegistry,
+                                com.microsoft.azure.functions.ExecutionContext&nbsp;executionContext)</pre>
+<div class="block">Default constructor.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>contextPath</code> - The context path</dd>
+<dd><code>azureRequest</code> - The native google request</dd>
+<dd><code>codecRegistry</code> - The codec registry</dd>
+<dd><code>executionContext</code> - The execution context.</dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ============ METHOD DETAIL ========== -->
 <ul class="blockList">
 <li class="blockList"><a name="method.detail">
@@ -544,13 +594,13 @@ public&nbsp;&lt;T&gt;&nbsp;java.util.Optional&lt;T&gt;&nbsp;getBody(@Nonnull
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
