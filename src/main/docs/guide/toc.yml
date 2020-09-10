@@ -1,8 +1,7 @@
-introduction:
-  title: Introduction
+introduction: Introduction
+releaseHistory: Release History
 azureFunction:
   title: Azure Function Support
   simpleAzureFunctions: Simple Azure Functions
   azureHttpFunctions: Azure HTTP Functions
 repository: Repository
-releaseHistory: Release History
