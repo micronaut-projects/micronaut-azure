@@ -16,7 +16,11 @@
 package io.micronaut.azure.function;
 
 import io.micronaut.context.ApplicationContext;
+import io.micronaut.context.ApplicationContextProvider;
 import io.micronaut.context.env.Environment;
+
+import java.io.Closeable;
+import java.io.IOException;
 
 /**
  * A base Azure function class that sets up the Azure environment and preferred configuration.
@@ -24,7 +28,7 @@ import io.micronaut.context.env.Environment;
  * @author graemerocher
  * @since 1.0.0
  */
-public abstract class AzureFunction {
+public abstract class AzureFunction implements ApplicationContextProvider, Closeable {
     protected static ApplicationContext applicationContext;
 
     static {
@@ -40,6 +44,19 @@ public abstract class AzureFunction {
                 applicationContext = null;
             }
         }));
+    }
+
+    @Override
+    public ApplicationContext getApplicationContext() {
+        return this.applicationContext;
+    }
+
+    @Override
+    public void close() throws IOException {
+        if (applicationContext != null) {
+            applicationContext.close();
+            applicationContext = null;
+        }
     }
 
     /**
