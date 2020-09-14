@@ -46,6 +46,13 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
         }));
     }
 
+    /**
+     * Default constructor.
+     */
+    protected AzureFunction() {
+        applicationContext.inject(this);
+    }
+
     @Override
     public ApplicationContext getApplicationContext() {
         return this.applicationContext;
@@ -57,12 +64,5 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
             applicationContext.close();
             applicationContext = null;
         }
-    }
-
-    /**
-     * Default constructor.
-     */
-    protected AzureFunction() {
-        applicationContext.inject(this);
     }
 }
