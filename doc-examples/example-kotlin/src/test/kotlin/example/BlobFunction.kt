@@ -1,6 +1,9 @@
 package example
 
-import com.microsoft.azure.functions.annotation.*
+import com.microsoft.azure.functions.annotation.BlobOutput
+import com.microsoft.azure.functions.annotation.BlobTrigger
+import com.microsoft.azure.functions.annotation.FunctionName
+import com.microsoft.azure.functions.annotation.StorageAccount
 import io.micronaut.azure.function.AzureFunction
 import io.micronaut.context.event.ApplicationEvent
 import io.micronaut.context.event.ApplicationEventPublisher
