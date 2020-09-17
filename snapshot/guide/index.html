@@ -45,11 +45,11 @@
                                 
                                 <div class="toc-item" style="margin-left:0"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#releaseHistory"><strong>2</strong><span>Release History</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#azureFunction"><strong>2</strong><span>Azure Function Support</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#azureFunction"><strong>3</strong><span>Azure Function Support</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>3</strong><span>Repository</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>4</strong><span>Repository</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#releaseHistory"><strong>4</strong><span>Release History</span></a></div>
                                 
                             </div>
                         </div>
@@ -82,15 +82,15 @@
         
         <div class="toc-item" style="margin-left:0px" id="toc-item-introduction"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-releaseHistory"><a href="#releaseHistory"><strong>2</strong><span>Release History</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-azureFunction"><a href="#azureFunction"><strong>2</strong><span>Azure Function Support</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-azureFunction"><a href="#azureFunction"><strong>3</strong><span>Azure Function Support</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-simpleAzureFunctions"><a href="#simpleAzureFunctions"><strong>2.1</strong><span>Simple Azure Functions</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-simpleAzureFunctions"><a href="#simpleAzureFunctions"><strong>3.1</strong><span>Simple Azure Functions</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-azureHttpFunctions"><a href="#azureHttpFunctions"><strong>2.2</strong><span>Azure HTTP Functions</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-azureHttpFunctions"><a href="#azureHttpFunctions"><strong>3.2</strong><span>Azure HTTP Functions</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>3</strong><span>Repository</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>4</strong><span>Repository</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-releaseHistory"><a href="#releaseHistory"><strong>4</strong><span>Release History</span></a></div>
         
         </div>
     </div>
@@ -116,23 +116,7 @@
 <p>This project provides integrations between Micronaut and Microsoft Azure.</p>
 </div>
 
-<h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>2 Release History</h1>
-
-<div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/releaseHistory.adoc"'>
-        <i class='fa fa-pencil-square-o'></i> Improve this doc
-    </button>
-</div>
-
-
-<div class="paragraph">
-<p>For this project, you can find a list of releases (with release notes) here:</p>
-</div>
-<div class="paragraph">
-<p><a href="https://github.com/micronaut-projects/micronaut-azure/releases">https://github.com/micronaut-projects/micronaut-azure/releases</a></p>
-</div>
-
-<h1 id="azureFunction"><a class="anchor" href="#azureFunction"></a>3 Azure Function Support</h1>
+<h1 id="azureFunction"><a class="anchor" href="#azureFunction"></a>2 Azure Function Support</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureFunction.adoc"'>
@@ -145,7 +129,7 @@
 <p>The Azure function module provides support for writing Serverless functions with Micronaut that target the Azure Function environment.</p>
 </div>
 
-<h2 id="simpleAzureFunctions"><a class="anchor" href="#simpleAzureFunctions"></a>3.1 Simple Azure Functions</h2>
+<h2 id="simpleAzureFunctions"><a class="anchor" href="#simpleAzureFunctions"></a>2.1 Simple Azure Functions</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureFunction/simpleAzureFunctions.adoc"'>
@@ -167,7 +151,7 @@
 <p>        <div class="listingblock multi-language-sample">
 <div class="title"></div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.microaut.azure:micronaut-azure-function:2.0.2.BUILD-SNAPSHOT")</span></code></pre>
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.microaut.azure:micronaut-azure-function:1.0.1.BUILD-SNAPSHOT")</span></code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -175,7 +159,7 @@
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
     &lt;groupId&gt;io.microaut.azure&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-azure-function&lt;/artifactId&gt;
-    &lt;version&gt;2.0.2.BUILD-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.0.1.BUILD-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
@@ -329,7 +313,7 @@ class BlobFunction : AzureFunction() { <b class="conum">(1)</b>
 </table>
 </div>
 
-<h2 id="azureHttpFunctions"><a class="anchor" href="#azureHttpFunctions"></a>3.2 Azure HTTP Functions</h2>
+<h2 id="azureHttpFunctions"><a class="anchor" href="#azureHttpFunctions"></a>2.2 Azure HTTP Functions</h2>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureFunction/azureHttpFunctions.adoc"'>
@@ -345,7 +329,7 @@ class BlobFunction : AzureFunction() { <b class="conum">(1)</b>
 <p>        <div class="listingblock multi-language-sample">
 <div class="title"></div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.microaut.azure:micronaut-azure-function-http:2.0.2.BUILD-SNAPSHOT")</span></code></pre>
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.microaut.azure:micronaut-azure-function-http:1.0.1.BUILD-SNAPSHOT")</span></code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -353,7 +337,7 @@ class BlobFunction : AzureFunction() { <b class="conum">(1)</b>
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
     &lt;groupId&gt;io.microaut.azure&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-azure-function-http&lt;/artifactId&gt;
-    &lt;version&gt;2.0.2.BUILD-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;1.0.1.BUILD-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
@@ -488,7 +472,7 @@ class MyHttpFunction : AzureHttpFunction() { <b class="conum">(1)</b>
 <p>This approach allows you to develop a regular Micronaut application and deploy slices of the application as Serverless functions as desired.</p>
 </div>
 
-<h1 id="repository"><a class="anchor" href="#repository"></a>4 Repository</h1>
+<h1 id="repository"><a class="anchor" href="#repository"></a>3 Repository</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/repository.adoc"'>
@@ -502,6 +486,26 @@ class MyHttpFunction : AzureHttpFunction() { <b class="conum">(1)</b>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/micronaut-projects/micronaut-azure">https://github.com/micronaut-projects/micronaut-azure</a></p>
+</div>
+
+<h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>4 Release History</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/releaseHistory.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="sect3">
+<h4 id="_1_0_0">1.0.0</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>First Release</p>
+</li>
+</ul>
+</div>
 </div>
 
     </div>
