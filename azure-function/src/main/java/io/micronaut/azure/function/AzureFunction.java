@@ -40,7 +40,9 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             @Override
             public void run() {
-                applicationContext.close();
+                if (applicationContext != null) {
+                    applicationContext.close();
+                }
                 applicationContext = null;
             }
         }));
