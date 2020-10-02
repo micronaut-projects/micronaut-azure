@@ -205,7 +205,7 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
     /**
      * Internal handler.
      */
-    private final static class AzureHandler extends AbstractHandler {
+    private static final class AzureHandler extends AbstractHandler {
 
         private final ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> httpHandler;
         private final String contextPath;
