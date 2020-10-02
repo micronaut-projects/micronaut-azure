@@ -32,11 +32,7 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
     protected static ApplicationContext applicationContext;
 
     static {
-        applicationContext = ApplicationContext.builder(Environment.AZURE, Environment.FUNCTION)
-                          .deduceEnvironment(false)
-                          .build();
-
-        applicationContext.start();
+        startApplicationContext();
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             @Override
             public void run() {
@@ -52,12 +48,22 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
      * Default constructor.
      */
     protected AzureFunction() {
+        if (applicationContext == null) {
+            startApplicationContext();
+        }
         applicationContext.inject(this);
+    }
+
+    private static void startApplicationContext() {
+        applicationContext = ApplicationContext.builder(Environment.AZURE, Environment.FUNCTION)
+                .deduceEnvironment(false)
+                .build();
+        applicationContext.start();
     }
 
     @Override
     public ApplicationContext getApplicationContext() {
-        return this.applicationContext;
+        return applicationContext;
     }
 
     @Override
