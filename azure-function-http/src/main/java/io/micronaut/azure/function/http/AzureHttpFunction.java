@@ -22,6 +22,7 @@ import com.microsoft.azure.functions.HttpResponseMessage;
 import io.micronaut.azure.function.AzureFunction;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.http.context.ServerContextPathProvider;
+import io.micronaut.runtime.exceptions.ApplicationStartupException;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpHandler;
 import io.netty.util.internal.MacAddressUtil;
@@ -58,22 +59,31 @@ public class AzureHttpFunction extends AzureFunction {
     protected static ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> httpHandler;
 
     static {
-        byte[] bestMacAddr = new byte[8];
-        PlatformDependent.threadLocalRandom().nextBytes(bestMacAddr);
-        System.setProperty("io.netty.machineId", MacAddressUtil.formatAddress(bestMacAddr));
+        ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> newHandler = null;
+        try {
+            byte[] bestMacAddr = new byte[8];
+            PlatformDependent.threadLocalRandom().nextBytes(bestMacAddr);
+            System.setProperty("io.netty.machineId", MacAddressUtil.formatAddress(bestMacAddr));
 
-        httpHandler = new ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage>(applicationContext) {
-            @Override
-            public boolean isRunning() {
-                return applicationContext.isRunning();
+            newHandler = new ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage>(applicationContext) {
+                @Override
+                public boolean isRunning() {
+                    return applicationContext.isRunning();
+                }
+
+                @Override
+                protected ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> createExchange(HttpRequestMessage<Optional<String>> request, HttpResponseMessage response) {
+                    throw new UnsupportedOperationException("Creating the exchange directly is not supported");
+                }
+            };
+        } catch (Throwable e) {
+            if (LOG.isErrorEnabled()) {
+                LOG.error("Error initializing Azure function: " + e.getMessage(), e);
             }
+            throw new ApplicationStartupException("Error initializing Azure function: " + e.getMessage(), e);
+        }
 
-            @Override
-            protected ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> createExchange(HttpRequestMessage<Optional<String>> request, HttpResponseMessage response) {
-                throw new UnsupportedOperationException("Creating the exchange directly is not supported");
-            }
-        };
-
+        httpHandler = newHandler;
         Runtime.getRuntime().addShutdownHook(
                 new Thread(new Runnable() {
                     @Override

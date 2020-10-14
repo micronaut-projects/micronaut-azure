@@ -18,6 +18,9 @@ package io.micronaut.azure.function;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.ApplicationContextProvider;
 import io.micronaut.context.env.Environment;
+import io.micronaut.runtime.exceptions.ApplicationStartupException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -29,10 +32,18 @@ import java.io.IOException;
  * @since 1.0.0
  */
 public abstract class AzureFunction implements ApplicationContextProvider, Closeable {
+    protected static final Logger LOG = LoggerFactory.getLogger(AzureFunction.class);
     protected static ApplicationContext applicationContext;
 
     static {
-        startApplicationContext();
+        try {
+            startApplicationContext();
+        } catch (Throwable  e) {
+            if (LOG.isErrorEnabled()) {
+                LOG.error("Error initializing Azure function: " + e.getMessage(), e);
+            }
+            throw new ApplicationStartupException("Error initializing Azure function: " + e.getMessage(), e);
+        }
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             @Override
             public void run() {
