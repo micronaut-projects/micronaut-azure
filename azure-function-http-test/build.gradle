@@ -4,7 +4,7 @@ dependencies {
     api "io.micronaut:micronaut-http-server:$micronautVersion"
     api project(":azure-function-http")
     api 'com.microsoft.azure.functions:azure-functions-java-library:1.4.0'
-    api "io.micronaut.servlet:micronaut-servlet-core:2.0.2"
+    api "io.micronaut.servlet:micronaut-servlet-core:$micronautServletVersion"
     implementation 'org.eclipse.jetty:jetty-server:9.4.34.v20201102'
     testCompileOnly "io.micronaut:micronaut-inject-groovy"
     testImplementation "io.micronaut.test:micronaut-test-spock:$micronautTestVersion"
