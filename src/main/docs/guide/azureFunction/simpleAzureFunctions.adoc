@@ -4,11 +4,11 @@ To get started follow the instructions to create an Azure Function project with 
 
 Then add the following dependency to the project:
 
-dependency:io.microaut.azure:micronaut-azure-function:{version}[]
+dependency:io.micronaut.azure:micronaut-azure-function:{version}[]
 
 And ensure the Micronaut annotation processors are configured:
 
-dependency:io.microaut.azure:micronaut-inject-java[scope="annotationProcessor"]
+dependency:io.micronaut.azure:micronaut-inject-java[scope="annotationProcessor"]
 
 You can then write a function that subclasses api:azure.function.AzureFunction[] and it will be dependency injected when executed. For example:
 
