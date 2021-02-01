@@ -6,7 +6,7 @@ dependencies {
     api "io.micronaut.servlet:micronaut-servlet-core:$micronautServletVersion"
     implementation "io.micronaut:micronaut-http-netty:$micronautVersion"
     implementation "io.micronaut:micronaut-router:$micronautVersion"
-    compileOnly 'com.microsoft.azure.functions:azure-functions-java-library:1.4.0'
+    compileOnly 'com.microsoft.azure.functions:azure-functions-java-library:1.4.2'
 
     testImplementation 'com.microsoft.azure.functions:azure-functions-java-library:1.4.0'
     testCompileOnly "io.micronaut:micronaut-inject-groovy"
