@@ -31,7 +31,7 @@ dependencies {
     testImplementation "io.micronaut.test:micronaut-test-junit5"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
 
-    implementation 'com.microsoft.azure.functions:azure-functions-java-library:1.4.0'
+    implementation 'com.microsoft.azure.functions:azure-functions-java-library:1.4.2'
     testImplementation 'junit:junit:4.12'
 }
 
