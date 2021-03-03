@@ -93,8 +93,18 @@ public class AzureFunctionHttpRequest<B>
             method = HttpMethod.CUSTOM;
         }
         this.method = method;
-        this.headers = new AzureMutableHeaders(azureRequest.getHeaders(), ConversionService.SHARED);
+        this.headers = new AzureMutableHeaders(toMultiValueMap(azureRequest.getHeaders()), ConversionService.SHARED);
         this.codecRegistry = codecRegistry;
+    }
+
+    private Map<CharSequence, List<String>> toMultiValueMap(Map<String, String> headers) {
+        Map<CharSequence, List<String>> result = new LinkedHashMap<>(headers.size());
+        headers.forEach((key, value) -> {
+            List<String> values = new ArrayList<>(1);
+            values.add(value);
+            result.put(key, values);
+        });
+        return result;
     }
 
     @Override

@@ -19,6 +19,7 @@ import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.convert.ArgumentConversionContext;
 import io.micronaut.core.convert.ConversionService;
 import io.micronaut.core.convert.value.ConvertibleMultiValues;
+import io.micronaut.core.convert.value.MutableConvertibleMultiValuesMap;
 import io.micronaut.core.util.ArgumentUtils;
 
 import javax.annotation.Nullable;
@@ -33,7 +34,7 @@ import java.util.stream.Collectors;
  */
 @Internal
 class AzureMultiValueMap implements ConvertibleMultiValues<String> {
-    final Map<String, String> map;
+    final MutableConvertibleMultiValuesMap<String> map;
     final ConversionService<?> conversionService;
 
     /**
@@ -41,8 +42,8 @@ class AzureMultiValueMap implements ConvertibleMultiValues<String> {
      * @param map The map
      * @param conversionService The conversion service
      */
-    AzureMultiValueMap(Map<String, String> map, ConversionService<?> conversionService) {
-        this.map = map;
+    AzureMultiValueMap(Map<CharSequence, List<String>> map, ConversionService<?> conversionService) {
+        this.map = new MutableConvertibleMultiValuesMap<>(map, conversionService);
         this.conversionService = conversionService;
     }
 
@@ -67,27 +68,16 @@ class AzureMultiValueMap implements ConvertibleMultiValues<String> {
 
     @Override
     public Set<String> names() {
-        return map.keySet();
+        return map.names();
     }
 
     @Override
     public Collection<List<String>> values() {
-        return map
-                .values()
-                .stream().map(Collections::singletonList)
-                .collect(Collectors.toList());
+        return map.values();
     }
 
     @Override
     public <T> Optional<T> get(CharSequence name, ArgumentConversionContext<T> conversionContext) {
-        final String v = get(name);
-        if (v != null) {
-            if (conversionContext.getArgument().getType().isInstance(v)) {
-                return (Optional<T>) Optional.of(v);
-            } else {
-                return ConversionService.SHARED.convert(v, conversionContext);
-            }
-        }
-        return Optional.empty();
+        return map.get(name, conversionContext);
     }
 }

@@ -282,7 +282,8 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
             HttpStatusType httpStatus = httpResponseMessage.getStatus();
             byte[] bodyAsBytes = (byte[]) httpResponseMessage.getBody();
             response.setStatus(httpStatus.value());
-            response.setContentLength(bodyAsBytes.length);
+            final boolean hasBody = bodyAsBytes != null;
+            response.setContentLength(hasBody ? bodyAsBytes.length : 0);
             if (httpResponseMessage instanceof HttpHeaders) {
                 HttpHeaders headers = (HttpHeaders) httpResponseMessage;
                 headers.forEach((name, values) -> {
@@ -291,11 +292,13 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
                     }
                 });
             }
-            if (bodyAsBytes.length > 0) {
+            if (hasBody && bodyAsBytes.length > 0) {
                 try (OutputStream responseBody = response.getOutputStream()) {
                     responseBody.write(bodyAsBytes);
                     responseBody.flush();
                 }
+            } else {
+                response.flushBuffer();
             }
         }
     }
