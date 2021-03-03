@@ -19,6 +19,7 @@ import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.convert.ConversionService;
 import io.micronaut.http.MutableHttpHeaders;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,14 +35,14 @@ class AzureMutableHeaders extends AzureMultiValueMap implements MutableHttpHeade
      * @param map The target map. Never null
      * @param conversionService The conversion service
      */
-    AzureMutableHeaders(Map<String, String> map, ConversionService<?> conversionService) {
+    AzureMutableHeaders(Map<CharSequence, List<String>> map, ConversionService<?> conversionService) {
         super(map, conversionService);
     }
 
     @Override
     public MutableHttpHeaders add(CharSequence header, CharSequence value) {
         if (header != null && value != null) {
-            map.put(header.toString(), value.toString());
+            map.add(header, value.toString());
         }
         return this;
     }
