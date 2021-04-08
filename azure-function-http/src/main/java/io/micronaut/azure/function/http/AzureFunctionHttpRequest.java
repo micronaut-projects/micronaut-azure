@@ -39,8 +39,8 @@ import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpRequest;
 import io.micronaut.servlet.http.ServletHttpResponse;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
 import java.io.*;
 import java.net.URI;
 import java.util.*;
@@ -145,7 +145,7 @@ public class AzureFunctionHttpRequest<B>
         return azureResponse;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public Cookies getCookies() {
         ServletCookies cookies = this.cookies;
@@ -161,7 +161,7 @@ public class AzureFunctionHttpRequest<B>
         return cookies;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public HttpParameters getParameters() {
         HttpParameters httpParameters = this.httpParameters;
@@ -177,25 +177,25 @@ public class AzureFunctionHttpRequest<B>
         return httpParameters;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public HttpMethod getMethod() {
         return method;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public URI getUri() {
         return this.uri;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public HttpHeaders getHeaders() {
         return headers;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public MutableConvertibleValues<Object> getAttributes() {
         MutableConvertibleValues<Object> attributes = this.attributes;
@@ -211,15 +211,15 @@ public class AzureFunctionHttpRequest<B>
         return attributes;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public Optional<B> getBody() {
         return (Optional<B>) getBody(Argument.STRING);
     }
 
-    @Nonnull
+    @NonNull
     @Override
-    public <T> Optional<T> getBody(@Nonnull Argument<T> arg) {
+    public <T> Optional<T> getBody(@NonNull Argument<T> arg) {
         if (arg != null) {
             final Class<T> type = arg.getType();
             final MediaType contentType = getContentType().orElse(MediaType.APPLICATION_JSON_TYPE);
