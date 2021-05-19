@@ -24,7 +24,6 @@ import io.micronaut.core.util.ArgumentUtils;
 
 import io.micronaut.core.annotation.Nullable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Utility class for representing azure headers and parameters.
