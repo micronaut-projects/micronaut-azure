@@ -9,6 +9,6 @@ dependencies {
     implementation "io.micronaut.servlet:micronaut-servlet-core:$micronautServletVersion"
     compileOnly "io.micronaut:micronaut-inject-groovy"
     implementation project(":azure-function-http")
-    implementation 'com.microsoft.azure.functions:azure-functions-java-library:1.4.2'
+    implementation "com.microsoft.azure.functions:azure-functions-java-library:$azureFunctionsJavaLibraryVersion"
     testImplementation "org.codehaus.groovy:groovy-all:$groovyVersion"
 }

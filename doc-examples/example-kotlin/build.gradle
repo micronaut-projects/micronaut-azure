@@ -10,5 +10,5 @@ dependencies {
     implementation project(":azure-function-http")
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.0"
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.5.0"
-    implementation 'com.microsoft.azure.functions:azure-functions-java-library:1.4.2'
+    implementation "com.microsoft.azure.functions:azure-functions-java-library:$azureFunctionsJavaLibraryVersion"
 }
