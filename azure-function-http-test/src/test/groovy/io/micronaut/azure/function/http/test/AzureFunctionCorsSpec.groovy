@@ -3,7 +3,7 @@ package io.micronaut.azure.function.http.test
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
-import io.micronaut.http.client.RxHttpClient
+import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.http.annotation.Controller
@@ -20,11 +20,11 @@ import static io.micronaut.http.HttpHeaders.*
 @MicronautTest
 class AzureFunctionCorsSpec extends Specification implements TestPropertyProvider {
 
-    @Inject @Client("/") RxHttpClient rxClient
+    @Inject @Client("/") HttpClient client
 
     void "test non cors request"() {
         when:
-        def response = rxClient.exchange('/api/cors/test').blockingFirst()
+        def response = client.toBlocking().exchange('/api/cors/test')
         Set<String> headerNames = response.getHeaders().names()
 
         then:
@@ -38,7 +38,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test cors request without configuration"() {
         given:
-        def response = rxClient.exchange(
+        def response = client.exchange(
                 HttpRequest.GET('/api/cors/test')
                         .header(ORIGIN, 'fooBar.com')
         ).blockingFirst()
@@ -56,7 +56,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test cors request with a controller that returns map"() {
         given:
-        def response = rxClient.exchange(
+        def response = client.exchange(
                 HttpRequest.GET('/api/cors/test/arbitrary')
                         .header(ORIGIN, 'foo.com')
         ).blockingFirst()
@@ -77,7 +77,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test cors request with controlled method"() {
         given:
-        def response = rxClient.exchange(
+        def response = client.exchange(
                 HttpRequest.GET('/api/cors/test')
                         .header(ORIGIN, 'foo.com')
         ).blockingFirst()
@@ -98,7 +98,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test cors request with controlled headers"() {
         given:
-        def response = rxClient.exchange(
+        def response = client.exchange(
                 HttpRequest.GET('/api/cors/test')
                         .header(ORIGIN, 'bar.com')
                         .header(ACCEPT, 'application/json')
@@ -121,7 +121,8 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test cors request with invalid method"() {
         given:
-        def response = rxClient.exchange(
+        List<String> expected = ['Connection', 'Date', 'Content-Length', 'Server']
+        def response = client.exchange(
                 HttpRequest.POST('/api/cors/test', [:])
                         .header(ORIGIN, 'foo.com')
 
@@ -132,12 +133,15 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
         then:
         response.code() == HttpStatus.FORBIDDEN.code
-        headerNames == ['Connection', 'Date', 'Content-Length', 'Server'] as Set
+        expected.size() == headerNames.size()
+        expected.every {expectedHeaderName ->
+            headerNames.any  { header -> header.equalsIgnoreCase(expectedHeaderName) }
+        }
     }
 
     void "test cors request with invalid header"() {
         given:
-        def response = rxClient.exchange(
+        def response = client.exchange(
                 HttpRequest.GET('/api/cors/test')
                         .header(ORIGIN, 'bar.com')
                         .header(ACCESS_CONTROL_REQUEST_HEADERS, 'Foo, Accept')
@@ -150,7 +154,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test preflight request with invalid header"() {
         given:
-        def response = rxClient.exchange(
+        def response = client.exchange(
                 HttpRequest.OPTIONS('/api/cors/test')
                         .header(ACCESS_CONTROL_REQUEST_METHOD, 'GET')
                         .header(ORIGIN, 'bar.com')
@@ -164,7 +168,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test preflight request with invalid method"() {
         given:
-        def response = rxClient.exchange(
+        def response = client.exchange(
                 HttpRequest.OPTIONS('/api/cors/test')
                         .header(ACCESS_CONTROL_REQUEST_METHOD, 'POST')
                         .header(ORIGIN, 'foo.com')
@@ -177,7 +181,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test preflight request with controlled method"() {
         given:
-        def response = rxClient.exchange(
+        def response = client.exchange(
                 HttpRequest.OPTIONS('/api/cors/test')
                         .header(ACCESS_CONTROL_REQUEST_METHOD, 'GET')
                         .header(ORIGIN, 'foo.com')
@@ -201,7 +205,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
     void "test preflight request with controlled headers"() {
 
         given:
-        def response = rxClient.exchange(
+        def response = client.exchange(
                 HttpRequest.OPTIONS('/api/cors/test')
                         .header(ACCESS_CONTROL_REQUEST_METHOD, 'POST')
                         .header(ORIGIN, 'bar.com')
@@ -224,7 +228,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test control headers are applied to error response routes"() {
         when:
-        rxClient.exchange(
+        client.exchange(
                 HttpRequest.GET('/api/cors/test/error')
                         .header(ORIGIN, 'foo.com')
         ).blockingFirst()
@@ -238,7 +242,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test control headers are applied to error responses with no handler"() {
         when:
-        rxClient.exchange(
+        client.exchange(
                 HttpRequest.GET('/api/cors/test/error-checked')
                         .header(ORIGIN, 'foo.com')
         ).blockingFirst()
@@ -252,7 +256,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test control headers are applied to http error responses"() {
         when:
-        rxClient.exchange(
+        client.exchange(
                 HttpRequest.GET('/api/cors/test/error-response')
                         .header(ORIGIN, 'foo.com')
         ).blockingFirst()

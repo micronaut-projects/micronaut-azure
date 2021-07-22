@@ -6,9 +6,9 @@ import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
-import io.micronaut.http.client.RxHttpClient
+import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
-import io.micronaut.test.annotation.MicronautTest
+import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import spock.lang.Specification
 
 import jakarta.inject.Inject
@@ -17,11 +17,11 @@ import jakarta.inject.Inject
 class AzureFunRctionEmbeddedServerSpec extends Specification {
     @Inject
     @Client('/')
-    RxHttpClient client
+    HttpClient client
 
     void 'test invoke function via server'() {
         when:
-        def result = client.retrieve('/api/test').blockingFirst()
+        def result = client.toBlocking().retrieve('/api/test')
 
         then:
         result == 'good'
