@@ -27,7 +27,7 @@ import io.micronaut.inject.ExecutableMethod;
 import io.micronaut.web.router.AnnotatedMethodRouteBuilder;
 import io.micronaut.web.router.UriRoute;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 /**
  * Customizes the route builder to include the context path for Azure.

@@ -7,7 +7,7 @@ import com.microsoft.azure.functions.annotation.StorageAccount
 import io.micronaut.azure.function.AzureFunction
 import io.micronaut.context.event.ApplicationEvent
 import io.micronaut.context.event.ApplicationEventPublisher
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 class BlobFunction : AzureFunction() { // <1>
     @Inject
