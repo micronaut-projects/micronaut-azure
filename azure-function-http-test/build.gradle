@@ -11,7 +11,6 @@ dependencies {
     testImplementation "io.micronaut.test:micronaut-test-spock:$micronautTestVersion"
     testImplementation "io.micronaut:micronaut-http-client"
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
-
 }
 
 micronautBuild {
