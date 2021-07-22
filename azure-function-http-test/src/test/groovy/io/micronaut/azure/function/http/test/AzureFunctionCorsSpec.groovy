@@ -121,6 +121,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test cors request with invalid method"() {
         given:
+        List<String> expected = ['Connection', 'Date', 'Content-Length', 'Server']
         def response = client.exchange(
                 HttpRequest.POST('/api/cors/test', [:])
                         .header(ORIGIN, 'foo.com')
@@ -132,7 +133,10 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
         then:
         response.code() == HttpStatus.FORBIDDEN.code
-        headerNames == ['Connection', 'Date', 'Content-Length', 'Server'] as Set
+        expected.size() == headerNames.size()
+        expected.every {expectedHeaderName ->
+            headerNames.any  { header -> header.equalsIgnoreCase(expectedHeaderName) }
+        }
     }
 
     void "test cors request with invalid header"() {
