@@ -29,8 +29,8 @@ class AzureFunRctionEmbeddedServerSpec extends Specification {
 
     void 'test invoke post via server'() {
         when:
-        def result = client.retrieve(HttpRequest.POST('/api/test', "body")
-                .contentType(MediaType.TEXT_PLAIN), String).blockingFirst()
+        def result = client.toBlocking().retrieve(HttpRequest.POST('/api/test', "body")
+                .contentType(MediaType.TEXT_PLAIN), String)
 
         then:
         result == 'goodbody'
