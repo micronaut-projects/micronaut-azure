@@ -11,7 +11,7 @@ import jakarta.inject.Inject
 
 class BlobFunction : AzureFunction() { // <1>
     @Inject
-    lateinit var eventPublisher : ApplicationEventPublisher // <2>
+    lateinit var eventPublisher : ApplicationEventPublisher<Any> // <2>
 
     @FunctionName("copy")
     @StorageAccount("AzureWebJobsStorage")
