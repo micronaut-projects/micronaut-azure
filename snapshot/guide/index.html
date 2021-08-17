@@ -294,7 +294,7 @@ import jakarta.inject.Inject
 
 class BlobFunction : AzureFunction() { <b class="conum">(1)</b>
     @Inject
-    lateinit var eventPublisher : ApplicationEventPublisher <b class="conum">(2)</b>
+    lateinit var eventPublisher : ApplicationEventPublisher&lt;Any&gt; <b class="conum">(2)</b>
 
     @FunctionName("copy")
     @StorageAccount("AzureWebJobsStorage")
