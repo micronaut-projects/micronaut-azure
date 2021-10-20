@@ -12,5 +12,5 @@ dependencies {
 
     implementation "com.microsoft.azure.functions:azure-functions-java-library:$azureFunctionsJavaLibraryVersion"
     testImplementation "org.codehaus.groovy:groovy-all:$groovyVersion"
-    testImplementation 'jakarta.inject:jakarta.inject-api:2.0.0'
+    testImplementation 'jakarta.inject:jakarta.inject-api:2.0.1'
 }
