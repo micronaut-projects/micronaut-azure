@@ -9,7 +9,7 @@ dependencies {
     api project(":azure-function-http")
     api "com.microsoft.azure.functions:azure-functions-java-library:$azureFunctionsJavaLibraryVersion"
     api "io.micronaut.servlet:micronaut-servlet-core:$micronautServletVersion"
-    implementation 'org.eclipse.jetty:jetty-server:11.0.2'
+    implementation 'org.eclipse.jetty:jetty-server:9.4.35.v20201120'
     implementation 'jakarta.inject:jakarta.inject-api:2.0.1'
     testCompileOnly "io.micronaut:micronaut-inject-groovy"
     testImplementation "io.micronaut.test:micronaut-test-spock:$micronautTestVersion"

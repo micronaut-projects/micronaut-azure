@@ -11,6 +11,7 @@ plugins {
 
 rootProject.name = 'azure-parent'
 
+include 'azure-bom'
 include 'azure-function'
 include 'azure-function-http'
 include 'azure-function-http-test'
