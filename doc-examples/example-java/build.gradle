@@ -1,5 +1,5 @@
 plugins {
-    id "java"
+    id 'io.micronaut.build.internal.azure-example'
 }
 dependencies {
     annotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
