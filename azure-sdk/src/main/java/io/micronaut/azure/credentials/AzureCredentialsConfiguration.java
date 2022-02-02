@@ -1,45 +1,194 @@
 package io.micronaut.azure.credentials;
 
-import io.micronaut.azure.AzureConfiguration;
 import io.micronaut.context.annotation.ConfigurationProperties;
+import io.micronaut.context.env.Environment;
+import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
+import io.micronaut.core.util.Toggleable;
+
+import java.util.Optional;
 
 /**
+ * The azure SDK configuration.
+ *
  * @author Pavol Gressa
- * @since 2.5
+ * @since 3.1
  */
 @ConfigurationProperties(AzureCredentialsConfiguration.PREFIX)
 public interface AzureCredentialsConfiguration {
-    String PREFIX = AzureConfiguration.PREFIX + ".credentials";
+    String PREFIX = Environment.AZURE + ".credentials";
 
 
-    @ConfigurationProperties("client-secret")
-    interface ClientSecretCredentialConfiguration{
+    /**
+     * The client certificate credential configuration.
+     */
+    @ConfigurationProperties(ClientCertificateCredentialConfiguration.NAME)
+    interface ClientCertificateCredentialConfiguration {
+        String NAME = "client-certificate";
+
+        /**
+         * Gets the client ID of the application.
+         *
+         * @return the client id
+         */
+        @NonNull
+        String getClientId();
+
+        /**
+         * Gets the path of the PEM certificate for authenticating to AAD.
+         *
+         * @return the pem certificate path
+         */
+        Optional<String> getPemCertificatePath();
+
+        /**
+         * Gets the path of the PFX certificate for authenticating to AAD.
+         *
+         * @return the pfx certificate path
+         */
+        Optional<String> getPfxCertificatePath();
+
+        /**
+         * Gets the password protecting the PFX certificate file.
+         *
+         * @return the pfx certificate password
+         */
+        @Nullable
+        String getPfxCertificatePassword();
+
+        /**
+         * Gets the tenant ID of the application.
+         *
+         * @return tenant id
+         */
+        @NonNull
+        String getTenantId();
+    }
+
+    /**
+     * The client secret credential configuration.
+     */
+    @ConfigurationProperties(ClientSecretCredentialConfiguration.NAME)
+    interface ClientSecretCredentialConfiguration {
+        String NAME = "client-secret";
+        String CLIENT_SECRET = AzureCredentialsConfiguration.PREFIX + "." + NAME + "." + "client-secret";
+
+        /**
+         * Gets the client ID of the application.
+         *
+         * @return the client id
+         */
+        @NonNull
+        String getClientId();
+
+        /**
+         * Gets the client secret for the authentication.
+         *
+         * @return client secret
+         */
+        @NonNull
         String getClientSecret();
+
+        /**
+         * Gets the tenant ID of the application.
+         *
+         * @return tenant id
+         */
+        @NonNull
         String getTenantId();
     }
 
-    @ConfigurationProperties("client-certificate")
-    interface ClientCertificateCredentialConfiguration{
-        String getPemCertificatePath();
-        String getTenantId();
-    }
+    /**
+     * The username password credential configuration.
+     */
+    @ConfigurationProperties(UsernamePasswordCredentialConfiguration.NAME)
+    interface UsernamePasswordCredentialConfiguration {
+        String NAME = "username-password";
+        String USERNAME = AzureCredentialsConfiguration.PREFIX + "." + NAME + "." + "username";
+        String PASSWORD = AzureCredentialsConfiguration.PREFIX + "." + NAME + "." + "password";
 
-    @ConfigurationProperties("username-password")
-    interface UsernamePasswordCredentialConfiguration{
+        /**
+         * Gets the client ID of the application.
+         *
+         * @return the client id
+         */
+        @NonNull
+        String getClientId();
+
+        /**
+         * Gets the username of the user.
+         *
+         * @return the username
+         */
+        @NonNull
         String getUsername();
+
+        /**
+         * Gets the password of the user.
+         *
+         * @return the password
+         */
+        @NonNull
         String getPassword();
     }
 
-    @ConfigurationProperties("managed-identity")
-    interface ManagedIdentityCredentialConfiguration{
-        String getClientId();
+    /**
+     * The managed identity credential configuration.
+     */
+    @ConfigurationProperties(ManagedIdentityCredentialConfiguration.NAME)
+    interface ManagedIdentityCredentialConfiguration extends Toggleable {
+        String NAME = "managed-identity";
+        String ENABLED = AzureCredentialsConfiguration.PREFIX + "." + NAME + "." + "enabled";
+
+        /**
+         * Specifies the client ID of user assigned or system assigned identity. Required only for user-assigned identity.
+         *
+         * @return client id
+         */
+        Optional<String> getClientId();
     }
 
-    @ConfigurationProperties("default")
-    interface ManagedIdentityCredentialConfiguration{
-
+    /**
+     * The Azure CLI credential configuration.
+     */
+    @ConfigurationProperties(AzureCliCredentialConfiguration.NAME)
+    interface AzureCliCredentialConfiguration extends Toggleable {
+        String NAME = "azure-cli";
+        String ENABLED = AzureCredentialsConfiguration.PREFIX + "." + NAME + "." + "enabled";
     }
 
+    /**
+     * The IntelliJ credential configuration.
+     */
+    @ConfigurationProperties(IntelliJCredentialConfiguration.NAME)
+    interface IntelliJCredentialConfiguration extends Toggleable {
+        String NAME = "intelli-jidea";
+        String ENABLED = AzureCredentialsConfiguration.PREFIX + "." + NAME + "." + "enabled";
 
+        /**
+         * Specifies the KeePass database path to read the cached credentials of Azure toolkit for IntelliJ plugin.
+         * The databasePath is required on Windows platform. For macOS and Linux platform native key chain / key ring
+         * will be accessed respectively to retrieve the cached credentials.
+         *
+         * @return path to KeePass database
+         */
+        Optional<String> getKeePassDatabasePath();
+    }
 
+    /**
+     * The Visual studion code credential configuration.
+     */
+    @ConfigurationProperties(VisualStudioCodeCredentialConfiguration.NAME)
+    interface VisualStudioCodeCredentialConfiguration extends Toggleable {
+        String NAME = "visual-studio-code";
+        String ENABLED = AzureCredentialsConfiguration.PREFIX + "." + NAME + "." + "enabled";
+
+        /**
+         * The tenant id. The default is the tenant the user originally authenticated to via via the Visual Studio
+         * Code Azure Account plugin.
+         *
+         * @return tenant id
+         */
+        Optional<String> getTenantId();
+    }
 }
