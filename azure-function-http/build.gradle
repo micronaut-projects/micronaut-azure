@@ -4,12 +4,12 @@ plugins {
 
 dependencies {
     annotationProcessor "io.micronaut:micronaut-inject-java"
-    api "io.micronaut:micronaut-inject:$micronautVersion"
-    api "io.micronaut:micronaut-http-server:$micronautVersion"
+    api "io.micronaut:micronaut-inject"
+    api "io.micronaut:micronaut-http-server"
     api project(":azure-function")
-    api "io.micronaut.servlet:micronaut-servlet-core:$micronautServletVersion"
-    implementation "io.micronaut:micronaut-http-netty:$micronautVersion"
-    implementation "io.micronaut:micronaut-router:$micronautVersion"
+    api "io.micronaut.servlet:micronaut-servlet-core"
+    implementation "io.micronaut:micronaut-http-netty"
+    implementation "io.micronaut:micronaut-router"
     implementation 'jakarta.inject:jakarta.inject-api:2.0.1'
     compileOnly "com.microsoft.azure.functions:azure-functions-java-library:$azureFunctionsJavaLibraryVersion"
 
