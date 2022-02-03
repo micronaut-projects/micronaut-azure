@@ -4,8 +4,8 @@ plugins {
 
 dependencies {
     annotationProcessor "io.micronaut:micronaut-inject-java"
-    api "io.micronaut:micronaut-inject:$micronautVersion"
-    api "io.micronaut:micronaut-http-server:$micronautVersion"
+    api "io.micronaut:micronaut-inject"
+    api "io.micronaut:micronaut-http-server"
     api project(":azure-function-http")
     api "com.microsoft.azure.functions:azure-functions-java-library:$azureFunctionsJavaLibraryVersion"
     api "io.micronaut.servlet:micronaut-servlet-core"

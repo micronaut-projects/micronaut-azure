@@ -4,7 +4,7 @@ plugins {
 
 dependencies {
     annotationProcessor "io.micronaut:micronaut-inject-java"
-    api "io.micronaut:micronaut-function:$micronautVersion"
+    api "io.micronaut:micronaut-function"
     compileOnly "com.microsoft.azure.functions:azure-functions-java-library:$azureFunctionsJavaLibraryVersion"
     testCompileOnly "io.micronaut:micronaut-inject-groovy"
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
