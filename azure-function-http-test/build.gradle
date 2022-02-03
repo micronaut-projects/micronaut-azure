@@ -1,3 +1,7 @@
+plugins {
+    id 'io.micronaut.build.internal.azure-module'
+}
+
 dependencies {
     annotationProcessor "io.micronaut:micronaut-inject-java"
     api "io.micronaut:micronaut-inject:$micronautVersion"
@@ -13,7 +17,7 @@ dependencies {
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
 }
 
-micronautBuild {
+configurations.all {
     resolutionStrategy {
         force "org.eclipse.jetty:jetty-server:9.4.35.v20201120"
     }
