@@ -1,0 +1,9 @@
+plugins {
+    id 'io.micronaut.build.internal.bom'
+}
+
+dependencies {
+    constraints {
+        api "com.microsoft.azure.functions:azure-functions-java-library:$azureFunctionsJavaLibraryVersion"
+    }
+}

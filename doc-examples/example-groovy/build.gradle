@@ -1,12 +1,13 @@
 plugins {
-    id "groovy"
+    id 'io.micronaut.build.internal.azure-example'
+    id 'groovy'
 }
 dependencies {
     annotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
     testAnnotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
     implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
     annotationProcessor "io.micronaut:micronaut-inject-java"
-    implementation "io.micronaut.servlet:micronaut-servlet-core:$micronautServletVersion"
+    implementation "io.micronaut.servlet:micronaut-servlet-core"
     compileOnly "io.micronaut:micronaut-inject-groovy"
     implementation project(":azure-function-http")
 
