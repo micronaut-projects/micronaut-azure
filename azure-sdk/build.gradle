@@ -4,14 +4,9 @@ plugins {
 
 dependencies {
     annotationProcessor "io.micronaut:micronaut-inject-java"
-    implementation("io.micronaut:micronaut-inject-java")
+    implementation "io.micronaut:micronaut-inject-java"
+    implementation("io.micronaut:micronaut-runtime")
+    // todo ask cedric about best way how to enforce boms
     implementation platform('com.azure:azure-sdk-bom:1.0.3')
-    api("com.azure:azure-identity")
-
-    testAnnotationProcessor("io.micronaut:micronaut-inject-groovy")
-    testImplementation("io.micronaut:micronaut-inject-groovy")
-
-
-
-
+    api "com.azure:azure-identity"
 }

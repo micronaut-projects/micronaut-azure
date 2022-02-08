@@ -88,7 +88,7 @@ public class AzureCredentialFactory {
     @Singleton
     public ClientSecretCredentialBuilder clientSecretCredentialBuilder(AzureCredentialsConfiguration.ClientSecretCredentialConfiguration configuration) {
         final ClientSecretCredentialBuilder builder = new ClientSecretCredentialBuilder();
-        builder.clientSecret(configuration.getClientSecret());
+        builder.clientSecret(configuration.getSecret());
         builder.clientId(configuration.getClientId());
         builder.tenantId(configuration.getTenantId());
         return builder;
@@ -121,6 +121,7 @@ public class AzureCredentialFactory {
         builder.username(configuration.getUsername());
         builder.password(configuration.getPassword());
         builder.clientId(configuration.getClientId());
+        configuration.getTenantId().ifPresent(builder::tenantId);
         return builder;
     }
 
@@ -206,6 +207,7 @@ public class AzureCredentialFactory {
     public IntelliJCredentialBuilder intelliJCredentialBuilder(AzureCredentialsConfiguration.IntelliJCredentialConfiguration configuration) {
         final IntelliJCredentialBuilder builder = new IntelliJCredentialBuilder();
         configuration.getKeePassDatabasePath().ifPresent(builder::keePassDatabasePath);
+        configuration.getTenantId().ifPresent(builder::tenantId);
         return builder;
     }
 
@@ -233,9 +235,9 @@ public class AzureCredentialFactory {
     @Requires(property = AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration.ENABLED, notEquals = StringUtils.FALSE, defaultValue = StringUtils.FALSE)
     @Singleton
     public VisualStudioCodeCredentialBuilder visualStudioCodeCredentialBuilder(AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration configuration) {
-        final VisualStudioCodeCredentialBuilder visualStudioCodeCredentialBuilder = new VisualStudioCodeCredentialBuilder();
-        configuration.getTenantId().ifPresent(visualStudioCodeCredentialBuilder::tenantId);
-        return visualStudioCodeCredentialBuilder;
+        final VisualStudioCodeCredentialBuilder builder = new VisualStudioCodeCredentialBuilder();
+        configuration.getTenantId().ifPresent(builder::tenantId);
+        return builder;
     }
 
     /**
@@ -274,8 +276,8 @@ public class AzureCredentialFactory {
      * @see <a href="https://docs.microsoft.com/en-us/azure/developer/java/sdk/identity-azure-hosted-auth?view=azure-java-stable#default-azure-credential">Default Azure credential</a>
      */
     @Requires(missingBeans = TokenCredential.class)
-    public DefaultAzureCredential azureCredential() {
-        return new DefaultAzureCredentialBuilder().build();
+    @Singleton
+    public DefaultAzureCredential defaultAzureCredential(DefaultAzureCredentialBuilder builder) {
+        return builder.build();
     }
-
 }

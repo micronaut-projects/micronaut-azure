@@ -71,7 +71,7 @@ public interface AzureCredentialsConfiguration {
     @ConfigurationProperties(ClientSecretCredentialConfiguration.NAME)
     interface ClientSecretCredentialConfiguration {
         String NAME = "client-secret";
-        String CLIENT_SECRET = AzureCredentialsConfiguration.PREFIX + "." + NAME + "." + "client-secret";
+        String CLIENT_SECRET = AzureCredentialsConfiguration.PREFIX + "." + NAME + "." + "secret";
 
         /**
          * Gets the client ID of the application.
@@ -87,7 +87,7 @@ public interface AzureCredentialsConfiguration {
          * @return client secret
          */
         @NonNull
-        String getClientSecret();
+        String getSecret();
 
         /**
          * Gets the tenant ID of the application.
@@ -130,6 +130,13 @@ public interface AzureCredentialsConfiguration {
          */
         @NonNull
         String getPassword();
+
+        /**
+         * Gets the tenant ID of the application.
+         *
+         * @return tenant id
+         */
+        Optional<String> getTenantId();
     }
 
     /**
@@ -153,7 +160,7 @@ public interface AzureCredentialsConfiguration {
      */
     @ConfigurationProperties(AzureCliCredentialConfiguration.NAME)
     interface AzureCliCredentialConfiguration extends Toggleable {
-        String NAME = "azure-cli";
+        String NAME = "cli";
         String ENABLED = AzureCredentialsConfiguration.PREFIX + "." + NAME + "." + "enabled";
     }
 
@@ -162,8 +169,16 @@ public interface AzureCredentialsConfiguration {
      */
     @ConfigurationProperties(IntelliJCredentialConfiguration.NAME)
     interface IntelliJCredentialConfiguration extends Toggleable {
-        String NAME = "intelli-jidea";
+        String NAME = "intellij";
         String ENABLED = AzureCredentialsConfiguration.PREFIX + "." + NAME + "." + "enabled";
+
+        /**
+         * The tenant id. The default is the tenant the user originally authenticated to via the Azure Toolkit
+         * for IntelliJ plugin.
+         *
+         * @return tenant id
+         */
+        Optional<String> getTenantId();
 
         /**
          * Specifies the KeePass database path to read the cached credentials of Azure toolkit for IntelliJ plugin.
@@ -184,7 +199,7 @@ public interface AzureCredentialsConfiguration {
         String ENABLED = AzureCredentialsConfiguration.PREFIX + "." + NAME + "." + "enabled";
 
         /**
-         * The tenant id. The default is the tenant the user originally authenticated to via via the Visual Studio
+         * The tenant id. The default is the tenant the user originally authenticated to via the Visual Studio
          * Code Azure Account plugin.
          *
          * @return tenant id

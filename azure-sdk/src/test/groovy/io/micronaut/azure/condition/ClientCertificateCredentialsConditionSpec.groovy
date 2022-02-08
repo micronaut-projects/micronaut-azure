@@ -10,8 +10,11 @@ class ClientCertificateCredentialsConditionSpec extends Specification {
     def "it fails when both certificate paths are provided"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.client-certificate.pem-certificate-path": "path",
-                "azure.credentials.client-certificate.pfx-certificate-path": "path"
+                "azure.credentials.client-certificate.client-id"                    : "client-id",
+                "azure.credentials.client-certificate.pfx-certificate-path-password": "password",
+                "azure.credentials.client-certificate.tenant-id"                    : "tenant-id",
+                "azure.credentials.client-certificate.pem-certificate-path"         : "path",
+                "azure.credentials.client-certificate.pfx-certificate-path"         : "path"
         ])
 
         when:
@@ -19,11 +22,18 @@ class ClientCertificateCredentialsConditionSpec extends Specification {
 
         then:
         thrown(NoSuchBeanException)
+
+        cleanup:
+        applicationContext.close()
     }
 
     def "it fails when none certificate path is provided"() {
         given:
-        def applicationContext = ApplicationContext.run([:])
+        def applicationContext = ApplicationContext.run([
+                "azure.credentials.client-certificate.client-id"                    : "client-id",
+                "azure.credentials.client-certificate.pfx-certificate-path-password": "password",
+                "azure.credentials.client-certificate.tenant-id"                    : "tenant-id",
+        ])
 
         when:
         applicationContext.getBean(ClientCertificateCredentialBuilder)
@@ -31,33 +41,45 @@ class ClientCertificateCredentialsConditionSpec extends Specification {
         then:
         thrown(NoSuchBeanException)
 
+        cleanup:
+        applicationContext.close()
     }
 
     def "it succeeds if pem certificate path is provided"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.client-certificate.pem-certificate-path": "path",
+                "azure.credentials.client-certificate.client-id"                    : "client-id",
+                "azure.credentials.client-certificate.pfx-certificate-path-password": "password",
+                "azure.credentials.client-certificate.tenant-id"                    : "tenant-id",
+                "azure.credentials.client-certificate.pem-certificate-path"         : "path",
         ])
 
         when:
-        def bean = applicationContext.getBean(ClientCertificateCredentialBuilder)
+        applicationContext.getBean(ClientCertificateCredentialBuilder)
 
         then:
-        bean
+        noExceptionThrown()
 
+        cleanup:
+        applicationContext.close()
     }
 
     def "it succeeds if pfx certificate path is provided"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.client-certificate.pfx-certificate-path": "path"
+                "azure.credentials.client-certificate.client-id"                    : "client-id",
+                "azure.credentials.client-certificate.pfx-certificate-path-password": "password",
+                "azure.credentials.client-certificate.tenant-id"                    : "tenant-id",
+                "azure.credentials.client-certificate.pfx-certificate-path"         : "path"
         ])
 
         when:
-        def bean = applicationContext.getBean(ClientCertificateCredentialBuilder)
+        applicationContext.getBean(ClientCertificateCredentialBuilder)
 
         then:
-        bean
+        noExceptionThrown()
 
+        cleanup:
+        applicationContext.close()
     }
 }
