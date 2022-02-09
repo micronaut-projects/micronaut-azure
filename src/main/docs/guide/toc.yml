@@ -1,5 +1,11 @@
 introduction: Introduction
 releaseHistory: Release History
+azureSdk:
+  title: Azure SDK
+  credentials:
+    title: Authentication
+  advancedConfiguration:
+    title: Adv
 azureFunction:
   title: Azure Function Support
   simpleAzureFunctions: Simple Azure Functions

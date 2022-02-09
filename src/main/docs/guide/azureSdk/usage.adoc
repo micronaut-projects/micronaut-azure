@@ -1,0 +1,3 @@
+The Azure SDK provides long list of management and client libraries. The example below illustrates on how to create a https://docs.microsoft.com/en-us/java/api/com.azure.storage.blob.blobserviceclient?view=azure-java-stable[BlobServiceClient]:
+
+snippet::io.micronaut.azure.BlobServiceFactory[project-base="azure-sdk", indent="0"]

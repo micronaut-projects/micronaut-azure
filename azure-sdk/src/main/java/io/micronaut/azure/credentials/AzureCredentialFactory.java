@@ -71,9 +71,10 @@ public class AzureCredentialFactory {
      * This credential authenticates the created service principal through its client certificate.
      *
      * @return client certificate credentials
-     * @see <a href="https://docs.microsoft.com/en-us/azure/developer/java/sdk/identity-service-principal-auth?view=azure-java-stable">identity-service-principal-auth</a>
+     * @see <a href="https://docs.microsoft.com/en-us/azure/developer/java/sdk/identity-service-principal-auth?view=azure-java-stable#client-certificate-credential">client-certificate-credential</a>
      */
     @Requires(beans = ClientCertificateCredentialBuilder.class)
+    @Singleton
     public ClientCertificateCredential clientCertificateCredential(ClientCertificateCredentialBuilder builder) {
         return builder.build();
     }
@@ -99,7 +100,7 @@ public class AzureCredentialFactory {
      *
      * @param builder the builder
      * @return client secret credential
-     * @see <a href="https://docs.microsoft.com/en-us/azure/developer/java/sdk/identity-service-principal-auth?view=azure-java-stable">identity-service-principal-auth</a>
+     * @see <a href="https://docs.microsoft.com/en-us/azure/developer/java/sdk/identity-service-principal-auth?view=azure-java-stable#client-secret-credential">client-secret-credential</a>
      */
     @Requires(beans = ClientSecretCredentialBuilder.class)
     @Singleton
@@ -177,7 +178,7 @@ public class AzureCredentialFactory {
      */
     @Requires(property = AzureCredentialsConfiguration.AzureCliCredentialConfiguration.ENABLED, notEquals = StringUtils.FALSE, defaultValue = StringUtils.FALSE)
     @Singleton
-    public AzureCliCredentialBuilder azureCliCredentialBuilder() {
+    public AzureCliCredentialBuilder azureCliCredentialBuilder(AzureCredentialsConfiguration.AzureCliCredentialConfiguration configuration) {
         return new AzureCliCredentialBuilder();
     }
 
@@ -212,10 +213,9 @@ public class AzureCredentialFactory {
     }
 
     /**
-     * The Visual Studio Code credential enables authentication in development environments where
-     * VS Code is installed with the VS Code Azure Account extension. It uses the logged-in user
-     * information in the VS Code IDE and uses it to authenticate the application against Azure
-     * Active Directory.
+     * The IntelliJ credential authenticates in a development environment with the account in Azure Toolkit for IntelliJ.
+     * It uses the logged in user information on the IntelliJ IDE and uses it to authenticate the application against
+     * Azure Active Directory.
      *
      * @param builder the builder
      * @return intelli jidea credentials
