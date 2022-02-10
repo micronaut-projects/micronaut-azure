@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 original authors
+ * Copyright 2017-2021 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,6 +70,7 @@ public class AzureCredentialFactory {
     /**
      * This credential authenticates the created service principal through its client certificate.
      *
+     * @param builder the builder
      * @return client certificate credentials
      * @see <a href="https://docs.microsoft.com/en-us/azure/developer/java/sdk/identity-service-principal-auth?view=azure-java-stable#client-certificate-credential">client-certificate-credential</a>
      */
@@ -174,6 +175,7 @@ public class AzureCredentialFactory {
     /**
      * The {@link AzureCliCredential} builder.
      *
+     * @param configuration the configuration
      * @return builder
      */
     @Requires(property = AzureCredentialsConfiguration.AzureCliCredentialConfiguration.ENABLED, notEquals = StringUtils.FALSE, defaultValue = StringUtils.FALSE)
@@ -230,6 +232,7 @@ public class AzureCredentialFactory {
     /**
      * The {@link VisualStudioCodeCredential} builder.
      *
+     * @param configuration the configuration
      * @return builder
      */
     @Requires(property = AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration.ENABLED, notEquals = StringUtils.FALSE, defaultValue = StringUtils.FALSE)
@@ -272,6 +275,7 @@ public class AzureCredentialFactory {
      * to authenticate when deployed, with credentials that are used to authenticate in a
      * development environment.
      *
+     * @param builder the builder
      * @return default azure credentials
      * @see <a href="https://docs.microsoft.com/en-us/azure/developer/java/sdk/identity-azure-hosted-auth?view=azure-java-stable#default-azure-credential">Default Azure credential</a>
      */
