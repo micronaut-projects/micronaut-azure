@@ -1,0 +1,7 @@
+The Azure SDK provides long list of management and client libraries. The example below illustrates on how to create a https://docs.microsoft.com/en-us/java/api/com.azure.storage.blob.blobserviceclient?view=azure-java-stable[BlobServiceClient]. The other Azure clients can be created similar way:
+
+snippet::io.micronaut.azure.BlobServiceFactory[project="azure-sdk", indent="0", source="test" tags="class"]
+
+<1> The class is a factory bean.
+<2> The method returns the singleton of `BlobServiceClient` class. Note the injected credential bean is of type https://docs.microsoft.com/en-us/java/api/com.azure.core.credential.tokencredential?view=azure-java-stable[TokenCredential]. It is an interface that provides token based credential authentication.
+<3> The client builder is used to create the client by providing the credential bean and the blob service endpoint. Note that every client builder class like https://docs.microsoft.com/en-us/java/api/com.azure.storage.blob.blobserviceclientbuilder?view=azure-java-stable[BlobServiceClientBuilder] offers additional configuration options.

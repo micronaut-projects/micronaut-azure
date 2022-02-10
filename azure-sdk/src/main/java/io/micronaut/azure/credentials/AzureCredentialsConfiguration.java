@@ -16,7 +16,7 @@ import java.util.Optional;
  */
 @ConfigurationProperties(AzureCredentialsConfiguration.PREFIX)
 public interface AzureCredentialsConfiguration {
-    String PREFIX = Environment.AZURE + ".credentials";
+    String PREFIX = Environment.AZURE + ".credential";
 
 
     /**

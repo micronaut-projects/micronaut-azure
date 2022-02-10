@@ -9,11 +9,11 @@ class AzureCredentialsConfigurationSpec extends Specification {
     def "it resolves client certificate credential configuration"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.client-certificate.client-id"               : "client-id",
-                "azure.credentials.client-certificate.pem-certificate-path"    : "pem",
-                "azure.credentials.client-certificate.pfx-certificate-path"    : "pfx",
-                "azure.credentials.client-certificate.pfx-certificate-password": "password",
-                "azure.credentials.client-certificate.tenant-id"               : "tenant-id",
+                "azure.credential.client-certificate.client-id"               : "client-id",
+                "azure.credential.client-certificate.pem-certificate-path"    : "pem",
+                "azure.credential.client-certificate.pfx-certificate-path"    : "pfx",
+                "azure.credential.client-certificate.pfx-certificate-password": "password",
+                "azure.credential.client-certificate.tenant-id"               : "tenant-id",
         ])
 
         when:
@@ -31,9 +31,9 @@ class AzureCredentialsConfigurationSpec extends Specification {
     def "it resolves client secret credential configuration"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.client-secret.client-id": "client-id",
-                "azure.credentials.client-secret.tenant-id": "tenant-id",
-                "azure.credentials.client-secret.secret"   : "secret",
+                "azure.credential.client-secret.client-id": "client-id",
+                "azure.credential.client-secret.tenant-id": "tenant-id",
+                "azure.credential.client-secret.secret"   : "secret",
         ])
 
         when:
@@ -49,10 +49,10 @@ class AzureCredentialsConfigurationSpec extends Specification {
     def "it resolves username password credential configuration"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.username-password.client-id": "client-id",
-                "azure.credentials.username-password.tenant-id": "tenant-id",
-                "azure.credentials.username-password.username" : "username",
-                "azure.credentials.username-password.password" : "password",
+                "azure.credential.username-password.client-id": "client-id",
+                "azure.credential.username-password.tenant-id": "tenant-id",
+                "azure.credential.username-password.username" : "username",
+                "azure.credential.username-password.password" : "password",
         ])
 
         when:
@@ -69,8 +69,8 @@ class AzureCredentialsConfigurationSpec extends Specification {
     def "it resolves managed identity credential configuration"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.managed-identity.enabled"  : true,
-                "azure.credentials.managed-identity.client-id": "client-id"
+                "azure.credential.managed-identity.enabled"  : true,
+                "azure.credential.managed-identity.client-id": "client-id"
         ])
 
         when:
@@ -85,7 +85,7 @@ class AzureCredentialsConfigurationSpec extends Specification {
     def "it resolves azure cli credential configuration"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.cli.enabled": true,
+                "azure.credential.cli.enabled": true,
         ])
 
         when:
@@ -99,9 +99,9 @@ class AzureCredentialsConfigurationSpec extends Specification {
     def "it resolves intellij credential configuration"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.intellij.enabled"               : true,
-                "azure.credentials.intellij.tenant-id"             : "tenant-id",
-                "azure.credentials.intellij.kee-pass-database-path": "keepasspath"
+                "azure.credential.intellij.enabled"               : true,
+                "azure.credential.intellij.tenant-id"             : "tenant-id",
+                "azure.credential.intellij.kee-pass-database-path": "keepasspath"
         ])
 
         when:
@@ -117,8 +117,8 @@ class AzureCredentialsConfigurationSpec extends Specification {
     def "it resolves visual studio code credential configuration"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.visual-studio-code.enabled"  : true,
-                "azure.credentials.visual-studio-code.tenant-id": "tenant-id"
+                "azure.credential.visual-studio-code.enabled"  : true,
+                "azure.credential.visual-studio-code.tenant-id": "tenant-id"
         ])
 
         when:

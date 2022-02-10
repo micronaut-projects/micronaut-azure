@@ -20,18 +20,19 @@ import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.context.annotation.Requires;
+import io.micronaut.core.annotation.NonNull;
 import jakarta.inject.Singleton;
 
 @Requires(property = "spec.name", value = "AzureClientFactorySpec")
 //tag::class[]
 @Factory
-public class BlobServiceFactory {
+public class BlobServiceFactory {  // <1>
 
     @Singleton
-    public BlobServiceClient blobServiceClient(TokenCredential tokenCredential){
-        return new BlobServiceClientBuilder()
+    public BlobServiceClient blobServiceClient(@NonNull TokenCredential tokenCredential){  // <2>
+        return new BlobServiceClientBuilder()  // <3>
                 .credential(tokenCredential)
-                .endpoint("https://micronautpgressatest.blob.core.windows.net")
+                .endpoint(System.getenv("AZURE_BLOB_ENDPOINT"))
                 .buildClient();
     }
 }

@@ -18,9 +18,9 @@ class AzureCredentialFactorySpec extends Specification {
     def "it resolves client secret credential builder"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.client-secret.client-id": "client-id",
-                "azure.credentials.client-secret.tenant-id": "tenant-id",
-                "azure.credentials.client-secret.secret"   : "secret",
+                "azure.credential.client-secret.client-id": "client-id",
+                "azure.credential.client-secret.tenant-id": "tenant-id",
+                "azure.credential.client-secret.secret"   : "secret",
         ])
 
         expect:
@@ -33,8 +33,8 @@ class AzureCredentialFactorySpec extends Specification {
     def "it does not resolves client secret credential builder if client secret is missing"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.client-secret.client-id": "client-id",
-                "azure.credentials.client-secret.tenant-id": "tenant-id",
+                "azure.credential.client-secret.client-id": "client-id",
+                "azure.credential.client-secret.tenant-id": "tenant-id",
         ])
 
         when:
@@ -50,10 +50,10 @@ class AzureCredentialFactorySpec extends Specification {
     def "it resolves username password credential builder"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.username-password.client-id": "client-id",
-                "azure.credentials.username-password.tenant-id": "tenant-id",
-                "azure.credentials.username-password.username" : "username",
-                "azure.credentials.username-password.password" : "password",
+                "azure.credential.username-password.client-id": "client-id",
+                "azure.credential.username-password.tenant-id": "tenant-id",
+                "azure.credential.username-password.username" : "username",
+                "azure.credential.username-password.password" : "password",
         ])
 
         expect:
@@ -66,9 +66,9 @@ class AzureCredentialFactorySpec extends Specification {
     def "it fails to resolve username password credential builder if username is missing"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.username-password.client-id": "client-id",
-                "azure.credentials.username-password.tenant-id": "tenant-id",
-                "azure.credentials.username-password.password" : "password",
+                "azure.credential.username-password.client-id": "client-id",
+                "azure.credential.username-password.tenant-id": "tenant-id",
+                "azure.credential.username-password.password" : "password",
         ])
 
         when:
@@ -84,9 +84,9 @@ class AzureCredentialFactorySpec extends Specification {
     def "it fails to resolve username password credential builder if passsword is missing"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.username-password.client-id": "client-id",
-                "azure.credentials.username-password.tenant-id": "tenant-id",
-                "azure.credentials.username-password.username" : "password",
+                "azure.credential.username-password.client-id": "client-id",
+                "azure.credential.username-password.tenant-id": "tenant-id",
+                "azure.credential.username-password.username" : "password",
         ])
 
         when:
@@ -102,8 +102,8 @@ class AzureCredentialFactorySpec extends Specification {
     def "it fails to resolve username password credential builder if username and passsword is missing"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.username-password.client-id": "client-id",
-                "azure.credentials.username-password.tenant-id": "tenant-id",
+                "azure.credential.username-password.client-id": "client-id",
+                "azure.credential.username-password.tenant-id": "tenant-id",
         ])
 
         when:
@@ -120,8 +120,8 @@ class AzureCredentialFactorySpec extends Specification {
     def "it resolves #enabled managed identity credential builder"(boolean enabled) {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.managed-identity.enabled"  : enabled,
-                "azure.credentials.managed-identity.client-id": "client-id"
+                "azure.credential.managed-identity.enabled"  : enabled,
+                "azure.credential.managed-identity.client-id": "client-id"
         ])
 
         expect:
@@ -138,7 +138,7 @@ class AzureCredentialFactorySpec extends Specification {
     def "it resolves #enabled azure cli credential builder"(boolean enabled) {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.cli.enabled": enabled,
+                "azure.credential.cli.enabled": enabled,
         ])
 
         expect:
@@ -155,9 +155,9 @@ class AzureCredentialFactorySpec extends Specification {
     def "it resolves #enabled intellij credential builder"(boolean enabled) {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.intellij.enabled"               : enabled,
-                "azure.credentials.intellij.tenant-id"             : "tenant-id",
-                "azure.credentials.intellij.kee-pass-database-path": "keepasspath"
+                "azure.credential.intellij.enabled"               : enabled,
+                "azure.credential.intellij.tenant-id"             : "tenant-id",
+                "azure.credential.intellij.kee-pass-database-path": "keepasspath"
         ])
 
         expect:
@@ -174,7 +174,7 @@ class AzureCredentialFactorySpec extends Specification {
     def "it resolves #enabled visual studio code credential builder"(boolean enabled) {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.visual-studio-code.enabled": enabled,
+                "azure.credential.visual-studio-code.enabled": enabled,
         ])
 
         expect:

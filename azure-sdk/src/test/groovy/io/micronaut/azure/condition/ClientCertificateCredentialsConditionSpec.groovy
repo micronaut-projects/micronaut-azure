@@ -10,11 +10,11 @@ class ClientCertificateCredentialsConditionSpec extends Specification {
     def "it fails when both certificate paths are provided"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.client-certificate.client-id"                    : "client-id",
-                "azure.credentials.client-certificate.pfx-certificate-path-password": "password",
-                "azure.credentials.client-certificate.tenant-id"                    : "tenant-id",
-                "azure.credentials.client-certificate.pem-certificate-path"         : "path",
-                "azure.credentials.client-certificate.pfx-certificate-path"         : "path"
+                "azure.credential.client-certificate.client-id"                    : "client-id",
+                "azure.credential.client-certificate.pfx-certificate-path-password": "password",
+                "azure.credential.client-certificate.tenant-id"                    : "tenant-id",
+                "azure.credential.client-certificate.pem-certificate-path"         : "path",
+                "azure.credential.client-certificate.pfx-certificate-path"         : "path"
         ])
 
         when:
@@ -30,9 +30,9 @@ class ClientCertificateCredentialsConditionSpec extends Specification {
     def "it fails when none certificate path is provided"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.client-certificate.client-id"                    : "client-id",
-                "azure.credentials.client-certificate.pfx-certificate-path-password": "password",
-                "azure.credentials.client-certificate.tenant-id"                    : "tenant-id",
+                "azure.credential.client-certificate.client-id"                    : "client-id",
+                "azure.credential.client-certificate.pfx-certificate-path-password": "password",
+                "azure.credential.client-certificate.tenant-id"                    : "tenant-id",
         ])
 
         when:
@@ -48,10 +48,10 @@ class ClientCertificateCredentialsConditionSpec extends Specification {
     def "it succeeds if pem certificate path is provided"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.client-certificate.client-id"                    : "client-id",
-                "azure.credentials.client-certificate.pfx-certificate-path-password": "password",
-                "azure.credentials.client-certificate.tenant-id"                    : "tenant-id",
-                "azure.credentials.client-certificate.pem-certificate-path"         : "path",
+                "azure.credential.client-certificate.client-id"                    : "client-id",
+                "azure.credential.client-certificate.pfx-certificate-path-password": "password",
+                "azure.credential.client-certificate.tenant-id"                    : "tenant-id",
+                "azure.credential.client-certificate.pem-certificate-path"         : "path",
         ])
 
         when:
@@ -67,10 +67,10 @@ class ClientCertificateCredentialsConditionSpec extends Specification {
     def "it succeeds if pfx certificate path is provided"() {
         given:
         def applicationContext = ApplicationContext.run([
-                "azure.credentials.client-certificate.client-id"                    : "client-id",
-                "azure.credentials.client-certificate.pfx-certificate-path-password": "password",
-                "azure.credentials.client-certificate.tenant-id"                    : "tenant-id",
-                "azure.credentials.client-certificate.pfx-certificate-path"         : "path"
+                "azure.credential.client-certificate.client-id"                    : "client-id",
+                "azure.credential.client-certificate.pfx-certificate-path-password": "password",
+                "azure.credential.client-certificate.tenant-id"                    : "tenant-id",
+                "azure.credential.client-certificate.pfx-certificate-path"         : "path"
         ])
 
         when:

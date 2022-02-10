@@ -4,8 +4,8 @@ azureSdk:
   title: Azure SDK
   credentials:
     title: Authentication
-  advancedConfiguration:
-    title: Adv
+  client:
+    title: Client
 azureFunction:
   title: Azure Function Support
   simpleAzureFunctions: Simple Azure Functions
