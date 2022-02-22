@@ -178,8 +178,7 @@
     &lt;version&gt;3.1.1-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 <div class="paragraph">
 <p>And ensure the Micronaut annotation processors are configured:</p>
@@ -201,15 +200,14 @@
     &lt;/path&gt;
 &lt;/annotationProcessorPaths&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 <div class="paragraph">
 <p>You can then write a function that subclasses <a href="../api/io/micronaut/azure/function/AzureFunction.html">AzureFunction</a> and it will be dependency injected when executed. For example:</p>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package example;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package example;
 
 import com.microsoft.azure.functions.annotation.BlobOutput;
 import com.microsoft.azure.functions.annotation.BlobTrigger;
@@ -221,17 +219,17 @@ import io.micronaut.context.event.ApplicationEventPublisher;
 
 import jakarta.inject.Inject;
 
-public class BlobFunction extends AzureFunction { <b class="conum">(1)</b>
+public class BlobFunction extends AzureFunction { // <b class="conum">(1)</b>
     @Inject
-    ApplicationEventPublisher eventPublisher; <b class="conum">(2)</b>
+    ApplicationEventPublisher eventPublisher; // <b class="conum">(2)</b>
 
     @FunctionName("copy")
     @StorageAccount("AzureWebJobsStorage")
-    @BlobOutput(name = "$return", path = "samples-output-java/{name}") <b class="conum">(3)</b>
+    @BlobOutput(name = "$return", path = "samples-output-java/{name}") // <b class="conum">(3)</b>
     public String copy(@BlobTrigger(
             name = "blob",
             path = "samples-input-java/{name}") String content) {
-        eventPublisher.publishEvent(new BlobEvent(content)); <b class="conum">(4)</b>
+        eventPublisher.publishEvent(new BlobEvent(content)); // <b class="conum">(4)</b>
         return content;
     }
 
@@ -245,7 +243,7 @@ public class BlobFunction extends AzureFunction { <b class="conum">(1)</b>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">package example
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package example
 
 import com.microsoft.azure.functions.annotation.BlobOutput
 import com.microsoft.azure.functions.annotation.BlobTrigger
@@ -257,17 +255,17 @@ import io.micronaut.context.event.ApplicationEventPublisher
 
 import jakarta.inject.Inject
 
-class BlobFunction extends AzureFunction { <b class="conum">(1)</b>
+class BlobFunction extends AzureFunction { // <b class="conum">(1)</b>
     @Inject
-    ApplicationEventPublisher eventPublisher <b class="conum">(2)</b>
+    ApplicationEventPublisher eventPublisher // <b class="conum">(2)</b>
 
     @FunctionName("copy")
     @StorageAccount("AzureWebJobsStorage")
-    @BlobOutput(name = '$return', path = "samples-output-java/{name}") <b class="conum">(3)</b>
+    @BlobOutput(name = '$return', path = "samples-output-java/{name}") // <b class="conum">(3)</b>
     String copy(@BlobTrigger(
             name = "blob",
             path = "samples-input-java/{name}") String content) {
-        eventPublisher.publishEvent(new BlobEvent(content)) <b class="conum">(4)</b>
+        eventPublisher.publishEvent(new BlobEvent(content)) // <b class="conum">(4)</b>
         return content
     }
 
@@ -281,7 +279,7 @@ class BlobFunction extends AzureFunction { <b class="conum">(1)</b>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">package example
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
 
 import com.microsoft.azure.functions.annotation.BlobOutput
 import com.microsoft.azure.functions.annotation.BlobTrigger
@@ -292,15 +290,15 @@ import io.micronaut.context.event.ApplicationEvent
 import io.micronaut.context.event.ApplicationEventPublisher
 import jakarta.inject.Inject
 
-class BlobFunction : AzureFunction() { <b class="conum">(1)</b>
+class BlobFunction : AzureFunction() { // <b class="conum">(1)</b>
     @Inject
-    lateinit var eventPublisher : ApplicationEventPublisher&lt;Any&gt; <b class="conum">(2)</b>
+    lateinit var eventPublisher : ApplicationEventPublisher&lt;Any&gt; // <b class="conum">(2)</b>
 
     @FunctionName("copy")
     @StorageAccount("AzureWebJobsStorage")
-    @BlobOutput(name = "\$return", path = "samples-output-java/{name}") <b class="conum">(3)</b>
+    @BlobOutput(name = "\$return", path = "samples-output-java/{name}") // <b class="conum">(3)</b>
     fun copy(@BlobTrigger(name = "blob", path = "samples-input-java/{name}") content: String): String {
-        eventPublisher.publishEvent(BlobEvent(content)) <b class="conum">(4)</b>
+        eventPublisher.publishEvent(BlobEvent(content)) // <b class="conum">(4)</b>
         return content
     }
 
@@ -356,15 +354,14 @@ class BlobFunction : AzureFunction() { <b class="conum">(1)</b>
     &lt;version&gt;3.1.1-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 <div class="paragraph">
 <p>You then need to define a function that subclasses <a href="../api/io/micronaut/azure/function/http/AzureHttpFunction.html">AzureHttpFunction</a> and overrides the <code>invoke</code> method:</p>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package example;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package example;
 
 import com.microsoft.azure.functions.ExecutionContext;
 import com.microsoft.azure.functions.HttpMethod;
@@ -377,24 +374,24 @@ import com.microsoft.azure.functions.annotation.HttpTrigger;
 import io.micronaut.azure.function.http.AzureHttpFunction;
 import java.util.Optional;
 
-public class MyHttpFunction extends AzureHttpFunction { <b class="conum">(1)</b>
-    @FunctionName("ExampleTrigger") <b class="conum">(2)</b>
+public class MyHttpFunction extends AzureHttpFunction { // <b class="conum">(1)</b>
+    @FunctionName("ExampleTrigger") // <b class="conum">(2)</b>
     public HttpResponseMessage invoke(
             @HttpTrigger(
                     name = "req",
-                    methods = {HttpMethod.GET, HttpMethod.POST}, <b class="conum">(3)</b>
-                    route = "{*route}", <b class="conum">(4)</b>
-                    authLevel = AuthorizationLevel.ANONYMOUS) <b class="conum">(5)</b>
-                    HttpRequestMessage&lt;Optional&lt;String&gt;&gt; request, <b class="conum">(6)</b>
+                    methods = {HttpMethod.GET, HttpMethod.POST}, // <b class="conum">(3)</b>
+                    route = "{*route}", // <b class="conum">(4)</b>
+                    authLevel = AuthorizationLevel.ANONYMOUS) // <b class="conum">(5)</b>
+                    HttpRequestMessage&lt;Optional&lt;String&gt;&gt; request, // <b class="conum">(6)</b>
             final ExecutionContext context) {
-        return super.route(request, context); <b class="conum">(7)</b>
+        return super.route(request, context); // <b class="conum">(7)</b>
     }
 }</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">package example
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package example
 
 import com.microsoft.azure.functions.ExecutionContext
 import com.microsoft.azure.functions.HttpMethod
@@ -406,24 +403,24 @@ import com.microsoft.azure.functions.annotation.FunctionName
 import com.microsoft.azure.functions.annotation.HttpTrigger
 import io.micronaut.azure.function.http.AzureHttpFunction
 
-class MyHttpFunction extends AzureHttpFunction { <b class="conum">(1)</b>
-    @FunctionName("ExampleTrigger") <b class="conum">(2)</b>
+class MyHttpFunction extends AzureHttpFunction { // <b class="conum">(1)</b>
+    @FunctionName("ExampleTrigger") // <b class="conum">(2)</b>
     HttpResponseMessage invoke(
             @HttpTrigger(
                     name = "req",
-                    methods = [HttpMethod.GET, HttpMethod.POST], <b class="conum">(3)</b>
-                    route = "{*route}", <b class="conum">(4)</b>
-                    authLevel = AuthorizationLevel.ANONYMOUS) <b class="conum">(5)</b>
-                    HttpRequestMessage&lt;Optional&lt;String&gt;&gt; request, <b class="conum">(6)</b>
+                    methods = [HttpMethod.GET, HttpMethod.POST], // <b class="conum">(3)</b>
+                    route = "{*route}", // <b class="conum">(4)</b>
+                    authLevel = AuthorizationLevel.ANONYMOUS) // <b class="conum">(5)</b>
+                    HttpRequestMessage&lt;Optional&lt;String&gt;&gt; request, // <b class="conum">(6)</b>
             final ExecutionContext context) {
-        return super.route(request, context) <b class="conum">(7)</b>
+        return super.route(request, context) // <b class="conum">(7)</b>
     }
 }</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">package example
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
 
 import com.microsoft.azure.functions.ExecutionContext
 import com.microsoft.azure.functions.HttpMethod
@@ -435,16 +432,16 @@ import com.microsoft.azure.functions.annotation.HttpTrigger
 import io.micronaut.azure.function.http.AzureHttpFunction
 import java.util.Optional
 
-class MyHttpFunction : AzureHttpFunction() { <b class="conum">(1)</b>
-    @FunctionName("ExampleTrigger") <b class="conum">(2)</b>
+class MyHttpFunction : AzureHttpFunction() { // <b class="conum">(1)</b>
+    @FunctionName("ExampleTrigger") // <b class="conum">(2)</b>
     fun invoke(
             @HttpTrigger(name = "req",
-                    methods = [HttpMethod.GET, HttpMethod.POST], <b class="conum">(3)</b>
-                    route = "{*route}", <b class="conum">(4)</b>
-                    authLevel = AuthorizationLevel.ANONYMOUS) <b class="conum">(5)</b>
-            request: HttpRequestMessage&lt;Optional&lt;String&gt;&gt;,  <b class="conum">(6)</b>
+                    methods = [HttpMethod.GET, HttpMethod.POST], // <b class="conum">(3)</b>
+                    route = "{*route}", // <b class="conum">(4)</b>
+                    authLevel = AuthorizationLevel.ANONYMOUS) // <b class="conum">(5)</b>
+            request: HttpRequestMessage&lt;Optional&lt;String&gt;&gt;,  // <b class="conum">(6)</b>
             context: ExecutionContext): HttpResponseMessage {
-        return super.route(request, context) <b class="conum">(7)</b>
+        return super.route(request, context) // <b class="conum">(7)</b>
     }
 }</code></pre>
 </div>
