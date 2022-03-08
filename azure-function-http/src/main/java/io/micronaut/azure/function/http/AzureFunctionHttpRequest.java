@@ -369,7 +369,7 @@ public class AzureFunctionHttpRequest<B>
     }
 
     private boolean isFormSubmission(MediaType contentType) {
-        return MediaType.MULTIPART_FORM_DATA_TYPE.equals(contentType) || MediaType.MULTIPART_FORM_DATA_TYPE.equals(contentType);
+        return MediaType.FORM.equals(contentType) || MediaType.MULTIPART_FORM_DATA_TYPE.equals(contentType);
     }
 
     @Override
