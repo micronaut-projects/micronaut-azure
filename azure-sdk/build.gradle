@@ -6,8 +6,7 @@ dependencies {
     annotationProcessor "io.micronaut:micronaut-inject-java"
     implementation "io.micronaut:micronaut-inject-java"
     implementation("io.micronaut:micronaut-runtime")
-    // todo ask cedric about best way how to enforce boms
-    implementation platform('com.azure:azure-sdk-bom:1.0.3')
+    implementation platform(project(":azure-bom"))
     api "com.azure:azure-identity"
 
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"

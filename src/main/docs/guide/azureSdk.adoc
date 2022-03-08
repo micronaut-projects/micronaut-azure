@@ -1,4 +1,4 @@
-The Azure sdk module provides integrations between Micronaut and https://docs.microsoft.com/en-us/azure/developer/java/sdk/overview[Microsoft Azure SDK for Java].
+The Azure SDK module provides integration between Micronaut and https://docs.microsoft.com/en-us/azure/developer/java/sdk/overview[Microsoft Azure SDK for Java].
 
 First you need add a dependency on the azure-sdk module:
 
