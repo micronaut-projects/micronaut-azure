@@ -47,9 +47,11 @@
                                 
                                 <div class="toc-item" style="margin-left:0"><a href="#releaseHistory"><strong>2</strong><span>Release History</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#azureFunction"><strong>3</strong><span>Azure Function Support</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#azureSdk"><strong>3</strong><span>Azure SDK</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>4</strong><span>Repository</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#azureFunction"><strong>4</strong><span>Azure Function Support</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>5</strong><span>Repository</span></a></div>
                                 
                             </div>
                         </div>
@@ -84,13 +86,19 @@
         
         <div class="toc-item" style="margin-left:0px" id="toc-item-releaseHistory"><a href="#releaseHistory"><strong>2</strong><span>Release History</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-azureFunction"><a href="#azureFunction"><strong>3</strong><span>Azure Function Support</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-azureSdk"><a href="#azureSdk"><strong>3</strong><span>Azure SDK</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-simpleAzureFunctions"><a href="#simpleAzureFunctions"><strong>3.1</strong><span>Simple Azure Functions</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-credentials"><a href="#credentials"><strong>3.1</strong><span>Authentication</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-azureHttpFunctions"><a href="#azureHttpFunctions"><strong>3.2</strong><span>Azure HTTP Functions</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-client"><a href="#client"><strong>3.2</strong><span>Client</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>4</strong><span>Repository</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-azureFunction"><a href="#azureFunction"><strong>4</strong><span>Azure Function Support</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-simpleAzureFunctions"><a href="#simpleAzureFunctions"><strong>4.1</strong><span>Simple Azure Functions</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-azureHttpFunctions"><a href="#azureHttpFunctions"><strong>4.2</strong><span>Azure HTTP Functions</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>5</strong><span>Repository</span></a></div>
         
         </div>
     </div>
@@ -106,7 +114,7 @@
 <h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/3.1.x/src/main/docs/guide/introduction.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/introduction.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -119,7 +127,7 @@
 <h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>2 Release History</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/3.1.x/src/main/docs/guide/releaseHistory.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/releaseHistory.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -132,10 +140,253 @@
 <p><a href="https://github.com/micronaut-projects/micronaut-azure/releases">https://github.com/micronaut-projects/micronaut-azure/releases</a></p>
 </div>
 
-<h1 id="azureFunction"><a class="anchor" href="#azureFunction"></a>3 Azure Function Support</h1>
+<h1 id="azureSdk"><a class="anchor" href="#azureSdk"></a>3 Azure SDK</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/3.1.x/src/main/docs/guide/azureFunction.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureSdk.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The Azure SDK module provides integration between Micronaut and <a href="https://docs.microsoft.com/en-us/azure/developer/java/sdk/overview">Microsoft Azure SDK for Java</a>.</p>
+</div>
+<div class="paragraph">
+<p>First you need add a dependency on the azure-sdk module:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.azure:micronaut-azure-sdk:3.2.0-SNAPSHOT")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.azure&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-azure-sdk&lt;/artifactId&gt;
+    &lt;version&gt;3.2.0-SNAPSHOT&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></p>
+</div>
+
+<h2 id="credentials"><a class="anchor" href="#credentials"></a>3.1 Authentication</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureSdk/credentials.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The <code>micronaut-azure-sdk</code> module supports these authentication options:</p>
+</div>
+<div class="sect2">
+<h3 id="_defaultazurecredential">DefaultAzureCredential</h3>
+<div class="paragraph">
+<p>The <a href="https://docs.microsoft.com/en-us/java/api/com.azure.identity.defaultazurecredential?view=azure-java-stable">DefaultAzureCredential</a> is appropriate for most scenarios where the application ultimately runs in the
+Azure Cloud. It combines credentials that are commonly used to authenticate when deployed,
+with credentials that are used to authenticate in a development environment.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="https://docs.microsoft.com/en-us/java/api/com.azure.identity.defaultazurecredential?view=azure-java-stable">DefaultAzureCredential</a> is used when no other credential type is specified or explicitly enabled.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clientcertificatecredential">ClientCertificateCredential</h3>
+<div class="paragraph">
+<p>The <a href="https://docs.microsoft.com/en-us/java/api/com.azure.identity.clientcertificatecredential?view=azure-java-stable">ClientCertificateCredential</a> authenticates the created service principal through its client certificate. Visit <a href="https://docs.microsoft.com/en-us/azure/developer/java/sdk/identity-service-principal-auth?view=azure-java-stable#client-certificate-credential">Client certificate credential</a> for more details.</p>
+</div>
+<div class="paragraph">
+<p>The ClientCertificateCredential supports both PFX and PEM certificate file types.</p>
+</div>
+<div class="listingblock">
+<div class="title">Use of PEM certificate</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">azure:
+  credential:
+    client-certificate:
+      client-id: &lt;client-id&gt;
+      pem-certificate-path: &lt;path to pem certificate&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Use of PFX certificate</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">azure:
+  credential:
+    client-certificate:
+      client-id: &lt;client-id&gt;
+      pfx-certificate-path: &lt;path to pfx certificate&gt;
+      pfx-certificate-password: &lt;pfx certificate password&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Optionally you can configure the tenant id by setting the property <code>azure.credential.client-certificate.tenant-id</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clientsecretcredential">ClientSecretCredential</h3>
+<div class="paragraph">
+<p>The <a href="https://docs.microsoft.com/en-us/java/api/com.azure.identity.clientsecretcredential?view=azure-java-stable">ClientSecretCredential</a>  authenticates the created service principal through its client secret (password). See more on <a href="https://docs.microsoft.com/en-us/azure/developer/java/sdk/identity-service-principal-auth?view=azure-java-stable#client-secret-credential">Client secret credential</a> for more details.</p>
+</div>
+<div class="listingblock">
+<div class="title">Use of client secret credential</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">azure:
+  credential:
+    client-secret:
+      client-id: &lt;client-id&gt;
+      tenant-id: &lt;tenant-id&gt;
+      secret: &lt;secret&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_usernamepasswordcredential">UsernamePasswordCredential</h3>
+<div class="paragraph">
+<p>The <a href="https://docs.microsoft.com/en-us/java/api/com.azure.identity.usernamepasswordcredential?view=azure-java-stable">UsernamePasswordCredential</a> helps to authenticate a public client application using the user credentials that don&#8217;t require multi-factor authentication. Visit <a href="https://docs.microsoft.com/en-us/azure/developer/java/sdk/identity-user-auth?view=azure-java-stable#username-password-credential">Username password credential</a> for more details.</p>
+</div>
+<div class="listingblock">
+<div class="title">Use of username password credential</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">azure:
+  credential:
+    username-password:
+      client-id: &lt;client-id&gt;
+      username: &lt;username&gt;
+      password: &lt;password&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Optionally you can configure the tenant id by setting the property <code>azure.credential.username-password.tenant-id</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_managedidentitycredential">ManagedIdentityCredential</h3>
+<div class="paragraph">
+<p>The <a href="https://docs.microsoft.com/en-us/java/api/com.azure.identity.managedidentitycredential?view=azure-java-stable">ManagedIdentityCredential</a> authenticates the managed identity (system or user assigned) of an Azure resource. So, if the application is running inside an Azure resource that supports Managed Identity through IDENTITY/MSI, IMDS endpoints, or both, then this credential will get your application authenticated, and offers a great secretless authentication experience. Visit <a href="https://docs.microsoft.com/en-us/azure/developer/java/sdk/identity-azure-hosted-auth?view=azure-java-stable#managed-identity-credential">Managed Identity credential</a> for more details.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example on how to enable the managed identity credential for system assigned identity</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">azure:
+  credential:
+    managed-identity:
+      enabled: true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note, that for user-assigned identity you have to also set the <code>azure.credential.managed-identity.client-id</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_azureclicredential">AzureCliCredential</h3>
+<div class="paragraph">
+<p>The <a href="https://docs.microsoft.com/en-us/java/api/com.azure.identity.azureclicredential?view=azure-java-stable">AzureCliCredential</a> authenticates in a development environment with the enabled user or service principal in Azure CLI. It uses the Azure CLI given a user that is already logged into it, and uses the CLI to authenticate the application against Azure Active Directory. Visit <a href="https://docs.microsoft.com/en-us/azure/developer/java/sdk/identity-dev-env-auth?view=azure-java-stable#azure-cli-credential">Azure CLI credential</a> for more details.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example on how to enable the azure credential</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">azure:
+  credential:
+    cli:
+      enabled: true</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_intellijcredential">IntelliJCredential</h3>
+<div class="paragraph">
+<p>The <a href="https://docs.microsoft.com/en-us/java/api/com.azure.identity.intellijcredential?view=azure-java-stable">IntelliJCredential</a> authenticates in a development environment with the account in Azure Toolkit for IntelliJ. It uses the logged in user information on the IntelliJ IDE and uses it to authenticate the application against Azure Active Directory. Visit <a href="https://docs.microsoft.com/en-us/azure/developer/java/sdk/identity-dev-env-auth?view=azure-java-stable#intellij-credential">IntelliJ credential</a> for more details.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example on how to enable the azure credential</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">azure:
+  credential:
+    intellij:
+      enabled: true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note, that for Windows platform the KeePass database path needs to be set by property <code>azure.credential.intellij.kee-pass-database-path</code>. The KeePass database path is used to read the cached credentials of Azure toolkit for IntelliJ plugin. For macOS and Linux platform native key chain / key ring will be accessed respectively to retrieve the cached credentials.</p>
+</div>
+<div class="paragraph">
+<p>Optionally you can configure the tenant id by setting the property <code>azure.credential.intellij.tenant-id</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_visualstudiocodecredential">VisualStudioCodeCredential</h3>
+<div class="paragraph">
+<p>The <a href="https://docs.microsoft.com/en-us/java/api/com.azure.identity.visualstudiocodecredential?view=azure-java-stable">VisualStudioCodeCredential</a> enables authentication in development environments where VS Code is installed with the VS Code Azure Account extension. It uses the logged-in user information in the VS Code IDE and uses it to authenticate the application against Azure Active Directory. Visit <a href="https://docs.microsoft.com/en-us/azure/developer/java/sdk/identity-dev-env-auth?view=azure-java-stable#visual-studio-code-credential">Visual Studio Code credential</a> for more details.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example on how to enable the visual studio code credential</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">azure:
+  credential:
+    visual-studio-code:
+      enabled: true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Optionally you can configure the tenant id by setting the property <code>azure.credential.visual-studio-code.tenant-id</code>.</p>
+</div>
+</div>
+
+<h2 id="client"><a class="anchor" href="#client"></a>3.2 Client</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureSdk/client.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The Azure SDK provides long list of management and client libraries. The example below illustrates on how to create a <a href="https://docs.microsoft.com/en-us/java/api/com.azure.storage.blob.blobserviceclient?view=azure-java-stable">BlobServiceClient</a>. The other Azure clients can be created similar way:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Factory
+public class BlobServiceFactory {  // <b class="conum">(1)</b>
+
+    @Singleton
+    public BlobServiceClient blobServiceClient(@NonNull TokenCredential tokenCredential){  // <b class="conum">(2)</b>
+        return new BlobServiceClientBuilder()  // <b class="conum">(3)</b>
+                .credential(tokenCredential)
+                .endpoint(System.getenv("AZURE_BLOB_ENDPOINT"))
+                .buildClient();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The class is a factory bean.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The method returns the singleton of <code>BlobServiceClient</code> class. Note the injected credential bean is of type <a href="https://docs.microsoft.com/en-us/java/api/com.azure.core.credential.tokencredential?view=azure-java-stable">TokenCredential</a>. It is an interface that provides token based credential authentication.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The client builder is used to create the client by providing the credential bean and the blob service endpoint. Note that every client builder class like <a href="https://docs.microsoft.com/en-us/java/api/com.azure.storage.blob.blobserviceclientbuilder?view=azure-java-stable">BlobServiceClientBuilder</a> offers additional configuration options.</td>
+</tr>
+</table>
+</div>
+
+<h1 id="azureFunction"><a class="anchor" href="#azureFunction"></a>4 Azure Function Support</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureFunction.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -145,10 +396,10 @@
 <p>The Azure function module provides support for writing Serverless functions with Micronaut that target the Azure Function environment.</p>
 </div>
 
-<h2 id="simpleAzureFunctions"><a class="anchor" href="#simpleAzureFunctions"></a>3.1 Simple Azure Functions</h2>
+<h2 id="simpleAzureFunctions"><a class="anchor" href="#simpleAzureFunctions"></a>4.1 Simple Azure Functions</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/3.1.x/src/main/docs/guide/azureFunction/simpleAzureFunctions.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureFunction/simpleAzureFunctions.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -167,7 +418,7 @@
 <p>        <div class="listingblock multi-language-sample">
 <div class="title"></div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.azure:micronaut-azure-function:3.1.1-SNAPSHOT")</span></code></pre>
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.azure:micronaut-azure-function:3.2.0-SNAPSHOT")</span></code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -175,7 +426,7 @@
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
     &lt;groupId&gt;io.micronaut.azure&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-azure-function&lt;/artifactId&gt;
-    &lt;version&gt;3.1.1-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;3.2.0-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div></p>
@@ -327,10 +578,10 @@ class BlobFunction : AzureFunction() { // <b class="conum">(1)</b>
 </table>
 </div>
 
-<h2 id="azureHttpFunctions"><a class="anchor" href="#azureHttpFunctions"></a>3.2 Azure HTTP Functions</h2>
+<h2 id="azureHttpFunctions"><a class="anchor" href="#azureHttpFunctions"></a>4.2 Azure HTTP Functions</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/3.1.x/src/main/docs/guide/azureFunction/azureHttpFunctions.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureFunction/azureHttpFunctions.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -343,7 +594,7 @@ class BlobFunction : AzureFunction() { // <b class="conum">(1)</b>
 <p>        <div class="listingblock multi-language-sample">
 <div class="title"></div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.microaut.azure:micronaut-azure-function-http:3.1.1-SNAPSHOT")</span></code></pre>
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.microaut.azure:micronaut-azure-function-http:3.2.0-SNAPSHOT")</span></code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -351,7 +602,7 @@ class BlobFunction : AzureFunction() { // <b class="conum">(1)</b>
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
     &lt;groupId&gt;io.microaut.azure&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-azure-function-http&lt;/artifactId&gt;
-    &lt;version&gt;3.1.1-SNAPSHOT&lt;/version&gt;
+    &lt;version&gt;3.2.0-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div></p>
@@ -485,10 +736,10 @@ class MyHttpFunction : AzureHttpFunction() { // <b class="conum">(1)</b>
 <p>This approach allows you to develop a regular Micronaut application and deploy slices of the application as Serverless functions as desired.</p>
 </div>
 
-<h1 id="repository"><a class="anchor" href="#repository"></a>4 Repository</h1>
+<h1 id="repository"><a class="anchor" href="#repository"></a>5 Repository</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/3.1.x/src/main/docs/guide/repository.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/repository.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
