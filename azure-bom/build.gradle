@@ -6,4 +6,5 @@ dependencies {
     constraints {
         api "com.microsoft.azure.functions:azure-functions-java-library:$azureFunctionsJavaLibraryVersion"
     }
+    api platform("com.azure:azure-sdk-bom:1.0.3")
 }

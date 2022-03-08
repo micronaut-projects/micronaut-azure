@@ -1,0 +1,15 @@
+plugins {
+    id 'io.micronaut.build.internal.azure-module'
+}
+
+dependencies {
+    annotationProcessor "io.micronaut:micronaut-inject-java"
+    implementation "io.micronaut:micronaut-inject-java"
+    implementation("io.micronaut:micronaut-runtime")
+    implementation platform(project(":azure-bom"))
+    api "com.azure:azure-identity"
+
+    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
+    testImplementation "io.micronaut:micronaut-inject-java"
+    testImplementation "com.azure:azure-storage-blob"
+}
