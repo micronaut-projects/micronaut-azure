@@ -1,0 +1,4 @@
+io.micronaut.azure.condition
+io.micronaut.azure.credentials
+io.micronaut.azure.function
+io.micronaut.azure.function.http
