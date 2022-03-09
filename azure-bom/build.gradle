@@ -8,3 +8,8 @@ dependencies {
     }
     api platform("com.azure:azure-sdk-bom:1.0.3")
 }
+micronautBom {
+    excludeProject.set({ p ->
+        p.name.contains('benchmark') || p.name.contains('example')
+    } as Spec<String>)
+}
