@@ -33,6 +33,7 @@ import jakarta.inject.Singleton;
  */
 @Factory
 @Requires(property = ConfigurationClient.ENABLED, value = StringUtils.TRUE, defaultValue = StringUtils.FALSE)
+@Requires(property = AzureKeyvaultConfigurationProperties.PREFIX)
 @BootstrapContextCompatible
 public class SecretManagerFactory {
 
@@ -40,16 +41,16 @@ public class SecretManagerFactory {
      * Creates a {@link SecretClient} instance.
      *
      * @param tokenCredential                      azure credentials
-     * @param secretManagerConfigurationProperties keyvault configuration
+     * @param azureKeyvaultConfigurationProperties keyvault configuration
      * @return an instance using defaults.
      */
     @Singleton
-    public SecretClient secretClient(
+    public SecretClient secretAsyncClient(
             @NonNull TokenCredential tokenCredential,
-            @NonNull AzureKeyvaultConfigurationProperties secretManagerConfigurationProperties
+            @NonNull AzureKeyvaultConfigurationProperties azureKeyvaultConfigurationProperties
     ) {
         return new SecretClientBuilder()
-                .vaultUrl(secretManagerConfigurationProperties.getVaultURL())
+                .vaultUrl(azureKeyvaultConfigurationProperties.getVaultURL())
                 .credential(tokenCredential)
                 .buildClient();
     }

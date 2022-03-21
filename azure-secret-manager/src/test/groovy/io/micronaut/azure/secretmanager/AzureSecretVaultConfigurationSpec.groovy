@@ -1,5 +1,6 @@
 package io.micronaut.azure.secretmanager
 
+import io.micronaut.azure.secretmanager.client.DefaultSecretKeyvaultClient
 import io.micronaut.azure.secretmanager.configuration.AzureKeyvaultConfigurationProperties
 import io.micronaut.context.ApplicationContext
 import io.micronaut.context.annotation.Replaces
@@ -45,7 +46,7 @@ class AzureSecretVaultConfigurationSpec extends Specification {
     }
 
     @Singleton
-    @Replaces(AzureVaultConfigurationClient)
+    @Replaces(DefaultSecretKeyvaultClient)
     @Requires(property = 'spec.name', value = 'it parses configuration')
     static class MockOracleCloudVaultConfigurationClient extends AzureVaultConfigurationClient {
 
