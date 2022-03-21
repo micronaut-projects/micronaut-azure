@@ -15,6 +15,7 @@
  */
 package io.micronaut.azure.credentials;
 
+import io.micronaut.context.annotation.BootstrapContextCompatible;
 import io.micronaut.context.annotation.ConfigurationProperties;
 import io.micronaut.context.env.Environment;
 import io.micronaut.core.annotation.NonNull;
@@ -30,6 +31,7 @@ import java.util.Optional;
  * @since 3.1
  */
 @ConfigurationProperties(AzureCredentialsConfiguration.PREFIX)
+@BootstrapContextCompatible
 public interface AzureCredentialsConfiguration {
     String PREFIX = Environment.AZURE + ".credential";
 
@@ -38,6 +40,7 @@ public interface AzureCredentialsConfiguration {
      * The client certificate credential configuration.
      */
     @ConfigurationProperties(ClientCertificateCredentialConfiguration.NAME)
+    @BootstrapContextCompatible
     interface ClientCertificateCredentialConfiguration {
         String NAME = "client-certificate";
 
@@ -84,6 +87,7 @@ public interface AzureCredentialsConfiguration {
      * The client secret credential configuration.
      */
     @ConfigurationProperties(ClientSecretCredentialConfiguration.NAME)
+    @BootstrapContextCompatible
     interface ClientSecretCredentialConfiguration {
         String NAME = "client-secret";
         String CLIENT_SECRET = AzureCredentialsConfiguration.PREFIX + "." + NAME + "." + "secret";
@@ -117,6 +121,7 @@ public interface AzureCredentialsConfiguration {
      * The username password credential configuration.
      */
     @ConfigurationProperties(UsernamePasswordCredentialConfiguration.NAME)
+    @BootstrapContextCompatible
     interface UsernamePasswordCredentialConfiguration {
         String NAME = "username-password";
         String USERNAME = AzureCredentialsConfiguration.PREFIX + "." + NAME + "." + "username";
@@ -158,6 +163,7 @@ public interface AzureCredentialsConfiguration {
      * The managed identity credential configuration.
      */
     @ConfigurationProperties(ManagedIdentityCredentialConfiguration.NAME)
+    @BootstrapContextCompatible
     interface ManagedIdentityCredentialConfiguration extends Toggleable {
         String NAME = "managed-identity";
         String ENABLED = AzureCredentialsConfiguration.PREFIX + "." + NAME + "." + "enabled";
@@ -174,6 +180,7 @@ public interface AzureCredentialsConfiguration {
      * The Azure CLI credential configuration.
      */
     @ConfigurationProperties(AzureCliCredentialConfiguration.NAME)
+    @BootstrapContextCompatible
     interface AzureCliCredentialConfiguration extends Toggleable {
         String NAME = "cli";
         String ENABLED = AzureCredentialsConfiguration.PREFIX + "." + NAME + "." + "enabled";
@@ -183,6 +190,7 @@ public interface AzureCredentialsConfiguration {
      * The IntelliJ credential configuration.
      */
     @ConfigurationProperties(IntelliJCredentialConfiguration.NAME)
+    @BootstrapContextCompatible
     interface IntelliJCredentialConfiguration extends Toggleable {
         String NAME = "intellij";
         String ENABLED = AzureCredentialsConfiguration.PREFIX + "." + NAME + "." + "enabled";
@@ -209,6 +217,7 @@ public interface AzureCredentialsConfiguration {
      * The Visual studion code credential configuration.
      */
     @ConfigurationProperties(VisualStudioCodeCredentialConfiguration.NAME)
+    @BootstrapContextCompatible
     interface VisualStudioCodeCredentialConfiguration extends Toggleable {
         String NAME = "visual-studio-code";
         String ENABLED = AzureCredentialsConfiguration.PREFIX + "." + NAME + "." + "enabled";
