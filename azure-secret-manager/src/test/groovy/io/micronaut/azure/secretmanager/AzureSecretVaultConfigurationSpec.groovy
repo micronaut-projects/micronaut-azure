@@ -1,6 +1,5 @@
 package io.micronaut.azure.secretmanager
 
-import io.micronaut.azure.secretmanager.client.DefaultSecretKeyvaultClient
 import io.micronaut.azure.secretmanager.configuration.AzureKeyvaultConfigurationProperties
 import io.micronaut.context.ApplicationContext
 import io.micronaut.context.annotation.Replaces
