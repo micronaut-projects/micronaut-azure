@@ -16,8 +16,8 @@
 package io.micronaut.azure.secretmanager;
 
 import com.azure.security.keyvault.secrets.SecretClient;
-import com.azure.security.keyvault.secrets.models.KeyVaultSecret;
-import com.azure.security.keyvault.secrets.models.SecretProperties;
+import io.micronaut.azure.secretmanager.client.SecretKeyvaultClient;
+import io.micronaut.azure.secretmanager.client.VersionedSecret;
 import io.micronaut.azure.secretmanager.configuration.AzureKeyvaultConfigurationProperties;
 import io.micronaut.context.annotation.BootstrapContextCompatible;
 import io.micronaut.context.annotation.Requires;
@@ -53,7 +53,7 @@ public class AzureVaultConfigurationClient implements ConfigurationClient {
 
     private final AzureKeyvaultConfigurationProperties azureKeyvaultConfigurationProperties;
     private final ExecutorService executorService;
-    private final SecretClient secretClient;
+    private final SecretKeyvaultClient secretClient;
 
     /**
      * Default Constructor.
@@ -65,7 +65,7 @@ public class AzureVaultConfigurationClient implements ConfigurationClient {
     public AzureVaultConfigurationClient(
             AzureKeyvaultConfigurationProperties azureKeyvaultConfigurationProperties,
             @Named(TaskExecutors.IO) @Nullable ExecutorService executorService,
-            SecretClient secretClient) {
+            SecretKeyvaultClient secretClient) {
         this.azureKeyvaultConfigurationProperties = azureKeyvaultConfigurationProperties;
         this.executorService = executorService;
         this.secretClient = secretClient;
@@ -84,27 +84,26 @@ public class AzureVaultConfigurationClient implements ConfigurationClient {
         Map<String, Object> secrets = new HashMap<>();
 
         int retrieved = 0;
-        for (SecretProperties secretProperties : secretClient.listPropertiesOfSecrets()) {
+
+        for (VersionedSecret versionedSecret : secretClient.listSecrets()) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Retrieving secrets from Azure Secret Vault with URL: {}", azureKeyvaultConfigurationProperties.getVaultURL());
             }
             retrieved += 1;
-            KeyVaultSecret secretWithValue = secretClient.getSecret(secretProperties.getName(), secretProperties.getVersion());
-
             secrets.put(
-                    secretWithValue.getName(),
-                    secretWithValue.getValue()
+                    versionedSecret.getName(),
+                    versionedSecret.getValue()
             );
             secrets.put(
-                    secretWithValue.getName().replace('-', '.'),
-                    secretWithValue.getValue()
+                    versionedSecret.getName().replace('-', '.'),
+                    versionedSecret.getValue()
             );
             secrets.put(
-                    secretWithValue.getName().replace('-', '_'),
-                    secretWithValue.getValue()
+                    versionedSecret.getName().replace('-', '_'),
+                    versionedSecret.getValue()
             );
             if (LOG.isTraceEnabled()) {
-                LOG.trace("Retrieved secret: {}", secretWithValue.getName());
+                LOG.trace("Retrieved secret: {}", versionedSecret.getName());
             }
 
         }
