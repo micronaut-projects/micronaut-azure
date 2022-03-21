@@ -18,14 +18,14 @@ class AzureSecretVaultConfigurationSpec extends Specification {
     void "it parses configuration"() {
         ApplicationContext ctx = ApplicationContext.run([
                 'spec.name'                               : 'it parses configuration',
-                "azure.keyvault.vaultUrl"                 : "www.example.com",
+                "azure.keyvault.vaultUrl"                 : "https://www.azure.com",
                 'micronaut.config-client.enabled'         : true
 
         ])
         AzureKeyvaultConfigurationProperties config = ctx.getBean(AzureKeyvaultConfigurationProperties)
 
         expect:
-        "www.example.com" == config.vaultURL
+        "https://www.azure.com" == config.vaultURL
 
         cleanup:
         ctx.close()
@@ -46,7 +46,7 @@ class AzureSecretVaultConfigurationSpec extends Specification {
     }
 
     @Singleton
-    @Replaces(DefaultSecretKeyvaultClient)
+    @Replaces(AzureVaultConfigurationClient)
     @Requires(property = 'spec.name', value = 'it parses configuration')
     static class MockOracleCloudVaultConfigurationClient extends AzureVaultConfigurationClient {
 
