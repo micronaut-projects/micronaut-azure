@@ -12,7 +12,7 @@ import jakarta.inject.Singleton
 import reactor.core.publisher.Flux
 import spock.lang.Specification
 
-class AzureSecretVaultClientSpec extends Specification {
+class AzureSecretKeyvaultClientSpec extends Specification {
 
     void "it loads secret from mocked vault"() {
         given:
