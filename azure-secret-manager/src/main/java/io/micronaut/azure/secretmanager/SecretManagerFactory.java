@@ -45,7 +45,7 @@ public class SecretManagerFactory {
      * @return an instance using defaults.
      */
     @Singleton
-    public SecretClient secretAsyncClient(
+    public SecretClient secretClient(
             @NonNull TokenCredential tokenCredential,
             @NonNull AzureKeyvaultConfigurationProperties azureKeyvaultConfigurationProperties
     ) {
