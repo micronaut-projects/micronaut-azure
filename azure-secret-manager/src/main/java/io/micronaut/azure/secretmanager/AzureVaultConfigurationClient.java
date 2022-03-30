@@ -16,14 +16,15 @@
 package io.micronaut.azure.secretmanager;
 
 import com.azure.security.keyvault.secrets.SecretClient;
-import io.micronaut.azure.secretmanager.client.SecretKeyvaultClient;
-import io.micronaut.azure.secretmanager.client.VersionedSecret;
-import io.micronaut.azure.secretmanager.configuration.AzureKeyvaultConfigurationProperties;
+import com.azure.security.keyvault.secrets.models.KeyVaultSecret;
+import io.micronaut.azure.secretmanager.client.SecretKeyVaultClient;
+import io.micronaut.azure.secretmanager.configuration.AzureKeyVaultConfigurationProperties;
 import io.micronaut.context.annotation.BootstrapContextCompatible;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.context.env.Environment;
 import io.micronaut.context.env.PropertySource;
 import io.micronaut.core.annotation.Nullable;
+import io.micronaut.core.util.StringUtils;
 import io.micronaut.discovery.config.ConfigurationClient;
 import io.micronaut.scheduling.TaskExecutors;
 import jakarta.inject.Named;
@@ -42,6 +43,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
 /**
+ * @author n0tl3ss
  * Distributed configuration client implementation that fetches application secret values from Azure keyvalut.
  */
 @Singleton
@@ -51,30 +53,32 @@ public class AzureVaultConfigurationClient implements ConfigurationClient {
 
     private static final Logger LOG = LoggerFactory.getLogger(AzureVaultConfigurationClient.class);
 
-    private final AzureKeyvaultConfigurationProperties azureKeyvaultConfigurationProperties;
+    private final AzureKeyVaultConfigurationProperties azureKeyVaultConfigurationProperties;
     private final ExecutorService executorService;
-    private final SecretKeyvaultClient secretClient;
+    private final SecretKeyVaultClient secretClient;
+    private final String vaultUrl;
 
     /**
      * Default Constructor.
      *
-     * @param azureKeyvaultConfigurationProperties Azure Secret Vault Client Configuration
+     * @param azureKeyVaultConfigurationProperties Azure Secret Vault Client Configuration
      * @param executorService                      Executor Service
      * @param secretClient                         The secrets client
      */
     public AzureVaultConfigurationClient(
-            AzureKeyvaultConfigurationProperties azureKeyvaultConfigurationProperties,
+            AzureKeyVaultConfigurationProperties azureKeyVaultConfigurationProperties,
             @Named(TaskExecutors.IO) @Nullable ExecutorService executorService,
-            SecretKeyvaultClient secretClient) {
-        this.azureKeyvaultConfigurationProperties = azureKeyvaultConfigurationProperties;
+            SecretKeyVaultClient secretClient) {
+        this.azureKeyVaultConfigurationProperties = azureKeyVaultConfigurationProperties;
         this.executorService = executorService;
         this.secretClient = secretClient;
+        this.vaultUrl = azureKeyVaultConfigurationProperties.getVaultURL();
     }
 
     @Override
     public Publisher<PropertySource> getPropertySources(Environment environment) {
 
-        if (azureKeyvaultConfigurationProperties.getVaultURL() == null || azureKeyvaultConfigurationProperties.getVaultURL().equals("")) {
+        if (StringUtils.isEmpty(vaultUrl)) {
             return Flux.empty();
         }
 
@@ -85,30 +89,32 @@ public class AzureVaultConfigurationClient implements ConfigurationClient {
 
         int retrieved = 0;
 
-        for (VersionedSecret versionedSecret : secretClient.listSecrets()) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Retrieving secrets from Azure Secret Vault with URL: {}", azureKeyvaultConfigurationProperties.getVaultURL());
-            }
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Retrieving secrets from Azure Secret Vault with URL: {}", azureKeyVaultConfigurationProperties.getVaultURL());
+        }
+
+        for (KeyVaultSecret keyVaultSecret : secretClient.listSecrets()) {
+
             retrieved += 1;
             secrets.put(
-                    versionedSecret.getName(),
-                    versionedSecret.getValue()
+                    keyVaultSecret.getName(),
+                    keyVaultSecret.getValue()
             );
             secrets.put(
-                    versionedSecret.getName().replace('-', '.'),
-                    versionedSecret.getValue()
+                    keyVaultSecret.getName().replace('-', '.'),
+                    keyVaultSecret.getValue()
             );
             secrets.put(
-                    versionedSecret.getName().replace('-', '_'),
-                    versionedSecret.getValue()
+                    keyVaultSecret.getName().replace('-', '_'),
+                    keyVaultSecret.getValue()
             );
             if (LOG.isTraceEnabled()) {
-                LOG.trace("Retrieved secret: {}", versionedSecret.getName());
+                LOG.trace("Retrieved secret: {}", keyVaultSecret.getName());
             }
 
         }
         if (LOG.isDebugEnabled()) {
-            LOG.debug("{} secrets where retrieved from Azure Secret Vault with URL: {}", retrieved, azureKeyvaultConfigurationProperties.getVaultURL());
+            LOG.debug("{} secrets were retrieved from Azure Secret Vault with URL: {}", retrieved, azureKeyVaultConfigurationProperties.getVaultURL());
         }
 
         Flux<PropertySource> propertySourceFlowable = Flux.just(

@@ -15,25 +15,29 @@
  */
 package io.micronaut.azure.secretmanager.client;
 
+import com.azure.security.keyvault.secrets.models.KeyVaultSecret;
+
 import java.util.List;
 
 /**
+ * @author n0tl3ss
  * This interface is intended to abstract interactions with {@link com.azure.security.keyvault.secrets.SecretClient}.
+ * The abstraction is needed for easier testing because mentioned class is defined as final.
  */
-public interface SecretKeyvaultClient {
+public interface SecretKeyVaultClient {
 
     /**
-     * Fetches a secret from the Keyvault using name of the secret.
+     * Fetches a secret from the key vault using name of the secret.
      *
      * @param secretName - name of the secret
      * @return String value of the secret or empty
      */
-    VersionedSecret getSecret(String secretName);
+    KeyVaultSecret getSecret(String secretName);
 
     /**
-     * Fetches all secrets from the Keyvault.
+     * Fetches all secrets from the key vault.
      *
-     * @return List of all secrets from Keyvault
+     * @return List of all secrets from key vault
      */
-    List<VersionedSecret> listSecrets();
+    List<KeyVaultSecret> listSecrets();
 }

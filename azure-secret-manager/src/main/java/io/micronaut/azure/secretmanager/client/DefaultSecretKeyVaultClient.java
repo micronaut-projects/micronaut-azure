@@ -26,28 +26,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Default implementation of {@link SecretKeyvaultClient}.
+ * @author n0tl3ss
+ * Default implementation of {@link SecretKeyVaultClient}.
  */
 @Singleton
 @BootstrapContextCompatible
 @Requires(classes = SecretClient.class)
-public class DefaultSecretKeyvaultClient implements SecretKeyvaultClient {
+public class DefaultSecretKeyVaultClient implements SecretKeyVaultClient {
 
     private final SecretClient client;
 
-    public DefaultSecretKeyvaultClient(SecretClient client) {
+    public DefaultSecretKeyVaultClient(SecretClient client) {
         this.client = client;
     }
 
     @Override
-    public VersionedSecret getSecret(String secretName) {
-        KeyVaultSecret secret = client.getSecret(secretName);
-
-        return new VersionedSecret(secret.getName(), secret.getValue(), secret.getProperties().getVersion());
+    public KeyVaultSecret getSecret(String secretName) {
+        return client.getSecret(secretName);
     }
 
     @Override
-    public List<VersionedSecret> listSecrets() {
+    public List<KeyVaultSecret> listSecrets() {
         return client.listPropertiesOfSecrets().stream().map(x -> getSecret(x.getName())).collect(Collectors.toList());
     }
 }

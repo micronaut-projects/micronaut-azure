@@ -21,24 +21,25 @@ import io.micronaut.context.env.Environment;
 
 
 /**
+ * @author n0tl3ss
  * Configuration for azure SecretClient.
  */
-@ConfigurationProperties(AzureKeyvaultConfigurationProperties.PREFIX)
+@ConfigurationProperties(AzureKeyVaultConfigurationProperties.PREFIX)
 @BootstrapContextCompatible
-public class AzureKeyvaultConfigurationProperties {
-    public static final String PREFIX = Environment.AZURE + ".keyvault";
+public class AzureKeyVaultConfigurationProperties {
+    public static final String PREFIX = Environment.AZURE + ".key-vault";
 
     private String vaultURL;
 
     /**
-     * @return keyvault url.
+     * @return key vault url.
      */
     public String getVaultURL() {
         return vaultURL;
     }
 
     /**
-     * @param vaultURL keyvault url.
+     * @param vaultURL key vault url.
      */
     public void setVaultURL(String vaultURL) {
         this.vaultURL = vaultURL;
