@@ -10,7 +10,14 @@ import spock.lang.Specification
 /**
  * This spec prerequisite is to have existing key vault with one secret configured..
  */
-@Requires({ System.getenv("AZURE_CLIENT_ID") && System.getenv("AZURE_CLIENT_SECRET") && System.getenv("AZURE_TENANT_ID") && System.getenv("AZURE_VAULT_URL") && System.getenv("VAULT_SECRET_NAME") && System.getenv("VAULT_SECRET_VALUE") })
+@Requires({
+    System.getenv("AZURE_CLIENT_ID")
+            && System.getenv("AZURE_CLIENT_SECRET")
+            && System.getenv("AZURE_TENANT_ID")
+            && System.getenv("AZURE_VAULT_URL")
+            && System.getenv("VAULT_SECRET_NAME")
+            && System.getenv("VAULT_SECRET_VALUE")
+})
 class AzureSecretVaultConfigurationClientSpec extends Specification {
 
     @Shared
@@ -22,7 +29,7 @@ class AzureSecretVaultConfigurationClientSpec extends Specification {
     void "it loads secret from vault"() {
         given:
         ApplicationContext ctx = ApplicationContext.run([
-                "azure.key-vault.vaultUrl"        : System.getenv("AZURE_VAULT_URL"),
+                "azure.key-vault.vaultUrl"       : System.getenv("AZURE_VAULT_URL"),
                 'micronaut.config-client.enabled': true
         ])
         def client = ctx.getBean(AzureVaultConfigurationClient.class)

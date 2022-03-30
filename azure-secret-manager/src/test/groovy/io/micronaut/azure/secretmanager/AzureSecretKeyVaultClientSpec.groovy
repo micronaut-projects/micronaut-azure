@@ -18,7 +18,7 @@ class AzureSecretKeyVaultClientSpec extends Specification {
         given:
         ApplicationContext ctx = ApplicationContext.run([
                 'spec.name'                      : 'it tests AzureVaultConfigurationClient',
-                "azure.key-vault.vaultUrl"        : "https://example-vault.azure.com",
+                "azure.key-vault.vaultUrl"       : "https://example-vault.azure.com",
                 'micronaut.config-client.enabled': true
         ])
         def client = ctx.getBean(AzureVaultConfigurationClient.class)
@@ -50,7 +50,7 @@ class AzureSecretKeyVaultClientSpec extends Specification {
 
         @Override
         List<KeyVaultSecret> listSecrets() {
-            return [new KeyVaultSecret("secret-name","secretValue")]
+            return [new KeyVaultSecret("secret-name", "secretValue")]
         }
     }
 
