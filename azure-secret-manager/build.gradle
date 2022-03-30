@@ -9,7 +9,7 @@ dependencies {
     api "io.micronaut:micronaut-inject:$micronautVersion"
     api project(":azure-sdk")
     api "com.azure:azure-identity"
-    api "com.azure:azure-security-keyvault-secrets:$azureKeyvaultSecrets"
+    api "com.azure:azure-security-keyvault-secrets:$azureKeyVaultSecrets"
 
     implementation 'io.micronaut.discovery:micronaut-discovery-client'
     implementation "io.projectreactor:reactor-core"

@@ -1,27 +1,20 @@
 package io.micronaut.azure.secretmanager
 
-import io.micronaut.azure.secretmanager.configuration.AzureKeyvaultConfigurationProperties
+import io.micronaut.azure.secretmanager.configuration.AzureKeyVaultConfigurationProperties
 import io.micronaut.context.ApplicationContext
-import io.micronaut.context.annotation.Replaces
-import io.micronaut.context.annotation.Requires
-import io.micronaut.context.env.Environment
-import io.micronaut.context.env.PropertySource
 import io.micronaut.context.exceptions.NoSuchBeanException
-import jakarta.inject.Singleton
-import org.reactivestreams.Publisher
-import reactor.core.publisher.Flux
 import spock.lang.Specification
 
 class AzureSecretVaultConfigurationSpec extends Specification {
 
     void "it parses configuration"() {
         ApplicationContext ctx = ApplicationContext.run([
-                'spec.name'                               : 'it parses configuration',
-                "azure.keyvault.vaultUrl"                 : "https://www.azure.com",
-                'micronaut.config-client.enabled'         : true
+                'spec.name'                      : 'it parses configuration',
+                "azure.key-vault.vaultUrl"       : "https://www.azure.com",
+                'micronaut.config-client.enabled': false
 
         ])
-        AzureKeyvaultConfigurationProperties config = ctx.getBean(AzureKeyvaultConfigurationProperties)
+        AzureKeyVaultConfigurationProperties config = ctx.getBean(AzureKeyVaultConfigurationProperties)
 
         expect:
         "https://www.azure.com" == config.vaultURL
@@ -42,21 +35,6 @@ class AzureSecretVaultConfigurationSpec extends Specification {
 
         cleanup:
         ctx.close()
-    }
-
-    @Singleton
-    @Replaces(AzureVaultConfigurationClient)
-    @Requires(property = 'spec.name', value = 'it parses configuration')
-    static class MockOracleCloudVaultConfigurationClient extends AzureVaultConfigurationClient {
-
-        MockOracleCloudVaultConfigurationClient() {
-            super(null, null, null)
-        }
-
-        @Override
-        Publisher<PropertySource> getPropertySources(Environment environment) {
-            return Flux.empty()
-        }
     }
 
 }

@@ -1,8 +1,8 @@
 package io.micronaut.azure.secretmanager
 
-import io.micronaut.azure.secretmanager.client.DefaultSecretKeyvaultClient
-import io.micronaut.azure.secretmanager.client.SecretKeyvaultClient
-import io.micronaut.azure.secretmanager.client.VersionedSecret
+import com.azure.security.keyvault.secrets.models.KeyVaultSecret
+import io.micronaut.azure.secretmanager.client.DefaultSecretKeyVaultClient
+import io.micronaut.azure.secretmanager.client.SecretKeyVaultClient
 import io.micronaut.context.ApplicationContext
 import io.micronaut.context.annotation.BootstrapContextCompatible
 import io.micronaut.context.annotation.Replaces
@@ -12,13 +12,13 @@ import jakarta.inject.Singleton
 import reactor.core.publisher.Flux
 import spock.lang.Specification
 
-class AzureSecretKeyvaultClientSpec extends Specification {
+class AzureSecretKeyVaultClientSpec extends Specification {
 
     void "it loads secret from mocked vault"() {
         given:
         ApplicationContext ctx = ApplicationContext.run([
                 'spec.name'                      : 'it tests AzureVaultConfigurationClient',
-                "azure.keyvault.vaultUrl"        : "https://example-vault.azure.com",
+                "azure.key-vault.vaultUrl"        : "https://example-vault.azure.com",
                 'micronaut.config-client.enabled': true
         ])
         def client = ctx.getBean(AzureVaultConfigurationClient.class)
@@ -38,21 +38,22 @@ class AzureSecretKeyvaultClientSpec extends Specification {
     }
 
     @Singleton
-    @Replaces(DefaultSecretKeyvaultClient)
+    @Replaces(DefaultSecretKeyVaultClient)
     @BootstrapContextCompatible
     @Requires(property = 'spec.name', value = 'it tests AzureVaultConfigurationClient')
-    static class MockDefaultSecretKeyvaultClient implements SecretKeyvaultClient {
+    static class MockDefaultSecretKeyVaultClient implements SecretKeyVaultClient {
 
         @Override
-        VersionedSecret getSecret(String secretName) {
+        KeyVaultSecret getSecret(String secretName) {
             return null
         }
 
         @Override
-        List<VersionedSecret> listSecrets() {
-            return [new VersionedSecret("secret-name", "secretValue", "")]
+        List<KeyVaultSecret> listSecrets() {
+            return [new KeyVaultSecret("secret-name","secretValue")]
         }
     }
+
 }
 
 

@@ -18,7 +18,7 @@ package io.micronaut.azure.secretmanager;
 import com.azure.core.credential.TokenCredential;
 import com.azure.security.keyvault.secrets.SecretClient;
 import com.azure.security.keyvault.secrets.SecretClientBuilder;
-import io.micronaut.azure.secretmanager.configuration.AzureKeyvaultConfigurationProperties;
+import io.micronaut.azure.secretmanager.configuration.AzureKeyVaultConfigurationProperties;
 import io.micronaut.context.annotation.BootstrapContextCompatible;
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.context.annotation.Requires;
@@ -29,11 +29,12 @@ import jakarta.inject.Singleton;
 
 
 /**
+ * @author n0tl3ss
  * Factory to create Azure Secret client.
  */
 @Factory
 @Requires(property = ConfigurationClient.ENABLED, value = StringUtils.TRUE, defaultValue = StringUtils.FALSE)
-@Requires(property = AzureKeyvaultConfigurationProperties.PREFIX)
+@Requires(property = AzureKeyVaultConfigurationProperties.PREFIX)
 @BootstrapContextCompatible
 public class SecretManagerFactory {
 
@@ -41,13 +42,13 @@ public class SecretManagerFactory {
      * Creates a {@link SecretClient} instance.
      *
      * @param tokenCredential                      azure credentials
-     * @param azureKeyvaultConfigurationProperties keyvault configuration
+     * @param azureKeyvaultConfigurationProperties key vault configuration
      * @return an instance using defaults.
      */
     @Singleton
     public SecretClient secretClient(
             @NonNull TokenCredential tokenCredential,
-            @NonNull AzureKeyvaultConfigurationProperties azureKeyvaultConfigurationProperties
+            @NonNull AzureKeyVaultConfigurationProperties azureKeyvaultConfigurationProperties
     ) {
         return new SecretClientBuilder()
                 .vaultUrl(azureKeyvaultConfigurationProperties.getVaultURL())
