@@ -21,7 +21,7 @@ import io.micronaut.context.env.Environment;
 
 
 /**
- * @author n0tl3ss
+ * @author Nemanja Mikic
  * Configuration for azure SecretClient.
  */
 @ConfigurationProperties(AzureKeyVaultConfigurationProperties.PREFIX)

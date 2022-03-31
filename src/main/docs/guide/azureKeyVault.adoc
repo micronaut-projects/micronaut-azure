@@ -1,0 +1,6 @@
+https://docs.microsoft.com/en-us/azure/key-vault/general/[Azure Key Vault] is a secure and convenient storage system for API keys, passwords and other sensitive data.
+To add support for Azure Key Vault to an existing project, add the following dependency to your build.
+
+dependency:micronaut-azure-secret-manager[groupId="io.micronaut.azure"]
+
+Azure doesn't allow _ and . in name of the secrets so the secret with name SECRET-ONE can be resolved also with SECRET_ONE and SECRET.ONE
