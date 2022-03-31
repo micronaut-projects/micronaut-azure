@@ -15,7 +15,7 @@ micronaut:
         vaultUrl: <key_vault_url>
 ----
 
-vaultUrl can be obtain from the azure portal:
+vaultUrl can be obtained from the Azure portal:
 
 image::key_vault_url.png[Key Vault URL]
 
