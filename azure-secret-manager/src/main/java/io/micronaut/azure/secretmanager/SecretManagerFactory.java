@@ -29,7 +29,7 @@ import jakarta.inject.Singleton;
 
 
 /**
- * @author n0tl3ss
+ * @author Nemanja Mikic
  * Factory to create Azure Secret client.
  */
 @Factory

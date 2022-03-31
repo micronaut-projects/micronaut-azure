@@ -10,4 +10,7 @@ azureFunction:
   title: Azure Function Support
   simpleAzureFunctions: Simple Azure Functions
   azureHttpFunctions: Azure HTTP Functions
+azureKeyVault:
+  title: Azure Key Vault Support
+  distributedConfiguration: Distributed Configuration
 repository: Repository

@@ -20,7 +20,7 @@ import com.azure.security.keyvault.secrets.models.KeyVaultSecret;
 import java.util.List;
 
 /**
- * @author n0tl3ss
+ * @author Nemanja Mikic
  * This interface is intended to abstract interactions with {@link com.azure.security.keyvault.secrets.SecretClient}.
  * The abstraction is needed for easier testing because mentioned class is defined as final.
  */
