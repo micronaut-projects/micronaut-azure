@@ -29,8 +29,8 @@ import jakarta.inject.Singleton;
 
 
 /**
- * @author Nemanja Mikic
  * Factory to create Azure Secret client.
+ * @author Nemanja Mikic
  */
 @Factory
 @Requires(property = ConfigurationClient.ENABLED, value = StringUtils.TRUE, defaultValue = StringUtils.FALSE)

@@ -26,8 +26,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author Nemanja Mikic
  * Default implementation of {@link SecretKeyVaultClient}.
+ * @author Nemanja Mikic
  */
 @Singleton
 @BootstrapContextCompatible
