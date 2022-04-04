@@ -43,8 +43,8 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
 /**
- * @author Nemanja Mikic
  * Distributed configuration client implementation that fetches application secret values from Azure keyvalut.
+ * @author Nemanja Mikic
  */
 @Singleton
 @Requires(beans = SecretClient.class)
