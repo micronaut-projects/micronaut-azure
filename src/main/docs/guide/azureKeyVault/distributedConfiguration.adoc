@@ -12,7 +12,7 @@ micronaut:
         enabled: true
     azure:
       key-vault:
-        vaultUrl: <key_vault_url>
+        vault-url: <key_vault_url>
 ----
 
 vaultUrl can be obtained from the Azure portal:
