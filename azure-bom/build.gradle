@@ -6,7 +6,7 @@ dependencies {
     constraints {
         api "com.microsoft.azure.functions:azure-functions-java-library:$azureFunctionsJavaLibraryVersion"
     }
-    api platform("com.azure:azure-sdk-bom:1.1.1")
+    api platform("com.azure:azure-sdk-bom:1.2.1")
 }
 micronautBom {
     excludeProject.set({ p ->
