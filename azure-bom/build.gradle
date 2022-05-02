@@ -4,9 +4,9 @@ plugins {
 
 dependencies {
     constraints {
-        api "com.microsoft.azure.functions:azure-functions-java-library:$azureFunctionsJavaLibraryVersion"
+        api(libs.azure.functions.java.library)
     }
-    api platform("com.azure:azure-sdk-bom:1.1.1")
+    api(platform(libs.boms.azure.sdk))
 }
 micronautBom {
     excludeProject.set({ p ->

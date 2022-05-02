@@ -4,13 +4,13 @@ plugins {
     id "org.jetbrains.kotlin.kapt" version "1.6.10"
 }
 dependencies {
-    kapt platform("io.micronaut:micronaut-bom:$micronautVersion")
-    kaptTest platform("io.micronaut:micronaut-bom:$micronautVersion")
-    implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
-    compileOnly "io.micronaut:micronaut-inject-groovy"
+    kapt(platform(libs.boms.micronaut))
+    kaptTest(platform(libs.boms.micronaut))
+    implementation(platform(libs.boms.micronaut))
+    compileOnly(libs.micronaut.inject.groovy)
     implementation project(":azure-function-http")
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10"    
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.6.10"
-    testImplementation 'jakarta.inject:jakarta.inject-api:2.0.1'
-    implementation "com.microsoft.azure.functions:azure-functions-java-library:$azureFunctionsJavaLibraryVersion"
+    implementation(libs.kotlin.stdlib.jdk8)
+    implementation(libs.kotlin.reflect)
+    testImplementation(libs.jakarta.inject.api)
+    implementation(libs.azure.functions.java.library)
 }
