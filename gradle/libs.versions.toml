@@ -1,7 +1,7 @@
 [versions]
 managed-azure-sdk = "1.1.1"
+managed-azure-functions-java-library = "1.4.2"
 
-azure-functions-java-library = "1.4.2"
 groovy = "3.0.10"
 jakarta-inject-api = "2.0.1"
 jetty-server = "9.4.35.v20201120"
@@ -13,6 +13,8 @@ micronaut-test = "3.1.1"
 
 
 [libraries]
+managed-azure-functions-java-library = { module = "com.microsoft.azure.functions:azure-functions-java-library", version.ref = "managed-azure-functions-java-library" }
+
 # BOMs
 boms-azure-sdk = { module = "com.azure:azure-sdk-bom", version.ref = "managed-azure-sdk" }
 boms-micronaut = { module = "io.micronaut:micronaut-bom", version.ref = "micronaut" }
@@ -30,7 +32,6 @@ micronaut-runtime = { module = "io.micronaut:micronaut-runtime" }
 micronaut-servlet-core = { module = "io.micronaut.servlet:micronaut-servlet-core" }
 micronaut-test-spock = { module = "io.micronaut.test:micronaut-test-spock", version.ref = "micronaut-test" }
 
-azure-functions-java-library = { module = "com.microsoft.azure.functions:azure-functions-java-library", version.ref = "azure-functions-java-library" }
 azure-identity = { module = "com.azure:azure-identity" }
 azure-storage-blob = { module = "com.azure:azure-storage-blob" }
 groovy-all = { module = "org.codehaus.groovy:groovy-all", version.ref = "groovy" }

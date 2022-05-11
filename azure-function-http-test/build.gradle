@@ -7,7 +7,7 @@ dependencies {
     api(libs.micronaut.inject)
     api(libs.micronaut.http.server)
     api project(":azure-function-http")
-    api(libs.azure.functions.java.library)
+    api(libs.managed.azure.functions.java.library)
 
     api(libs.micronaut.servlet.core)
     implementation(libs.jetty.server)

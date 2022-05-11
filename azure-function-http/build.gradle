@@ -11,9 +11,9 @@ dependencies {
     implementation(libs.micronaut.http.netty)
     implementation(libs.micronaut.router)
     implementation(libs.jakarta.inject.api)
-    compileOnly(libs.azure.functions.java.library)
+    compileOnly(libs.managed.azure.functions.java.library)
 
-    testImplementation(libs.azure.functions.java.library)
+    testImplementation(libs.managed.azure.functions.java.library)
     testCompileOnly(libs.micronaut.inject.groovy)
     testAnnotationProcessor(libs.micronaut.inject.java)
 }

@@ -11,7 +11,7 @@ dependencies {
     compileOnly(libs.micronaut.inject.groovy)
     implementation project(":azure-function-http")
 
-    implementation(libs.azure.functions.java.library)
+    implementation(libs.managed.azure.functions.java.library)
     testImplementation(libs.groovy.all)
     testImplementation(libs.jakarta.inject.api)
 }

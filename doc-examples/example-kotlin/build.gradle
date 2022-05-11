@@ -12,5 +12,5 @@ dependencies {
     implementation(libs.kotlin.stdlib.jdk8)
     implementation(libs.kotlin.reflect)
     testImplementation(libs.jakarta.inject.api)
-    implementation(libs.azure.functions.java.library)
+    implementation(libs.managed.azure.functions.java.library)
 }
