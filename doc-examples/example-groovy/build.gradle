@@ -3,9 +3,9 @@ plugins {
     id 'groovy'
 }
 dependencies {
-    annotationProcessor(platform(libs.boms.micronaut))
-    testAnnotationProcessor(platform(libs.boms.micronaut))
-    implementation(platform(libs.boms.micronaut))
+    annotationProcessor(platform(libs.micronaut.bom))
+    testAnnotationProcessor(platform(libs.micronaut.bom))
+    implementation(platform(libs.micronaut.bom))
     annotationProcessor(libs.micronaut.inject.java)
     implementation(libs.micronaut.servlet.core)
     compileOnly(libs.micronaut.inject.groovy)

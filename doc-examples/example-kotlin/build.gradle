@@ -4,9 +4,9 @@ plugins {
     id "org.jetbrains.kotlin.kapt" version "1.6.10"
 }
 dependencies {
-    kapt(platform(libs.boms.micronaut))
-    kaptTest(platform(libs.boms.micronaut))
-    implementation(platform(libs.boms.micronaut))
+    kapt(platform(libs.micronaut.bom))
+    kaptTest(platform(libs.micronaut.bom))
+    implementation(platform(libs.micronaut.bom))
     compileOnly(libs.micronaut.inject.groovy)
     implementation project(":azure-function-http")
     implementation(libs.kotlin.stdlib.jdk8)

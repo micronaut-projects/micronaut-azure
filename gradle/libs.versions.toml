@@ -13,13 +13,12 @@ micronaut-test = "3.1.1"
 
 
 [libraries]
+boms-azure-sdk = { module = "com.azure:azure-sdk-bom", version.ref = "managed-azure-sdk" }
+
 managed-azure-functions-java-library = { module = "com.microsoft.azure.functions:azure-functions-java-library", version.ref = "managed-azure-functions-java-library" }
 
-# BOMs
-boms-azure-sdk = { module = "com.azure:azure-sdk-bom", version.ref = "managed-azure-sdk" }
-boms-micronaut = { module = "io.micronaut:micronaut-bom", version.ref = "micronaut" }
-
 # Micronaut
+micronaut-bom = { module = "io.micronaut:micronaut-bom", version.ref = "micronaut" }
 micronaut-function = { module = "io.micronaut:micronaut-function" }
 micronaut-http-client = { module = "io.micronaut:micronaut-http-client" }
 micronaut-http-netty = { module = "io.micronaut:micronaut-http-netty" }
