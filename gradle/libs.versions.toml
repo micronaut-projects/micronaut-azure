@@ -38,3 +38,7 @@ jakarta-inject-api = { module = "jakarta.inject:jakarta.inject-api", version.ref
 jetty-server = { module = "org.eclipse.jetty:jetty-server", version.ref = "jetty-server" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
