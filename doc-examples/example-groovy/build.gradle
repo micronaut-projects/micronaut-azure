@@ -3,15 +3,15 @@ plugins {
     id 'groovy'
 }
 dependencies {
-    annotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
-    testAnnotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
-    implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
-    annotationProcessor "io.micronaut:micronaut-inject-java"
-    implementation "io.micronaut.servlet:micronaut-servlet-core"
-    compileOnly "io.micronaut:micronaut-inject-groovy"
+    annotationProcessor(platform(libs.micronaut.bom))
+    testAnnotationProcessor(platform(libs.micronaut.bom))
+    implementation(platform(libs.micronaut.bom))
+    annotationProcessor(libs.micronaut.inject.java)
+    implementation(libs.micronaut.servlet.core)
+    compileOnly(libs.micronaut.inject.groovy)
     implementation project(":azure-function-http")
 
-    implementation "com.microsoft.azure.functions:azure-functions-java-library:$azureFunctionsJavaLibraryVersion"
-    testImplementation "org.codehaus.groovy:groovy-all:$groovyVersion"
-    testImplementation 'jakarta.inject:jakarta.inject-api:2.0.1'
+    implementation(libs.managed.azure.functions.java.library)
+    testImplementation(libs.groovy.all)
+    testImplementation(libs.jakarta.inject.api)
 }

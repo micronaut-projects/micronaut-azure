@@ -2,12 +2,6 @@ plugins {
     id 'io.micronaut.build.internal.bom'
 }
 
-dependencies {
-    constraints {
-        api "com.microsoft.azure.functions:azure-functions-java-library:$azureFunctionsJavaLibraryVersion"
-    }
-    api platform("com.azure:azure-sdk-bom:1.1.1")
-}
 micronautBom {
     excludeProject.set({ p ->
         p.name.contains('benchmark') || p.name.contains('example')

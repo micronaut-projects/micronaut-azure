@@ -1,0 +1,44 @@
+[versions]
+managed-azure-sdk = "1.1.1"
+managed-azure-functions-java-library = "1.4.2"
+
+groovy = "3.0.10"
+jakarta-inject-api = "2.0.1"
+jetty-server = "9.4.35.v20201120"
+kotlin = "1.6.10"
+
+# Micronaut
+micronaut = "3.4.3"
+micronaut-test = "3.1.1"
+
+
+[libraries]
+boms-azure-sdk = { module = "com.azure:azure-sdk-bom", version.ref = "managed-azure-sdk" }
+
+managed-azure-functions-java-library = { module = "com.microsoft.azure.functions:azure-functions-java-library", version.ref = "managed-azure-functions-java-library" }
+
+# Micronaut
+micronaut-bom = { module = "io.micronaut:micronaut-bom", version.ref = "micronaut" }
+micronaut-function = { module = "io.micronaut:micronaut-function" }
+micronaut-http-client = { module = "io.micronaut:micronaut-http-client" }
+micronaut-http-netty = { module = "io.micronaut:micronaut-http-netty" }
+micronaut-http-server = { module = "io.micronaut:micronaut-http-server" }
+micronaut-inject = { module = "io.micronaut:micronaut-inject" }
+micronaut-inject-groovy = { module = "io.micronaut:micronaut-inject-groovy" }
+micronaut-inject-java = { module = "io.micronaut:micronaut-inject-java" }
+micronaut-router = { module = "io.micronaut:micronaut-router" }
+micronaut-runtime = { module = "io.micronaut:micronaut-runtime" }
+micronaut-servlet-core = { module = "io.micronaut.servlet:micronaut-servlet-core" }
+micronaut-test-spock = { module = "io.micronaut.test:micronaut-test-spock", version.ref = "micronaut-test" }
+
+azure-identity = { module = "com.azure:azure-identity" }
+azure-storage-blob = { module = "com.azure:azure-storage-blob" }
+groovy-all = { module = "org.codehaus.groovy:groovy-all", version.ref = "groovy" }
+jakarta-inject-api = { module = "jakarta.inject:jakarta.inject-api", version.ref = "jakarta-inject-api" }
+jetty-server = { module = "org.eclipse.jetty:jetty-server", version.ref = "jetty-server" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
