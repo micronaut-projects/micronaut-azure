@@ -51,7 +51,9 @@
                                 
                                 <div class="toc-item" style="margin-left:0"><a href="#azureFunction"><strong>4</strong><span>Azure Function Support</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>5</strong><span>Repository</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#azureKeyVault"><strong>5</strong><span>Azure Key Vault Support</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>6</strong><span>Repository</span></a></div>
                                 
                             </div>
                         </div>
@@ -98,7 +100,11 @@
         
         <div class="toc-item" style="margin-left:10px" id="toc-item-azureHttpFunctions"><a href="#azureHttpFunctions"><strong>4.2</strong><span>Azure HTTP Functions</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>5</strong><span>Repository</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-azureKeyVault"><a href="#azureKeyVault"><strong>5</strong><span>Azure Key Vault Support</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-distributedConfiguration"><a href="#distributedConfiguration"><strong>5.1</strong><span>Distributed Configuration</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>6</strong><span>Repository</span></a></div>
         
         </div>
     </div>
@@ -736,7 +742,99 @@ class MyHttpFunction : AzureHttpFunction() { // <b class="conum">(1)</b>
 <p>This approach allows you to develop a regular Micronaut application and deploy slices of the application as Serverless functions as desired.</p>
 </div>
 
-<h1 id="repository"><a class="anchor" href="#repository"></a>5 Repository</h1>
+<h1 id="azureKeyVault"><a class="anchor" href="#azureKeyVault"></a>5 Azure Key Vault Support</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureKeyVault.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p><a href="https://docs.microsoft.com/en-us/azure/key-vault/general/">Azure Key Vault</a> is a secure and convenient storage system for API keys, passwords and other sensitive data.
+To add support for Azure Key Vault to an existing project, add the following dependency to your build.</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.azure:micronaut-azure-secret-manager")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.azure&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-azure-secret-manager&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Azure doesn&#8217;t allow _ and . in name of the secrets so the secret with name SECRET-ONE can be resolved also with SECRET_ONE and SECRET.ONE
+</td>
+</tr>
+</table>
+</div>
+
+<h2 id="distributedConfiguration"><a class="anchor" href="#distributedConfiguration"></a>5.1 Distributed Configuration</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureKeyVault/distributedConfiguration.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>You can leverage <a href="https://docs.micronaut.io/latest/guide/index.html#distributedConfiguration">Distributed Configuration</a> and rely on Azure Key Vault to store your Key/Value secret pairs.</p>
+</div>
+<div class="paragraph">
+<p>To enable it, add a <code>src/main/resources/bootstrap.yml</code> configuration file to your project:</p>
+</div>
+<div class="listingblock">
+<div class="title">bootstrap.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">micronaut:
+    application:
+        name: hello-world
+    config-client:
+        enabled: true
+    azure:
+      key-vault:
+        vault-url: &lt;key_vault_url&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>vaultUrl can be obtained from the Azure portal:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../img/key_vault_url.png" alt="Key Vault URL">
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Make sure you have configured the correct credentials on your project following the <a href="#azureSdk">Setting up Azure SDK </a> section.
+And that the service account you designated your application has proper rights to read secrets. Follow the official <a href="https://docs.microsoft.com/en-us/azure/key-vault/general/rbac-guide?tabs=azure-cli">Access Control</a> guide for Azure Key Vault if you need more information.
+</td>
+</tr>
+</table>
+</div>
+
+<h1 id="repository"><a class="anchor" href="#repository"></a>6 Repository</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/repository.adoc"'>
