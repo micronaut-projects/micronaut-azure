@@ -46,14 +46,39 @@
         <div class="docs-content">
             <div class="project">
                 <h1>Configuration Reference</h1>
-                <p><strong>Version:</strong>3.2.4-SNAPSHOT</p>
+                <p><strong>Version:</strong>3.3.0-SNAPSHOT</p>
                 <p></p>
             </div>
 <div class="sect2">
 <h3 id="_azure_sdk_config_properties">Azure Sdk Config Properties</h3>
+<a id="io.micronaut.azure.credentials.AzureCredentialsConfiguration.ManagedIdentityCredentialConfiguration" href="#io.micronaut.azure.credentials.AzureCredentialsConfiguration.ManagedIdentityCredentialConfiguration">&#128279;</a>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.ManagedIdentityCredentialConfiguration.html">ManagedIdentityCredentialConfiguration</a></caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.managed-identity.client-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the client ID of user assigned or system assigned identity. Required only for user-assigned identity.</p>
+<p class="tableblock"> @return client id</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
 <a id="io.micronaut.azure.credentials.AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration" href="#io.micronaut.azure.credentials.AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration">&#128279;</a>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration.html">VisualStudioCodeCredentialConfiguration</a></caption>
+<caption class="title">Table 2. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration.html">VisualStudioCodeCredentialConfiguration</a></caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -79,7 +104,7 @@
 <div style="page-break-after: always;"></div>
 <a id="io.micronaut.azure.credentials.AzureCredentialsConfiguration.ClientCertificateCredentialConfiguration" href="#io.micronaut.azure.credentials.AzureCredentialsConfiguration.ClientCertificateCredentialConfiguration">&#128279;</a>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.ClientCertificateCredentialConfiguration.html">ClientCertificateCredentialConfiguration</a></caption>
+<caption class="title">Table 3. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.ClientCertificateCredentialConfiguration.html">ClientCertificateCredentialConfiguration</a></caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -122,31 +147,6 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Gets the tenant ID of the application.</p>
 <p class="tableblock"> @return tenant id</p></td>
-</tr>
-</tbody>
-</table>
-<div style="page-break-after: always;"></div>
-<a id="io.micronaut.azure.credentials.AzureCredentialsConfiguration.ManagedIdentityCredentialConfiguration" href="#io.micronaut.azure.credentials.AzureCredentialsConfiguration.ManagedIdentityCredentialConfiguration">&#128279;</a>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.ManagedIdentityCredentialConfiguration.html">ManagedIdentityCredentialConfiguration</a></caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.managed-identity.client-id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the client ID of user assigned or system assigned identity. Required only for user-assigned identity.</p>
-<p class="tableblock"> @return client id</p></td>
 </tr>
 </tbody>
 </table>
