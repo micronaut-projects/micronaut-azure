@@ -28,10 +28,13 @@ micronaut-inject-groovy = { module = "io.micronaut:micronaut-inject-groovy" }
 micronaut-inject-java = { module = "io.micronaut:micronaut-inject-java" }
 micronaut-router = { module = "io.micronaut:micronaut-router" }
 micronaut-runtime = { module = "io.micronaut:micronaut-runtime" }
+micronaut-reactor = { module = "io.micronaut.reactor:micronaut-reactor" }
 micronaut-servlet-core = { module = "io.micronaut.servlet:micronaut-servlet-core" }
+micronaut-discovery-client = { module = "io.micronaut.discovery:micronaut-discovery-client" }
 micronaut-test-spock = { module = "io.micronaut.test:micronaut-test-spock", version.ref = "micronaut-test" }
 
 azure-identity = { module = "com.azure:azure-identity" }
+azure-security-keyvault-secrets = { module = "com.azure:azure-security-keyvault-secrets" }
 azure-storage-blob = { module = "com.azure:azure-storage-blob" }
 groovy-all = { module = "org.codehaus.groovy:groovy-all", version.ref = "groovy" }
 jakarta-inject-api = { module = "jakarta.inject:jakarta.inject-api", version.ref = "jakarta-inject-api" }

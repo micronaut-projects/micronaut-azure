@@ -33,6 +33,7 @@ import com.azure.identity.UsernamePasswordCredentialBuilder;
 import com.azure.identity.VisualStudioCodeCredential;
 import com.azure.identity.VisualStudioCodeCredentialBuilder;
 import io.micronaut.azure.condition.ClientCertificateCredentialsCondition;
+import io.micronaut.context.annotation.BootstrapContextCompatible;
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.util.StringUtils;
@@ -45,6 +46,7 @@ import jakarta.inject.Singleton;
  * @since 3.1
  */
 @Factory
+@BootstrapContextCompatible
 public class AzureCredentialFactory {
 
     /**
@@ -55,6 +57,7 @@ public class AzureCredentialFactory {
      */
     @Requires(condition = ClientCertificateCredentialsCondition.class)
     @Singleton
+    @BootstrapContextCompatible
     public ClientCertificateCredentialBuilder clientCertificateCredentialBuilder(AzureCredentialsConfiguration.ClientCertificateCredentialConfiguration configuration) {
         final ClientCertificateCredentialBuilder builder = new ClientCertificateCredentialBuilder();
         configuration.getPfxCertificatePath().ifPresent(s -> {
@@ -76,6 +79,7 @@ public class AzureCredentialFactory {
      */
     @Requires(beans = ClientCertificateCredentialBuilder.class)
     @Singleton
+    @BootstrapContextCompatible
     public ClientCertificateCredential clientCertificateCredential(ClientCertificateCredentialBuilder builder) {
         return builder.build();
     }
@@ -88,6 +92,7 @@ public class AzureCredentialFactory {
      */
     @Requires(property = AzureCredentialsConfiguration.ClientSecretCredentialConfiguration.CLIENT_SECRET)
     @Singleton
+    @BootstrapContextCompatible
     public ClientSecretCredentialBuilder clientSecretCredentialBuilder(AzureCredentialsConfiguration.ClientSecretCredentialConfiguration configuration) {
         final ClientSecretCredentialBuilder builder = new ClientSecretCredentialBuilder();
         builder.clientSecret(configuration.getSecret());
@@ -105,6 +110,7 @@ public class AzureCredentialFactory {
      */
     @Requires(beans = ClientSecretCredentialBuilder.class)
     @Singleton
+    @BootstrapContextCompatible
     public ClientSecretCredential clientSecretCredential(ClientSecretCredentialBuilder builder) {
         return builder.build();
     }
@@ -118,6 +124,7 @@ public class AzureCredentialFactory {
     @Requires(property = AzureCredentialsConfiguration.UsernamePasswordCredentialConfiguration.USERNAME)
     @Requires(property = AzureCredentialsConfiguration.UsernamePasswordCredentialConfiguration.PASSWORD)
     @Singleton
+    @BootstrapContextCompatible
     public UsernamePasswordCredentialBuilder usernamePasswordCredentialBuilder(AzureCredentialsConfiguration.UsernamePasswordCredentialConfiguration configuration) {
         final UsernamePasswordCredentialBuilder builder = new UsernamePasswordCredentialBuilder();
         builder.username(configuration.getUsername());
@@ -138,6 +145,7 @@ public class AzureCredentialFactory {
 
     @Requires(beans = UsernamePasswordCredentialBuilder.class)
     @Singleton
+    @BootstrapContextCompatible
     public UsernamePasswordCredential usernamePasswordCredential(UsernamePasswordCredentialBuilder builder) {
         return builder.build();
     }
@@ -150,6 +158,7 @@ public class AzureCredentialFactory {
      */
     @Requires(property = AzureCredentialsConfiguration.ManagedIdentityCredentialConfiguration.ENABLED, notEquals = StringUtils.FALSE, defaultValue = StringUtils.FALSE)
     @Singleton
+    @BootstrapContextCompatible
     public ManagedIdentityCredentialBuilder managedIdentityCredentialBuilder(AzureCredentialsConfiguration.ManagedIdentityCredentialConfiguration configuration) {
         final ManagedIdentityCredentialBuilder builder = new ManagedIdentityCredentialBuilder();
         configuration.getClientId().ifPresent(builder::clientId);
@@ -168,6 +177,7 @@ public class AzureCredentialFactory {
      */
     @Requires(beans = ManagedIdentityCredentialBuilder.class)
     @Singleton
+    @BootstrapContextCompatible
     public ManagedIdentityCredential managedIdentityCredential(ManagedIdentityCredentialBuilder builder) {
         return builder.build();
     }
@@ -180,6 +190,7 @@ public class AzureCredentialFactory {
      */
     @Requires(property = AzureCredentialsConfiguration.AzureCliCredentialConfiguration.ENABLED, notEquals = StringUtils.FALSE, defaultValue = StringUtils.FALSE)
     @Singleton
+    @BootstrapContextCompatible
     public AzureCliCredentialBuilder azureCliCredentialBuilder(AzureCredentialsConfiguration.AzureCliCredentialConfiguration configuration) {
         return new AzureCliCredentialBuilder();
     }
@@ -195,6 +206,7 @@ public class AzureCredentialFactory {
      */
     @Requires(beans = AzureCliCredentialBuilder.class)
     @Singleton
+    @BootstrapContextCompatible
     public AzureCliCredential azureCliCredential(AzureCliCredentialBuilder builder) {
         return builder.build();
     }
@@ -207,6 +219,7 @@ public class AzureCredentialFactory {
      */
     @Requires(property = AzureCredentialsConfiguration.IntelliJCredentialConfiguration.ENABLED, notEquals = StringUtils.FALSE, defaultValue = StringUtils.FALSE)
     @Singleton
+    @BootstrapContextCompatible
     public IntelliJCredentialBuilder intelliJCredentialBuilder(AzureCredentialsConfiguration.IntelliJCredentialConfiguration configuration) {
         final IntelliJCredentialBuilder builder = new IntelliJCredentialBuilder();
         configuration.getKeePassDatabasePath().ifPresent(builder::keePassDatabasePath);
@@ -225,6 +238,7 @@ public class AzureCredentialFactory {
      */
     @Requires(beans = IntelliJCredentialBuilder.class)
     @Singleton
+    @BootstrapContextCompatible
     public IntelliJCredential intelliJCredential(IntelliJCredentialBuilder builder) {
         return builder.build();
     }
@@ -237,6 +251,7 @@ public class AzureCredentialFactory {
      */
     @Requires(property = AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration.ENABLED, notEquals = StringUtils.FALSE, defaultValue = StringUtils.FALSE)
     @Singleton
+    @BootstrapContextCompatible
     public VisualStudioCodeCredentialBuilder visualStudioCodeCredentialBuilder(AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration configuration) {
         final VisualStudioCodeCredentialBuilder builder = new VisualStudioCodeCredentialBuilder();
         configuration.getTenantId().ifPresent(builder::tenantId);
@@ -255,6 +270,7 @@ public class AzureCredentialFactory {
      */
     @Requires(beans = VisualStudioCodeCredentialBuilder.class)
     @Singleton
+    @BootstrapContextCompatible
     public VisualStudioCodeCredential visualStudioCodeCredential(VisualStudioCodeCredentialBuilder builder) {
         return builder.build();
     }
@@ -265,6 +281,7 @@ public class AzureCredentialFactory {
      * @return builder
      */
     @Singleton
+    @BootstrapContextCompatible
     public DefaultAzureCredentialBuilder defaultAzureCredentialBuilder() {
         return new DefaultAzureCredentialBuilder();
     }
@@ -281,6 +298,7 @@ public class AzureCredentialFactory {
      */
     @Requires(missingBeans = TokenCredential.class)
     @Singleton
+    @BootstrapContextCompatible
     public DefaultAzureCredential defaultAzureCredential(DefaultAzureCredentialBuilder builder) {
         return builder.build();
     }

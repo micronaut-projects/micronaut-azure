@@ -1,0 +1,24 @@
+You can leverage https://docs.micronaut.io/latest/guide/index.html#distributedConfiguration[Distributed Configuration] and rely on Azure Key Vault to store your Key/Value secret pairs.
+
+To enable it, add a `src/main/resources/bootstrap.yml` configuration file to your project:
+
+.bootstrap.yml
+[source,yaml]
+----
+micronaut:
+    application:
+        name: hello-world
+    config-client:
+        enabled: true
+    azure:
+      key-vault:
+        vault-url: <key_vault_url>
+----
+
+vaultUrl can be obtained from the Azure portal:
+
+image::key_vault_url.png[Key Vault URL]
+
+
+IMPORTANT: Make sure you have configured the correct credentials on your project following the <<azureSdk, Setting up Azure SDK >> section.
+And that the service account you designated your application has proper rights to read secrets. Follow the official link:https://docs.microsoft.com/en-us/azure/key-vault/general/rbac-guide?tabs=azure-cli[Access Control] guide for Azure Key Vault if you need more information.
