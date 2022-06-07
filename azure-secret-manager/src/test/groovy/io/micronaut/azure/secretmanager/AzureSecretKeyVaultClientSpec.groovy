@@ -37,6 +37,26 @@ class AzureSecretKeyVaultClientSpec extends Specification {
         ctx.close()
     }
 
+    void "it tries to load from empty vault url"() {
+        given:
+        ApplicationContext ctx = ApplicationContext.run([
+                'spec.name'                      : 'it tests AzureVaultConfigurationClient',
+                "azure.key-vault.vaultUrl"       : "",
+                'micronaut.config-client.enabled': true
+        ])
+        def client = ctx.getBean(AzureVaultConfigurationClient.class)
+
+        when:
+        PropertySource propertySource = Flux.from(client.getPropertySources(null)).blockFirst()
+
+        then:
+        propertySource == null
+
+        cleanup:
+        ctx.close()
+
+    }
+
     @Singleton
     @Replaces(DefaultSecretKeyVaultClient)
     @BootstrapContextCompatible

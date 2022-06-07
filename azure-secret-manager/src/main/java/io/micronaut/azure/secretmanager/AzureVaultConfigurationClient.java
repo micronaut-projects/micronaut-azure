@@ -108,8 +108,8 @@ public class AzureVaultConfigurationClient implements ConfigurationClient {
                     keyVaultSecret.getName().replace('-', '_'),
                     keyVaultSecret.getValue()
             );
-            if (LOG.isTraceEnabled()) {
-                LOG.trace("Retrieved secret: {}", keyVaultSecret.getName());
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Retrieved secret: {}", keyVaultSecret.getName());
             }
 
         }
