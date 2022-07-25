@@ -4,6 +4,8 @@ import com.microsoft.azure.functions.HttpMethod
 import io.micronaut.http.HttpHeaders
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
+import spock.lang.Issue
+import spock.lang.PendingFeature
 import spock.lang.Specification
 
 class ParameterBindingSpec extends Specification {
@@ -224,6 +226,32 @@ class ParameterBindingSpec extends Specification {
         responseMessage.statusCode == HttpStatus.OK.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
         responseMessage.bodyAsString == json
+        responseMessage.getHeader("Foo") == 'Bar'
+
+        cleanup:
+        function.close()
+    }
+
+    @PendingFeature
+    @Issue("https://github.com/micronaut-projects/micronaut-aws/issues/1410")
+    // this copies a test we have in micronaut-aws, MicronautLambdaHandlerSpec
+    // this is failing with HTTP 415 UNSUPPORTED_MEDIA_TYPE
+    // or is my test just wrong?
+    void "full Micronaut form-url-encoded request and response"() {
+        given:
+        def body = 'message=World'
+        AzureHttpFunction function = new AzureHttpFunction()
+        def responseMessage = function
+                .request(HttpMethod.POST, "/parameters/fullRequest")
+                .body(body)
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED)
+                .invoke()
+
+
+        expect:
+        responseMessage.statusCode == HttpStatus.OK.code
+        responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
+        responseMessage.bodyAsString == body
         responseMessage.getHeader("Foo") == 'Bar'
 
         cleanup:
