@@ -78,7 +78,7 @@ class HttpContentTypeSpec extends Specification {
         when:
         HttpRequestMessageBuilder.AzureHttpResponseMessage response =
                 function.request(HttpMethod.POST, '/form/json-nested-attribute')
-                        .body("{\"message\":\"World\"}")
+                        .body('{"message":"World"}')
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
                         .invoke()
 
@@ -98,7 +98,7 @@ class HttpContentTypeSpec extends Specification {
         when:
         HttpRequestMessageBuilder.AzureHttpResponseMessage response =
                 function.request(HttpMethod.POST, '/form/json-without-body-annotation')
-                        .body("{\"message\":\"World\"}")
+                        .body('{"message":"World"}')
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
                         .invoke()
 
@@ -117,7 +117,7 @@ class HttpContentTypeSpec extends Specification {
         when:
         HttpRequestMessageBuilder.AzureHttpResponseMessage response =
                 function.request(HttpMethod.POST, '/form/json-nested-attribute-with-map-return')
-                        .body("{\"message\":\"World\"}")
+                        .body('{"message":"World"}')
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
                         .invoke()
 
@@ -136,7 +136,7 @@ class HttpContentTypeSpec extends Specification {
         when:
         HttpRequestMessageBuilder.AzureHttpResponseMessage response =
                 function.request(HttpMethod.POST, '/form/json-with-body-annotation-and-with-object-return')
-                        .body("{\"message\":\"World\"}")
+                        .body('{"message":"World"}')
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
                         .invoke()
 
