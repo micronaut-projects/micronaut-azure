@@ -5,7 +5,7 @@ managed-azure-functions-java-library = "1.4.2"
 groovy = "3.0.12"
 jakarta-inject-api = "2.0.1"
 jetty-server = "9.4.35.v20201120"
-kotlin = "1.6.10"
+kotlin = "1.7.10"
 
 # Micronaut
 micronaut = "3.4.3"
