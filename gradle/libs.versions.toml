@@ -9,7 +9,7 @@ kotlin = "1.7.10"
 
 # Micronaut
 micronaut = "3.4.3"
-micronaut-test = "3.1.1"
+micronaut-test = "3.4.0"
 
 
 [libraries]
