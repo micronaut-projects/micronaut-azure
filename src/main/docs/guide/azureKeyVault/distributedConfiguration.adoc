@@ -10,9 +10,9 @@ micronaut:
         name: hello-world
     config-client:
         enabled: true
-    azure:
-      key-vault:
-        vault-url: <key_vault_url>
+azure:
+  key-vault:
+    vault-url: <key_vault_url>
 ----
 
 vaultUrl can be obtained from the Azure portal:
