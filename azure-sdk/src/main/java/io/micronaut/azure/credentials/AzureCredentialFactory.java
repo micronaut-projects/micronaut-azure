@@ -16,28 +16,17 @@
 package io.micronaut.azure.credentials;
 
 import com.azure.core.credential.TokenCredential;
-import com.azure.identity.AzureCliCredential;
-import com.azure.identity.AzureCliCredentialBuilder;
-import com.azure.identity.ClientCertificateCredential;
-import com.azure.identity.ClientCertificateCredentialBuilder;
-import com.azure.identity.ClientSecretCredential;
-import com.azure.identity.ClientSecretCredentialBuilder;
-import com.azure.identity.DefaultAzureCredential;
-import com.azure.identity.DefaultAzureCredentialBuilder;
-import com.azure.identity.IntelliJCredential;
-import com.azure.identity.IntelliJCredentialBuilder;
-import com.azure.identity.ManagedIdentityCredential;
-import com.azure.identity.ManagedIdentityCredentialBuilder;
-import com.azure.identity.UsernamePasswordCredential;
-import com.azure.identity.UsernamePasswordCredentialBuilder;
-import com.azure.identity.VisualStudioCodeCredential;
-import com.azure.identity.VisualStudioCodeCredentialBuilder;
+import com.azure.identity.*;
+import com.azure.storage.common.StorageSharedKeyCredential;
 import io.micronaut.azure.condition.ClientCertificateCredentialsCondition;
+import io.micronaut.azure.condition.EnvironmentCredentialsCondition;
 import io.micronaut.context.annotation.BootstrapContextCompatible;
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.util.StringUtils;
 import jakarta.inject.Singleton;
+
+import static io.micronaut.azure.credentials.AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.*;
 
 /**
  * The factory creates the Azure SDK credentials based on the configuration {@link AzureCredentialsConfiguration}.
@@ -233,7 +222,7 @@ public class AzureCredentialFactory {
      * Azure Active Directory.
      *
      * @param builder the builder
-     * @return intelli jidea credentials
+     * @return intellij idea credentials
      * @see <a href="https://docs.microsoft.com/en-us/azure/developer/java/sdk/identity-dev-env-auth?view=azure-java-stable#intellij-credential">IntelliJ credential</a>
      */
     @Requires(beans = IntelliJCredentialBuilder.class)
@@ -296,10 +285,84 @@ public class AzureCredentialFactory {
      * @return default azure credentials
      * @see <a href="https://docs.microsoft.com/en-us/azure/developer/java/sdk/identity-azure-hosted-auth?view=azure-java-stable#default-azure-credential">Default Azure credential</a>
      */
-    @Requires(missingBeans = TokenCredential.class)
+    @Requires(missingBeans = {TokenCredential.class, StorageSharedKeyCredential.class})
     @Singleton
     @BootstrapContextCompatible
     public DefaultAzureCredential defaultAzureCredential(DefaultAzureCredentialBuilder builder) {
         return builder.build();
     }
+
+    /**
+     * Fluent credential builder for instantiating a {@link EnvironmentCredential}.
+     *
+     * @return the environment credential builder.
+     */
+    @Requires(condition = EnvironmentCredentialsCondition.class)
+    @Singleton
+    @BootstrapContextCompatible
+    public EnvironmentCredentialBuilder environmentCredentialBuilder() {
+        return new EnvironmentCredentialBuilder();
+    }
+
+    /**
+     * <p>A credential provider that provides token credentials based on environment variables.
+     * The environment variables expected are:</p>
+     *
+     * <ul>
+     *     <li><code>AZURE_CLIENT_ID</code></li>
+     *     <li><code>AZURE_CLIENT_SECRET</code></li>
+     *     <li><code>AZURE_TENANT_ID</code></li>
+     * </ul>
+     * <p>or:</p>
+     * <ul>
+     *     <li><code>AZURE_CLIENT_ID</code></li>
+     *     <li><code>AZURE_CLIENT_CERTIFICATE_PATH</code></li>
+     *     <li><code>AZURE_TENANT_ID</code></li>
+     * </ul>
+     * <p>or:</p>
+     * <ul>
+     *     <li><code>AZURE_CLIENT_ID</code></li>
+     *     <li><code>AZURE_USERNAME</code></li>
+     *     <li><code>AZURE_PASSWORD</code></li>
+     * </ul>
+     *
+     * @param builder the environment credential builder.
+     * @return the environment credential.
+     */
+    @Requires(bean = EnvironmentCredentialBuilder.class)
+    @Singleton
+    @BootstrapContextCompatible
+    public EnvironmentCredential environmentCredential(final EnvironmentCredentialBuilder builder) {
+        return builder.build();
+    }
+
+    /**
+     * Creates a {@link StorageSharedKeyCredential} from a connection string.
+     *
+     * @param configuration the configuration
+     * @return a SharedKey credential policy that is put into a header to authorize requests.
+     * @see <a href="https://docs.microsoft.com/en-us/java/api/com.azure.storage.common.storagesharedkeycredential?view=azure-java-stable">StorageSharedKeyCredential</a>
+     */
+    @Requires(property = CONNECTION_STRING)
+    @Singleton
+    @BootstrapContextCompatible
+    public StorageSharedKeyCredential storageSharedKeyCredentialFromConnectionString(AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration configuration) {
+        return StorageSharedKeyCredential.fromConnectionString(configuration.getConnectionString().orElse(""));
+    }
+
+    /**
+     * Creates a {@link StorageSharedKeyCredential} from an account name and key.
+     *
+     * @param configuration the configuration
+     * @return a SharedKey credential policy that is put into a header to authorize requests.
+     * @see <a href="https://docs.microsoft.com/en-us/java/api/com.azure.storage.common.storagesharedkeycredential?view=azure-java-stable">StorageSharedKeyCredential</a>
+     */
+    @Requires(property = ACCOUNT_NAME)
+    @Requires(property = ACCOUNT_KEY)
+    @Singleton
+    @BootstrapContextCompatible
+    public StorageSharedKeyCredential storageSharedKeyCredentialFromAccountNameAndKey(AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration configuration) {
+        return new StorageSharedKeyCredential(configuration.getAccountName().orElse(""), configuration.getAccountKey().orElse(""));
+    }
+
 }

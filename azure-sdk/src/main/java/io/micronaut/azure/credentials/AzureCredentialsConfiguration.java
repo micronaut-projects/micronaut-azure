@@ -214,7 +214,7 @@ public interface AzureCredentialsConfiguration {
     }
 
     /**
-     * The Visual studion code credential configuration.
+     * The Visual Studio code credential configuration.
      */
     @ConfigurationProperties(VisualStudioCodeCredentialConfiguration.NAME)
     @BootstrapContextCompatible
@@ -229,5 +229,35 @@ public interface AzureCredentialsConfiguration {
          * @return tenant id
          */
         Optional<String> getTenantId();
+    }
+
+
+    /**
+     * Configuration properties for configuring a {@link com.azure.storage.common.StorageSharedKeyCredential}.
+     */
+    @ConfigurationProperties(StorageSharedKeyCredentialConfiguration.NAME)
+    @BootstrapContextCompatible
+    interface StorageSharedKeyCredentialConfiguration {
+
+        String NAME = "storage-shared-key";
+        String PREFIX = AzureCredentialsConfiguration.PREFIX + "." + NAME;
+        String CONNECTION_STRING = PREFIX + "." + "connection-string";
+        String ACCOUNT_NAME = PREFIX + "." + "account-name";
+        String ACCOUNT_KEY = PREFIX + "." + "account-key";
+
+        /**
+         * @return an Azure Storage connection string.
+         */
+        Optional<String> getConnectionString();
+
+        /**
+         * @return an Azure Storage account name.
+         */
+        Optional<String> getAccountName();
+
+        /**
+         * @return an Azure Storage account password.
+         */
+        Optional<String> getAccountKey();
     }
 }
