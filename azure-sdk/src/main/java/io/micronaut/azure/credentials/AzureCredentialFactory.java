@@ -285,7 +285,7 @@ public class AzureCredentialFactory {
      * @return default azure credentials
      * @see <a href="https://docs.microsoft.com/en-us/azure/developer/java/sdk/identity-azure-hosted-auth?view=azure-java-stable#default-azure-credential">Default Azure credential</a>
      */
-    @Requires(missingBeans = {TokenCredential.class, StorageSharedKeyCredential.class})
+    @Requires(missingBeans = TokenCredential.class)
     @Singleton
     @BootstrapContextCompatible
     public DefaultAzureCredential defaultAzureCredential(DefaultAzureCredentialBuilder builder) {
