@@ -72,6 +72,10 @@
 </a>
 <h2 class="title">A</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html#ACCOUNT_KEY">ACCOUNT_KEY</a></span> - Static variable in interface io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html" title="interface in io.micronaut.azure.credentials">AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html#ACCOUNT_NAME">ACCOUNT_NAME</a></span> - Static variable in interface io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html" title="interface in io.micronaut.azure.credentials">AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/azure/function/AzureFunction.html#applicationContext">applicationContext</a></span> - Static variable in class io.micronaut.azure.function.<a href="io/micronaut/azure/function/AzureFunction.html" title="class in io.micronaut.azure.function">AzureFunction</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/azure/function/http/AzureBinderRegistry.html" title="class in io.micronaut.azure.function.http"><span class="typeNameLink">AzureBinderRegistry</span></a> - Class in <a href="io/micronaut/azure/function/http/package-summary.html">io.micronaut.azure.function.http</a></dt>
@@ -117,13 +121,17 @@
 <dd>
 <div class="block">The managed identity credential configuration.</div>
 </dd>
+<dt><a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html" title="interface in io.micronaut.azure.credentials"><span class="typeNameLink">AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration</span></a> - Interface in <a href="io/micronaut/azure/credentials/package-summary.html">io.micronaut.azure.credentials</a></dt>
+<dd>
+<div class="block">Configuration properties for configuring a <code>StorageSharedKeyCredential</code>.</div>
+</dd>
 <dt><a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.UsernamePasswordCredentialConfiguration.html" title="interface in io.micronaut.azure.credentials"><span class="typeNameLink">AzureCredentialsConfiguration.UsernamePasswordCredentialConfiguration</span></a> - Interface in <a href="io/micronaut/azure/credentials/package-summary.html">io.micronaut.azure.credentials</a></dt>
 <dd>
 <div class="block">The username password credential configuration.</div>
 </dd>
 <dt><a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration.html" title="interface in io.micronaut.azure.credentials"><span class="typeNameLink">AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration</span></a> - Interface in <a href="io/micronaut/azure/credentials/package-summary.html">io.micronaut.azure.credentials</a></dt>
 <dd>
-<div class="block">The Visual studion code credential configuration.</div>
+<div class="block">The Visual Studio code credential configuration.</div>
 </dd>
 <dt><a href="io/micronaut/azure/function/AzureFunction.html" title="class in io.micronaut.azure.function"><span class="typeNameLink">AzureFunction</span></a> - Class in <a href="io/micronaut/azure/function/package-summary.html">io.micronaut.azure.function</a></dt>
 <dd>
@@ -221,6 +229,8 @@
 </dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/azure/function/AzureFunction.html#close--">close()</a></span> - Method in class io.micronaut.azure.function.<a href="io/micronaut/azure/function/AzureFunction.html" title="class in io.micronaut.azure.function">AzureFunction</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html#CONNECTION_STRING">CONNECTION_STRING</a></span> - Static variable in interface io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html" title="interface in io.micronaut.azure.credentials">AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/azure/function/http/AzureFunctionHttpResponse.html#cookie-io.micronaut.http.cookie.Cookie-">cookie(Cookie)</a></span> - Method in class io.micronaut.azure.function.http.<a href="io/micronaut/azure/function/http/AzureFunctionHttpResponse.html" title="class in io.micronaut.azure.function.http">AzureFunctionHttpResponse</a></dt>
 <dd>&nbsp;</dd>
 </dl>
@@ -258,12 +268,30 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration.html#ENABLED">ENABLED</a></span> - Static variable in interface io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration.html" title="interface in io.micronaut.azure.credentials">AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/micronaut/azure/credentials/AzureCredentialFactory.html#environmentCredential-com.azure.identity.EnvironmentCredentialBuilder-">environmentCredential(EnvironmentCredentialBuilder)</a></span> - Method in class io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialFactory.html" title="class in io.micronaut.azure.credentials">AzureCredentialFactory</a></dt>
+<dd>
+<div class="block">A credential provider that provides token credentials based on environment variables.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/micronaut/azure/credentials/AzureCredentialFactory.html#environmentCredentialBuilder--">environmentCredentialBuilder()</a></span> - Method in class io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialFactory.html" title="class in io.micronaut.azure.credentials">AzureCredentialFactory</a></dt>
+<dd>
+<div class="block">Fluent credential builder for instantiating a <code>EnvironmentCredential</code>.</div>
+</dd>
+<dt><a href="io/micronaut/azure/condition/EnvironmentCredentialsCondition.html" title="class in io.micronaut.azure.condition"><span class="typeNameLink">EnvironmentCredentialsCondition</span></a> - Class in <a href="io/micronaut/azure/condition/package-summary.html">io.micronaut.azure.condition</a></dt>
+<dd>
+<div class="block">A custom condition that matches when the following environment variables are defined.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/micronaut/azure/condition/EnvironmentCredentialsCondition.html#EnvironmentCredentialsCondition--">EnvironmentCredentialsCondition()</a></span> - Constructor for class io.micronaut.azure.condition.<a href="io/micronaut/azure/condition/EnvironmentCredentialsCondition.html" title="class in io.micronaut.azure.condition">EnvironmentCredentialsCondition</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <a name="I:G">
 <!--   -->
 </a>
 <h2 class="title">G</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html#getAccountKey--">getAccountKey()</a></span> - Method in interface io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html" title="interface in io.micronaut.azure.credentials">AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html#getAccountName--">getAccountName()</a></span> - Method in interface io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html" title="interface in io.micronaut.azure.credentials">AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/azure/function/AzureFunction.html#getApplicationContext--">getApplicationContext()</a></span> - Method in class io.micronaut.azure.function.<a href="io/micronaut/azure/function/AzureFunction.html" title="class in io.micronaut.azure.function">AzureFunction</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/azure/function/http/AzureFunctionHttpRequest.html#getAttributes--">getAttributes()</a></span> - Method in class io.micronaut.azure.function.http.<a href="io/micronaut/azure/function/http/AzureFunctionHttpRequest.html" title="class in io.micronaut.azure.function.http">AzureFunctionHttpRequest</a></dt>
@@ -294,6 +322,8 @@
 <dd>
 <div class="block">Gets the client ID of the application.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html#getConnectionString--">getConnectionString()</a></span> - Method in interface io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html" title="interface in io.micronaut.azure.credentials">AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/azure/function/http/AzureFunctionHttpRequest.html#getCookies--">getCookies()</a></span> - Method in class io.micronaut.azure.function.http.<a href="io/micronaut/azure/function/http/AzureFunctionHttpRequest.html" title="class in io.micronaut.azure.function.http">AzureFunctionHttpRequest</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/azure/secretmanager/AzureVaultConfigurationClient.html#getDescription--">getDescription()</a></span> - Method in class io.micronaut.azure.secretmanager.<a href="io/micronaut/azure/secretmanager/AzureVaultConfigurationClient.html" title="class in io.micronaut.azure.secretmanager">AzureVaultConfigurationClient</a></dt>
@@ -469,6 +499,8 @@
 </dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/azure/condition/ClientCertificateCredentialsCondition.html#matches-io.micronaut.context.condition.ConditionContext-">matches(ConditionContext)</a></span> - Method in class io.micronaut.azure.condition.<a href="io/micronaut/azure/condition/ClientCertificateCredentialsCondition.html" title="class in io.micronaut.azure.condition">ClientCertificateCredentialsCondition</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/micronaut/azure/condition/EnvironmentCredentialsCondition.html#matches-io.micronaut.context.condition.ConditionContext-">matches(ConditionContext)</a></span> - Method in class io.micronaut.azure.condition.<a href="io/micronaut/azure/condition/EnvironmentCredentialsCondition.html" title="class in io.micronaut.azure.condition">EnvironmentCredentialsCondition</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/azure/function/http/HttpRequestMessageBuilder.html#method-com.microsoft.azure.functions.HttpMethod-">method(HttpMethod)</a></span> - Method in interface io.micronaut.azure.function.http.<a href="io/micronaut/azure/function/http/HttpRequestMessageBuilder.html" title="interface in io.micronaut.azure.function.http">HttpRequestMessageBuilder</a></dt>
 <dd>
 <div class="block">Sets the request method.</div>
@@ -497,6 +529,8 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.ManagedIdentityCredentialConfiguration.html#NAME">NAME</a></span> - Static variable in interface io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.ManagedIdentityCredentialConfiguration.html" title="interface in io.micronaut.azure.credentials">AzureCredentialsConfiguration.ManagedIdentityCredentialConfiguration</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html#NAME">NAME</a></span> - Static variable in interface io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html" title="interface in io.micronaut.azure.credentials">AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.UsernamePasswordCredentialConfiguration.html#NAME">NAME</a></span> - Static variable in interface io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.UsernamePasswordCredentialConfiguration.html" title="interface in io.micronaut.azure.credentials">AzureCredentialsConfiguration.UsernamePasswordCredentialConfiguration</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration.html#NAME">NAME</a></span> - Static variable in interface io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration.html" title="interface in io.micronaut.azure.credentials">AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration</a></dt>
@@ -514,6 +548,8 @@
 <dt><span class="memberNameLink"><a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.UsernamePasswordCredentialConfiguration.html#PASSWORD">PASSWORD</a></span> - Static variable in interface io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.UsernamePasswordCredentialConfiguration.html" title="interface in io.micronaut.azure.credentials">AzureCredentialsConfiguration.UsernamePasswordCredentialConfiguration</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.html#PREFIX">PREFIX</a></span> - Static variable in interface io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.html" title="interface in io.micronaut.azure.credentials">AzureCredentialsConfiguration</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html#PREFIX">PREFIX</a></span> - Static variable in interface io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html" title="interface in io.micronaut.azure.credentials">AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/azure/secretmanager/configuration/AzureKeyVaultConfigurationProperties.html#PREFIX">PREFIX</a></span> - Static variable in class io.micronaut.azure.secretmanager.configuration.<a href="io/micronaut/azure/secretmanager/configuration/AzureKeyVaultConfigurationProperties.html" title="class in io.micronaut.azure.secretmanager.configuration">AzureKeyVaultConfigurationProperties</a></dt>
 <dd>&nbsp;</dd>
@@ -559,6 +595,14 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/micronaut/azure/function/http/AzureFunctionHttpResponse.html#status-io.micronaut.http.HttpStatus-java.lang.CharSequence-">status(HttpStatus, CharSequence)</a></span> - Method in class io.micronaut.azure.function.http.<a href="io/micronaut/azure/function/http/AzureFunctionHttpResponse.html" title="class in io.micronaut.azure.function.http">AzureFunctionHttpResponse</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/micronaut/azure/credentials/AzureCredentialFactory.html#storageSharedKeyCredentialFromAccountNameAndKey-io.micronaut.azure.credentials.AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration-">storageSharedKeyCredentialFromAccountNameAndKey(AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration)</a></span> - Method in class io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialFactory.html" title="class in io.micronaut.azure.credentials">AzureCredentialFactory</a></dt>
+<dd>
+<div class="block">Creates a <code>StorageSharedKeyCredential</code> from an account name and key.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/micronaut/azure/credentials/AzureCredentialFactory.html#storageSharedKeyCredentialFromConnectionString-io.micronaut.azure.credentials.AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration-">storageSharedKeyCredentialFromConnectionString(AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration)</a></span> - Method in class io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialFactory.html" title="class in io.micronaut.azure.credentials">AzureCredentialFactory</a></dt>
+<dd>
+<div class="block">Creates a <code>StorageSharedKeyCredential</code> from a connection string.</div>
+</dd>
 </dl>
 <a name="I:U">
 <!--   -->
