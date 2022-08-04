@@ -1,6 +1,7 @@
 package io.micronaut.azure.condition
 
 import io.micronaut.context.condition.ConditionContext
+import spock.lang.IgnoreIf
 import spock.lang.Specification
 
 import static com.azure.core.util.Configuration.PROPERTY_AZURE_CLIENT_CERTIFICATE_PATH
@@ -11,6 +12,7 @@ import static com.azure.core.util.Configuration.PROPERTY_AZURE_TENANT_ID
 import static com.azure.core.util.Configuration.PROPERTY_AZURE_USERNAME
 import static com.github.stefanbirkner.systemlambda.SystemLambda.withEnvironmentVariable
 
+@IgnoreIf({ jvm.java17 })
 class EnvironmentCredentialsConditionSpec extends Specification{
 
     void "condition doesn't match without variables"() {
