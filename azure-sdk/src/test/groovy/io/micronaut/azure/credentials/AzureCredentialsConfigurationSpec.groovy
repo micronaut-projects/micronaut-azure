@@ -129,4 +129,37 @@ class AzureCredentialsConfigurationSpec extends Specification {
         bean.isEnabled()
         bean.tenantId.orElse(null) == "tenant-id"
     }
+
+    def "it resolves storage shared key credential configuration with connection string"() {
+        given:
+        def applicationContext = ApplicationContext.run([
+                "azure.credential.storage-shared-key.connection-string": "DefaultEndpointsProtocol=..."
+        ])
+
+        when:
+        def bean = applicationContext.getBean(AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration)
+
+        then:
+        bean
+        bean.connectionString.orElse(null) == "DefaultEndpointsProtocol=..."
+        !bean.accountName.isPresent()
+        !bean.accountKey.isPresent()
+    }
+
+    def "it resolves storage shared key credential configuration with account name and key"() {
+        given:
+        def applicationContext = ApplicationContext.run([
+                "azure.credential.storage-shared-key.account-name"  : "devstoreaccount1",
+                "azure.credential.storage-shared-key.account-key"   : "Eby8vdM02xNOcqFlqUw..."
+        ])
+
+        when:
+        def bean = applicationContext.getBean(AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration)
+
+        then:
+        bean
+        !bean.connectionString.isPresent()
+        bean.accountName.orElse(null) == "devstoreaccount1"
+        bean.accountKey.orElse(null) == "Eby8vdM02xNOcqFlqUw..."
+    }
 }

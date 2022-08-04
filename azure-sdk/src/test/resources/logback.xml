@@ -12,4 +12,8 @@
     <root level="info">
         <appender-ref ref="STDOUT" />
     </root>
+
+    <logger name="io.micronaut.azure" level="trace" />
+<!--    <logger name="io.micronaut.context.condition" level="trace" />-->
+    <logger name="com.azure" level="trace" />
 </configuration>

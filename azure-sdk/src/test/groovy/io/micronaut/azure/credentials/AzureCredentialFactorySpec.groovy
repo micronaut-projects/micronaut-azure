@@ -8,6 +8,7 @@ import com.azure.identity.IntelliJCredentialBuilder
 import com.azure.identity.ManagedIdentityCredentialBuilder
 import com.azure.identity.UsernamePasswordCredentialBuilder
 import com.azure.identity.VisualStudioCodeCredentialBuilder
+import com.azure.storage.common.StorageSharedKeyCredential
 import io.micronaut.context.ApplicationContext
 import io.micronaut.context.exceptions.NoSuchBeanException
 import spock.lang.Specification
@@ -201,5 +202,26 @@ class AzureCredentialFactorySpec extends Specification {
 
         cleanup:
         applicationContext.close()
+    }
+
+    def "it resolves storage shared key credential configuration with connection string"() {
+        given:
+        def applicationContext = ApplicationContext.run([
+                "azure.credential.storage-shared-key.connection-string": "DefaultEndpointsProtocol=https;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=https://127.0.0.1:10000/devstoreaccount1;"
+        ])
+
+        expect:
+        applicationContext.getBean(StorageSharedKeyCredential)
+    }
+
+    def "it resolves storage shared key credential configuration with account name and key"() {
+        given:
+        def applicationContext = ApplicationContext.run([
+                "azure.credential.storage-shared-key.account-name"  : "devstoreaccount1",
+                "azure.credential.storage-shared-key.account-key"   : "Eby8vdM02xNOcqFlqUw..."
+        ])
+
+        expect:
+        applicationContext.getBean(StorageSharedKeyCredential)
     }
 }
