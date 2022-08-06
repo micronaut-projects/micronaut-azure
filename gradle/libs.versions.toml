@@ -10,7 +10,7 @@ system-lambda = "1.2.1"
 
 # Micronaut
 micronaut = "3.4.3"
-micronaut-test = "3.4.0"
+micronaut-test = "3.5.0"
 
 
 [libraries]
