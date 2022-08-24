@@ -3,15 +3,15 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor(libs.micronaut.inject.java)
-    implementation(libs.micronaut.inject.java)
-    implementation(libs.micronaut.runtime)
+    annotationProcessor(mn.micronaut.inject.java)
+    implementation(mn.micronaut.inject.java)
+    implementation(mn.micronaut.runtime)
     implementation platform(project(":azure-bom"))
     api(libs.azure.identity)
     compileOnly(libs.azure.storage.common)
 
-    testAnnotationProcessor(libs.micronaut.inject.java)
-    testImplementation(libs.micronaut.inject.java)
+    testAnnotationProcessor(mn.micronaut.inject.java)
+    testImplementation(mn.micronaut.inject.java)
     testImplementation(libs.azure.storage.blob)
     testImplementation(libs.system.lambda)
     testRuntimeOnly(libs.azure.storage.common)

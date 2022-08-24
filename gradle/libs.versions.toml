@@ -18,22 +18,6 @@ boms-azure-sdk = { module = "com.azure:azure-sdk-bom", version.ref = "managed-az
 
 managed-azure-functions-java-library = { module = "com.microsoft.azure.functions:azure-functions-java-library", version.ref = "managed-azure-functions-java-library" }
 
-# Micronaut
-micronaut-bom = { module = "io.micronaut:micronaut-bom", version.ref = "micronaut" }
-micronaut-function = { module = "io.micronaut:micronaut-function" }
-micronaut-http-client = { module = "io.micronaut:micronaut-http-client" }
-micronaut-http-netty = { module = "io.micronaut:micronaut-http-netty" }
-micronaut-http-server = { module = "io.micronaut:micronaut-http-server" }
-micronaut-inject = { module = "io.micronaut:micronaut-inject" }
-micronaut-inject-groovy = { module = "io.micronaut:micronaut-inject-groovy" }
-micronaut-inject-java = { module = "io.micronaut:micronaut-inject-java" }
-micronaut-router = { module = "io.micronaut:micronaut-router" }
-micronaut-runtime = { module = "io.micronaut:micronaut-runtime" }
-micronaut-reactor = { module = "io.micronaut.reactor:micronaut-reactor" }
-micronaut-servlet-core = { module = "io.micronaut.servlet:micronaut-servlet-core" }
-micronaut-discovery-client = { module = "io.micronaut.discovery:micronaut-discovery-client" }
-micronaut-test-spock = { module = "io.micronaut.test:micronaut-test-spock", version.ref = "micronaut-test" }
-
 azure-identity = { module = "com.azure:azure-identity" }
 azure-security-keyvault-secrets = { module = "com.azure:azure-security-keyvault-secrets" }
 azure-storage-common = { module = "com.azure:azure-storage-common" }

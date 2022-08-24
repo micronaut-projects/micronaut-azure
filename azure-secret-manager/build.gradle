@@ -2,29 +2,22 @@ plugins {
     id 'io.micronaut.build.internal.azure-module'
 }
 
-micronautBuild {
-    // new module, so no binary check
-    binaryCompatibility {
-        enabled.set(false)
-    }
-}
-
-dependencies {    
-    annotationProcessor(libs.micronaut.inject.java)
+dependencies {
+    annotationProcessor(mn.micronaut.inject.java)
     implementation platform(project(":azure-bom"))
 
-    api(libs.micronaut.inject)
-    api(libs.micronaut.http.server)
+    api(mn.micronaut.inject)
+    api(mn.micronaut.http.server)
     api project(":azure-sdk")
     api(libs.azure.identity)
     api(libs.azure.security.keyvault.secrets)
 
-    implementation(libs.micronaut.discovery.client)
-    implementation(libs.micronaut.reactor)
-    
-    testAnnotationProcessor(libs.micronaut.inject.java)    
-    testCompileOnly(libs.micronaut.inject.groovy)
-    testImplementation(libs.micronaut.runtime)
-    testImplementation(libs.micronaut.http.client)
+    implementation(mn.micronaut.discovery)
+    implementation(mn.micronaut.reactor)
+
+    testAnnotationProcessor(mn.micronaut.inject.java)
+    testCompileOnly(mn.micronaut.inject.groovy)
+    testImplementation(mn.micronaut.runtime)
+    testImplementation(mn.micronaut.http.client)
 }
 
