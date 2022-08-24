@@ -3,9 +3,9 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor(libs.micronaut.inject.java)
-    api(libs.micronaut.function)
+    annotationProcessor(mn.micronaut.inject.java)
+    api(mn.micronaut.function)
     compileOnly(libs.managed.azure.functions.java.library)
-    testCompileOnly(libs.micronaut.inject.groovy)
-    testAnnotationProcessor(libs.micronaut.inject.java)
+    testCompileOnly(mn.micronaut.inject.groovy)
+    testAnnotationProcessor(mn.micronaut.inject.java)
 }

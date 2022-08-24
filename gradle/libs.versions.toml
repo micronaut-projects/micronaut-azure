@@ -4,7 +4,7 @@ managed-azure-functions-java-library = "1.4.2"
 
 groovy = "3.0.12"
 jakarta-inject-api = "2.0.1"
-jetty-server = "9.4.48.v20220622"
+jetty-server = "10.0.11"
 kotlin = "1.7.10"
 system-lambda = "1.2.1"
 
@@ -17,22 +17,6 @@ micronaut-test = "3.4.0"
 boms-azure-sdk = { module = "com.azure:azure-sdk-bom", version.ref = "managed-azure-sdk" }
 
 managed-azure-functions-java-library = { module = "com.microsoft.azure.functions:azure-functions-java-library", version.ref = "managed-azure-functions-java-library" }
-
-# Micronaut
-micronaut-bom = { module = "io.micronaut:micronaut-bom", version.ref = "micronaut" }
-micronaut-function = { module = "io.micronaut:micronaut-function" }
-micronaut-http-client = { module = "io.micronaut:micronaut-http-client" }
-micronaut-http-netty = { module = "io.micronaut:micronaut-http-netty" }
-micronaut-http-server = { module = "io.micronaut:micronaut-http-server" }
-micronaut-inject = { module = "io.micronaut:micronaut-inject" }
-micronaut-inject-groovy = { module = "io.micronaut:micronaut-inject-groovy" }
-micronaut-inject-java = { module = "io.micronaut:micronaut-inject-java" }
-micronaut-router = { module = "io.micronaut:micronaut-router" }
-micronaut-runtime = { module = "io.micronaut:micronaut-runtime" }
-micronaut-reactor = { module = "io.micronaut.reactor:micronaut-reactor" }
-micronaut-servlet-core = { module = "io.micronaut.servlet:micronaut-servlet-core" }
-micronaut-discovery-client = { module = "io.micronaut.discovery:micronaut-discovery-client" }
-micronaut-test-spock = { module = "io.micronaut.test:micronaut-test-spock", version.ref = "micronaut-test" }
 
 azure-identity = { module = "com.azure:azure-identity" }
 azure-security-keyvault-secrets = { module = "com.azure:azure-security-keyvault-secrets" }

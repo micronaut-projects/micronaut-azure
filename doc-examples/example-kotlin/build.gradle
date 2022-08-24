@@ -4,10 +4,10 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
 }
 dependencies {
-    kapt(platform(libs.micronaut.bom))
-    kaptTest(platform(libs.micronaut.bom))
-    implementation(platform(libs.micronaut.bom))
-    compileOnly(libs.micronaut.inject.groovy)
+    kapt(platform(mn.micronaut.bom))
+    kaptTest(platform(mn.micronaut.bom))
+    implementation(platform(mn.micronaut.bom))
+    compileOnly(mn.micronaut.inject.groovy)
     implementation project(":azure-function-http")
     implementation(libs.kotlin.stdlib.jdk8)
     implementation(libs.kotlin.reflect)

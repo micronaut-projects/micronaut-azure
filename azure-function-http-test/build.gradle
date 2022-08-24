@@ -3,17 +3,17 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor(libs.micronaut.inject.java)
-    api(libs.micronaut.inject)
-    api(libs.micronaut.http.server)
+    annotationProcessor(mn.micronaut.inject.java)
+    api(mn.micronaut.inject)
+    api(mn.micronaut.http.server)
     api project(":azure-function-http")
     api(libs.managed.azure.functions.java.library)
 
-    api(libs.micronaut.servlet.core)
+    api(mn.micronaut.servlet.core)
     implementation(libs.jetty.server)
     implementation(libs.jakarta.inject.api)
-    testCompileOnly(libs.micronaut.inject.groovy)
-    testImplementation(libs.micronaut.test.spock)
-    testImplementation(libs.micronaut.http.client)
-    testAnnotationProcessor(libs.micronaut.inject.java)
+    testCompileOnly(mn.micronaut.inject.groovy)
+    testImplementation(mn.micronaut.test.spock)
+    testImplementation(mn.micronaut.http.client)
+    testAnnotationProcessor(mn.micronaut.inject.java)
 }
