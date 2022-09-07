@@ -1,7 +1,7 @@
 [versions]
 managed-azure-sdk = "1.2.4"
 managed-azure-functions-java-library = "1.4.2"
-managed-azure-cosmos = "LATEST"
+managed-azure-cosmos = "4.35.1"
 
 groovy = "3.0.12"
 jakarta-inject-api = "2.0.1"
@@ -13,6 +13,9 @@ system-lambda = "1.2.1"
 micronaut = "3.4.3"
 micronaut-test = "3.4.0"
 
+# Testing
+
+testcontainers = "1.17.3"
 
 [libraries]
 boms-azure-sdk = { module = "com.azure:azure-sdk-bom", version.ref = "managed-azure-sdk" }
@@ -30,6 +33,11 @@ jetty-server = { module = "org.eclipse.jetty:jetty-server", version.ref = "jetty
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 system-lambda = { module = "com.github.stefanbirkner:system-lambda", version.ref = "system-lambda" }
+
+# TestContainers
+
+testcontainers-bom = { module = "org.testcontainers:testcontainers-bom", version.ref = "testcontainers" }
+testcontainers-azure = { module = "org.testcontainers:azure" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

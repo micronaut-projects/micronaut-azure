@@ -25,10 +25,11 @@ import io.micronaut.core.annotation.NonNull;
 /**
  * The default Azure Cosmos configuration class.
  *
+ * @author radovanradic
  * @since TODO
  */
-@ConfigurationProperties(CosmoClientConfiguration.PREFIX)
-public final class CosmoClientConfiguration {
+@ConfigurationProperties(CosmosClientConfiguration.PREFIX)
+public final class CosmosClientConfiguration {
     static final String PREFIX = Environment.AZURE + ".cosmos";
     private static final ConsistencyLevel DEFAULT_CONSISTENCY_LEVEL = ConsistencyLevel.EVENTUAL;
 

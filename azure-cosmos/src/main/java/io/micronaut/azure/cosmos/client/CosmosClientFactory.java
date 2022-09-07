@@ -24,20 +24,21 @@ import io.micronaut.context.annotation.Requires;
 /**
  * The Azure Cosmos Client factory.
  *
+ * @author radovanradic
  * @since TODO
  */
 @Factory
-public final class CosmoClientFactory {
+public final class CosmosClientFactory {
 
     @Bean(preDestroy = "close")
-    @Requires(beans = CosmoClientConfiguration.class)
-    CosmosClient buildCosmosClient(CosmoClientConfiguration configuration) {
+    @Requires(beans = CosmosClientConfiguration.class)
+    CosmosClient buildCosmosClient(CosmosClientConfiguration configuration) {
         return configuration.getCosmosClientBuilder().buildClient();
     }
 
     @Bean(preDestroy = "close")
-    @Requires(beans = CosmoClientConfiguration.class)
-    CosmosAsyncClient buildCosmosAsyncClient(CosmoClientConfiguration configuration) {
+    @Requires(beans = CosmosClientConfiguration.class)
+    CosmosAsyncClient buildCosmosAsyncClient(CosmosClientConfiguration configuration) {
         return configuration.getCosmosClientBuilder().buildAsyncClient();
     }
 }
