@@ -1,6 +1,7 @@
 [versions]
 managed-azure-sdk = "1.2.4"
 managed-azure-functions-java-library = "1.4.2"
+managed-azure-cosmos = "LATEST"
 
 groovy = "3.0.12"
 jakarta-inject-api = "2.0.1"
@@ -17,6 +18,7 @@ micronaut-test = "3.4.0"
 boms-azure-sdk = { module = "com.azure:azure-sdk-bom", version.ref = "managed-azure-sdk" }
 
 managed-azure-functions-java-library = { module = "com.microsoft.azure.functions:azure-functions-java-library", version.ref = "managed-azure-functions-java-library" }
+managed-azure-cosmos = { module = "com.azure:azure-cosmos", version.ref = "managed-azure-cosmos" }
 
 azure-identity = { module = "com.azure:azure-identity" }
 azure-security-keyvault-secrets = { module = "com.azure:azure-security-keyvault-secrets" }

@@ -1,0 +1,10 @@
+plugins {
+    id 'io.micronaut.build.internal.azure-module'
+}
+
+dependencies {
+    annotationProcessor(mn.micronaut.inject.java)
+    api libs.managed.azure.cosmos
+    testCompileOnly(mn.micronaut.inject.groovy)
+    testAnnotationProcessor(mn.micronaut.inject.java)
+}
