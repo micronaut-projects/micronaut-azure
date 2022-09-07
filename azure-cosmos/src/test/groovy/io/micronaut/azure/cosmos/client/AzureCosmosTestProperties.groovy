@@ -14,7 +14,7 @@ trait AzureCosmosTestProperties implements TestPropertyProvider {
     Map<String, String> getProperties() {
         CosmosDBEmulatorContainer emulator = new CosmosDBEmulatorContainer(
                 DockerImageName.parse("mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:latest")
-        ).withEnv("AZURE_COSMOS_EMULATOR_PARTITION_COUNT", "10")
+        )
         emulator.start()
         Path keyStoreFile = Files.createTempFile("azure-cosmos-emulator", ".keystore")
         KeyStore keyStore = emulator.buildNewKeyStore()
