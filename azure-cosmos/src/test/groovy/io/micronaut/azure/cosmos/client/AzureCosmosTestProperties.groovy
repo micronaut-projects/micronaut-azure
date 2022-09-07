@@ -2,7 +2,6 @@ package io.micronaut.azure.cosmos.client
 
 import io.micronaut.test.support.TestPropertyProvider
 import org.testcontainers.containers.CosmosDBEmulatorContainer
-import org.testcontainers.containers.startupcheck.IndefiniteWaitOneShotStartupCheckStrategy
 import org.testcontainers.utility.DockerImageName
 
 import java.nio.file.Files
@@ -15,7 +14,7 @@ trait AzureCosmosTestProperties implements TestPropertyProvider {
     Map<String, String> getProperties() {
         CosmosDBEmulatorContainer emulator = new CosmosDBEmulatorContainer(
                 DockerImageName.parse("mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:latest")
-        ).withStartupCheckStrategy(new IndefiniteWaitOneShotStartupCheckStrategy())
+        )
         emulator.start()
         Path keyStoreFile = Files.createTempFile("azure-cosmos-emulator", ".keystore")
         KeyStore keyStore = emulator.buildNewKeyStore()
