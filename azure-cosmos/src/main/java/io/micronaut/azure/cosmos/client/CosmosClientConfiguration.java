@@ -32,13 +32,14 @@ import io.micronaut.core.annotation.NonNull;
 public final class CosmosClientConfiguration {
     static final String PREFIX = Environment.AZURE + ".cosmos";
     private static final ConsistencyLevel DEFAULT_CONSISTENCY_LEVEL = ConsistencyLevel.EVENTUAL;
+    private static final boolean DEFAULT_ENDPOINT_DISCOVERY = true;
 
     @ConfigurationBuilder(prefixes = "")
     protected CosmosClientBuilder cosmosClientBuilder = new CosmosClientBuilder();
 
     private boolean defaultGatewayMode;
 
-    private boolean endpointDiscoveryEnabled;
+    private boolean endpointDiscoveryEnabled = DEFAULT_ENDPOINT_DISCOVERY;
 
     private ConsistencyLevel consistencyLevel = DEFAULT_CONSISTENCY_LEVEL;
 
@@ -56,6 +57,7 @@ public final class CosmosClientConfiguration {
     }
 
     /**
+     * When the value is true then default gateway configuration will be used in cosmos client.
      * @param defaultGatewayMode set the default gateway mode
      */
     public void setDefaultGatewayMode(boolean defaultGatewayMode) {
@@ -70,6 +72,8 @@ public final class CosmosClientConfiguration {
     }
 
     /**
+     * Gives ability to configure consistency level.
+     *
      * @param consistencyLevel sets the default consistency level
      */
     public void setConsistencyLevel(@NonNull ConsistencyLevel consistencyLevel) {

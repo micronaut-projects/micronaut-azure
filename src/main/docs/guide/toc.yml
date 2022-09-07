@@ -13,4 +13,7 @@ azureFunction:
 azureKeyVault:
   title: Azure Key Vault Support
   distributedConfiguration: Distributed Configuration
+azureCosmosClient:
+  title: Azure Cosmos Client
+  azureCosmosClientConfiguration: Configuration
 repository: Repository
