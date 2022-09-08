@@ -12,6 +12,7 @@ import com.azure.cosmos.models.CosmosItemResponse
 import com.azure.cosmos.models.PartitionKey
 import io.micronaut.context.ApplicationContext
 import spock.lang.AutoCleanup
+import spock.lang.IgnoreIf
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -21,7 +22,8 @@ class CosmosClientSpec extends Specification implements AzureCosmosTestPropertie
     @Shared
     ApplicationContext context = ApplicationContext.run(properties)
 
-    def "should get cosmos client and perform write/read operations"() {
+    @IgnoreIf({ env["GITHUB_WORKFLOW"] })
+    void "should get cosmos client and perform write/read operations"() {
         when:
             CosmosClient client = context.getBean(CosmosClient)
             CosmosDatabaseResponse databaseResponse = client.createDatabaseIfNotExists("testDb")
