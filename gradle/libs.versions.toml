@@ -10,7 +10,7 @@ kotlin = "1.7.10"
 system-lambda = "1.2.1"
 
 # Micronaut
-micronaut = "3.6.2"
+micronaut = "3.4.3"
 micronaut-test = "3.4.0"
 
 [libraries]
