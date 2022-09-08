@@ -10,12 +10,8 @@ kotlin = "1.7.10"
 system-lambda = "1.2.1"
 
 # Micronaut
-micronaut = "3.4.3"
+micronaut = "3.6.2"
 micronaut-test = "3.4.0"
-
-# Testing
-
-testcontainers = "1.17.3"
 
 [libraries]
 boms-azure-sdk = { module = "com.azure:azure-sdk-bom", version.ref = "managed-azure-sdk" }
@@ -36,7 +32,6 @@ system-lambda = { module = "com.github.stefanbirkner:system-lambda", version.ref
 
 # TestContainers
 
-testcontainers-bom = { module = "org.testcontainers:testcontainers-bom", version.ref = "testcontainers" }
 testcontainers-azure = { module = "org.testcontainers:azure" }
 
 [plugins]
