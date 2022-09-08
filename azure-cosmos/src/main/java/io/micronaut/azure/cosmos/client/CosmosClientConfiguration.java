@@ -26,7 +26,7 @@ import io.micronaut.core.annotation.NonNull;
  * The default Azure Cosmos configuration class.
  *
  * @author radovanradic
- * @since TODO
+ * @since 3.5.0
  */
 @ConfigurationProperties(CosmosClientConfiguration.PREFIX)
 public final class CosmosClientConfiguration {
@@ -46,6 +46,7 @@ public final class CosmosClientConfiguration {
     /**
      * @return the Cosmos Client Builder
      */
+    @NonNull
     public CosmosClientBuilder getCosmosClientBuilder() {
 
         if (defaultGatewayMode) {
