@@ -16,13 +16,13 @@ import spock.lang.IgnoreIf
 import spock.lang.Shared
 import spock.lang.Specification
 
+@IgnoreIf({ env["GITHUB_WORKFLOW"] })
 class CosmosClientSpec extends Specification implements AzureCosmosTestProperties {
 
     @AutoCleanup
     @Shared
     ApplicationContext context = ApplicationContext.run(properties)
 
-    @IgnoreIf({ env["GITHUB_WORKFLOW"] })
     void "should get cosmos client and perform write/read operations"() {
         when:
             CosmosClient client = context.getBean(CosmosClient)
