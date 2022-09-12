@@ -54,29 +54,31 @@ public class AzureServletBodyBinder<T> extends ServletBodyBinder<T> {
     @Override
     public BindingResult<T> bind(ArgumentConversionContext<T> context, HttpRequest<?> source) {
         final MediaType mediaType = source.getContentType().orElse(MediaType.APPLICATION_JSON_TYPE);
-        if (isFormSubmission(mediaType)) {
-            if (source instanceof AzureFunctionHttpRequest) {
-                AzureFunctionHttpRequest<?> azureFunctionRequest = (AzureFunctionHttpRequest<?>) source;
-                Optional<String> formBody = azureFunctionRequest.getNativeRequest().getBody();
-                if (formBody.isPresent()) {
-                    ConvertibleValues<?> bodyParameters = formUrlEncodedBodyToConvertibleValues(formBody.get());
+        if (source instanceof AzureFunctionHttpRequest && isFormSubmitted(mediaType)) {
+            AzureFunctionHttpRequest<?> azureFunctionRequest = (AzureFunctionHttpRequest<?>) source;
+            Optional<String> formBody = azureFunctionRequest.getNativeRequest().getBody();
+            if (formBody.isPresent()) {
+                Optional<ConvertibleValues<?>> bodyParameters = formUrlEncodedBodyToConvertibleValues(formBody.get());
+                if (bodyParameters.isPresent()) {
+                    ConvertibleValues<?> convertibleBodyParameters = bodyParameters.get();
                     Argument<T> argument = context.getArgument();
                     Optional<String> nestedBodyName = argument.getAnnotationMetadata().stringValue(Body.class);
                     if (nestedBodyName.isPresent()) {
-                        return () -> bodyParameters.get(nestedBodyName.get(), context);
+                        return () -> convertibleBodyParameters.get(nestedBodyName.get(), context);
                     }
-                    Optional<T> result = conversionService.convert(bodyParameters.asMap(), context);
+                    Optional<T> result = conversionService.convert(convertibleBodyParameters.asMap(), context);
                     return () -> result;
                 }
             }
+
         }
         return super.bind(context, source);
     }
 
-    private ConvertibleValues<?> formUrlEncodedBodyToConvertibleValues(String body) {
-        return formUrlEncodedBodyToMap(body)
-            .map(ConvertibleValuesMap::new)
-            .orElse(null);
+    private Optional<ConvertibleValues<?>> formUrlEncodedBodyToConvertibleValues(String body) {
+        ConvertibleValuesMap<List<String>> convertibleFormParameters = formUrlEncodedBodyToMap(body)
+            .map(ConvertibleValuesMap::new).orElse(null);
+        return Optional.ofNullable(convertibleFormParameters);
     }
 
     private Optional<Map<String, List<String>>> formUrlEncodedBodyToMap(String body) {
@@ -86,7 +88,7 @@ public class AzureServletBodyBinder<T> extends ServletBodyBinder<T> {
             Optional.of(parameters);
     }
 
-    private boolean isFormSubmission(MediaType contentType) {
+    private boolean isFormSubmitted(MediaType contentType) {
         return MediaType.APPLICATION_FORM_URLENCODED_TYPE.equals(contentType) || MediaType.MULTIPART_FORM_DATA_TYPE.equals(contentType);
     }
 }

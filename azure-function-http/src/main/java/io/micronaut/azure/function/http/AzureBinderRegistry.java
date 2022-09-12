@@ -24,13 +24,13 @@ import io.micronaut.core.convert.ArgumentConversionContext;
 import io.micronaut.core.convert.ConversionService;
 import io.micronaut.core.type.Argument;
 import io.micronaut.http.HttpRequest;
-import io.micronaut.http.annotation.Body;
 import io.micronaut.http.bind.DefaultRequestBinderRegistry;
 import io.micronaut.http.bind.binders.RequestArgumentBinder;
 import io.micronaut.http.bind.binders.TypedRequestArgumentBinder;
 import io.micronaut.http.codec.MediaTypeCodecRegistry;
 import io.micronaut.servlet.http.ServletBinderRegistry;
 
+import io.micronaut.servlet.http.ServletBodyBinder;
 import jakarta.inject.Singleton;
 import java.util.List;
 import java.util.Optional;
@@ -64,7 +64,6 @@ public class AzureBinderRegistry extends ServletBinderRegistry {
             ConversionService conversionService,
             List<RequestArgumentBinder> binders) {
         super(mediaTypeCodecRegistry, conversionService, binders);
-        this.byAnnotation.put(Body.class, new AzureServletBodyBinder(conversionService, mediaTypeCodecRegistry));
         this.byType.put(HttpRequestMessage.class, new TypedRequestArgumentBinder<HttpRequestMessage>() {
             @Override
             public BindingResult<HttpRequestMessage> bind(
@@ -129,5 +128,12 @@ public class AzureBinderRegistry extends ServletBinderRegistry {
                 return TRACE_CONTEXT_ARGUMENT;
             }
         });
+    }
+
+    @Override
+    protected ServletBodyBinder newServletBodyBinder(
+        MediaTypeCodecRegistry mediaTypeCodecRegistry,
+        ConversionService conversionService) {
+        return new AzureServletBodyBinder(conversionService, mediaTypeCodecRegistry);
     }
 }
