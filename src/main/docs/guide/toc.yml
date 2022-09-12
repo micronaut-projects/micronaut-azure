@@ -13,5 +13,5 @@ azureFunction:
 azureKeyVault:
   title: Azure Key Vault Support
   distributedConfiguration: Distributed Configuration
-azureBlobStorage: Azure Blog Storage
+azureBlobStorage: Azure Blog Storage Support
 repository: Repository
