@@ -1,0 +1,1 @@
+Micronaut provides a high-level, uniform object storage API that works across the major cloud providers: https://micronaut-projects.github.io/micronaut-object-storage/latest/guide/[Micronaut Object Storage].
