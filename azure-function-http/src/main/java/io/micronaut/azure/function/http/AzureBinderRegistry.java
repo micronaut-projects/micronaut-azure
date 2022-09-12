@@ -131,9 +131,9 @@ public class AzureBinderRegistry extends ServletBinderRegistry {
     }
 
     @Override
-    protected ServletBodyBinder newServletBodyBinder(
+    protected ServletBodyBinder<?> newServletBodyBinder(
         MediaTypeCodecRegistry mediaTypeCodecRegistry,
         ConversionService conversionService) {
-        return new AzureServletBodyBinder(conversionService, mediaTypeCodecRegistry);
+        return new AzureServletBodyBinder<>(conversionService, mediaTypeCodecRegistry);
     }
 }
