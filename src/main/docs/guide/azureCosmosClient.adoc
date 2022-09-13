@@ -1,0 +1,5 @@
+https://docs.microsoft.com/en-us/azure/cosmos-db/introduction/[Azure Cosmos DB] is a fully managed NoSQL database for modern app development. Single-digit millisecond response times, and automatic and instant scalability, guarantee speed at any scale.
+
+To add support for Azure Cosmos DB to an existing project, add the following dependency to your build.
+dependency:micronaut-azure-cosmos[groupId="io.micronaut.azure"]
+

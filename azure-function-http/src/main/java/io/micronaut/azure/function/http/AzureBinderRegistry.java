@@ -30,6 +30,7 @@ import io.micronaut.http.bind.binders.TypedRequestArgumentBinder;
 import io.micronaut.http.codec.MediaTypeCodecRegistry;
 import io.micronaut.servlet.http.ServletBinderRegistry;
 
+import io.micronaut.servlet.http.ServletBodyBinder;
 import jakarta.inject.Singleton;
 import java.util.List;
 import java.util.Optional;
@@ -127,5 +128,12 @@ public class AzureBinderRegistry extends ServletBinderRegistry {
                 return TRACE_CONTEXT_ARGUMENT;
             }
         });
+    }
+
+    @Override
+    protected ServletBodyBinder<?> newServletBodyBinder(
+        MediaTypeCodecRegistry mediaTypeCodecRegistry,
+        ConversionService conversionService) {
+        return new AzureServletBodyBinder<>(conversionService, mediaTypeCodecRegistry);
     }
 }

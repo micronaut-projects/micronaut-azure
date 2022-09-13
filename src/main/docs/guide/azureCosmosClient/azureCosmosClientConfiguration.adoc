@@ -1,0 +1,18 @@
+This is an example configuration that can be used when creating https://docs.microsoft.com/en-us/java/api/com.azure.cosmos.cosmosclient?view=azure-java-stable[CosmosClient] or https://docs.microsoft.com/en-us/java/api/com.azure.cosmos.cosmosasyncclient?view=azure-java-stable[CosmosAsyncClient]:
+
+.application.yml
+[source,yaml]
+----
+micronaut:
+    application:
+        name: azure-cosmos-demo
+azure:
+  cosmos:
+    consistency-level: SESSION
+    endpoint: <endpoint-from-connectionstring>
+    key: <key-from-connectionstring>
+    default-gateway-mode: true
+    endpoint-discovery-enabled: false
+
+----
+https://docs.microsoft.com/en-us/java/api/com.azure.cosmos.cosmosclientbuilder?view=azure-java-stable[CosmosClientBuilder] will be available also when dependencies and configuration are added to the project.
