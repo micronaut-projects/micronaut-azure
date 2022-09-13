@@ -21,6 +21,7 @@ import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.Internal;
+import jakarta.inject.Singleton;
 
 /**
  * The Azure Cosmos Client factory.
@@ -39,6 +40,7 @@ final class CosmosClientFactory {
      * @return an instance of {@link CosmosClient}
      */
     @Bean(preDestroy = "close")
+    @Singleton
     @Requires(beans = CosmosClientConfiguration.class)
     CosmosClient buildCosmosClient(CosmosClientConfiguration configuration) {
         return configuration.getCosmosClientBuilder().buildClient();
@@ -51,6 +53,7 @@ final class CosmosClientFactory {
      * @return an instance of {@link CosmosAsyncClient}
      */
     @Bean(preDestroy = "close")
+    @Singleton
     @Requires(beans = CosmosClientConfiguration.class)
     CosmosAsyncClient buildCosmosAsyncClient(CosmosClientConfiguration configuration) {
         return configuration.getCosmosClientBuilder().buildAsyncClient();
