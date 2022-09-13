@@ -1,4 +1,5 @@
 io.micronaut.azure.condition
+io.micronaut.azure.cosmos.client
 io.micronaut.azure.credentials
 io.micronaut.azure.function
 io.micronaut.azure.function.http
