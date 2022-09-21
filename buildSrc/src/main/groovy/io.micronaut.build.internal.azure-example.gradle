@@ -1,8 +1,5 @@
 plugins {
     id 'io.micronaut.minimal.application'
     id 'io.micronaut.build.internal.dependency-updates'
-}
-
-repositories {
-    mavenCentral()
+    id "io.micronaut.build.internal.azure-base"
 }
