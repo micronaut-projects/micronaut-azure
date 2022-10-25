@@ -50,7 +50,8 @@ public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpRes
     private final HttpRequestMessage<Optional<String>> azureRequest;
     private MutableConvertibleValues<Object> attributes;
     private B body;
-    private HttpStatus status = HttpStatus.OK;
+    private int status = HttpStatus.OK.getCode();
+    private String reason = HttpStatus.OK.getReason();
     private ByteArrayOutputStream outputStream;
     private MutableHttpHeaders headers = new AzureMutableHeaders(new LinkedHashMap<>(5), ConversionService.SHARED);
 
@@ -141,15 +142,26 @@ public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpRes
     }
 
     @Override
-    public MutableHttpResponse<B> status(HttpStatus status, CharSequence message) {
+    public MutableHttpResponse<B> status(int status, CharSequence message) {
         ArgumentUtils.requireNonNull("status", status);
         this.status = status;
+        if (message == null) {
+            this.reason = HttpStatus.getDefaultReason(status);
+        } else {
+            this.reason = message.toString();
+        }
+
         return this;
     }
 
     @Override
-    public HttpStatus getStatus() {
-        return this.status;
+    public int code() {
+        return status;
+    }
+
+    @Override
+    public String reason() {
+        return reason;
     }
 
     @Override
@@ -159,7 +171,7 @@ public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpRes
         } else {
 
             HttpResponseMessage.Builder responseBuilder = azureRequest.createResponseBuilder(
-                    com.microsoft.azure.functions.HttpStatus.valueOf(status.getCode())
+                    com.microsoft.azure.functions.HttpStatus.valueOf(status)
             );
             getHeaders().forEach((s, strings) -> {
                 for (String string : strings) {
