@@ -3,7 +3,7 @@ managed-azure-sdk = "1.2.7"
 managed-azure-functions-java-library = "1.4.2"
 managed-azure-cosmos = "4.38.1"
 
-groovy = "3.0.12"
+groovy = "3.0.13"
 jakarta-inject-api = "2.0.1"
 jetty-server = "9.4.49.v20220914"
 kotlin = "1.7.10"
