@@ -16,8 +16,10 @@
 package io.micronaut.azure.function;
 
 import io.micronaut.context.ApplicationContext;
+import io.micronaut.context.ApplicationContextBuilder;
 import io.micronaut.context.ApplicationContextProvider;
 import io.micronaut.context.env.Environment;
+import io.micronaut.core.annotation.NonNull;
 import io.micronaut.runtime.exceptions.ApplicationStartupException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,10 +67,19 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
         applicationContext.inject(this);
     }
 
+    /**
+     * Provides a builder for the ApplicationContext used for the application.
+     * This can be overridden to enable customization of the ApplicationContext if needed.
+     *
+     * @return the builder
+     */
+    @NonNull
+    protected static ApplicationContextBuilder newApplicationContextBuilder() {
+        return ApplicationContext.builder(Environment.AZURE, Environment.FUNCTION).deduceEnvironment(false);
+    }
+
     private static void startApplicationContext() {
-        applicationContext = ApplicationContext.builder(Environment.AZURE, Environment.FUNCTION)
-                .deduceEnvironment(false)
-                .build();
+        applicationContext = newApplicationContextBuilder().build();
         applicationContext.start();
     }
 
