@@ -1,7 +1,7 @@
 [versions]
 managed-azure-sdk = "1.2.7"
 managed-azure-functions-java-library = "1.4.2"
-managed-azure-cosmos = "4.38.1"
+managed-azure-cosmos = "4.39.0"
 
 groovy = "3.0.13"
 jakarta-inject-api = "2.0.1"
