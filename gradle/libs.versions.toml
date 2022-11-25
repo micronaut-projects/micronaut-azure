@@ -1,17 +1,19 @@
 [versions]
-managed-azure-sdk = "1.2.4"
-managed-azure-functions-java-library = "1.4.2"
-managed-azure-cosmos = "4.35.1"
+managed-azure-sdk = "1.2.7"
+managed-azure-functions-java-library = "2.2.0"
+managed-azure-cosmos = "4.39.0"
 
-groovy = "3.0.12"
 jakarta-inject-api = "2.0.1"
-jetty-server = "9.4.48.v20220622"
-kotlin = "1.7.10"
+jetty-server = "9.4.49.v20220914"
+kotlin = "1.7.21"
 system-lambda = "1.2.1"
 
 # Micronaut
-micronaut = "3.5.1"
-micronaut-test = "3.4.0"
+micronaut = "4.0.0-SNAPSHOT"
+micronaut-test = "4.0.0-SNAPSHOT"
+micronaut-docs = "2.0.0"
+groovy = "4.0.6"
+spock = "2.3-groovy-4.0"
 
 [libraries]
 boms-azure-sdk = { module = "com.azure:azure-sdk-bom", version.ref = "managed-azure-sdk" }

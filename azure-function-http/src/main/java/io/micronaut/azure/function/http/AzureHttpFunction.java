@@ -109,7 +109,7 @@ public class AzureHttpFunction extends AzureFunction {
      *
      * @param request The request
      * @param executionContext The execution context
-     * @return THe response message
+     * @return The response message
      */
     public HttpResponseMessage route(
             HttpRequestMessage<Optional<String>> request,
@@ -128,7 +128,7 @@ public class AzureHttpFunction extends AzureFunction {
 
             return exchange.getResponse().getNativeResponse();
         } finally {
-            applicationContext.destroyBean(getClass());
+            applicationContext.destroyBean(this);
         }
     }
 
