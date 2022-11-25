@@ -12,6 +12,7 @@ system-lambda = "1.2.1"
 # Micronaut
 micronaut = "3.5.1"
 micronaut-test = "3.4.0"
+micronaut-docs = "2.0.0"
 
 [libraries]
 boms-azure-sdk = { module = "com.azure:azure-sdk-bom", version.ref = "managed-azure-sdk" }
