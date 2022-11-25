@@ -10,8 +10,8 @@ system-lambda = "1.2.1"
 
 # Micronaut
 micronaut = "3.5.1"
-micronaut-test = "3.4.0"
 micronaut-docs = "2.0.0"
+micronaut-test = "3.7.1"
 groovy = "3.0.13"
 spock = "2.2-groovy-3.0"
 
