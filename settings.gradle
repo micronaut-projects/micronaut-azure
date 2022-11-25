@@ -6,7 +6,7 @@ pluginManagement {
 }
 
 plugins {
-    id 'io.micronaut.build.shared.settings' version '5.3.15'
+    id 'io.micronaut.build.shared.settings' version '6.1.0'
 }
 
 rootProject.name = 'azure-parent'
@@ -22,13 +22,9 @@ include 'doc-examples:example-java'
 include 'doc-examples:example-groovy'
 include 'doc-examples:example-kotlin'
 
-dependencyResolutionManagement {
-    repositories {
-        mavenCentral()
-        maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
-    }
-}
 
 micronautBuild {
+    // Required for 4.0.0-SNAPSHOT, can be removed after
+    addSnapshotRepository()
     importMicronautCatalog()
 }
