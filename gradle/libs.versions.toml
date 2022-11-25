@@ -13,6 +13,7 @@ micronaut = "3.5.1"
 micronaut-test = "3.4.0"
 micronaut-docs = "2.0.0"
 groovy = "3.0.13"
+spock = "2.2-groovy-3.0"
 
 [libraries]
 boms-azure-sdk = { module = "com.azure:azure-sdk-bom", version.ref = "managed-azure-sdk" }
