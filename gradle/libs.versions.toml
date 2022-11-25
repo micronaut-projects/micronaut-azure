@@ -3,7 +3,6 @@ managed-azure-sdk = "1.2.7"
 managed-azure-functions-java-library = "1.4.2"
 managed-azure-cosmos = "4.39.0"
 
-groovy = "3.0.13"
 jakarta-inject-api = "2.0.1"
 jetty-server = "9.4.49.v20220914"
 kotlin = "1.7.21"
@@ -13,6 +12,7 @@ system-lambda = "1.2.1"
 micronaut = "3.5.1"
 micronaut-test = "3.4.0"
 micronaut-docs = "2.0.0"
+groovy = "3.0.13"
 
 [libraries]
 boms-azure-sdk = { module = "com.azure:azure-sdk-bom", version.ref = "managed-azure-sdk" }
