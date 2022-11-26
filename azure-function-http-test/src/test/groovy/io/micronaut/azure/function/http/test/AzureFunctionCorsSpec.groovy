@@ -3,6 +3,7 @@ package io.micronaut.azure.function.http.test
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
+import io.micronaut.http.annotation.Post
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.http.client.exceptions.HttpClientResponseException
@@ -295,6 +296,11 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
         @Get
         HttpResponse index() {
+            HttpResponse.noContent()
+        }
+
+        @Post
+        HttpResponse indexPost() {
             HttpResponse.noContent()
         }
 
