@@ -8,5 +8,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'io.micronaut.gradle:micronaut-gradle-plugin:3.6.5'
+    implementation libs.gradle.micronaut
+    implementation libs.gradle.kotlin
 }
