@@ -9,11 +9,13 @@ kotlin = "1.7.21"
 system-lambda = "1.2.1"
 
 # Micronaut
-micronaut = "3.5.1"
-micronaut-test = "3.4.0"
+micronaut = "3.7.4"
 micronaut-docs = "2.0.0"
+micronaut-test = "3.7.1"
 groovy = "3.0.13"
 spock = "2.2-groovy-3.0"
+
+micronaut-gradle-plugin = "3.6.5"
 
 [libraries]
 boms-azure-sdk = { module = "com.azure:azure-sdk-bom", version.ref = "managed-azure-sdk" }
@@ -36,6 +38,7 @@ system-lambda = { module = "com.github.stefanbirkner:system-lambda", version.ref
 
 testcontainers-azure = { module = "org.testcontainers:azure" }
 
-[plugins]
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+# Gradle
+
+gradle-micronaut = { module = "io.micronaut.gradle:micronaut-gradle-plugin", version.ref = "micronaut-gradle-plugin" }
+gradle-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }

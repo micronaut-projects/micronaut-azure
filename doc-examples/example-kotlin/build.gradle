@@ -1,8 +1,9 @@
 plugins {
     id 'io.micronaut.build.internal.azure-example'
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.kapt)
+    id "org.jetbrains.kotlin.jvm"
+    id "org.jetbrains.kotlin.kapt"
 }
+
 dependencies {
     kapt(platform(mn.micronaut.bom))
     kaptTest(platform(mn.micronaut.bom))
