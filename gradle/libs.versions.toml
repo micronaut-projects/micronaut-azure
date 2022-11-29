@@ -7,9 +7,12 @@ jakarta-inject-api = "2.0.1"
 jetty-server = "9.4.49.v20220914"
 kotlin = "1.7.21"
 system-lambda = "1.2.1"
+testcontainers = "1.17.6"
 
 # Micronaut
 micronaut = "4.0.0-SNAPSHOT"
+micronaut-reactor = "3.0.0-SNAPSHOT"
+micronaut-servlet = "4.0.0-SNAPSHOT"
 micronaut-test = "4.0.0-SNAPSHOT"
 micronaut-docs = "2.0.0"
 groovy = "4.0.6"
@@ -18,6 +21,10 @@ spock = "2.3-groovy-4.0"
 [libraries]
 boms-azure-sdk = { module = "com.azure:azure-sdk-bom", version.ref = "managed-azure-sdk" }
 
+micronaut-reactor = { module = "io.micronaut.reactor:micronaut-reactor-bom", version.ref = "micronaut-reactor" }
+micronaut-servlet = { module = "io.micronaut.servlet:micronaut-servlet-bom", version.ref = "micronaut-servlet" }
+micronaut-test = { module = "io.micronaut.test:micronaut-test-bom", version.ref = "micronaut-test" }
+
 managed-azure-functions-java-library = { module = "com.microsoft.azure.functions:azure-functions-java-library", version.ref = "managed-azure-functions-java-library" }
 managed-azure-cosmos = { module = "com.azure:azure-cosmos", version.ref = "managed-azure-cosmos" }
 
@@ -25,7 +32,7 @@ azure-identity = { module = "com.azure:azure-identity" }
 azure-security-keyvault-secrets = { module = "com.azure:azure-security-keyvault-secrets" }
 azure-storage-common = { module = "com.azure:azure-storage-common" }
 azure-storage-blob = { module = "com.azure:azure-storage-blob" }
-groovy-all = { module = "org.codehaus.groovy:groovy-all", version.ref = "groovy" }
+groovy-all = { module = "org.apache.groovy:groovy-all", version.ref = "groovy" }
 jakarta-inject-api = { module = "jakarta.inject:jakarta.inject-api", version.ref = "jakarta-inject-api" }
 jetty-server = { module = "org.eclipse.jetty:jetty-server", version.ref = "jetty-server" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
@@ -34,7 +41,7 @@ system-lambda = { module = "com.github.stefanbirkner:system-lambda", version.ref
 
 # TestContainers
 
-testcontainers-azure = { module = "org.testcontainers:azure" }
+testcontainers-azure = { module = "org.testcontainers:azure", version.ref = "testcontainers" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

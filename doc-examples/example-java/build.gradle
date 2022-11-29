@@ -2,9 +2,6 @@ plugins {
     id 'io.micronaut.build.internal.azure-example'
 }
 dependencies {
-    annotationProcessor(platform(mn.micronaut.bom))
-    testAnnotationProcessor(platform(mn.micronaut.bom))
-    implementation(platform(mn.micronaut.bom))
     annotationProcessor(mn.micronaut.inject.java)
     compileOnly(mn.micronaut.inject.groovy)
     implementation project(":azure-function-http")

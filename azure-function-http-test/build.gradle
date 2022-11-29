@@ -9,11 +9,11 @@ dependencies {
     api project(":azure-function-http")
     api(libs.managed.azure.functions.java.library)
 
-    api(mn.micronaut.servlet.core)
+    api(mnServlet.micronaut.servlet.core)
     implementation(libs.jetty.server)
     implementation(libs.jakarta.inject.api)
     testCompileOnly(mn.micronaut.inject.groovy)
-    testImplementation(mn.micronaut.test.spock)
+    testImplementation(mnTest.micronaut.test.spock)
     testImplementation(mn.micronaut.http.client)
     testAnnotationProcessor(mn.micronaut.inject.java)
 }

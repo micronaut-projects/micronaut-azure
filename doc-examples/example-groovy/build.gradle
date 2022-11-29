@@ -3,11 +3,8 @@ plugins {
     id 'groovy'
 }
 dependencies {
-    annotationProcessor(platform(mn.micronaut.bom))
-    testAnnotationProcessor(platform(mn.micronaut.bom))
-    implementation(platform(mn.micronaut.bom))
     annotationProcessor(mn.micronaut.inject.java)
-    implementation(mn.micronaut.servlet.core)
+    implementation(mnServlet.micronaut.servlet.core)
     compileOnly(mn.micronaut.inject.groovy)
     implementation project(":azure-function-http")
 

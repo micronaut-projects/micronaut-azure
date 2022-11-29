@@ -12,8 +12,8 @@ dependencies {
     api(libs.azure.identity)
     api(libs.azure.security.keyvault.secrets)
 
-    implementation(mn.micronaut.discovery)
-    implementation(mn.micronaut.reactor)
+    implementation(mn.micronaut.discovery.core)
+    implementation(mnReactor.micronaut.reactor)
 
     testAnnotationProcessor(mn.micronaut.inject.java)
     testCompileOnly(mn.micronaut.inject.groovy)
