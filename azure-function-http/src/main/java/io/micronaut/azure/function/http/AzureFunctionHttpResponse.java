@@ -148,8 +148,24 @@ public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpRes
     }
 
     @Override
+    public MutableHttpResponse<B> status(int status, CharSequence message) {
+        this.status = HttpStatus.valueOf(status);
+        return this;
+    }
+
+    @Override
     public HttpStatus getStatus() {
         return this.status;
+    }
+
+    @Override
+    public int code() {
+        return this.status.getCode();
+    }
+
+    @Override
+    public String reason() {
+        return this.status.getReason();
     }
 
     @Override
@@ -183,6 +199,7 @@ public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpRes
             return responseBuilder.build();
         }
     }
+
 
 }
 

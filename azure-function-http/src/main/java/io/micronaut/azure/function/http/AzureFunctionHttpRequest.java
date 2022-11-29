@@ -34,7 +34,7 @@ import io.micronaut.http.codec.CodecException;
 import io.micronaut.http.codec.MediaTypeCodec;
 import io.micronaut.http.codec.MediaTypeCodecRegistry;
 import io.micronaut.http.cookie.Cookies;
-import io.micronaut.servlet.http.ServletCookies;
+import io.micronaut.http.simple.cookies.SimpleCookies;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpRequest;
 import io.micronaut.servlet.http.ServletHttpResponse;
@@ -168,7 +168,7 @@ public class AzureFunctionHttpRequest<B>
     private HttpParameters httpParameters;
     private MutableConvertibleValues<Object> attributes;
     private Object body;
-    private ServletCookies cookies;
+    private Cookies cookies;
 
     /**
      * Default constructor.
@@ -249,12 +249,12 @@ public class AzureFunctionHttpRequest<B>
     @NonNull
     @Override
     public Cookies getCookies() {
-        ServletCookies cookies = this.cookies;
+        Cookies cookies = this.cookies;
         if (cookies == null) {
             synchronized (this) { // double check
                 cookies = this.cookies;
                 if (cookies == null) {
-                    cookies = new ServletCookies(getPath(), getHeaders(), ConversionService.SHARED);
+                    cookies = new SimpleCookies(ConversionService.SHARED);
                     this.cookies = cookies;
                 }
             }
@@ -383,7 +383,7 @@ public class AzureFunctionHttpRequest<B>
         //noinspection unchecked
         return (ServletHttpResponse<HttpResponseMessage, ? super Object>) azureResponse;
     }
-    
+
     /**
      * Given a HTTP Header it will attempt to normalize to a {@link HttpHeaders} constant.
      * If it does not find any matching constant, it will return the supplied header name.
