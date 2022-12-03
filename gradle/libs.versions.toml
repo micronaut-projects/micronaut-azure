@@ -1,6 +1,6 @@
 [versions]
 managed-azure-sdk = "1.2.8"
-managed-azure-functions-java-library = "2.2.0"
+managed-azure-functions-java-library = "3.0.0"
 managed-azure-cosmos = "4.39.0"
 
 jakarta-inject-api = "2.0.1"
