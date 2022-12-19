@@ -1,4 +1,4 @@
-package io.micronaut.http.server.tck.netty.tests;
+package io.micronaut.http.server.tck.azurehttpfunction.tests;
 
 import io.micronaut.http.server.tck.HttpServerTestSuite;
 

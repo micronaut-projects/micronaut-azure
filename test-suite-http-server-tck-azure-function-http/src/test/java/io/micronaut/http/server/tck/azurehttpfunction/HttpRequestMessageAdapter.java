@@ -1,4 +1,4 @@
-package io.micronaut.http.server.tck.netty;
+package io.micronaut.http.server.tck.azurehttpfunction;
 
 import com.microsoft.azure.functions.HttpMethod;
 import com.microsoft.azure.functions.HttpRequestMessage;
