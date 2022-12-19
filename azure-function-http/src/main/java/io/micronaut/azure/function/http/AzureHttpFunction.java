@@ -20,13 +20,11 @@ import com.microsoft.azure.functions.HttpMethod;
 import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
 import io.micronaut.azure.function.AzureFunction;
+import io.micronaut.context.ApplicationContextBuilder;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.http.context.ServerContextPathProvider;
-import io.micronaut.runtime.exceptions.ApplicationStartupException;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpHandler;
-import io.netty.util.internal.MacAddressUtil;
-import io.netty.util.internal.PlatformDependent;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -56,53 +54,37 @@ import java.util.Optional;
  * @since 1.0.0
  */
 public class AzureHttpFunction extends AzureFunction {
-    protected static ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> httpHandler;
+    protected ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> httpHandler;
 
-    static {
-        ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> newHandler = null;
-        try {
-            byte[] bestMacAddr = new byte[8];
-            PlatformDependent.threadLocalRandom().nextBytes(bestMacAddr);
-            System.setProperty("io.netty.machineId", MacAddressUtil.formatAddress(bestMacAddr));
-
-            newHandler = new ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage>(applicationContext) {
-                @Override
-                public boolean isRunning() {
-                    return applicationContext.isRunning();
-                }
-
-                @Override
-                protected ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> createExchange(HttpRequestMessage<Optional<String>> request, HttpResponseMessage response) {
-                    throw new UnsupportedOperationException("Creating the exchange directly is not supported");
-                }
-            };
-        } catch (Throwable e) {
-            if (LOG.isErrorEnabled()) {
-                LOG.error("Error initializing Azure function: " + e.getMessage(), e);
-            }
-            throw new ApplicationStartupException("Error initializing Azure function: " + e.getMessage(), e);
-        }
-
-        httpHandler = newHandler;
-        Runtime.getRuntime().addShutdownHook(
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        httpHandler = null;
-                    }
-                })
-        );
+    private void registerHttpHandlerShutDownHook() {
+        Runtime.getRuntime().addShutdownHook(createHttpHandlerShutDownHook());
     }
+
+    private Thread createHttpHandlerShutDownHook() {
+        return new Thread(() -> httpHandler = null);
+    }
+
 
     private final String contextPath;
 
     /**
      * Default constructor.
      */
-    public AzureHttpFunction() {
-        applicationContext.registerSingleton(this);
+    protected AzureHttpFunction() {
+        this(null);
+    }
+
+    /**
+     *
+     * @param applicationContextBuilder ApplicationContext Builder;
+     */
+    protected AzureHttpFunction(ApplicationContextBuilder applicationContextBuilder) {
+        super(applicationContextBuilder);
+        httpHandler = new HttpHandler(getApplicationContext());
+        registerHttpHandlerShutDownHook();
         this.contextPath = applicationContext.findBean(ServerContextPathProvider.class).map(ServerContextPathProvider::getContextPath).orElse("/api");
     }
+
 
     /**
      * Entry point for Azure functions written in Micronaut.
