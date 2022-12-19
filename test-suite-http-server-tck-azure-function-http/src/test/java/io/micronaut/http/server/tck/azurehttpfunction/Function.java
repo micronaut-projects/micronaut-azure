@@ -1,4 +1,4 @@
-package io.micronaut.http.server.tck.netty;
+package io.micronaut.http.server.tck.azurehttpfunction;
 
 import io.micronaut.azure.function.http.AzureHttpFunction;
 import io.micronaut.context.ApplicationContextBuilder;
