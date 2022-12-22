@@ -1,0 +1,12 @@
+[
+  {
+    "type": "io.micronaut.azure.function.http.AzureHttpFunction",
+    "member": "Field httpHandler",
+    "reason": "Changed in micronaut 4"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.AzureHttpFunction",
+    "member": "Constructor io.micronaut.azure.function.http.AzureHttpFunction()",
+    "reason": "Changed in micronaut 4"
+  }
+]

@@ -1,4 +1,5 @@
 package io.micronaut.azure.function.http;
+import io.micronaut.core.annotation.Creator;
 import io.micronaut.core.annotation.Introspected;
 
 @Introspected
@@ -10,6 +11,7 @@ public class Person {
         this.name = name;
     }
 
+    @Creator
     public Person(String name, int age) {
         this.name = name;
         this.age = age;

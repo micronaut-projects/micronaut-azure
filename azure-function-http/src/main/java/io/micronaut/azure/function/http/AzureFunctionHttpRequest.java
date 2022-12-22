@@ -45,7 +45,6 @@ import io.micronaut.core.annotation.Nullable;
 import java.io.*;
 import java.net.URI;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Implementation of Micronaut's request interface for Azure.

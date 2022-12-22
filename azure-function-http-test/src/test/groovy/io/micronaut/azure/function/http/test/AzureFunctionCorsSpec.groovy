@@ -3,6 +3,7 @@ package io.micronaut.azure.function.http.test
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
+import io.micronaut.http.MediaType
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.http.client.exceptions.HttpClientResponseException
@@ -29,10 +30,13 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
         then:
         response.status == HttpStatus.NO_CONTENT
         response.contentLength == -1
-        headerNames.size() == 3
-        headerNames.contains("Connection")
-        headerNames.contains("Date")
-        headerNames.contains("Server")
+        !headerNames.contains(ACCESS_CONTROL_MAX_AGE)
+        !headerNames.contains(VARY)
+        !headerNames.contains(ACCESS_CONTROL_ALLOW_METHODS)
+        !headerNames.contains(ACCESS_CONTROL_ALLOW_HEADERS)
+        headerNames.size() == 2
+        headerNames.contains(DATE)
+        headerNames.contains(SERVER)
     }
 
     void "test cors request without configuration"() {
@@ -47,10 +51,13 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
         then:
         response.status == HttpStatus.NO_CONTENT
-        headerNames.size() == 3
-        headerNames.contains("Connection")
-        headerNames.contains("Date")
-        headerNames.contains("Server")
+        !headerNames.contains(ACCESS_CONTROL_MAX_AGE)
+        !headerNames.contains(VARY)
+        !headerNames.contains(ACCESS_CONTROL_ALLOW_METHODS)
+        !headerNames.contains(ACCESS_CONTROL_ALLOW_HEADERS)
+        headerNames.size() == 2
+        headerNames.contains(DATE)
+        headerNames.contains(SERVER)
     }
 
     void "test cors request with a controller that returns map"() {
@@ -120,7 +127,13 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test cors request with invalid method"() {
         given:
-        List<String> expected = ['Connection', 'Date', 'Content-Length', 'Server']
+        List<String> expected = [
+                ALLOW,
+                DATE,
+                CONTENT_TYPE,
+                CONTENT_LENGTH,
+                SERVER
+        ]
         when:
         client.toBlocking().exchange(
                 HttpRequest.POST('/api/cors/test', [:])
@@ -136,10 +149,12 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
         then:
         response.code() == HttpStatus.FORBIDDEN.code
-        expected.size() == headerNames.size()
+        headerNames.size() == expected.size()
         expected.every {expectedHeaderName ->
             headerNames.any  { header -> header.equalsIgnoreCase(expectedHeaderName) }
         }
+        MediaType.APPLICATION_JSON == response.header(CONTENT_TYPE)
+        'HEAD,GET' == response.header(ALLOW)
     }
 
     void "test cors request with invalid header"() {
@@ -161,7 +176,6 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
                         .header(ACCESS_CONTROL_REQUEST_METHOD, 'GET')
                         .header(ORIGIN, 'bar.com')
                         .header(ACCESS_CONTROL_REQUEST_HEADERS, 'Foo, Accept')
-
         )
 
         then:
@@ -208,11 +222,10 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
     }
 
     void "test preflight request with controlled headers"() {
-
         given:
         HttpResponse<?> response = client.toBlocking().exchange(
                 HttpRequest.OPTIONS('/api/cors/test')
-                        .header(ACCESS_CONTROL_REQUEST_METHOD, 'POST')
+                        .header(ACCESS_CONTROL_REQUEST_METHOD, 'GET')
                         .header(ORIGIN, 'bar.com')
                         .header(ACCESS_CONTROL_REQUEST_HEADERS, 'Accept')
         )
@@ -221,7 +234,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
         expect:
         response.code() == HttpStatus.OK.code
-        response.header(ACCESS_CONTROL_ALLOW_METHODS) == 'POST'
+        response.header(ACCESS_CONTROL_ALLOW_METHODS) == 'GET'
         response.headers.getAll(ACCESS_CONTROL_ALLOW_HEADERS) == ['Accept']
         response.header(ACCESS_CONTROL_MAX_AGE) == '150'
         response.header(ACCESS_CONTROL_ALLOW_ORIGIN) == 'bar.com'
@@ -277,17 +290,17 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
     @Override
     Map<String, String> getProperties() {
         ['micronaut.server.cors.enabled': "true",
-         'micronaut.server.cors.configurations.foo.allowedOrigins': 'foo.com',
-         'micronaut.server.cors.configurations.foo.allowedMethods': 'GET',
-         'micronaut.server.cors.configurations.foo.maxAge': '-1',
-         'micronaut.server.cors.configurations.bar.allowedOrigins': 'bar.com',
-         'micronaut.server.cors.configurations.bar.allowedHeaders[0]': 'Content-Type',
-         'micronaut.server.cors.configurations.bar.allowedHeaders[1]': 'Accept',
-         'micronaut.server.cors.configurations.bar.exposedHeaders[0]': 'x',
-         'micronaut.server.cors.configurations.bar.exposedHeaders[1]': 'y',
-         'micronaut.server.cors.configurations.bar.maxAge': '150',
-         'micronaut.server.cors.configurations.bar.allowCredentials': 'false',
-         'micronaut.server.dateHeader': 'false']
+         'micronaut.server.cors.configurations.foo.allowed-origins': 'foo.com',
+         'micronaut.server.cors.configurations.foo.allowed-methods': 'GET',
+         'micronaut.server.cors.configurations.foo.max-age': '-1',
+         'micronaut.server.cors.configurations.bar.allowed-origins': 'bar.com',
+         'micronaut.server.cors.configurations.bar.allowed-headers[0]': CONTENT_TYPE,
+         'micronaut.server.cors.configurations.bar.allowed-headers[1]': ACCEPT,
+         'micronaut.server.cors.configurations.bar.exposed-headers[0]': 'x',
+         'micronaut.server.cors.configurations.bar.exposed-headers[1]': 'y',
+         'micronaut.server.cors.configurations.bar.max-age': '150',
+         'micronaut.server.cors.configurations.bar.allow-credentials': 'false',
+         'micronaut.server.date-header': 'false']
     }
 
     @Controller('/cors/test')

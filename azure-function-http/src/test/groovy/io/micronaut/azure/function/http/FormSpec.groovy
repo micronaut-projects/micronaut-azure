@@ -12,11 +12,11 @@ class FormSpec extends Specification {
     void "x-www-form-urlencoded POST request with body parameters"() {
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = function
+
+        def responseMessage = TestUtils.invoke(function, function
                 .request(HttpMethod.POST, "/form/form-url-encoded")
                 .header("Content-Type", MediaType.APPLICATION_FORM_URLENCODED)
-                .body("message=bodyMessage")
-                .invoke()
+                .body("message=bodyMessage"))
 
         expect:
         responseMessage.status.value() == HttpStatus.OK.code
@@ -27,11 +27,10 @@ class FormSpec extends Specification {
     void "x-www-form-urlencoded POST request with body parameters using nested attribute"() {
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = function
+        def responseMessage = TestUtils.invoke(function, function
                 .request(HttpMethod.POST, "/form/form-url-encoded-nested-attribute")
                 .header("Content-Type", MediaType.APPLICATION_FORM_URLENCODED)
-                .body("message=bodyMessage")
-                .invoke()
+                .body("message=bodyMessage"))
 
         expect:
         responseMessage.status.value() == HttpStatus.OK.code
@@ -41,11 +40,10 @@ class FormSpec extends Specification {
     void "x-www-form-urlencoded POST request with request query parameters"() {
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = function
+        def responseMessage = TestUtils.invoke(function, function
                 .request(HttpMethod.POST, "/form/form-url-encoded")
                 .header("Content-Type", MediaType.APPLICATION_FORM_URLENCODED)
-                .parameter("message", "queryMessage")
-                .invoke()
+                .parameter("message", "queryMessage"))
 
         expect:
         responseMessage.status.value() == HttpStatus.OK.code
@@ -55,11 +53,10 @@ class FormSpec extends Specification {
     void "x-www-form-urlencoded POST request with request query parameters using nested attribute"() {
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = function
+        def responseMessage = TestUtils.invoke(function, function
                 .request(HttpMethod.POST, "/form/form-url-encoded-nested-attribute")
                 .header("Content-Type", MediaType.APPLICATION_FORM_URLENCODED)
-                .parameter("message", "queryMessage")
-                .invoke()
+                .parameter("message", "queryMessage"))
 
         expect:
         responseMessage.status.value() == HttpStatus.OK.code
