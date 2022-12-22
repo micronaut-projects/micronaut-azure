@@ -34,29 +34,29 @@ import io.micronaut.http.codec.CodecException;
 import io.micronaut.http.codec.MediaTypeCodec;
 import io.micronaut.http.codec.MediaTypeCodecRegistry;
 import io.micronaut.http.cookie.Cookies;
-import io.micronaut.servlet.http.ServletCookies;
+import io.micronaut.http.simple.cookies.SimpleCookies;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpRequest;
 import io.micronaut.servlet.http.ServletHttpResponse;
 
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
+
 import java.io.*;
 import java.net.URI;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Implementation of Micronaut's request interface for Azure.
  *
  * @param <B> The body type
- * @since 1.0
  * @author graemerocher
+ * @since 1.0
  */
 @Internal
 public class AzureFunctionHttpRequest<B>
-        implements ServletHttpRequest<HttpRequestMessage<Optional<String>>, B>,
-        ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> {
+    implements ServletHttpRequest<HttpRequestMessage<Optional<String>>, B>,
+    ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> {
     private static final Map<String, String> UPPERCASE_HEADER_TO_HEADER;
 
     static {
@@ -168,7 +168,7 @@ public class AzureFunctionHttpRequest<B>
     private HttpParameters httpParameters;
     private MutableConvertibleValues<Object> attributes;
     private Object body;
-    private ServletCookies cookies;
+    private Cookies cookies;
 
     /**
      * Default constructor.
@@ -179,10 +179,10 @@ public class AzureFunctionHttpRequest<B>
      * @param executionContext The execution context.
      */
     public AzureFunctionHttpRequest(
-            String contextPath,
-            HttpRequestMessage<Optional<String>> azureRequest,
-            MediaTypeCodecRegistry codecRegistry,
-            ExecutionContext executionContext) {
+        String contextPath,
+        HttpRequestMessage<Optional<String>> azureRequest,
+        MediaTypeCodecRegistry codecRegistry,
+        ExecutionContext executionContext) {
         this.executionContext = executionContext;
         this.azureRequest = azureRequest;
         this.azureResponse = new AzureFunctionHttpResponse<>(azureRequest, codecRegistry);
@@ -196,6 +196,23 @@ public class AzureFunctionHttpRequest<B>
         this.method = method;
         this.headers = new AzureMutableHeaders(toMultiValueMap(azureRequest.getHeaders()), ConversionService.SHARED);
         this.codecRegistry = codecRegistry;
+    }
+
+    /**
+     * Given a HTTP Header it will attempt to normalize to a {@link HttpHeaders} constant.
+     * If it does not find any matching constant, it will return the supplied header name.
+     * For example:
+     * - Accept -> Accept
+     * - accept -> Accept
+     * - Turbo-Frame -> Turbo-Frame
+     *
+     * @param headerName HTTP Header name
+     * @return A matching {@link HttpHeaders} constant or the supplied header name if no match found.
+     * @see <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC 2616 - HTTP Headers should be case insensitive</a>
+     */
+    @NonNull
+    private static String normalizeHeaderName(@NonNull String headerName) {
+        return UPPERCASE_HEADER_TO_HEADER.getOrDefault(headerName.toUpperCase(Locale.ENGLISH), headerName);
     }
 
     private Map<CharSequence, List<String>> toMultiValueMap(Map<String, String> headers) {
@@ -223,7 +240,7 @@ public class AzureFunctionHttpRequest<B>
     @Override
     public InputStream getInputStream() throws IOException {
         return new ByteArrayInputStream(
-                azureRequest.getBody().map(s -> s.getBytes(getCharacterEncoding())).orElseThrow(() -> new IOException("Empty Body"))
+            azureRequest.getBody().map(s -> s.getBytes(getCharacterEncoding())).orElseThrow(() -> new IOException("Empty Body"))
         );
     }
 
@@ -249,12 +266,12 @@ public class AzureFunctionHttpRequest<B>
     @NonNull
     @Override
     public Cookies getCookies() {
-        ServletCookies cookies = this.cookies;
+        Cookies cookies = this.cookies;
         if (cookies == null) {
             synchronized (this) { // double check
                 cookies = this.cookies;
                 if (cookies == null) {
-                    cookies = new ServletCookies(getPath(), getHeaders(), ConversionService.SHARED);
+                    cookies = new SimpleCookies(ConversionService.SHARED);
                     this.cookies = cookies;
                 }
             }
@@ -383,22 +400,6 @@ public class AzureFunctionHttpRequest<B>
         //noinspection unchecked
         return (ServletHttpResponse<HttpResponseMessage, ? super Object>) azureResponse;
     }
-    
-    /**
-     * Given a HTTP Header it will attempt to normalize to a {@link HttpHeaders} constant.
-     * If it does not find any matching constant, it will return the supplied header name.
-     * For example:
-     * - Accept -> Accept
-     * - accept -> Accept
-     * - Turbo-Frame -> Turbo-Frame
-     * @see <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC 2616 - HTTP Headers should be case insensitive</a>
-     * @param headerName HTTP Header name
-     * @return A matching {@link HttpHeaders} constant or the supplied header name if no match found.
-     */
-    @NonNull
-    private static String normalizeHeaderName(@NonNull String headerName) {
-        return UPPERCASE_HEADER_TO_HEADER.getOrDefault(headerName.toUpperCase(Locale.ENGLISH), headerName);
-    }
 
     /**
      * Models the http parameters.
@@ -435,9 +436,10 @@ public class AzureFunctionHttpRequest<B>
         @Override
         public Collection<List<String>> values() {
             return azureRequest.getQueryParameters()
-                    .values()
-                    .stream().map(Collections::singletonList)
-                    .collect(Collectors.toList());
+                .values()
+                .stream()
+                .map(Collections::singletonList)
+                .toList();
         }
 
         @Override

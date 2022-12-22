@@ -1,19 +1,19 @@
 plugins {
-    id 'io.micronaut.build.internal.azure-module'
+    id("io.micronaut.build.internal.azure-module")
 }
 
 dependencies {
     annotationProcessor(mn.micronaut.inject.java)
-    implementation platform(project(":azure-bom"))
+    implementation(platform(projects.azureBom))
 
     api(mn.micronaut.inject)
     api(mn.micronaut.http.server)
-    api project(":azure-sdk")
+    api(projects.azureSdk)
     api(libs.azure.identity)
     api(libs.azure.security.keyvault.secrets)
 
-    implementation(mn.micronaut.discovery)
-    implementation(mn.micronaut.reactor)
+    implementation(mn.micronaut.discovery.core)
+    implementation(mnReactor.micronaut.reactor)
 
     testAnnotationProcessor(mn.micronaut.inject.java)
     testCompileOnly(mn.micronaut.inject.groovy)

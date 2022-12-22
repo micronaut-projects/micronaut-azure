@@ -9,6 +9,8 @@ plugins {
     id 'io.micronaut.build.shared.settings' version '6.1.1'
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 rootProject.name = 'azure-parent'
 
 include 'azure-bom'
@@ -23,5 +25,10 @@ include 'doc-examples:example-groovy'
 include 'doc-examples:example-kotlin'
 
 micronautBuild {
+    // Required for 4.0.0-SNAPSHOT, can be removed after
+    addSnapshotRepository()
     importMicronautCatalog()
+    importMicronautCatalog("micronaut-reactor")
+    importMicronautCatalog("micronaut-serde")
+    importMicronautCatalog("micronaut-servlet")
 }

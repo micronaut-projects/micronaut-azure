@@ -37,33 +37,27 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
     protected static final Logger LOG = LoggerFactory.getLogger(AzureFunction.class);
     protected static ApplicationContext applicationContext;
 
-    static {
+    /**
+     * Default constructor.
+     */
+    protected AzureFunction() {
+        this(null);
+    }
+
+    /**
+     *
+     * @param applicationContextBuilder ApplicationContext Builder;
+     */
+    protected AzureFunction(ApplicationContextBuilder applicationContextBuilder) {
         try {
-            startApplicationContext();
+            startApplicationContext(applicationContextBuilder);
         } catch (Throwable  e) {
             if (LOG.isErrorEnabled()) {
                 LOG.error("Error initializing Azure function: " + e.getMessage(), e);
             }
             throw new ApplicationStartupException("Error initializing Azure function: " + e.getMessage(), e);
         }
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (applicationContext != null) {
-                    applicationContext.close();
-                }
-                applicationContext = null;
-            }
-        }));
-    }
-
-    /**
-     * Default constructor.
-     */
-    protected AzureFunction() {
-        if (applicationContext == null) {
-            startApplicationContext();
-        }
+        registerApplicationContextShutDownHook();
         applicationContext.inject(this);
     }
 
@@ -74,13 +68,8 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
      * @return the builder
      */
     @NonNull
-    protected static ApplicationContextBuilder newApplicationContextBuilder() {
+    public static ApplicationContextBuilder defaultApplicationContextBuilder() {
         return ApplicationContext.builder(Environment.AZURE, Environment.FUNCTION).deduceEnvironment(false);
-    }
-
-    private static void startApplicationContext() {
-        applicationContext = newApplicationContextBuilder().build();
-        applicationContext.start();
     }
 
     @Override
@@ -95,4 +84,30 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
             applicationContext = null;
         }
     }
+
+    private static void startApplicationContext(ApplicationContextBuilder applicationContextBuilder) {
+        applicationContext = (applicationContextBuilder != null ? applicationContextBuilder : defaultApplicationContextBuilder()).build();
+        applicationContext.start();
+    }
+
+    /**
+     * Registers an applicationContextShutdownHook.
+     */
+    private void registerApplicationContextShutDownHook() {
+        Runtime.getRuntime().addShutdownHook(createApplicationContextShutDownHook());
+    }
+
+    /**
+     *
+     * @return A new Thread which closes and sets to null the application context if not null
+     */
+    private Thread createApplicationContextShutDownHook() {
+        return new Thread(() -> {
+            if (applicationContext != null) {
+                applicationContext.close();
+            }
+            applicationContext = null;
+        });
+    }
+
 }

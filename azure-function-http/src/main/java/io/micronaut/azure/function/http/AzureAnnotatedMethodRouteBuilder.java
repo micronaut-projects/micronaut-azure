@@ -50,7 +50,7 @@ class AzureAnnotatedMethodRouteBuilder extends AnnotatedMethodRouteBuilder {
     public AzureAnnotatedMethodRouteBuilder(
             ExecutionHandleLocator executionHandleLocator,
             UriNamingStrategy uriNamingStrategy,
-            ConversionService<?> conversionService,
+            ConversionService conversionService,
             ServerContextPathProvider contextPathProvider) {
         super(executionHandleLocator, uriNamingStrategy, conversionService);
         this.contextPathProvider = contextPathProvider;

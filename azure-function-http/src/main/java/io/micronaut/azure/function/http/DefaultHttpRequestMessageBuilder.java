@@ -15,7 +15,11 @@
  */
 package io.micronaut.azure.function.http;
 
-import com.microsoft.azure.functions.*;
+import com.microsoft.azure.functions.HttpMethod;
+import com.microsoft.azure.functions.HttpRequestMessage;
+import com.microsoft.azure.functions.HttpResponseMessage;
+import com.microsoft.azure.functions.HttpStatus;
+import com.microsoft.azure.functions.HttpStatusType;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.core.convert.ArgumentConversionContext;
 import io.micronaut.core.convert.ConversionService;
@@ -27,9 +31,15 @@ import io.micronaut.http.codec.MediaTypeCodecRegistry;
 
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Internal class for building request messages.
@@ -107,30 +117,6 @@ class DefaultHttpRequestMessageBuilder<T> implements HttpRequestMessageBuilder<T
         return buildEncodedRequest();
     }
 
-    @Override
-    public AzureHttpResponseMessage invoke() {
-        HttpResponseMessage result = applicationContext.getBean(AzureHttpFunction.class).route(
-                buildEncodedRequest(),
-                new DefaultExecutionContext()
-        );
-        return new AzureHttpResponseMessage() {
-            @Override
-            public HttpStatusType getStatus() {
-                return result.getStatus();
-            }
-
-            @Override
-            public String getHeader(String key) {
-                return result.getHeader(key);
-            }
-
-            @Override
-            public Object getBody() {
-                return result.getBody();
-            }
-        };
-    }
-
     private HttpRequestMessage<Optional<String>> buildEncodedRequest() {
         if (this.body != null) {
             if (this.body instanceof byte[]) {
@@ -190,27 +176,6 @@ class DefaultHttpRequestMessageBuilder<T> implements HttpRequestMessageBuilder<T
     @Override
     public HttpResponseMessage.Builder createResponseBuilder(HttpStatusType status) {
         return new ResponseBuilder().status(status);
-    }
-
-    /**
-     * Default execution context impl. used for testing.
-     */
-    private class DefaultExecutionContext implements ExecutionContext {
-
-        @Override
-        public Logger getLogger() {
-            return LogManager.getLogManager().getLogger(DefaultHttpRequestMessageBuilder.class.getName());
-        }
-
-        @Override
-        public String getInvocationId() {
-            return getFunctionName();
-        }
-
-        @Override
-        public String getFunctionName() {
-            return "io.micronaut.azure.function.http.AzureHttpFunction";
-        }
     }
 
     /**

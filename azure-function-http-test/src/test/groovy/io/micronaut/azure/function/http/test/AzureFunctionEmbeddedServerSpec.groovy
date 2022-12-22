@@ -14,7 +14,7 @@ import spock.lang.Specification
 import jakarta.inject.Inject
 
 @MicronautTest
-class AzureFunRctionEmbeddedServerSpec extends Specification {
+class AzureFunctionEmbeddedServerSpec extends Specification {
     @Inject
     @Client('/')
     HttpClient client
