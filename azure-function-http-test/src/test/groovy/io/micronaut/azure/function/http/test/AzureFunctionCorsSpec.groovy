@@ -23,7 +23,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test non cors request"() {
         when:
-        def response = client.toBlocking().exchange('/api/cors/test')
+        HttpResponse<?> response = client.toBlocking().exchange('/api/cors/test')
         Set<String> headerNames = response.getHeaders().names()
 
         then:
@@ -37,7 +37,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test cors request without configuration"() {
         given:
-        def response = client.toBlocking().exchange(
+        HttpResponse<?> response = client.toBlocking().exchange(
                 HttpRequest.GET('/api/cors/test')
                         .header(ORIGIN, 'fooBar.com')
         )
@@ -55,7 +55,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test cors request with a controller that returns map"() {
         given:
-        def response = client.toBlocking().exchange(
+        HttpResponse<?> response = client.toBlocking().exchange(
                 HttpRequest.GET('/api/cors/test/arbitrary')
                         .header(ORIGIN, 'foo.com')
         )
@@ -76,7 +76,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test cors request with controlled method"() {
         given:
-        def response = client.toBlocking().exchange(
+        HttpResponse<?> response = client.toBlocking().exchange(
                 HttpRequest.GET('/api/cors/test')
                         .header(ORIGIN, 'foo.com')
         )
@@ -97,7 +97,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test cors request with controlled headers"() {
         given:
-        def response = client.toBlocking().exchange(
+        HttpResponse<?> response = client.toBlocking().exchange(
                 HttpRequest.GET('/api/cors/test')
                         .header(ORIGIN, 'bar.com')
                         .header(ACCEPT, 'application/json')
@@ -144,7 +144,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test cors request with invalid header"() {
         given:
-        def response = client.toBlocking().exchange(
+        HttpResponse<?> response = client.toBlocking().exchange(
                 HttpRequest.GET('/api/cors/test')
                         .header(ORIGIN, 'bar.com')
                         .header(ACCESS_CONTROL_REQUEST_HEADERS, 'Foo, Accept')
@@ -187,7 +187,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     void "test preflight request with controlled method"() {
         given:
-        def response = client.toBlocking().exchange(
+        HttpResponse<?> response = client.toBlocking().exchange(
                 HttpRequest.OPTIONS('/api/cors/test')
                         .header(ACCESS_CONTROL_REQUEST_METHOD, 'GET')
                         .header(ORIGIN, 'foo.com')
@@ -210,7 +210,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
     void "test preflight request with controlled headers"() {
 
         given:
-        def response = client.toBlocking().exchange(
+        HttpResponse<?> response = client.toBlocking().exchange(
                 HttpRequest.OPTIONS('/api/cors/test')
                         .header(ACCESS_CONTROL_REQUEST_METHOD, 'POST')
                         .header(ORIGIN, 'bar.com')
