@@ -21,6 +21,7 @@ import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
 import io.micronaut.azure.function.AzureFunction;
 import io.micronaut.context.ApplicationContextBuilder;
+import io.micronaut.core.convert.ConversionService;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.http.context.ServerContextPathProvider;
 import io.micronaut.servlet.http.ServletExchange;
@@ -71,7 +72,7 @@ public class AzureHttpFunction extends AzureFunction {
      */
     protected AzureHttpFunction(ApplicationContextBuilder applicationContextBuilder) {
         super(applicationContextBuilder);
-        httpHandler = new HttpHandler(getApplicationContext());
+        httpHandler = new HttpHandler(applicationContext, applicationContext.getBean(ConversionService.class));
         registerHttpHandlerShutDownHook();
         this.contextPath = applicationContext.findBean(ServerContextPathProvider.class).map(ServerContextPathProvider::getContextPath).orElse("/api");
     }

@@ -24,6 +24,7 @@ import io.micronaut.azure.function.http.HttpRequestMessageBuilder;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.env.Environment;
 import io.micronaut.core.annotation.Internal;
+import io.micronaut.core.convert.ConversionService;
 import io.micronaut.core.io.IOUtils;
 import io.micronaut.core.io.socket.SocketUtils;
 import io.micronaut.http.HttpHeaders;
@@ -66,6 +67,7 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
     private final ApplicationContext applicationContext;
     private final boolean randomPort;
     private final ServerContextPathProvider contextPathProvider;
+    private final ConversionService conversionService;
     private int port;
     private final AtomicBoolean running = new AtomicBoolean(false);
     private Server server;
@@ -80,9 +82,12 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
     AzureFunctionEmbeddedServer(
             ApplicationContext applicationContext,
             HttpServerConfiguration httpServerConfiguration,
-            ServerContextPathProvider contextPathProvider) {
+            ServerContextPathProvider contextPathProvider,
+            ConversionService conversionService
+    ) {
         this.applicationContext = applicationContext;
         this.contextPathProvider = contextPathProvider;
+        this.conversionService = conversionService;
         Optional<Integer> port = httpServerConfiguration.getPort();
         if (port.isPresent()) {
             this.port = port.get();
@@ -118,7 +123,7 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
                     context.setContextPath(contextPath);
                     context.setResourceBase(".");
                     context.setClassLoader(Thread.currentThread().getContextClassLoader());
-                    context.setHandler(new AzureHandler(getApplicationContext(), contextPath));
+                    context.setHandler(new AzureHandler(getApplicationContext(), contextPath, conversionService));
                     server.setHandler(context);
                     this.server.setHandler(context);
                     this.server.start();
@@ -215,9 +220,9 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
          * @param applicationContext The app context
          * @param contextPath The context path
          */
-        AzureHandler(ApplicationContext applicationContext, String contextPath) {
+        AzureHandler(ApplicationContext applicationContext, String contextPath, ConversionService conversionService) {
             this.contextPath = contextPath;
-            httpHandler = new ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage>(applicationContext) {
+            httpHandler = new ServletHttpHandler<>(applicationContext, conversionService) {
                 @Override
                 public boolean isRunning() {
                     return applicationContext.isRunning();
