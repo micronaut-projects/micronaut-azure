@@ -72,7 +72,7 @@ public class AzureHttpFunction extends AzureFunction {
      */
     protected AzureHttpFunction(ApplicationContextBuilder applicationContextBuilder) {
         super(applicationContextBuilder);
-        httpHandler = new HttpHandler(applicationContext, applicationContext.getBean(ConversionService.class));
+        httpHandler = new HttpHandler(applicationContext);
         registerHttpHandlerShutDownHook();
         this.contextPath = applicationContext.findBean(ServerContextPathProvider.class).map(ServerContextPathProvider::getContextPath).orElse("/api");
     }

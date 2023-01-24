@@ -34,8 +34,8 @@ import java.util.Optional;
 @Internal
 public class HttpHandler extends ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> {
 
-    public HttpHandler(ApplicationContext applicationContext, ConversionService conversionService) {
-        super(init(applicationContext), conversionService);
+    public HttpHandler(ApplicationContext applicationContext) {
+        super(init(applicationContext), applicationContext.getBean(ConversionService.class));
     }
 
     private static ApplicationContext init(ApplicationContext applicationContext) {
