@@ -16,7 +16,7 @@ micronaut-serde = "2.0.0-SNAPSHOT"
 micronaut-servlet = "4.0.0-SNAPSHOT"
 micronaut-test = "4.0.0-SNAPSHOT"
 micronaut-docs = "2.0.0"
-groovy = "4.0.6"
+groovy = "4.0.8"
 spock = "2.3-groovy-4.0"
 
 [libraries]
