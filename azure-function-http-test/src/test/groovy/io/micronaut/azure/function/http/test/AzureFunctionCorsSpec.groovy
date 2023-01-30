@@ -39,25 +39,30 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
         headerNames.contains(SERVER)
     }
 
-    void "test cors request without configuration"() {
-        given:
-        HttpResponse<?> response = client.toBlocking().exchange(
+    void "test cors localhost driveby request without configuration"() {
+        when:
+        client.toBlocking().exchange(
                 HttpRequest.GET('/api/cors/test')
                         .header(ORIGIN, 'fooBar.com')
         )
+
+        then:
+        HttpClientResponseException e = thrown()
+        HttpResponse<?> response =  e.response
 
         when:
         Set<String> headerNames = response.headers.names()
 
         then:
-        response.status == HttpStatus.NO_CONTENT
+        response.status == HttpStatus.FORBIDDEN
         !headerNames.contains(ACCESS_CONTROL_MAX_AGE)
         !headerNames.contains(VARY)
         !headerNames.contains(ACCESS_CONTROL_ALLOW_METHODS)
         !headerNames.contains(ACCESS_CONTROL_ALLOW_HEADERS)
-        headerNames.size() == 2
+        headerNames.size() == 3
         headerNames.contains(DATE)
         headerNames.contains(SERVER)
+        headerNames.contains(CONTENT_LENGTH)
     }
 
     void "test cors request with a controller that returns map"() {

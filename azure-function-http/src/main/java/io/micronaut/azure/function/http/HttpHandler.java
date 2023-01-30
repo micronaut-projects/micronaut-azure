@@ -19,6 +19,7 @@ import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.core.annotation.Internal;
+import io.micronaut.core.convert.ConversionService;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpHandler;
 import io.netty.util.internal.MacAddressUtil;
@@ -32,8 +33,9 @@ import java.util.Optional;
  */
 @Internal
 public class HttpHandler extends ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> {
+
     public HttpHandler(ApplicationContext applicationContext) {
-        super(init(applicationContext));
+        super(init(applicationContext), applicationContext.getBean(ConversionService.class));
     }
 
     private static ApplicationContext init(ApplicationContext applicationContext) {
