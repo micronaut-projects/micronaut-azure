@@ -1,11 +1,11 @@
 [versions]
-managed-azure-sdk = "1.2.8"
+managed-azure-sdk = "1.2.9"
 managed-azure-functions-java-library = "3.0.0"
 managed-azure-cosmos = "4.39.0"
 
 jakarta-inject-api = "2.0.1"
 jetty-server = "9.4.50.v20221201"
-kotlin = "1.7.21"
+kotlin = "1.8.0"
 system-lambda = "1.2.1"
 testcontainers = "1.17.6"
 
@@ -16,7 +16,7 @@ micronaut-serde = "2.0.0-SNAPSHOT"
 micronaut-servlet = "4.0.0-SNAPSHOT"
 micronaut-test = "4.0.0-SNAPSHOT"
 micronaut-docs = "2.0.0"
-groovy = "4.0.6"
+groovy = "4.0.8"
 spock = "2.3-groovy-4.0"
 
 [libraries]
