@@ -11,11 +11,14 @@ import com.azure.cosmos.models.CosmosItemRequestOptions
 import com.azure.cosmos.models.CosmosItemResponse
 import com.azure.cosmos.models.PartitionKey
 import io.micronaut.context.ApplicationContext
+import org.testcontainers.DockerClientFactory
 import spock.lang.AutoCleanup
 import spock.lang.IgnoreIf
+import spock.lang.Requires
 import spock.lang.Shared
 import spock.lang.Specification
 
+@Requires({ DockerClientFactory.instance().isDockerAvailable() })
 @IgnoreIf({ env["GITHUB_WORKFLOW"] })
 class CosmosClientSpec extends Specification implements AzureCosmosTestProperties {
 

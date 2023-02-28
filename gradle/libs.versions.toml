@@ -1,7 +1,7 @@
 [versions]
-managed-azure-sdk = "1.2.8"
+managed-azure-sdk = "1.2.10"
 managed-azure-functions-java-library = "3.0.0"
-managed-azure-cosmos = "4.39.0"
+managed-azure-cosmos = "4.41.0"
 
 jakarta-inject-api = "2.0.1"
 jetty-server = "9.4.49.v20220914"
@@ -9,13 +9,13 @@ kotlin = "1.7.21"
 system-lambda = "1.2.1"
 
 # Micronaut
-micronaut = "3.7.4"
+micronaut = "3.8.6"
 micronaut-docs = "2.0.0"
-micronaut-test = "3.7.1"
+micronaut-test = "3.9.0"
 groovy = "3.0.13"
-spock = "2.2-groovy-3.0"
+spock = "2.3-groovy-3.0"
 
-micronaut-gradle-plugin = "3.6.7"
+micronaut-gradle-plugin = "3.7.3"
 
 [libraries]
 boms-azure-sdk = { module = "com.azure:azure-sdk-bom", version.ref = "managed-azure-sdk" }

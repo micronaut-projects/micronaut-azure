@@ -1,5 +1,7 @@
 package io.micronaut.azure.function.http.test
 
+import io.micronaut.context.annotation.Property
+import io.micronaut.core.util.StringUtils
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
@@ -17,6 +19,7 @@ import jakarta.inject.Inject
 
 import static io.micronaut.http.HttpHeaders.*
 
+@Property(name = "micronaut.server.cors.localhost-pass-through", value = StringUtils.TRUE)
 @MicronautTest
 class AzureFunctionCorsSpec extends Specification implements TestPropertyProvider {
 

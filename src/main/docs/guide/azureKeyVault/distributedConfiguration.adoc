@@ -1,9 +1,9 @@
 You can leverage https://docs.micronaut.io/latest/guide/index.html#distributedConfiguration[Distributed Configuration] and rely on Azure Key Vault to store your Key/Value secret pairs.
 
-To enable it, add a `src/main/resources/bootstrap.yml` configuration file to your project:
+To enable it, add a bootstrap configuration file to `src/main/resources/bootstrap`:
 
-.bootstrap.yml
-[source,yaml]
+.bootstrap configuration
+[configuration]
 ----
 micronaut:
     application:
