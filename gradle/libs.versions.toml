@@ -13,7 +13,7 @@ micronaut = "3.8.5"
 micronaut-docs = "2.0.0"
 micronaut-test = "3.9.0"
 groovy = "3.0.13"
-spock = "2.2-groovy-3.0"
+spock = "2.3-groovy-3.0"
 
 micronaut-gradle-plugin = "3.7.3"
 
