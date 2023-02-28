@@ -15,7 +15,6 @@ import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Error
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider
-import spock.lang.Ignore
 import spock.lang.Specification
 import jakarta.inject.Inject
 
@@ -44,7 +43,6 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
         headerNames.contains(SERVER)
     }
 
-    @Ignore
     void "test cors localhost driveby request without configuration"() {
         when:
         client.toBlocking().exchange(
@@ -135,8 +133,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
         response.headers.getAll(ACCESS_CONTROL_EXPOSE_HEADERS) == ['x']
         !headerNames.contains(ACCESS_CONTROL_ALLOW_CREDENTIALS)
     }
-    
-    @Ignore
+
     void "test cors request with invalid method"() {
         given:
         List<String> expected = [
