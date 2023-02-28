@@ -9,7 +9,7 @@ kotlin = "1.7.21"
 system-lambda = "1.2.1"
 
 # Micronaut
-micronaut = "3.8.5"
+micronaut = "3.8.6"
 micronaut-docs = "2.0.0"
 micronaut-test = "3.9.0"
 groovy = "3.0.13"
