@@ -39,9 +39,9 @@ import java.util.Optional;
 /**
  * Azure implementation of {@link ServletHttpResponse}.
  *
+ * @param <B> The body type
  * @author graemerocher
  * @since 1.0.0
- * @param <B> The body type
  */
 @Internal
 public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpResponseMessage, B> {
@@ -57,12 +57,12 @@ public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpRes
     /**
      * Default constructor.
      *
-     * @param azureRequest               The Azure request object
+     * @param azureRequest           The Azure request object
      * @param mediaTypeCodecRegistry The media type codec registry
      */
     AzureFunctionHttpResponse(
-            HttpRequestMessage<Optional<String>> azureRequest,
-            MediaTypeCodecRegistry mediaTypeCodecRegistry) {
+        HttpRequestMessage<Optional<String>> azureRequest,
+        MediaTypeCodecRegistry mediaTypeCodecRegistry) {
         this.azureRequest = azureRequest;
         this.mediaTypeCodecRegistry = mediaTypeCodecRegistry;
     }
@@ -89,8 +89,7 @@ public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpRes
 
     @Override
     public MutableHttpResponse<B> cookie(Cookie cookie) {
-        if (cookie instanceof NettyCookie) {
-            NettyCookie nettyCookie = (NettyCookie) cookie;
+        if (cookie instanceof NettyCookie nettyCookie) {
             final String encoded = ServerCookieEncoder.STRICT.encode(nettyCookie.getNettyCookie());
             header(HttpHeaders.SET_COOKIE, encoded);
         }
@@ -99,10 +98,8 @@ public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpRes
 
     @Override
     public <T> MutableHttpResponse<T> body(@Nullable T body) {
-        if (body instanceof CharSequence) {
-            if (!getContentType().isPresent()) {
-                contentType(MediaType.TEXT_PLAIN_TYPE);
-            }
+        if (body instanceof CharSequence && getContentType().isEmpty()) {
+            contentType(MediaType.TEXT_PLAIN_TYPE);
         }
         this.body = (B) body;
         return (MutableHttpResponse<T>) this;
@@ -148,18 +145,33 @@ public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpRes
     }
 
     @Override
+    public MutableHttpResponse<B> status(int status, CharSequence message) {
+        this.status = HttpStatus.valueOf(status);
+        return this;
+    }
+
+    @Override
     public HttpStatus getStatus() {
         return this.status;
     }
 
     @Override
-    public HttpResponseMessage getNativeResponse() {
-        if (this.body instanceof HttpResponseMessage.Builder) {
-            return ((HttpResponseMessage.Builder) this.body).build();
-        } else {
+    public int code() {
+        return this.status.getCode();
+    }
 
+    @Override
+    public String reason() {
+        return this.status.getReason();
+    }
+
+    @Override
+    public HttpResponseMessage getNativeResponse() {
+        if (this.body instanceof HttpResponseMessage.Builder builder) {
+            return builder.build();
+        } else {
             HttpResponseMessage.Builder responseBuilder = azureRequest.createResponseBuilder(
-                    com.microsoft.azure.functions.HttpStatus.valueOf(status.getCode())
+                com.microsoft.azure.functions.HttpStatus.valueOf(status.getCode())
             );
             getHeaders().forEach((s, strings) -> {
                 for (String string : strings) {
@@ -171,8 +183,8 @@ public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpRes
                     responseBuilder.body(b);
                 } else {
                     MediaTypeCodec codec = mediaTypeCodecRegistry
-                            .findCodec(getContentType().orElse(MediaType.APPLICATION_JSON_TYPE), b.getClass())
-                            .orElse(null);
+                        .findCodec(getContentType().orElse(MediaType.APPLICATION_JSON_TYPE), b.getClass())
+                        .orElse(null);
                     if (codec != null) {
                         responseBuilder.body(codec.encode(b));
                     } else {
@@ -183,6 +195,5 @@ public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpRes
             return responseBuilder.build();
         }
     }
-
 }
 

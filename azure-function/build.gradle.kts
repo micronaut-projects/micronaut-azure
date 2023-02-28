@@ -1,5 +1,5 @@
 plugins {
-    id 'io.micronaut.build.internal.azure-module'
+    id("io.micronaut.build.internal.azure-module")
 }
 
 dependencies {

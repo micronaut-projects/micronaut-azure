@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2022 original authors
+ * Copyright 2017-2023 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.core.annotation.Internal;
+import io.micronaut.core.convert.ConversionService;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpHandler;
 import io.netty.util.internal.MacAddressUtil;
@@ -28,13 +29,13 @@ import java.util.Optional;
 
 /**
  * @author Sergio del Amo
- * @since XXXX
+ * @since 5.0.0
  */
 @Internal
 public class HttpHandler extends ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> {
 
     public HttpHandler(ApplicationContext applicationContext) {
-        super(init(applicationContext));
+        super(init(applicationContext), applicationContext.getBean(ConversionService.class));
     }
 
     private static ApplicationContext init(ApplicationContext applicationContext) {

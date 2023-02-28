@@ -34,14 +34,14 @@ import java.util.*;
 @Internal
 class AzureMultiValueMap implements ConvertibleMultiValues<String> {
     final MutableConvertibleMultiValuesMap<String> map;
-    final ConversionService<?> conversionService;
+    ConversionService conversionService;
 
     /**
      * Default constructor.
      * @param map The map
      * @param conversionService The conversion service
      */
-    AzureMultiValueMap(Map<CharSequence, List<String>> map, ConversionService<?> conversionService) {
+    AzureMultiValueMap(Map<CharSequence, List<String>> map, ConversionService conversionService) {
         this.map = new MutableConvertibleMultiValuesMap<>(map, conversionService);
         this.conversionService = conversionService;
     }

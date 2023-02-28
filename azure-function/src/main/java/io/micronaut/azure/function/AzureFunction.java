@@ -63,26 +63,6 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
     }
 
     /**
-     * Registers a shutdown hook to close the application context.
-     */
-    protected void registerApplicationContextShutDownHook() {
-        Runtime.getRuntime().addShutdownHook(createApplicationContextShutDownHook());
-    }
-
-    /**
-     * Creates a shutdown hook to close the application context.
-     * @return The shutdown hook
-     */
-    protected Thread createApplicationContextShutDownHook() {
-        return new Thread(() -> {
-            if (applicationContext != null) {
-                applicationContext.close();
-            }
-            applicationContext = null;
-        });
-    }
-
-    /**
      * Provides a builder for the ApplicationContext used for the application.
      * This can be overridden to enable customization of the ApplicationContext if needed.
      *
@@ -91,11 +71,6 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
     @NonNull
     public static ApplicationContextBuilder defaultApplicationContextBuilder() {
         return ApplicationContext.builder(Environment.AZURE, Environment.FUNCTION).deduceEnvironment(false);
-    }
-
-    protected static void startApplicationContext(ApplicationContextBuilder applicationContextBuilder) {
-        applicationContext = (applicationContextBuilder != null ? applicationContextBuilder : defaultApplicationContextBuilder()).build();
-        applicationContext.start();
     }
 
     @Override
@@ -109,5 +84,30 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
             applicationContext.close();
             applicationContext = null;
         }
+    }
+
+    private static void startApplicationContext(ApplicationContextBuilder applicationContextBuilder) {
+        applicationContext = (applicationContextBuilder != null ? applicationContextBuilder : defaultApplicationContextBuilder()).build();
+        applicationContext.start();
+    }
+
+    /**
+     * Registers an applicationContextShutdownHook.
+     */
+    private void registerApplicationContextShutDownHook() {
+        Runtime.getRuntime().addShutdownHook(createApplicationContextShutDownHook());
+    }
+
+    /**
+     *
+     * @return A new Thread which closes and sets to null the application context if not null
+     */
+    private Thread createApplicationContextShutDownHook() {
+        return new Thread(() -> {
+            if (applicationContext != null) {
+                applicationContext.close();
+            }
+            applicationContext = null;
+        });
     }
 }

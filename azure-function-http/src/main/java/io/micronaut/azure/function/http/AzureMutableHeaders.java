@@ -35,7 +35,7 @@ class AzureMutableHeaders extends AzureMultiValueMap implements MutableHttpHeade
      * @param map The target map. Never null
      * @param conversionService The conversion service
      */
-    AzureMutableHeaders(Map<CharSequence, List<String>> map, ConversionService<?> conversionService) {
+    AzureMutableHeaders(Map<CharSequence, List<String>> map, ConversionService conversionService) {
         super(map, conversionService);
     }
 
@@ -53,5 +53,10 @@ class AzureMutableHeaders extends AzureMultiValueMap implements MutableHttpHeade
             map.remove(header.toString());
         }
         return this;
+    }
+
+    @Override
+    public void setConversionService(ConversionService conversionService) {
+        this.conversionService = conversionService;
     }
 }

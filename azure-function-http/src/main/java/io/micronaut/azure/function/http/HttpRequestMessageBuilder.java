@@ -16,13 +16,11 @@
 package io.micronaut.azure.function.http;
 
 import com.microsoft.azure.functions.HttpRequestMessage;
-import com.microsoft.azure.functions.HttpResponseMessage;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.http.HttpMethod;
 
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -83,11 +81,6 @@ public interface HttpRequestMessageBuilder<T> {
     HttpRequestMessage<Optional<String>> buildEncoded();
 
     /**
-     * @return Invokes the function
-     */
-    AzureHttpResponseMessage invoke();
-
-    /**
      * Sets the request method.
      * @param method The request method
      * @return This builder
@@ -128,23 +121,5 @@ public interface HttpRequestMessageBuilder<T> {
                 URI.create(Objects.requireNonNull(uri, "URI cannot be null")),
                 Objects.requireNonNull(applicationContext, "application context cannot be null")
         );
-    }
-
-    /**
-     * An azure response message.
-     */
-    interface AzureHttpResponseMessage extends HttpResponseMessage {
-        /**
-         * @return The body as a string.
-         */
-        default String getBodyAsString() {
-            Object body = getBody();
-            if (body instanceof byte[]) {
-                return new String((byte[]) body, StandardCharsets.UTF_8);
-            } else if (body != null) {
-                return body.toString();
-            }
-            return null;
-        }
     }
 }

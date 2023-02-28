@@ -23,7 +23,6 @@ import io.micronaut.azure.function.AzureFunction;
 import io.micronaut.context.ApplicationContextBuilder;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.http.context.ServerContextPathProvider;
-import io.micronaut.runtime.exceptions.ApplicationStartupException;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpHandler;
 
@@ -55,8 +54,8 @@ import java.util.Optional;
  * @since 1.0.0
  */
 public class AzureHttpFunction extends AzureFunction {
-    protected ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> httpHandler;
 
+    protected ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> httpHandler;
     private final String contextPath;
 
     /**
@@ -86,14 +85,6 @@ public class AzureHttpFunction extends AzureFunction {
         this.contextPath = applicationContext.findBean(ServerContextPathProvider.class).map(ServerContextPathProvider::getContextPath).orElse("/api");
     }
 
-    private void registerHttpHandlerShutDownHook() {
-        Runtime.getRuntime().addShutdownHook(createHttpHandlerShutDownHook());
-    }
-
-    private Thread createHttpHandlerShutDownHook() {
-        return new Thread(() -> httpHandler = null);
-    }
-
     /**
      * Entry point for Azure functions written in Micronaut.
      *
@@ -102,19 +93,19 @@ public class AzureHttpFunction extends AzureFunction {
      * @return The response message
      */
     public HttpResponseMessage route(
-            HttpRequestMessage<Optional<String>> request,
-            ExecutionContext executionContext) {
+        HttpRequestMessage<Optional<String>> request,
+        ExecutionContext executionContext) {
         try {
             AzureFunctionHttpRequest<?> azureFunctionHttpRequest =
-                    new AzureFunctionHttpRequest<>(
-                            contextPath,
-                            request,
-                            httpHandler.getMediaTypeCodecRegistry(),
-                            executionContext
-                    );
+                new AzureFunctionHttpRequest<>(
+                    contextPath,
+                    request,
+                    httpHandler.getMediaTypeCodecRegistry(),
+                    executionContext
+                );
 
             ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> exchange =
-                    httpHandler.exchange(azureFunctionHttpRequest);
+                httpHandler.exchange(azureFunctionHttpRequest);
 
             return exchange.getResponse().getNativeResponse();
         } finally {
@@ -143,5 +134,13 @@ public class AzureHttpFunction extends AzureFunction {
     public HttpRequestMessageBuilder<?> request(io.micronaut.http.HttpMethod method, String uri) {
         Objects.requireNonNull(method, "The method cannot be null");
         return request(HttpMethod.value(method.name()), uri);
+    }
+
+    private void registerHttpHandlerShutDownHook() {
+        Runtime.getRuntime().addShutdownHook(createHttpHandlerShutDownHook());
+    }
+
+    private Thread createHttpHandlerShutDownHook() {
+        return new Thread(() -> httpHandler = null);
     }
 }
