@@ -93,7 +93,7 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
         return ApplicationContext.builder(Environment.AZURE, Environment.FUNCTION).deduceEnvironment(false);
     }
 
-    private static void startApplicationContext(ApplicationContextBuilder applicationContextBuilder) {
+    protected static void startApplicationContext(ApplicationContextBuilder applicationContextBuilder) {
         applicationContext = (applicationContextBuilder != null ? applicationContextBuilder : defaultApplicationContextBuilder()).build();
         applicationContext.start();
     }
