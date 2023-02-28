@@ -56,15 +56,6 @@ import java.util.Optional;
 public class AzureHttpFunction extends AzureFunction {
     protected ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> httpHandler;
 
-    private void registerHttpHandlerShutDownHook() {
-        Runtime.getRuntime().addShutdownHook(createHttpHandlerShutDownHook());
-    }
-
-    private Thread createHttpHandlerShutDownHook() {
-        return new Thread(() -> httpHandler = null);
-    }
-
-
     private final String contextPath;
 
     /**
@@ -85,6 +76,13 @@ public class AzureHttpFunction extends AzureFunction {
         this.contextPath = applicationContext.findBean(ServerContextPathProvider.class).map(ServerContextPathProvider::getContextPath).orElse("/api");
     }
 
+    private void registerHttpHandlerShutDownHook() {
+        Runtime.getRuntime().addShutdownHook(createHttpHandlerShutDownHook());
+    }
+
+    private Thread createHttpHandlerShutDownHook() {
+        return new Thread(() -> httpHandler = null);
+    }
 
     /**
      * Entry point for Azure functions written in Micronaut.

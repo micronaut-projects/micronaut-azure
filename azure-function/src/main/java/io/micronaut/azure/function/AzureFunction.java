@@ -34,21 +34,9 @@ import java.io.IOException;
  * @since 1.0.0
  */
 public abstract class AzureFunction implements ApplicationContextProvider, Closeable {
+
     protected static final Logger LOG = LoggerFactory.getLogger(AzureFunction.class);
     protected static ApplicationContext applicationContext;
-
-    protected void registerApplicationContextShutDownHook() {
-        Runtime.getRuntime().addShutdownHook(createApplicationContextShutDownHook());
-    }
-
-    protected Thread createApplicationContextShutDownHook() {
-        return new Thread(() -> {
-            if (applicationContext != null) {
-                applicationContext.close();
-            }
-            applicationContext = null;
-        });
-    }
 
     /**
      * Default constructor.
@@ -72,6 +60,26 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
         }
         registerApplicationContextShutDownHook();
         applicationContext.inject(this);
+    }
+
+    /**
+     * Registers a shutdown hook to close the application context.
+     */
+    protected void registerApplicationContextShutDownHook() {
+        Runtime.getRuntime().addShutdownHook(createApplicationContextShutDownHook());
+    }
+
+    /**
+     * Creates a shutdown hook to close the application context.
+     * @return The shutdown hook
+     */
+    protected Thread createApplicationContextShutDownHook() {
+        return new Thread(() -> {
+            if (applicationContext != null) {
+                applicationContext.close();
+            }
+            applicationContext = null;
+        });
     }
 
     /**
