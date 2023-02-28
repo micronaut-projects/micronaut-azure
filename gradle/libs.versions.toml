@@ -1,7 +1,7 @@
 [versions]
 managed-azure-sdk = "1.2.10"
 managed-azure-functions-java-library = "1.4.2"
-managed-azure-cosmos = "4.40.0"
+managed-azure-cosmos = "4.41.0"
 
 jakarta-inject-api = "2.0.1"
 jetty-server = "9.4.49.v20220914"
