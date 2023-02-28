@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@SuppressWarnings("java:S2187") // Suppress because despite its name, this is not a Test
 public class AzureFunctionHttpServerUnderTest implements ServerUnderTest {
 
     Function function;
