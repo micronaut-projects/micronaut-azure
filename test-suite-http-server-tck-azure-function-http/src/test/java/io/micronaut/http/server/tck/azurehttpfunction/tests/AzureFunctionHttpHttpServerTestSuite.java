@@ -1,6 +1,11 @@
 package io.micronaut.http.server.tck.azurehttpfunction.tests;
 
-import io.micronaut.http.server.tck.HttpServerTestSuite;
+import org.junit.platform.suite.api.SelectPackages;
+import org.junit.platform.suite.api.Suite;
+import org.junit.platform.suite.api.SuiteDisplayName;
 
-public class AzureFunctionHttpHttpServerTestSuite implements HttpServerTestSuite {
+@Suite
+@SelectPackages("io.micronaut.http.server.tck.tests")
+@SuiteDisplayName("HTTP Server TCK for Azure Functions")
+public class AzureFunctionHttpHttpServerTestSuite {
 }

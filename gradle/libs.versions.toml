@@ -9,7 +9,7 @@ kotlin = "1.7.21"
 system-lambda = "1.2.1"
 
 # Micronaut
-micronaut = "3.7.4"
+micronaut = "3.8.6"
 micronaut-docs = "2.0.0"
 micronaut-test = "3.7.1"
 groovy = "3.0.13"
@@ -33,6 +33,9 @@ jetty-server = { module = "org.eclipse.jetty:jetty-server", version.ref = "jetty
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 system-lambda = { module = "com.github.stefanbirkner:system-lambda", version.ref = "system-lambda" }
+
+junit-jupiter-engine = { module = 'org.junit.jupiter:junit-jupiter-engine' }
+junit-platform-engine = { module = "org.junit.platform:junit-platform-suite-engine" }
 
 # TestContainers
 

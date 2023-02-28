@@ -1,12 +1,8 @@
 plugins {
-    id("io.micronaut.build.internal.http-test-module")
+    id("io.micronaut.build.internal.http-server-tck-module")
 }
-repositories {
-    mavenCentral()
-}
-val micronautVersion: String by project
+
 dependencies {
     testImplementation(projects.azureFunctionHttp)
     testImplementation(libs.managed.azure.functions.java.library)
-    testImplementation(projects.httpServerTck)
 }
