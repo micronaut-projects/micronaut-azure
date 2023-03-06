@@ -46,7 +46,7 @@
         <div class="docs-content">
             <div class="project">
                 <h1>Configuration Reference</h1>
-                <p><strong>Version:</strong>3.9.0-SNAPSHOT</p>
+                <p><strong>Version:</strong>3.8.2-SNAPSHOT</p>
                 <p></p>
             </div>
 <div class="sect2">
@@ -163,11 +163,6 @@
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.cosmos.open-connections-and-init-caches</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">com.azure.cosmos.CosmosContainerProactiveInitConfig</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.cosmos.client-telemetry-config</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">com.azure.cosmos.models.CosmosClientTelemetryConfig</p></td>
 <td class="tableblock halign-left valign-top"></td>
@@ -183,60 +178,9 @@
 </div>
 <div class="sect2">
 <h3 id="_azure_sdk_config_properties">Azure Sdk Config Properties</h3>
-<a id="io.micronaut.azure.credentials.AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration" href="#io.micronaut.azure.credentials.AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration">&#128279;</a>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration.html">VisualStudioCodeCredentialConfiguration</a></caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.visual-studio-code.tenant-id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The tenant id. The default is the tenant the user originally authenticated to via the Visual Studio
- Code Azure Account plugin.</p>
-<p class="tableblock"> @return tenant id</p></td>
-</tr>
-</tbody>
-</table>
-<div style="page-break-after: always;"></div>
-<a id="io.micronaut.azure.credentials.AzureCredentialsConfiguration.ManagedIdentityCredentialConfiguration" href="#io.micronaut.azure.credentials.AzureCredentialsConfiguration.ManagedIdentityCredentialConfiguration">&#128279;</a>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.ManagedIdentityCredentialConfiguration.html">ManagedIdentityCredentialConfiguration</a></caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.managed-identity.client-id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the client ID of user assigned or system assigned identity. Required only for user-assigned identity.</p>
-<p class="tableblock"> @return client id</p></td>
-</tr>
-</tbody>
-</table>
-<div style="page-break-after: always;"></div>
 <a id="io.micronaut.azure.credentials.AzureCredentialsConfiguration.ClientSecretCredentialConfiguration" href="#io.micronaut.azure.credentials.AzureCredentialsConfiguration.ClientSecretCredentialConfiguration">&#128279;</a>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.ClientSecretCredentialConfiguration.html">ClientSecretCredentialConfiguration</a></caption>
+<caption class="title">Table 2. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.ClientSecretCredentialConfiguration.html">ClientSecretCredentialConfiguration</a></caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -271,120 +215,9 @@
 </tbody>
 </table>
 <div style="page-break-after: always;"></div>
-<a id="io.micronaut.azure.credentials.AzureCredentialsConfiguration.UsernamePasswordCredentialConfiguration" href="#io.micronaut.azure.credentials.AzureCredentialsConfiguration.UsernamePasswordCredentialConfiguration">&#128279;</a>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.UsernamePasswordCredentialConfiguration.html">UsernamePasswordCredentialConfiguration</a></caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.username-password.client-id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Gets the client ID of the application.</p>
-<p class="tableblock"> @return the client id</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.username-password.username</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Gets the username of the user.</p>
-<p class="tableblock"> @return the username</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.username-password.password</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Gets the password of the user.</p>
-<p class="tableblock"> @return the password</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.username-password.tenant-id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Gets the tenant ID of the application.</p>
-<p class="tableblock"> @return tenant id</p></td>
-</tr>
-</tbody>
-</table>
-<div style="page-break-after: always;"></div>
-<a id="io.micronaut.azure.credentials.AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration" href="#io.micronaut.azure.credentials.AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration">&#128279;</a>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html">StorageSharedKeyCredentialConfiguration</a></caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.storage-shared-key.connection-string</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@return an Azure Storage connection string.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.storage-shared-key.account-name</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@return an Azure Storage account name.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.storage-shared-key.account-key</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">@return an Azure Storage account password.</p></td>
-</tr>
-</tbody>
-</table>
-<div style="page-break-after: always;"></div>
-<a id="io.micronaut.azure.credentials.AzureCredentialsConfiguration.IntelliJCredentialConfiguration" href="#io.micronaut.azure.credentials.AzureCredentialsConfiguration.IntelliJCredentialConfiguration">&#128279;</a>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.IntelliJCredentialConfiguration.html">IntelliJCredentialConfiguration</a></caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Property</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.intellij.tenant-id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The tenant id. The default is the tenant the user originally authenticated to via the Azure Toolkit
- for IntelliJ plugin.</p>
-<p class="tableblock"> @return tenant id</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.intellij.kee-pass-database-path</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Optional</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the KeePass database path to read the cached credentials of Azure toolkit for IntelliJ plugin.
- The databasePath is required on Windows platform. For macOS and Linux platform native key chain / key ring
- will be accessed respectively to retrieve the cached credentials.</p>
-<p class="tableblock"> @return path to KeePass database</p></td>
-</tr>
-</tbody>
-</table>
-<div style="page-break-after: always;"></div>
 <a id="io.micronaut.azure.credentials.AzureCredentialsConfiguration.ClientCertificateCredentialConfiguration" href="#io.micronaut.azure.credentials.AzureCredentialsConfiguration.ClientCertificateCredentialConfiguration">&#128279;</a>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.ClientCertificateCredentialConfiguration.html">ClientCertificateCredentialConfiguration</a></caption>
+<caption class="title">Table 3. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.ClientCertificateCredentialConfiguration.html">ClientCertificateCredentialConfiguration</a></caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -425,6 +258,168 @@
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.client-certificate.tenant-id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gets the tenant ID of the application.</p>
+<p class="tableblock"> @return tenant id</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<a id="io.micronaut.azure.credentials.AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration" href="#io.micronaut.azure.credentials.AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration">&#128279;</a>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html">StorageSharedKeyCredentialConfiguration</a></caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.storage-shared-key.connection-string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@return an Azure Storage connection string.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.storage-shared-key.account-name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@return an Azure Storage account name.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.storage-shared-key.account-key</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">@return an Azure Storage account password.</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<a id="io.micronaut.azure.credentials.AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration" href="#io.micronaut.azure.credentials.AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration">&#128279;</a>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.VisualStudioCodeCredentialConfiguration.html">VisualStudioCodeCredentialConfiguration</a></caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.visual-studio-code.tenant-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The tenant id. The default is the tenant the user originally authenticated to via the Visual Studio
+ Code Azure Account plugin.</p>
+<p class="tableblock"> @return tenant id</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<a id="io.micronaut.azure.credentials.AzureCredentialsConfiguration.ManagedIdentityCredentialConfiguration" href="#io.micronaut.azure.credentials.AzureCredentialsConfiguration.ManagedIdentityCredentialConfiguration">&#128279;</a>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 6. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.ManagedIdentityCredentialConfiguration.html">ManagedIdentityCredentialConfiguration</a></caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.managed-identity.client-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the client ID of user assigned or system assigned identity. Required only for user-assigned identity.</p>
+<p class="tableblock"> @return client id</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<a id="io.micronaut.azure.credentials.AzureCredentialsConfiguration.IntelliJCredentialConfiguration" href="#io.micronaut.azure.credentials.AzureCredentialsConfiguration.IntelliJCredentialConfiguration">&#128279;</a>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 7. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.IntelliJCredentialConfiguration.html">IntelliJCredentialConfiguration</a></caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.intellij.tenant-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The tenant id. The default is the tenant the user originally authenticated to via the Azure Toolkit
+ for IntelliJ plugin.</p>
+<p class="tableblock"> @return tenant id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.intellij.kee-pass-database-path</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Optional</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the KeePass database path to read the cached credentials of Azure toolkit for IntelliJ plugin.
+ The databasePath is required on Windows platform. For macOS and Linux platform native key chain / key ring
+ will be accessed respectively to retrieve the cached credentials.</p>
+<p class="tableblock"> @return path to KeePass database</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<a id="io.micronaut.azure.credentials.AzureCredentialsConfiguration.UsernamePasswordCredentialConfiguration" href="#io.micronaut.azure.credentials.AzureCredentialsConfiguration.UsernamePasswordCredentialConfiguration">&#128279;</a>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 8. Configuration Properties for <a href="../api/io/micronaut/azure/credentials/AzureCredentialsConfiguration.UsernamePasswordCredentialConfiguration.html">UsernamePasswordCredentialConfiguration</a></caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.username-password.client-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gets the client ID of the application.</p>
+<p class="tableblock"> @return the client id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.username-password.username</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gets the username of the user.</p>
+<p class="tableblock"> @return the username</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.username-password.password</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.lang.String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gets the password of the user.</p>
+<p class="tableblock"> @return the password</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.credential.username-password.tenant-id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">java.util.Optional</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Gets the tenant ID of the application.</p>
 <p class="tableblock"> @return tenant id</p></td>
 </tr>
