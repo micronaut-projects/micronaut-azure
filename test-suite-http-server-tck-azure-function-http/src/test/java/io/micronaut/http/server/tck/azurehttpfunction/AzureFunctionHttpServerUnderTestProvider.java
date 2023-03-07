@@ -1,8 +1,9 @@
 package io.micronaut.http.server.tck.azurehttpfunction;
 
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.http.server.tck.ServerUnderTest;
-import io.micronaut.http.server.tck.ServerUnderTestProvider;
+import io.micronaut.http.tck.ServerUnderTest;
+import io.micronaut.http.tck.ServerUnderTestProvider;
+
 import java.util.Map;
 
 public class AzureFunctionHttpServerUnderTestProvider implements ServerUnderTestProvider {
