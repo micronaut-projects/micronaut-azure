@@ -3,6 +3,8 @@ plugins {
 }
 
 dependencies {
-    testImplementation(projects.azureFunctionHttp)
+    testAnnotationProcessor(mnValidation.micronaut.validation.processor)
+    testImplementation(mn.micronaut.http.validation)
+    testImplementation(projects.micronautAzureFunctionHttp)
     testImplementation(libs.managed.azure.functions.java.library)
 }

@@ -6,7 +6,7 @@ dependencies {
     annotationProcessor(mn.micronaut.inject.java)
     api(mn.micronaut.inject)
     api(mn.micronaut.http.server)
-    api(projects.azureFunctionHttp)
+    api(projects.micronautAzureFunctionHttp)
     api(libs.managed.azure.functions.java.library)
 
     api(mnServlet.micronaut.servlet.core)
