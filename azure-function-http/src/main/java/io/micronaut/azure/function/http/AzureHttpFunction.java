@@ -23,6 +23,7 @@ import io.micronaut.azure.function.AzureFunction;
 import io.micronaut.context.ApplicationContextBuilder;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.http.context.ServerContextPathProvider;
+import io.micronaut.runtime.exceptions.ApplicationStartupException;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpHandler;
 
@@ -54,8 +55,8 @@ import java.util.Optional;
  * @since 1.0.0
  */
 public class AzureHttpFunction extends AzureFunction {
-    protected ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> httpHandler;
 
+    protected ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> httpHandler;
     private final String contextPath;
 
     /**
@@ -70,9 +71,18 @@ public class AzureHttpFunction extends AzureFunction {
      * @param applicationContextBuilder ApplicationContext Builder;
      */
     protected AzureHttpFunction(ApplicationContextBuilder applicationContextBuilder) {
-        super(applicationContextBuilder);
-        httpHandler = new HttpHandler(applicationContext);
+        try {
+            AzureFunction.startApplicationContext(applicationContextBuilder);
+        } catch (Throwable  e) {
+            if (LOG.isErrorEnabled()) {
+                LOG.error("Error initializing Azure function: " + e.getMessage(), e);
+            }
+            throw new ApplicationStartupException("Error initializing Azure function: " + e.getMessage(), e);
+        }
+        httpHandler = new HttpHandler(getApplicationContext());
+        registerApplicationContextShutDownHook();
         registerHttpHandlerShutDownHook();
+        applicationContext.registerSingleton(this);
         this.contextPath = applicationContext.findBean(ServerContextPathProvider.class).map(ServerContextPathProvider::getContextPath).orElse("/api");
     }
 
