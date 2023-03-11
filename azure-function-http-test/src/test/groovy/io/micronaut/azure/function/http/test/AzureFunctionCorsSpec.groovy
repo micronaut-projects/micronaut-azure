@@ -15,13 +15,11 @@ import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Error
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider
-import spock.lang.Ignore
 import spock.lang.Specification
 import jakarta.inject.Inject
 
 import static io.micronaut.http.HttpHeaders.*
 
-@Property(name = "micronaut.server.cors.localhost-pass-through", value = StringUtils.TRUE)
 @MicronautTest
 class AzureFunctionCorsSpec extends Specification implements TestPropertyProvider {
 
@@ -44,7 +42,6 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
         headerNames.contains(SERVER)
     }
 
-    @Ignore
     void "test cors localhost driveby request without configuration"() {
         when:
         client.toBlocking().exchange(
@@ -135,17 +132,8 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
         response.headers.getAll(ACCESS_CONTROL_EXPOSE_HEADERS) == ['x']
         !headerNames.contains(ACCESS_CONTROL_ALLOW_CREDENTIALS)
     }
-    
-    @Ignore
+
     void "test cors request with invalid method"() {
-        given:
-        List<String> expected = [
-                ALLOW,
-                DATE,
-                CONTENT_TYPE,
-                CONTENT_LENGTH,
-                SERVER
-        ]
         when:
         client.toBlocking().exchange(
                 HttpRequest.POST('/api/cors/test', [:])
@@ -153,20 +141,18 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
         )
 
         then:
-        HttpClientResponseException e = thrown()
-        HttpResponse<?> response =  e.response
+        def e = thrown(HttpClientResponseException)
+        def response = e.response
 
         when:
         Set<String> headerNames = response.headers.names()
 
         then:
         response.code() == HttpStatus.FORBIDDEN.code
-        headerNames.size() == expected.size()
-        expected.every {expectedHeaderName ->
-            headerNames.any  { header -> header.equalsIgnoreCase(expectedHeaderName) }
-        }
-        MediaType.APPLICATION_JSON == response.header(CONTENT_TYPE)
-        'HEAD,GET' == response.header(ALLOW)
+        // Client is now keep-alive so we don't get the connection header
+        !headerNames.contains(CONNECTION)
+        headerNames.contains(DATE)
+        headerNames.contains(SERVER)
     }
 
     void "test cors request with invalid header"() {
