@@ -10,7 +10,7 @@ system-lambda = "1.2.1"
 testcontainers = "1.17.6"
 
 # Micronaut
-micronaut = "4.0.0-SNAPSHOT"
+micronaut = "4.0.0-M1"
 micronaut-reactor = "3.0.0-SNAPSHOT"
 micronaut-serde = "2.0.0-SNAPSHOT"
 micronaut-servlet = "4.0.0-SNAPSHOT"
