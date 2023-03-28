@@ -2,6 +2,11 @@ plugins {
     id("io.micronaut.build.internal.azure-example")
     id("groovy")
 }
+
+micronaut {
+    version("4.0.0-SNAPSHOT")
+}
+
 dependencies {
     annotationProcessor(mn.micronaut.inject.java)
     implementation(mnServlet.micronaut.servlet.core)
