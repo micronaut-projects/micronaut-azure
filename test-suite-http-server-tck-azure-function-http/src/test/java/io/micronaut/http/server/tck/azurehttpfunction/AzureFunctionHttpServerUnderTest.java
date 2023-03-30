@@ -114,7 +114,7 @@ public class AzureFunctionHttpServerUnderTest implements ServerUnderTest {
     @Override
     @NonNull
     public Optional<Integer> getPort() {
-        return Optional.empty();
+        return Optional.of(8080);
     }
 
     private String getDataString(Map params) throws UnsupportedEncodingException {
