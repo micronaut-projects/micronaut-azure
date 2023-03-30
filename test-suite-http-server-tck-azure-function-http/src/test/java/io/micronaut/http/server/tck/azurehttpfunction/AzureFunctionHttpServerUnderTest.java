@@ -83,7 +83,7 @@ public class AzureFunctionHttpServerUnderTest implements ServerUnderTest {
             response.body(new String((byte[]) azureBody));
         }
         if (response.getStatus().getCode() >= 400) {
-            throw new HttpClientResponseException("error", response);
+            throw new HttpClientResponseException("error: " + response.getStatus() + ":" + response.body(), response);
         }
         return response;
     }
