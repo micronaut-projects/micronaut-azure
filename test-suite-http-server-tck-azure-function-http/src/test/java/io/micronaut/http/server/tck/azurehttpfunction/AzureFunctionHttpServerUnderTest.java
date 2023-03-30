@@ -59,6 +59,11 @@ public class AzureFunctionHttpServerUnderTest implements ServerUnderTest {
     private <I> HttpRequestMessage<Optional<String>> adaptRequest(HttpRequest<I> request) throws UnsupportedEncodingException {
         HttpMethod httpMethod = HttpMethod.valueOf(request.getMethodName());
         HttpRequestMessageBuilder<Optional<String>> builder =  HttpRequestMessageBuilder.builder(httpMethod, request.getUri().toString(), function.getApplicationContext());
+        request.getHeaders().forEach((name, values) -> {
+            for (String value : values) {
+                builder.header(name, value);
+            }
+        });
         builder.body(body(request));
         return builder.build();
     }
