@@ -5,14 +5,20 @@ plugins {
 dependencies {
     testAnnotationProcessor(platform(mn.micronaut.core.bom))
     testAnnotationProcessor(mn.micronaut.inject.java)
+    testAnnotationProcessor(mnValidation.micronaut.validation.processor)
+
     testImplementation(platform(mn.micronaut.core.bom))
     testImplementation(mn.micronaut.inject.java)
-
+    testImplementation(mn.micronaut.http.validation)
     testImplementation(mn.micronaut.http.client)
     testImplementation(mn.micronaut.http.server.tck)
+    testImplementation(mnValidation.micronaut.validation)
+
     testImplementation(libs.junit.platform.engine)
     testImplementation(libs.junit.jupiter.engine)
+
     testRuntimeOnly(mn.logback.classic)
+    testRuntimeOnly(mn.micronaut.jackson.databind)
 }
 
 tasks.named("test") {

@@ -3,6 +3,6 @@ plugins {
 }
 
 dependencies {
-    testImplementation(projects.azureFunctionHttp)
+    testImplementation(projects.micronautAzureFunctionHttp)
     testImplementation(libs.managed.azure.functions.java.library)
 }

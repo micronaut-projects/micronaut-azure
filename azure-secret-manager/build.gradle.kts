@@ -4,11 +4,11 @@ plugins {
 
 dependencies {
     annotationProcessor(mn.micronaut.inject.java)
-    implementation(platform(projects.azureBom))
+    implementation(platform(projects.micronautAzureBom))
 
     api(mn.micronaut.inject)
     api(mn.micronaut.http.server)
-    api(projects.azureSdk)
+    api(projects.micronautAzureSdk)
     api(libs.azure.identity)
     api(libs.azure.security.keyvault.secrets)
 

@@ -59,6 +59,11 @@ public class AzureFunctionHttpServerUnderTest implements ServerUnderTest {
     private <I> HttpRequestMessage<Optional<String>> adaptRequest(HttpRequest<I> request) throws UnsupportedEncodingException {
         HttpMethod httpMethod = HttpMethod.valueOf(request.getMethodName());
         HttpRequestMessageBuilder<Optional<String>> builder =  HttpRequestMessageBuilder.builder(httpMethod, request.getUri().toString(), function.getApplicationContext());
+        request.getHeaders().forEach((name, values) -> {
+            for (String value : values) {
+                builder.header(name, value);
+            }
+        });
         builder.body(body(request));
         return builder.build();
     }
@@ -83,7 +88,7 @@ public class AzureFunctionHttpServerUnderTest implements ServerUnderTest {
             response.body(new String((byte[]) azureBody));
         }
         if (response.getStatus().getCode() >= 400) {
-            throw new HttpClientResponseException("error", response);
+            throw new HttpClientResponseException("error: " + response.getStatus() + ":" + response.body(), response);
         }
         return response;
     }
@@ -114,7 +119,7 @@ public class AzureFunctionHttpServerUnderTest implements ServerUnderTest {
     @Override
     @NonNull
     public Optional<Integer> getPort() {
-        return Optional.empty();
+        return Optional.of(8080);
     }
 
     private String getDataString(Map params) throws UnsupportedEncodingException {
