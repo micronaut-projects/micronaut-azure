@@ -332,7 +332,7 @@ public class AzureFunctionHttpRequest<B>
     @NonNull
     @Override
     public Optional<B> getBody() {
-        return (Optional<B>) getBody(Argument.STRING);
+        return (Optional<B>) getBody(Argument.OBJECT_ARGUMENT);
     }
 
     @NonNull
@@ -345,7 +345,7 @@ public class AzureFunctionHttpRequest<B>
 
                 if (isFormSubmission(contentType)) {
                     body = getParameters();
-                    if (ConvertibleValues.class == type) {
+                    if (ConvertibleValues.class == type || Object.class == type) {
                         return (Optional<T>) Optional.of(body);
                     } else {
                         return Optional.empty();
