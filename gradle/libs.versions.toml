@@ -10,12 +10,13 @@ system-lambda = "1.2.1"
 testcontainers = "1.18.0"
 
 # Micronaut
-micronaut = "4.0.0-M2"
+micronaut = "4.0.0-M3"
+micronaut-logging = "1.0.0-M1"
 micronaut-reactor = "3.0.0-M1"
-micronaut-serde = "2.0.0-M3"
-micronaut-servlet = "4.0.0-M2"
-micronaut-test = "4.0.0-M2"
-micronaut-validation = "4.0.0-M4"
+micronaut-serde = "2.0.0-M5"
+micronaut-servlet = "4.0.0-M5"
+micronaut-test = "4.0.0-M3"
+micronaut-validation = "4.0.0-M5"
 
 micronaut-docs = "2.0.0"
 groovy = "4.0.11"
@@ -24,6 +25,7 @@ spock = "2.3-groovy-4.0"
 [libraries]
 boms-azure-sdk = { module = "com.azure:azure-sdk-bom", version.ref = "managed-azure-sdk" }
 
+micronaut-logging = { module = "io.micronaut.logging:micronaut-logging-bom", version.ref = "micronaut-logging" }
 micronaut-reactor = { module = "io.micronaut.reactor:micronaut-reactor-bom", version.ref = "micronaut-reactor" }
 micronaut-serde = { module = "io.micronaut.serde:micronaut-serde-bom", version.ref = "micronaut-serde" }
 micronaut-servlet = { module = "io.micronaut.servlet:micronaut-servlet-bom", version.ref = "micronaut-servlet" }
