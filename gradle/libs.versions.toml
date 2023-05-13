@@ -7,7 +7,7 @@ jakarta-inject-api = "2.0.1"
 jetty-server = "11.0.15"
 kotlin = "1.8.20"
 system-lambda = "1.2.1"
-testcontainers = "1.18.0"
+testcontainers = "1.18.1"
 
 # Micronaut
 micronaut = "4.0.0-M2"
