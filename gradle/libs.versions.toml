@@ -18,7 +18,7 @@ micronaut-test = "4.0.0-M2"
 micronaut-validation = "4.0.0-M4"
 
 micronaut-docs = "2.0.0"
-groovy = "4.0.11"
+groovy = "4.0.12"
 spock = "2.3-groovy-4.0"
 
 [libraries]
