@@ -18,7 +18,7 @@ class ParameterBindingSpec extends Specification {
 
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
-        responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.TEXT_PLAIN
+        responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
         responseMessage.bodyAsString == 'Hello Foo'
 
         cleanup:
@@ -53,7 +53,7 @@ class ParameterBindingSpec extends Specification {
 
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
-        responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.TEXT_PLAIN
+        responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
         responseMessage.bodyAsString == 'Hello Foo'
 
         cleanup:
@@ -73,7 +73,7 @@ class ParameterBindingSpec extends Specification {
 
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
-        responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.TEXT_PLAIN
+        responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
         responseMessage.bodyAsString == 'Hello Foo 20'
 
         cleanup:
@@ -90,7 +90,7 @@ class ParameterBindingSpec extends Specification {
 
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
-        responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.TEXT_PLAIN
+        responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
         responseMessage.bodyAsString == 'Hello text/plain;q=1.0'
 
         cleanup:
@@ -126,7 +126,7 @@ class ParameterBindingSpec extends Specification {
 
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
-        responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.TEXT_PLAIN
+        responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
         responseMessage.bodyAsString == 'Hello Foo'
 
         cleanup:

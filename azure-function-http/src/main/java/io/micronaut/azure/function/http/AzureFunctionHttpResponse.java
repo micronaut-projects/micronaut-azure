@@ -17,14 +17,18 @@ package io.micronaut.azure.function.http;
 
 import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
+import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
-import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.convert.ConversionService;
 import io.micronaut.core.convert.value.MutableConvertibleValues;
 import io.micronaut.core.convert.value.MutableConvertibleValuesMap;
 import io.micronaut.core.util.ArgumentUtils;
-import io.micronaut.http.*;
+import io.micronaut.http.HttpHeaders;
+import io.micronaut.http.HttpStatus;
+import io.micronaut.http.MediaType;
+import io.micronaut.http.MutableHttpHeaders;
+import io.micronaut.http.MutableHttpResponse;
 import io.micronaut.http.codec.MediaTypeCodec;
 import io.micronaut.http.codec.MediaTypeCodecRegistry;
 import io.micronaut.http.cookie.Cookie;
@@ -32,7 +36,10 @@ import io.micronaut.http.netty.cookies.NettyCookie;
 import io.micronaut.servlet.http.ServletHttpResponse;
 import io.netty.handler.codec.http.cookie.ServerCookieEncoder;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.LinkedHashMap;
 import java.util.Optional;
 
@@ -98,9 +105,6 @@ public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpRes
 
     @Override
     public <T> MutableHttpResponse<T> body(@Nullable T body) {
-        if (body instanceof CharSequence && getContentType().isEmpty()) {
-            contentType(MediaType.TEXT_PLAIN_TYPE);
-        }
         this.body = (B) body;
         return (MutableHttpResponse<T>) this;
     }
