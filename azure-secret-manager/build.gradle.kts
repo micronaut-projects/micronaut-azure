@@ -17,7 +17,6 @@ dependencies {
 
     testAnnotationProcessor(mn.micronaut.inject.java)
     testCompileOnly(mn.micronaut.inject.groovy)
-    testImplementation(mn.micronaut.runtime)
     testImplementation(mn.micronaut.http.client)
 }
 
