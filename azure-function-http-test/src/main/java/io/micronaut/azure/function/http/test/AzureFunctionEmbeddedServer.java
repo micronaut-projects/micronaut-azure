@@ -35,6 +35,7 @@ import io.micronaut.http.server.exceptions.HttpServerException;
 import io.micronaut.http.server.exceptions.ServerStartupException;
 import io.micronaut.runtime.ApplicationConfiguration;
 import io.micronaut.runtime.server.EmbeddedServer;
+import io.micronaut.servlet.http.BodyBuilder;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpHandler;
 import jakarta.servlet.http.HttpServletRequest;
@@ -278,7 +279,9 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
                             contextPath,
                             requestMessage,
                             httpHandler.getMediaTypeCodecRegistry(),
-                            new DefaultExecutionContext()
+                            new DefaultExecutionContext(),
+                            httpHandler.getApplicationContext().getBean(ConversionService.class),
+                            httpHandler.getApplicationContext().getBean(BodyBuilder.class)
                     );
 
             ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> exchange =
