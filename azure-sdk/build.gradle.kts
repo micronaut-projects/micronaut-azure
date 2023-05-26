@@ -4,8 +4,7 @@ plugins {
 
 dependencies {
     annotationProcessor(mn.micronaut.inject.java)
-    implementation(mn.micronaut.inject.java)
-    implementation(mn.micronaut.runtime)
+    implementation(mn.micronaut.context)
     implementation(platform(projects.micronautAzureBom))
     api(libs.azure.identity)
     compileOnly(libs.azure.storage.common)

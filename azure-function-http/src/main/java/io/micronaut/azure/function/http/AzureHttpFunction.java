@@ -21,9 +21,11 @@ import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
 import io.micronaut.azure.function.AzureFunction;
 import io.micronaut.context.ApplicationContextBuilder;
+import io.micronaut.core.convert.ConversionService;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.http.context.ServerContextPathProvider;
 import io.micronaut.runtime.exceptions.ApplicationStartupException;
+import io.micronaut.servlet.http.BodyBuilder;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpHandler;
 
@@ -102,7 +104,9 @@ public class AzureHttpFunction extends AzureFunction {
                     contextPath,
                     request,
                     httpHandler.getMediaTypeCodecRegistry(),
-                    executionContext
+                    executionContext,
+                    httpHandler.getApplicationContext().getBean(ConversionService.class),
+                    httpHandler.getApplicationContext().getBean(BodyBuilder.class)
                 );
 
             ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> exchange =

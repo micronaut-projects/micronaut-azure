@@ -25,6 +25,7 @@ import io.micronaut.core.convert.ConversionService;
 import io.micronaut.core.type.Argument;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.bind.DefaultRequestBinderRegistry;
+import io.micronaut.http.bind.binders.DefaultBodyAnnotationBinder;
 import io.micronaut.http.bind.binders.RequestArgumentBinder;
 import io.micronaut.http.bind.binders.TypedRequestArgumentBinder;
 import io.micronaut.http.codec.MediaTypeCodecRegistry;
@@ -39,18 +40,21 @@ import java.util.logging.Logger;
 /**
  * Implementation of {@link ServletBinderRegistry} for Azure.
  *
+ * @param <T> The body type
+ *
  * @author graemerocher
  * @since 1.2.0
  */
 @Singleton
 @Replaces(DefaultRequestBinderRegistry.class)
 @Internal
-public class AzureBinderRegistry extends ServletBinderRegistry {
+public class AzureBinderRegistry<T> extends ServletBinderRegistry<T> {
 
     private static final Argument<ExecutionContext> EXECUTION_CONTEXT_ARGUMENT = Argument.of(ExecutionContext.class);
     private static final Argument<TraceContext> TRACE_CONTEXT_ARGUMENT = Argument.of(TraceContext.class);
     private static final Argument<Logger> LOGGER_ARGUMENT = Argument.of(Logger.class);
     private static final Argument<HttpRequestMessage> REQUEST_MESSAGE_ARGUMENT = Argument.of(HttpRequestMessage.class);
+    protected final DefaultBodyAnnotationBinder<T> defaultBodyAnnotationBinder;
 
     /**
      * Default constructor.
@@ -58,12 +62,16 @@ public class AzureBinderRegistry extends ServletBinderRegistry {
      * @param mediaTypeCodecRegistry The media type codec registry
      * @param conversionService      The conversion service
      * @param binders                Any registered binders
+     * @param defaultBodyAnnotationBinder The delegate default body binder
      */
     AzureBinderRegistry(
             MediaTypeCodecRegistry mediaTypeCodecRegistry,
             ConversionService conversionService,
-            List<RequestArgumentBinder> binders) {
-        super(mediaTypeCodecRegistry, conversionService, binders);
+            List<RequestArgumentBinder> binders,
+            DefaultBodyAnnotationBinder<T> defaultBodyAnnotationBinder
+    ) {
+        super(mediaTypeCodecRegistry, conversionService, binders, defaultBodyAnnotationBinder);
+        this.defaultBodyAnnotationBinder = defaultBodyAnnotationBinder;
         this.byType.put(HttpRequestMessage.class, new TypedRequestArgumentBinder<HttpRequestMessage>() {
             @Override
             public BindingResult<HttpRequestMessage> bind(
@@ -131,9 +139,10 @@ public class AzureBinderRegistry extends ServletBinderRegistry {
     }
 
     @Override
-    protected ServletBodyBinder<?> newServletBodyBinder(
+    protected ServletBodyBinder<T> newServletBodyBinder(
         MediaTypeCodecRegistry mediaTypeCodecRegistry,
-        ConversionService conversionService) {
-        return new AzureServletBodyBinder<>(conversionService, mediaTypeCodecRegistry);
+        ConversionService conversionService,
+        DefaultBodyAnnotationBinder<T> defaultBodyAnnotationBinder) {
+        return new AzureServletBodyBinder<>(conversionService, mediaTypeCodecRegistry, defaultBodyAnnotationBinder);
     }
 }

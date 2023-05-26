@@ -24,6 +24,7 @@ import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Body;
+import io.micronaut.http.bind.binders.DefaultBodyAnnotationBinder;
 import io.micronaut.http.codec.MediaTypeCodecRegistry;
 import io.micronaut.servlet.http.ServletBodyBinder;
 import io.netty.handler.codec.http.QueryStringDecoder;
@@ -46,9 +47,12 @@ public class AzureServletBodyBinder<T> extends ServletBodyBinder<T> {
      *
      * @param conversionService      The conversion service
      * @param mediaTypeCodecRegistry The codec registry
+     * @param defaultBodyAnnotationBinder The delegate default body binder
      */
-    protected AzureServletBodyBinder(ConversionService conversionService, MediaTypeCodecRegistry mediaTypeCodecRegistry) {
-        super(conversionService, mediaTypeCodecRegistry);
+    protected AzureServletBodyBinder(ConversionService conversionService,
+                                     MediaTypeCodecRegistry mediaTypeCodecRegistry,
+                                     DefaultBodyAnnotationBinder<T> defaultBodyAnnotationBinder) {
+        super(conversionService, mediaTypeCodecRegistry, defaultBodyAnnotationBinder);
     }
 
     @Override
