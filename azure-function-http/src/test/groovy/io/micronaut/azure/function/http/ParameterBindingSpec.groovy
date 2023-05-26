@@ -241,7 +241,7 @@ class ParameterBindingSpec extends Specification {
 
         expect:
         responseMessage.statusCode == HttpStatus.BAD_REQUEST.code
-        responseMessage.bodyAsString.contains("Error decoding JSON stream for type")
+        responseMessage.bodyAsString.contains("Error decoding request body")
 
         cleanup:
         function.close()
