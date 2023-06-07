@@ -1,14 +1,17 @@
-package io.micronaut.azure;
+package io.micronaut.azure
 
 import com.microsoft.azure.functions.HttpStatus
 import io.micronaut.azure.function.http.HttpRequestMessageBuilder
 import io.micronaut.http.HttpMethod
 import io.micronaut.web.router.Router
-import spock.lang.*
+import spock.lang.AutoCleanup
+import spock.lang.Shared
+import spock.lang.Specification
 
 class DemoFunctionSpec extends Specification {
 
-    @Shared @AutoCleanup
+    @Shared
+    @AutoCleanup
     Function function = new Function()
 
     void "test function"() {
@@ -19,7 +22,7 @@ class DemoFunctionSpec extends Specification {
 
         then:"The response is correct"
         response.status == HttpStatus.OK
-        response.bodyAsString == "Hello!"
+        response.bodyAsString == "Example Response"
     }
 
     void "check routes"() {

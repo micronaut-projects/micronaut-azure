@@ -1,19 +1,22 @@
 plugins {
-    id("io.micronaut.build.internal.azure-module")
+    id("java-library")
+    id("groovy")
 }
 
 dependencies {
-    annotationProcessor(mn.micronaut.inject.java)
-    api(mn.micronaut.inject)
-    api(mn.micronaut.http.server)
-    api(project(":azure-function-http"))
-    api(libs.managed.azure.functions.java.library)
-
-    api(mn.micronaut.servlet.core)
-    implementation(libs.jetty.server)
-    implementation(libs.jakarta.inject.api)
-    testCompileOnly(mn.micronaut.inject.groovy)
-    testImplementation(mn.micronaut.test.spock)
-    testImplementation(mn.micronaut.http.client)
+    testAnnotationProcessor(platform(mn.micronaut.bom))
     testAnnotationProcessor(mn.micronaut.inject.java)
+
+    testImplementation(project(":azure-function-http"))
+
+    testImplementation(libs.managed.azure.functions.java.library)
+
+    testImplementation(platform(mn.micronaut.bom))
+    testImplementation(libs.junit.platform.engine)
+    testImplementation(libs.junit.jupiter.engine)
+    testImplementation(mn.micronaut.test.spock)
+}
+
+tasks.withType(Test::class.java) {
+    useJUnitPlatform()
 }
