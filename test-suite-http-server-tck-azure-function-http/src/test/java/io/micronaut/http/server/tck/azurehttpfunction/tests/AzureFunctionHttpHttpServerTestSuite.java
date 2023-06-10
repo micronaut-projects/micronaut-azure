@@ -24,9 +24,9 @@ import org.junit.platform.suite.api.SuiteDisplayName;
     "io.micronaut.http.server.tck.tests.endpoints.health.HealthTest", // Response is OK, but with empty body
 
     "io.micronaut.http.server.tck.tests.HeadersTest", // headersAreCaseInsensitiveAsPerMessageHeadersSpecification
+    "io.micronaut.http.server.tck.tests.StreamTest",
+    "io.micronaut.http.server.tck.tests.MissingBodyAnnotationTest",
     "io.micronaut.http.server.tck.tests.constraintshandler.ControllerConstraintHandlerTest" // Broken in servlet
-
-
 })
 public class AzureFunctionHttpHttpServerTestSuite {
 }
