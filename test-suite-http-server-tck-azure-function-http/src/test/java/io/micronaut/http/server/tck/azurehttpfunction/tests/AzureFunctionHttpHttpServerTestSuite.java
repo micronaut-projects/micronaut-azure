@@ -25,7 +25,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 
     "io.micronaut.http.server.tck.tests.HeadersTest", // headersAreCaseInsensitiveAsPerMessageHeadersSpecification
     "io.micronaut.http.server.tck.tests.StreamTest",
-    "io.micronaut.http.server.tck.tests.MissingBodyAnnotationTest",
     "io.micronaut.http.server.tck.tests.constraintshandler.ControllerConstraintHandlerTest" // Broken in servlet
 })
 public class AzureFunctionHttpHttpServerTestSuite {
