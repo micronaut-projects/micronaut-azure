@@ -19,6 +19,7 @@ import io.micronaut.http.MutableHttpResponse;
 import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.http.simple.SimpleHttpResponseFactory;
 import io.micronaut.http.tck.ServerUnderTest;
+import io.micronaut.json.JsonMapper;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -74,9 +75,13 @@ public class AzureFunctionHttpServerUnderTest implements ServerUnderTest {
             if (body.isPresent()) {
                 return Optional.of(getDataString(body.get()));
             }
-            return request.getBody(String.class);
         }
-        return request.getBody(String.class);
+        return BodyUtils.bodyAsString(
+            getApplicationContext().getBean(JsonMapper.class),
+            () -> request.getContentType().orElse(null),
+            request::getCharacterEncoding,
+            () -> request.getBody().orElse(null)
+        );
     }
 
     private <O> HttpResponse<O> adaptResponse(HttpResponseMessage azureResponse) {
