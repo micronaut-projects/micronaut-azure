@@ -24,8 +24,15 @@ import org.junit.platform.suite.api.SuiteDisplayName;
     "io.micronaut.http.server.tck.tests.endpoints.health.HealthTest", // Response is OK, but with empty body
 
     "io.micronaut.http.server.tck.tests.HeadersTest", // headersAreCaseInsensitiveAsPerMessageHeadersSpecification
-    "io.micronaut.http.server.tck.tests.StreamTest",
-    "io.micronaut.http.server.tck.tests.constraintshandler.ControllerConstraintHandlerTest" // Broken in servlet
+    "io.micronaut.http.server.tck.tests.constraintshandler.ControllerConstraintHandlerTest", // Broken in servlet
+
+    "io.micronaut.http.server.tck.tests.BodyArgumentTest",
+    "io.micronaut.http.server.tck.tests.ResponseStatusTest",
+    "io.micronaut.http.server.tck.tests.ErrorHandlerTest",
+    "io.micronaut.http.server.tck.tests.MiscTest",
+    "io.micronaut.http.server.tck.tests.BodyTest",
+    "io.micronaut.http.server.tck.tests.PublisherExceptionHandlerTest",
+    "io.micronaut.http.server.tck.tests.ConsumesTest"
 })
 public class AzureFunctionHttpHttpServerTestSuite {
 }

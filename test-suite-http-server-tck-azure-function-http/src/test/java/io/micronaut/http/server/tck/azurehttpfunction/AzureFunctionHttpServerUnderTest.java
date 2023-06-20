@@ -76,12 +76,14 @@ public class AzureFunctionHttpServerUnderTest implements ServerUnderTest {
                 return Optional.of(getDataString(body.get()));
             }
         }
-        return BodyUtils.bodyAsString(
-            getApplicationContext().getBean(JsonMapper.class),
-            () -> request.getContentType().orElse(null),
-            request::getCharacterEncoding,
-            () -> request.getBody().orElse(null)
-        );
+
+        return Optional.ofNullable(request.getBody())
+            .flatMap(b ->
+            BodyUtils.bodyAsString(
+                getApplicationContext().getBean(JsonMapper.class),
+                () -> request.getContentType().orElse(null),
+                request::getCharacterEncoding,
+                () -> b));
     }
 
     private <O> HttpResponse<O> adaptResponse(HttpResponseMessage azureResponse) {
