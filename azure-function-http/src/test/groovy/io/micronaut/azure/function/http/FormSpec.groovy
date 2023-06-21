@@ -19,8 +19,8 @@ class FormSpec extends Specification {
                 .body("message=bodyMessage"))
 
         expect:
-        responseMessage.status.value() == HttpStatus.OK.code
-        responseMessage.bodyAsString == 'Output: bodyMessage'
+        responseMessage.statusCode == HttpStatus.OK.code
+        responseMessage.body == 'Output: bodyMessage'
     }
 
     @Issue("https://github.com/micronaut-projects/micronaut-azure/issues/120")
@@ -33,8 +33,8 @@ class FormSpec extends Specification {
                 .body("message=bodyMessage"))
 
         expect:
-        responseMessage.status.value() == HttpStatus.OK.code
-        responseMessage.bodyAsString == 'Output: bodyMessage'
+        responseMessage.statusCode == HttpStatus.OK.code
+        responseMessage.body == 'Output: bodyMessage'
     }
 
     void "x-www-form-urlencoded POST request with request query parameters"() {
@@ -46,8 +46,8 @@ class FormSpec extends Specification {
                 .parameter("message", "queryMessage"))
 
         expect:
-        responseMessage.status.value() == HttpStatus.OK.code
-        responseMessage.bodyAsString == 'Output: queryMessage'
+        responseMessage.statusCode == HttpStatus.OK.code
+        responseMessage.body == 'Output: queryMessage'
     }
 
     void "x-www-form-urlencoded POST request with request query parameters using nested attribute"() {
@@ -59,7 +59,7 @@ class FormSpec extends Specification {
                 .parameter("message", "queryMessage"))
 
         expect:
-        responseMessage.status.value() == HttpStatus.OK.code
-        responseMessage.bodyAsString == 'Output: queryMessage'
+        responseMessage.statusCode == HttpStatus.OK.code
+        responseMessage.body == 'Output: queryMessage'
     }
 }

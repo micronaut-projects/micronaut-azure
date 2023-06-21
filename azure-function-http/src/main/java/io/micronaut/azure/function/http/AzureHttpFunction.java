@@ -101,11 +101,14 @@ public class AzureHttpFunction extends AzureFunction {
         try {
             AzureFunctionHttpRequest<?> azureFunctionHttpRequest =
                 new AzureFunctionHttpRequest<>(
-                    contextPath,
                     request,
-                    httpHandler.getMediaTypeCodecRegistry(),
+                    new AzureFunctionHttpResponse<>(
+                        httpHandler.getApplicationContext().getBean(ConversionService.class),
+                        httpHandler.getApplicationContext().getBean(BinaryContentConfiguration.class)
+                    ),
                     executionContext,
                     httpHandler.getApplicationContext().getBean(ConversionService.class),
+                    httpHandler.getApplicationContext().getBean(BinaryContentConfiguration.class),
                     httpHandler.getApplicationContext().getBean(BodyBuilder.class)
                 );
 

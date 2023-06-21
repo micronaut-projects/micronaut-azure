@@ -1,5 +1,6 @@
 package io.micronaut.azure.function.http;
 
+import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
@@ -12,6 +13,6 @@ public class HeadersController {
     @Produces(MediaType.TEXT_PLAIN)
     @Get("/echo")
     public String index(HttpRequest<?> request) {
-        return "Headers: " + request.getHeaders().names();
+        return "Accept: " + request.getHeaders().get(HttpHeaders.ACCEPT) + " Turbo-frame: " + request.getHeaders().get("Turbo-Frame");
     }
 }

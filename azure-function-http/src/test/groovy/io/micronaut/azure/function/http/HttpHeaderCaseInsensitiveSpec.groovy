@@ -1,6 +1,7 @@
 package io.micronaut.azure.function.http
 
 import com.microsoft.azure.functions.HttpMethod
+import com.microsoft.azure.functions.HttpResponseMessage
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
 import spock.lang.Issue
@@ -14,13 +15,13 @@ class HttpHeaderCaseInsensitiveSpec extends Specification {
         AzureHttpFunction function = new AzureHttpFunction()
 
         when: 'send  request with an Http Header Host in lowercase'
-        AzureHttpResponseMessage responseMessage = retrieve(function, headers)
+        def responseMessage = retrieve(function, headers)
 
         then:
         responseMessage.statusCode == HttpStatus.OK.code
 
         and:
-        responseMessage.bodyAsString == 'Headers: [Accept, Turbo-Frame]'
+        responseMessage.body == 'Accept: text/plain Turbo-frame: messages'
 
         cleanup:
         function.close()
@@ -33,12 +34,12 @@ class HttpHeaderCaseInsensitiveSpec extends Specification {
                 ],
                 [
                         "Accept": MediaType.TEXT_PLAIN,
-                        "Turbo-Frame": "messages"
+                        "Turbo-FRAME": "messages"
                 ],
         ]
     }
 
-    private static AzureHttpResponseMessage retrieve(AzureHttpFunction function, Map<String, String> headersMap) {
+    private static HttpResponseMessage retrieve(AzureHttpFunction function, Map<String, String> headersMap) {
         HttpRequestMessageBuilder<?> builder = function.request(HttpMethod.GET, "/headers/echo")
         for (String headerName : headersMap.keySet()) {
             builder.header(headerName, headersMap.get(headerName))

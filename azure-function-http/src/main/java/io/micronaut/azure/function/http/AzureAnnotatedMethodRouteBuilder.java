@@ -26,7 +26,6 @@ import io.micronaut.inject.BeanDefinition;
 import io.micronaut.inject.ExecutableMethod;
 import io.micronaut.web.router.AnnotatedMethodRouteBuilder;
 import io.micronaut.web.router.UriRoute;
-
 import jakarta.inject.Singleton;
 
 /**

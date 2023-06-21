@@ -187,19 +187,19 @@ class DefaultHttpRequestMessageBuilder<T> implements HttpRequestMessageBuilder<T
         private Object body;
 
         @Override
-        public HttpResponseMessage.Builder status(HttpStatusType status) {
+        public Builder status(HttpStatusType status) {
             this.status = status;
             return this;
         }
 
         @Override
-        public HttpResponseMessage.Builder header(String key, String value) {
+        public Builder header(String key, String value) {
             headers.computeIfAbsent(key, (k) -> new ArrayList<>()).add(value);
             return this;
         }
 
         @Override
-        public HttpResponseMessage.Builder body(Object body) {
+        public Builder body(Object body) {
             this.body = body;
             return this;
         }

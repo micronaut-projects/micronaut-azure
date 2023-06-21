@@ -4,6 +4,7 @@ import com.microsoft.azure.functions.HttpMethod
 import io.micronaut.http.HttpHeaders
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
+import spock.lang.IgnoreRest
 import spock.lang.Specification
 
 class ParameterBindingSpec extends Specification {
@@ -19,7 +20,7 @@ class ParameterBindingSpec extends Specification {
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
-        responseMessage.bodyAsString == 'Hello Foo'
+        responseMessage.body == 'Hello Foo'
 
         cleanup:
         function.close()
@@ -54,7 +55,7 @@ class ParameterBindingSpec extends Specification {
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
-        responseMessage.bodyAsString == 'Hello Foo'
+        responseMessage.body == 'Hello Foo'
 
         cleanup:
         function.close()
@@ -74,7 +75,7 @@ class ParameterBindingSpec extends Specification {
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
-        responseMessage.bodyAsString == 'Hello Foo 20'
+        responseMessage.body == 'Hello Foo 20'
 
         cleanup:
         function.close()
@@ -91,7 +92,7 @@ class ParameterBindingSpec extends Specification {
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
-        responseMessage.bodyAsString == 'Hello text/plain;q=1.0'
+        responseMessage.body == 'Hello text/plain;q=1.0'
 
         cleanup:
         function.close()
@@ -106,7 +107,7 @@ class ParameterBindingSpec extends Specification {
         )
 
         expect:
-        responseMessage.bodyAsString == 'Good'
+        responseMessage.body == 'Good'
         responseMessage.statusCode == HttpStatus.ACCEPTED.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.TEXT_PLAIN
 
@@ -127,7 +128,7 @@ class ParameterBindingSpec extends Specification {
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
-        responseMessage.bodyAsString == 'Hello Foo'
+        responseMessage.body == 'Hello Foo'
 
         cleanup:
         function.close()
@@ -145,7 +146,7 @@ class ParameterBindingSpec extends Specification {
         expect:
         responseMessage.statusCode == HttpStatus.CREATED.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.TEXT_PLAIN
-        responseMessage.bodyAsString == 'Hello Foo'
+        responseMessage.body == 'Hello Foo'
         responseMessage.getHeader("Foo") == 'Bar'
 
         cleanup:
@@ -165,7 +166,7 @@ class ParameterBindingSpec extends Specification {
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
-        responseMessage.bodyAsString == json
+        responseMessage.body == json
 
         cleanup:
         function.close()
@@ -183,7 +184,7 @@ class ParameterBindingSpec extends Specification {
 
         expect:
         responseMessage.statusCode == HttpStatus.BAD_REQUEST.code
-        responseMessage.bodyAsString.contains("Error decoding JSON stream for type")
+        responseMessage.body.contains("Error decoding JSON stream for type")
 
         cleanup:
         function.close()
@@ -203,7 +204,7 @@ class ParameterBindingSpec extends Specification {
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
-        responseMessage.bodyAsString == json
+        responseMessage.body == json
 
         cleanup:
         function.close()
@@ -222,7 +223,7 @@ class ParameterBindingSpec extends Specification {
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
-        responseMessage.bodyAsString == json
+        responseMessage.body == json
         responseMessage.getHeader("Foo") == 'Bar'
 
         cleanup:
@@ -241,7 +242,7 @@ class ParameterBindingSpec extends Specification {
 
         expect:
         responseMessage.statusCode == HttpStatus.BAD_REQUEST.code
-        responseMessage.bodyAsString.contains("Error decoding request body")
+        responseMessage.body.contains("Error decoding request body")
 
         cleanup:
         function.close()

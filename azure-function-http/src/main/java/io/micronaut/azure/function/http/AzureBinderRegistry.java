@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2023 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,54 +30,35 @@ import io.micronaut.http.bind.binders.RequestArgumentBinder;
 import io.micronaut.http.bind.binders.TypedRequestArgumentBinder;
 import io.micronaut.http.codec.MediaTypeCodecRegistry;
 import io.micronaut.servlet.http.ServletBinderRegistry;
-
-import io.micronaut.servlet.http.ServletBodyBinder;
 import jakarta.inject.Singleton;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-/**
- * Implementation of {@link ServletBinderRegistry} for Azure.
- *
- * @param <T> The body type
- *
- * @author graemerocher
- * @since 1.2.0
- */
 @Singleton
-@Replaces(DefaultRequestBinderRegistry.class)
 @Internal
-public class AzureBinderRegistry<T> extends ServletBinderRegistry<T> {
+@Replaces(DefaultRequestBinderRegistry.class)
+class AzureBinderRegistry<T> extends ServletBinderRegistry<T> {
 
     private static final Argument<ExecutionContext> EXECUTION_CONTEXT_ARGUMENT = Argument.of(ExecutionContext.class);
     private static final Argument<TraceContext> TRACE_CONTEXT_ARGUMENT = Argument.of(TraceContext.class);
     private static final Argument<Logger> LOGGER_ARGUMENT = Argument.of(Logger.class);
     private static final Argument<HttpRequestMessage> REQUEST_MESSAGE_ARGUMENT = Argument.of(HttpRequestMessage.class);
-    protected final DefaultBodyAnnotationBinder<T> defaultBodyAnnotationBinder;
 
-    /**
-     * Default constructor.
-     *
-     * @param mediaTypeCodecRegistry The media type codec registry
-     * @param conversionService      The conversion service
-     * @param binders                Any registered binders
-     * @param defaultBodyAnnotationBinder The delegate default body binder
-     */
     AzureBinderRegistry(
-            MediaTypeCodecRegistry mediaTypeCodecRegistry,
-            ConversionService conversionService,
-            List<RequestArgumentBinder> binders,
-            DefaultBodyAnnotationBinder<T> defaultBodyAnnotationBinder
+        MediaTypeCodecRegistry mediaTypeCodecRegistry,
+        ConversionService conversionService,
+        List<RequestArgumentBinder> binders,
+        DefaultBodyAnnotationBinder<T> defaultBodyAnnotationBinder
     ) {
         super(mediaTypeCodecRegistry, conversionService, binders, defaultBodyAnnotationBinder);
-        this.defaultBodyAnnotationBinder = defaultBodyAnnotationBinder;
         this.byType.put(HttpRequestMessage.class, new TypedRequestArgumentBinder<HttpRequestMessage>() {
             @Override
             public BindingResult<HttpRequestMessage> bind(
-                    ArgumentConversionContext<HttpRequestMessage> context, HttpRequest<?> source) {
-                if (source instanceof AzureFunctionHttpRequest) {
-                    return () -> Optional.of(((AzureFunctionHttpRequest<?>) source).getNativeRequest());
+                ArgumentConversionContext<HttpRequestMessage> context, HttpRequest<?> source) {
+                if (source instanceof AzureFunctionHttpRequest<?> req) {
+                    return () -> Optional.of(req.getNativeRequest());
                 } else {
                     return BindingResult.EMPTY;
                 }
@@ -91,9 +72,9 @@ public class AzureBinderRegistry<T> extends ServletBinderRegistry<T> {
         this.byType.put(ExecutionContext.class, new TypedRequestArgumentBinder<ExecutionContext>() {
             @Override
             public BindingResult<ExecutionContext> bind(
-                    ArgumentConversionContext<ExecutionContext> context, HttpRequest<?> source) {
-                if (source instanceof AzureFunctionHttpRequest) {
-                    return () -> Optional.of(((AzureFunctionHttpRequest<?>) source).getExecutionContext());
+                ArgumentConversionContext<ExecutionContext> context, HttpRequest<?> source) {
+                if (source instanceof AzureFunctionHttpRequest<?> req) {
+                    return () -> Optional.of(req.getExecutionContext());
                 } else {
                     return BindingResult.EMPTY;
                 }
@@ -107,9 +88,9 @@ public class AzureBinderRegistry<T> extends ServletBinderRegistry<T> {
         this.byType.put(Logger.class, new TypedRequestArgumentBinder<Logger>() {
             @Override
             public BindingResult<Logger> bind(
-                    ArgumentConversionContext<Logger> context, HttpRequest<?> source) {
-                if (source instanceof AzureFunctionHttpRequest) {
-                    return () -> Optional.of(((AzureFunctionHttpRequest<?>) source).getExecutionContext().getLogger());
+                ArgumentConversionContext<Logger> context, HttpRequest<?> source) {
+                if (source instanceof AzureFunctionHttpRequest<?> req) {
+                    return () -> Optional.of(req.getExecutionContext().getLogger());
                 } else {
                     return BindingResult.EMPTY;
                 }
@@ -123,9 +104,9 @@ public class AzureBinderRegistry<T> extends ServletBinderRegistry<T> {
         this.byType.put(TraceContext.class, new TypedRequestArgumentBinder<TraceContext>() {
             @Override
             public BindingResult<TraceContext> bind(
-                    ArgumentConversionContext<TraceContext> context, HttpRequest<?> source) {
-                if (source instanceof AzureFunctionHttpRequest) {
-                    return () -> Optional.ofNullable(((AzureFunctionHttpRequest<?>) source).getExecutionContext().getTraceContext());
+                ArgumentConversionContext<TraceContext> context, HttpRequest<?> source) {
+                if (source instanceof AzureFunctionHttpRequest<?> req) {
+                    return () -> Optional.ofNullable(req.getExecutionContext().getTraceContext());
                 } else {
                     return BindingResult.EMPTY;
                 }
@@ -136,13 +117,5 @@ public class AzureBinderRegistry<T> extends ServletBinderRegistry<T> {
                 return TRACE_CONTEXT_ARGUMENT;
             }
         });
-    }
-
-    @Override
-    protected ServletBodyBinder<T> newServletBodyBinder(
-        MediaTypeCodecRegistry mediaTypeCodecRegistry,
-        ConversionService conversionService,
-        DefaultBodyAnnotationBinder<T> defaultBodyAnnotationBinder) {
-        return new AzureServletBodyBinder<>(conversionService, mediaTypeCodecRegistry, defaultBodyAnnotationBinder);
     }
 }
