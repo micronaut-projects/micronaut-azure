@@ -1,22 +1,22 @@
 [versions]
 managed-azure-sdk = "1.2.13"
 managed-azure-functions-java-library = "3.0.0"
-managed-azure-cosmos = "4.45.1"
+managed-azure-cosmos = "4.46.0"
 
 jakarta-inject-api = "2.0.1"
 jetty-server = "11.0.15"
-kotlin = "1.8.21"
+kotlin = "1.8.22"
 system-lambda = "1.2.1"
 testcontainers = "1.18.3"
 
 # Micronaut
 micronaut = "4.0.0-RC3"
-micronaut-logging = "1.0.0-M4"
-micronaut-reactor = "3.0.0-M6"
-micronaut-serde = "2.0.0-M10"
+micronaut-logging = "1.0.0-M5"
+micronaut-reactor = "3.0.0-M8"
+micronaut-serde = "2.0.0-M12"
 micronaut-servlet = "4.0.0-M10"
-micronaut-test = "4.0.0-M7"
-micronaut-validation = "4.0.0-M10"
+micronaut-test = "4.0.0-M8"
+micronaut-validation = "4.0.0-M11"
 
 micronaut-gradle-plugin = "4.0.0-M4"
 
