@@ -20,6 +20,8 @@ import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
 import com.microsoft.azure.functions.HttpStatusType;
 import io.micronaut.azure.function.http.AzureFunctionHttpRequest;
+import io.micronaut.azure.function.http.AzureFunctionHttpResponse;
+import io.micronaut.azure.function.http.BinaryContentConfiguration;
 import io.micronaut.azure.function.http.HttpRequestMessageBuilder;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.env.Environment;
@@ -274,13 +276,18 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
             }
 
             HttpRequestMessage<Optional<String>> requestMessage = requestMessageBuilder.buildEncoded();
+            ConversionService handlerConversionService = httpHandler.getApplicationContext().getBean(ConversionService.class);
+            BinaryContentConfiguration binaryContentConfiguration = httpHandler.getApplicationContext().getBean(BinaryContentConfiguration.class);
             AzureFunctionHttpRequest<?> azureFunctionHttpRequest =
                     new AzureFunctionHttpRequest<>(
-                            contextPath,
                             requestMessage,
-                            httpHandler.getMediaTypeCodecRegistry(),
+                            new AzureFunctionHttpResponse<>(
+                                handlerConversionService,
+                                binaryContentConfiguration
+                            ),
                             new DefaultExecutionContext(),
-                            httpHandler.getApplicationContext().getBean(ConversionService.class),
+                            handlerConversionService,
+                            binaryContentConfiguration,
                             httpHandler.getApplicationContext().getBean(BodyBuilder.class)
                     );
 

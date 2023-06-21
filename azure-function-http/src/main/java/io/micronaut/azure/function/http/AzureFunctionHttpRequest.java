@@ -100,7 +100,7 @@ public final class AzureFunctionHttpRequest<T> implements
 
     private ByteArrayByteBuffer<T> servletByteBuffer;
 
-    protected AzureFunctionHttpRequest(
+    public AzureFunctionHttpRequest(
         HttpRequestMessage<Optional<String>> request,
         AzureFunctionHttpResponse<Object> response,
         ExecutionContext executionContext,

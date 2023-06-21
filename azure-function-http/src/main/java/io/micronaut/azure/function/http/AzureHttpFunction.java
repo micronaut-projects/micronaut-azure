@@ -72,7 +72,7 @@ public class AzureHttpFunction extends AzureFunction {
      *
      * @param applicationContextBuilder ApplicationContext Builder;
      */
-    protected AzureHttpFunction(ApplicationContextBuilder applicationContextBuilder) {
+    public AzureHttpFunction(ApplicationContextBuilder applicationContextBuilder) {
         try {
             AzureFunction.startApplicationContext(applicationContextBuilder);
         } catch (Throwable  e) {

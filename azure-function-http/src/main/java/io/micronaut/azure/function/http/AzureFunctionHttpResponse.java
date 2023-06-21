@@ -55,7 +55,7 @@ public final class AzureFunctionHttpResponse<B> implements ServletHttpResponse<H
     private B bodyObject;
     private String reason = HttpStatus.OK.getReason();
 
-    protected AzureFunctionHttpResponse(ConversionService conversionService, BinaryContentConfiguration binaryContentConfiguration) {
+    public AzureFunctionHttpResponse(ConversionService conversionService, BinaryContentConfiguration binaryContentConfiguration) {
         this.headers = new CaseInsensitiveMutableHttpHeaders(conversionService);
         this.binaryContentConfiguration = binaryContentConfiguration;
     }
