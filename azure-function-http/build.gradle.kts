@@ -18,3 +18,9 @@ dependencies {
     testCompileOnly(mn.micronaut.inject.groovy)
     testAnnotationProcessor(mn.micronaut.inject.java)
 }
+
+spotless {
+    java {
+        targetExclude("**/io/micronaut/azure/function/http/QueryStringDecoder.java")
+    }
+}

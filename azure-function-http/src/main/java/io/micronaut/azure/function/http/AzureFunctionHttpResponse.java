@@ -39,18 +39,18 @@ import java.io.OutputStreamWriter;
 import java.util.Optional;
 
 /**
- * Abstract class for implementations of {@link ServletHttpResponse}.
- * @author Sergio del Amo
- * @since 4.0.0
- * @param <R> Response Type
+ * Azure implementation of {@link ServletHttpResponse}.
+ *
+ * @author Tim Yates
+ * @since 5.0.0
  * @param <B> Body Type
  */
 @Internal
-public class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpResponseMessage, B> {
-    protected final ByteArrayOutputStream body = new ByteArrayOutputStream();
-    protected int status = HttpStatus.OK.getCode();
-    protected  final MutableHttpHeaders headers;
-    protected final BinaryContentConfiguration binaryContentConfiguration;
+public final class AzureFunctionHttpResponse<B> implements ServletHttpResponse<HttpResponseMessage, B> {
+    private final ByteArrayOutputStream body = new ByteArrayOutputStream();
+    private int status = HttpStatus.OK.getCode();
+    private  final MutableHttpHeaders headers;
+    private final BinaryContentConfiguration binaryContentConfiguration;
     private MutableConvertibleValues<Object> attributes;
     private B bodyObject;
     private String reason = HttpStatus.OK.getReason();

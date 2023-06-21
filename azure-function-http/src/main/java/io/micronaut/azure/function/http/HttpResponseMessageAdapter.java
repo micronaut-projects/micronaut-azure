@@ -39,98 +39,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Internal
 public class HttpResponseMessageAdapter<T> implements MutableHttpResponse<T> {
 
-    private HttpResponseMessage message;
-    private final ConversionService conversionService;
-    private final Set<String> extraHeaders;
-    private final MutableConvertibleValues<Object> attributes = new MutableConvertibleValuesMap<>();
-    private final MutableHttpHeaders headers;
-    private Map<String, Cookie> cookies = new ConcurrentHashMap<>(2);
-
-    private Integer status;
-    private String reason;
-
-    public HttpResponseMessageAdapter(
-        HttpResponseMessage message,
-        ConversionService conversionService,
-        Set<String> extraHeaders
-    ) {
-        this.message = message;
-        this.conversionService = conversionService;
-        this.headers = new CaseInsensitiveMutableHttpHeaders(conversionService);
-        this.extraHeaders = extraHeaders;
-        populateHeaders(STANDARD_HEADERS);
-        populateHeaders(extraHeaders);
-    }
-
-    private void populateHeaders(Set<String> standardHeaders) {
-        for (String header : standardHeaders) {
-            String value = message.getHeader(header);
-            if (value != null) {
-                headers.add(header, value);
-            }
-        }
-    }
-
-    @Override
-    public MutableHttpResponse<T> cookie(Cookie cookie) {
-        this.cookies.put(cookie.getName(), cookie);
-        return this;
-    }
-
-    @Override
-    public MutableHttpHeaders getHeaders() {
-        return headers;
-    }
-
-    @Override
-    public MutableConvertibleValues<Object> getAttributes() {
-        return attributes;
-    }
-
-    @Override
-    public Optional<T> getBody() {
-        return (Optional<T>) Optional.ofNullable(message.getBody());
-    }
-
-    @Override
-    public <B> MutableHttpResponse<B> body(B body) {
-        return (MutableHttpResponse<B>) this;
-    }
-
-    @Override
-    public MutableHttpResponse<T> status(int status, CharSequence message) {
-        ArgumentUtils.requireNonNull("status", status);
-        if (message == null) {
-            this.reason = HttpStatus.getDefaultReason(status);
-        } else {
-            this.reason = message.toString();
-        }
-        this.status = status;
-        return this;
-    }
-
-    @Override
-    public int code() {
-        if (status != null) {
-            return status;
-        }
-        return getStatus().getCode();
-    }
-
-    @Override
-    public String reason() {
-        if (reason != null) {
-            return reason;
-        }
-        return getStatus().getReason();
-    }
-
-    @Override
-    public HttpStatus getStatus() {
-        return HttpStatus.valueOf(status == null ? message.getStatusCode() : status);
-    }
-
-    private final static Set<String> STANDARD_HEADERS = Set.of(
+    private static final Set<String> STANDARD_HEADERS = Set.of(
         HttpHeaders.ACCEPT,
         HttpHeaders.ACCEPT_CH,
         HttpHeaders.ACCEPT_CH_LIFETIME,
@@ -225,4 +134,95 @@ public class HttpResponseMessageAdapter<T> implements MutableHttpResponse<T> {
         HttpHeaders.WWW_AUTHENTICATE,
         HttpHeaders.X_AUTH_TOKEN
     );
+
+    private HttpResponseMessage message;
+    private final ConversionService conversionService;
+    private final Set<String> extraHeaders;
+    private final MutableConvertibleValues<Object> attributes = new MutableConvertibleValuesMap<>();
+    private final MutableHttpHeaders headers;
+    private Map<String, Cookie> cookies = new ConcurrentHashMap<>(2);
+
+    private Integer status;
+    private String reason;
+
+    public HttpResponseMessageAdapter(
+        HttpResponseMessage message,
+        ConversionService conversionService,
+        Set<String> extraHeaders
+    ) {
+        this.message = message;
+        this.conversionService = conversionService;
+        this.headers = new CaseInsensitiveMutableHttpHeaders(conversionService);
+        this.extraHeaders = extraHeaders;
+        populateHeaders(STANDARD_HEADERS);
+        populateHeaders(extraHeaders);
+    }
+
+    private void populateHeaders(Set<String> standardHeaders) {
+        for (String header : standardHeaders) {
+            String value = message.getHeader(header);
+            if (value != null) {
+                headers.add(header, value);
+            }
+        }
+    }
+
+    @Override
+    public MutableHttpResponse<T> cookie(Cookie cookie) {
+        this.cookies.put(cookie.getName(), cookie);
+        return this;
+    }
+
+    @Override
+    public MutableHttpHeaders getHeaders() {
+        return headers;
+    }
+
+    @Override
+    public MutableConvertibleValues<Object> getAttributes() {
+        return attributes;
+    }
+
+    @Override
+    public Optional<T> getBody() {
+        return (Optional<T>) Optional.ofNullable(message.getBody());
+    }
+
+    @Override
+    public <B> MutableHttpResponse<B> body(B body) {
+        return (MutableHttpResponse<B>) this;
+    }
+
+    @Override
+    public MutableHttpResponse<T> status(int status, CharSequence message) {
+        ArgumentUtils.requireNonNull("status", status);
+        if (message == null) {
+            this.reason = HttpStatus.getDefaultReason(status);
+        } else {
+            this.reason = message.toString();
+        }
+        this.status = status;
+        return this;
+    }
+
+    @Override
+    public int code() {
+        if (status != null) {
+            return status;
+        }
+        return getStatus().getCode();
+    }
+
+    @Override
+    public String reason() {
+        if (reason != null) {
+            return reason;
+        }
+        return getStatus().getReason();
+    }
+
+    @Override
+    public HttpStatus getStatus() {
+        return HttpStatus.valueOf(status == null ? message.getStatusCode() : status);
+    }
 }

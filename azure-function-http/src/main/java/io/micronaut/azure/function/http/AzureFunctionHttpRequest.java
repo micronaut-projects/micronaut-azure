@@ -75,7 +75,7 @@ import java.util.function.Supplier;
  */
 @Internal
 @SuppressWarnings("java:S119") // More descriptive generics are better here
-public class AzureFunctionHttpRequest<T> implements
+public final class AzureFunctionHttpRequest<T> implements
     MutableServletHttpRequest<HttpRequestMessage<Optional<String>>, T>,
     ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage>,
     FullHttpRequest<T>,
@@ -86,9 +86,9 @@ public class AzureFunctionHttpRequest<T> implements
     private static final Set<Class<?>> RAW_BODY_TYPES = CollectionUtils.setOf(String.class, byte[].class, ByteBuffer.class, InputStream.class);
 
     private final ExecutionContext executionContext;
-    protected ConversionService conversionService;
     private final BinaryContentConfiguration binaryContentConfiguration;
-    protected final HttpRequestMessage<Optional<String>> requestEvent;
+    private ConversionService conversionService;
+    private final HttpRequestMessage<Optional<String>> requestEvent;
     private final AzureFunctionHttpResponse<Object> response;
     private URI uri;
     private final HttpMethod httpMethod;
