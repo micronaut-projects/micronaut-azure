@@ -7,7 +7,7 @@ dependencies {
     testAnnotationProcessor(platform(mn.micronaut.core.bom))
     testAnnotationProcessor(mn.micronaut.inject.java)
 
-    testImplementation(project(":micronaut-azure-function-http"))
+    testImplementation(projects.micronautAzureFunctionHttp)
 
     testImplementation(libs.managed.azure.functions.java.library)
 
