@@ -10,7 +10,7 @@ system-lambda = "1.2.1"
 testcontainers = "1.18.3"
 
 # Micronaut
-micronaut = "4.0.0-RC1"
+micronaut = "4.0.0-RC3"
 micronaut-logging = "1.0.0-M5"
 micronaut-reactor = "3.0.0-M8"
 micronaut-serde = "2.0.0-M12"
