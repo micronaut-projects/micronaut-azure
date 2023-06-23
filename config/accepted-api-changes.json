@@ -10,13 +10,38 @@
     "reason": "Changed in micronaut 4"
   },
   {
+    "type": "io.micronaut.azure.function.http.AzureFunctionHttpRequest",
+    "member": "Constructor io.micronaut.azure.function.http.AzureFunctionHttpRequest(java.lang.String,com.microsoft.azure.functions.HttpRequestMessage,io.micronaut.http.codec.MediaTypeCodecRegistry,com.microsoft.azure.functions.ExecutionContext)",
+    "reason": "Changed in Micronaut 4"
+  },
+  {
     "type": "io.micronaut.azure.function.http.AzureServletBodyBinder",
     "member": "Constructor io.micronaut.azure.function.http.AzureServletBodyBinder(io.micronaut.core.convert.ConversionService,io.micronaut.http.codec.MediaTypeCodecRegistry)",
-    "reason": "Core API change to DefaultBodyAnnotationBinder for Micronaut 4"
+    "reason": "Removed for Micronaut 4"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.AzureServletBodyBinder",
+    "member": "Implemented interface io.micronaut.http.bind.binders.RequestArgumentBinder",
+    "reason": "Removed for Micronaut 4"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.AzureServletBodyBinder",
+    "member": "Implemented interface io.micronaut.core.bind.annotation.AnnotatedArgumentBinder",
+    "reason": "Removed for Micronaut 4"
   },
   {
     "type": "io.micronaut.azure.function.http.AzureServletBodyBinder",
     "member": "Implemented interface io.micronaut.http.bind.binders.BodyArgumentBinder",
-    "reason": "Core API change to DefaultBodyAnnotationBinder for Micronaut 4"
+    "reason": "Removed for Micronaut 4"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.AzureServletBodyBinder",
+    "member": "Implemented interface io.micronaut.http.bind.binders.AnnotatedRequestArgumentBinder",
+    "reason": "Removed for Micronaut 4"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.AzureServletBodyBinder",
+    "member": "Implemented interface io.micronaut.core.bind.ArgumentBinder",
+    "reason": "Removed for Micronaut 4"
   }
 ]
