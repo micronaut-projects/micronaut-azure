@@ -34,9 +34,9 @@ import java.util.Optional;
  */
 @Internal
 @Singleton
-public class HttpRequestMessageHandler extends ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> {
+class HttpRequestMessageHandler extends ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> {
 
-    public HttpRequestMessageHandler(ApplicationContext applicationContext) {
+    HttpRequestMessageHandler(ApplicationContext applicationContext) {
         super(applicationContext, applicationContext.getBean(ConversionService.class));
     }
 

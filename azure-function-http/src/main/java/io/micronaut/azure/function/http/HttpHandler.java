@@ -19,9 +19,7 @@ import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.core.annotation.Internal;
-import io.micronaut.core.convert.ConversionService;
 import io.micronaut.servlet.http.ServletExchange;
-import io.micronaut.servlet.http.ServletHttpHandler;
 import io.netty.util.internal.MacAddressUtil;
 import io.netty.util.internal.PlatformDependent;
 
@@ -34,10 +32,10 @@ import java.util.Optional;
  * @since 5.0.0
  */
 @Internal
-public class HttpHandler extends ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> {
+class HttpHandler extends HttpRequestMessageHandler {
 
     public HttpHandler(ApplicationContext applicationContext) {
-        super(init(applicationContext), applicationContext.getBean(ConversionService.class));
+        super(init(applicationContext));
     }
 
     private static ApplicationContext init(ApplicationContext applicationContext) {
@@ -49,11 +47,6 @@ public class HttpHandler extends ServletHttpHandler<HttpRequestMessage<Optional<
         byte[] bestMacAddr = new byte[8];
         PlatformDependent.threadLocalRandom().nextBytes(bestMacAddr);
         System.setProperty("io.netty.machineId", MacAddressUtil.formatAddress(bestMacAddr));
-    }
-
-    @Override
-    public boolean isRunning() {
-        return super.getApplicationContext().isRunning();
     }
 
     @Override
