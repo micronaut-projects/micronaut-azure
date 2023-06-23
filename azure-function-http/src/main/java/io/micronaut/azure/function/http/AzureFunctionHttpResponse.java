@@ -186,7 +186,7 @@ public final class AzureFunctionHttpResponse<B> implements ServletHttpResponse<H
 
         @Override
         public Builder header(String key, String value) {
-            headers.computeIfAbsent(key, (k) -> new ArrayList<>()).add(value);
+            headers.computeIfAbsent(key, k -> new ArrayList<>()).add(value);
             return this;
         }
 
