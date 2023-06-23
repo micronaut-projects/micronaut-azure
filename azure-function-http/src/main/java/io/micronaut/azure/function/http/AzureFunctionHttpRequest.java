@@ -28,7 +28,6 @@ import io.micronaut.core.execution.ExecutionFlow;
 import io.micronaut.core.io.buffer.ByteBuffer;
 import io.micronaut.core.type.Argument;
 import io.micronaut.core.util.ArrayUtils;
-import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.core.util.SupplierUtil;
 import io.micronaut.http.CaseInsensitiveMutableHttpHeaders;
@@ -64,7 +63,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
@@ -82,8 +80,6 @@ public final class AzureFunctionHttpRequest<T> implements
     ParsedBodyHolder<T> {
 
     private static final Logger LOG = LoggerFactory.getLogger(AzureFunctionHttpRequest.class);
-
-    private static final Set<Class<?>> RAW_BODY_TYPES = CollectionUtils.setOf(String.class, byte[].class, ByteBuffer.class, InputStream.class);
 
     private final ExecutionContext executionContext;
     private final BinaryContentConfiguration binaryContentConfiguration;
