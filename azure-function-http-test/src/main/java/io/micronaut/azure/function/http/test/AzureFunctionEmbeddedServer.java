@@ -128,7 +128,7 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
                     context.setContextPath(contextPath);
                     context.setResourceBase(".");
                     context.setClassLoader(Thread.currentThread().getContextClassLoader());
-                    context.setHandler(new AzureHandler(getApplicationContext(), contextPath, conversionService));
+                    context.setHandler(new AzureHandler(getApplicationContext(), conversionService));
                     server.setHandler(context);
                     this.server.setHandler(context);
                     this.server.start();
@@ -218,15 +218,12 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
     private static final class AzureHandler extends AbstractHandler {
 
         private final ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> httpHandler;
-        private final String contextPath;
 
         /**
          * Default constructor.
          * @param applicationContext The app context
-         * @param contextPath The context path
          */
-        AzureHandler(ApplicationContext applicationContext, String contextPath, ConversionService conversionService) {
-            this.contextPath = contextPath;
+        AzureHandler(ApplicationContext applicationContext, ConversionService conversionService) {
             httpHandler = new ServletHttpHandler<>(applicationContext, conversionService) {
                 @Override
                 public boolean isRunning() {
