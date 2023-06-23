@@ -136,8 +136,6 @@ public class HttpResponseMessageAdapter<T> implements MutableHttpResponse<T> {
     );
 
     private HttpResponseMessage message;
-    private final ConversionService conversionService;
-    private final Set<String> extraHeaders;
     private final MutableConvertibleValues<Object> attributes = new MutableConvertibleValuesMap<>();
     private final MutableHttpHeaders headers;
     private Map<String, Cookie> cookies = new ConcurrentHashMap<>(2);
@@ -151,9 +149,7 @@ public class HttpResponseMessageAdapter<T> implements MutableHttpResponse<T> {
         Set<String> extraHeaders
     ) {
         this.message = message;
-        this.conversionService = conversionService;
         this.headers = new CaseInsensitiveMutableHttpHeaders(conversionService);
-        this.extraHeaders = extraHeaders;
         populateHeaders(STANDARD_HEADERS);
         populateHeaders(extraHeaders);
     }
