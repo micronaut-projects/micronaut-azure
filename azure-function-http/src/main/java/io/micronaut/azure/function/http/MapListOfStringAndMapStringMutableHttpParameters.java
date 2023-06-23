@@ -28,6 +28,7 @@ import java.util.Set;
 
 /**
  * Implementation of {@link MutableHttpParameters} that uses a {@link MutableMapListOfStringAndMapStringConvertibleMultiValue} internally.
+ * @since 5.0.0
  */
 @Internal
 public final class MapListOfStringAndMapStringMutableHttpParameters implements MutableHttpParameters {

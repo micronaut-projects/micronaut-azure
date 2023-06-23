@@ -67,7 +67,7 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
 /**
- * Base class for all the versions of the Gateway events.
+ * Servlet request implementation for Azure Functions.
  *
  * @param <T> The body type
  */

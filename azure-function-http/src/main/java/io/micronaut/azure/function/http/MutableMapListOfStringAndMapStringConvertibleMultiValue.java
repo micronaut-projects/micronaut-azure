@@ -24,6 +24,7 @@ import java.util.Map;
 
 /**
  * A mutable version of {@link MapListOfStringAndMapStringConvertibleMultiValue}.
+ * @since 5.0.0
  */
 @Internal
 public class MutableMapListOfStringAndMapStringConvertibleMultiValue extends MapListOfStringAndMapStringConvertibleMultiValue {

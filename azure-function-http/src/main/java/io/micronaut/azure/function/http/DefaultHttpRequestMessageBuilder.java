@@ -21,6 +21,7 @@ import com.microsoft.azure.functions.HttpResponseMessage;
 import com.microsoft.azure.functions.HttpStatus;
 import com.microsoft.azure.functions.HttpStatusType;
 import io.micronaut.context.ApplicationContext;
+import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.convert.ArgumentConversionContext;
 import io.micronaut.core.convert.ConversionService;
 import io.micronaut.core.util.CollectionUtils;
@@ -46,6 +47,7 @@ import java.util.Set;
  *
  * @param <T> The body type
  */
+@Internal
 class DefaultHttpRequestMessageBuilder<T> implements HttpRequestMessageBuilder<T>, HttpRequestMessage<T> {
 
     private final ApplicationContext applicationContext;

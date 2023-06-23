@@ -28,6 +28,8 @@ import io.netty.util.internal.PlatformDependent;
 import java.util.Optional;
 
 /**
+ * Servlet handler for Azure Functions.
+ *
  * @author Sergio del Amo
  * @since 5.0.0
  */

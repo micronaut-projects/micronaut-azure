@@ -27,6 +27,7 @@ import java.util.Map;
 
 /**
  * Utility methods for collapsing headers.
+ * @since 5.0.0
  */
 @Internal
 public final class MapCollapseUtils {

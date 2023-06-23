@@ -51,6 +51,7 @@ import java.util.Map;
  * default, and you can configure it when you construct the decoder by passing an additional
  * integer parameter.
  * Note: Forked from Netty core.
+ * @since 5.0.0
  */
 @Internal
 final class QueryStringDecoder {

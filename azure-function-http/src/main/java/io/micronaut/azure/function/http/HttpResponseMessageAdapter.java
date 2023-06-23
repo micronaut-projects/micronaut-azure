@@ -34,7 +34,10 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * Adapter for {@link HttpResponseMessage} to {@link MutableHttpResponse}.
+ *
  * @param <T> The body type
+ * @since 5.0.0
  */
 @Internal
 public class HttpResponseMessageAdapter<T> implements MutableHttpResponse<T> {
