@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2023 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,6 +40,7 @@ import io.micronaut.runtime.server.EmbeddedServer;
 import io.micronaut.servlet.http.BodyBuilder;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpHandler;
+import io.micronaut.servlet.http.ServletHttpResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
@@ -294,17 +295,26 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
             ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> exchange =
                     httpHandler.exchange(azureFunctionHttpRequest);
 
-            HttpResponseMessage httpResponseMessage = exchange.getResponse().getNativeResponse();
+            ServletHttpResponse<HttpResponseMessage, ?> exchangeResponse = exchange.getResponse();
+            HttpResponseMessage httpResponseMessage = exchangeResponse.getNativeResponse();
             HttpStatusType httpStatus = httpResponseMessage.getStatus();
-            byte[] bodyAsBytes = (byte[]) httpResponseMessage.getBody();
+
+            Object bodyObject = httpResponseMessage.getBody();
+            byte[] bodyAsBytes = null;
+            if (bodyObject instanceof CharSequence charBody) {
+                bodyAsBytes = charBody.toString().getBytes(exchangeResponse.getCharacterEncoding());
+            } else if (bodyObject instanceof byte[] byteBody) {
+                bodyAsBytes = byteBody;
+            }
             response.setStatus(httpStatus.value());
             final boolean hasBody = bodyAsBytes != null;
             response.setContentLength(hasBody ? bodyAsBytes.length : 0);
-            if (httpResponseMessage instanceof HttpHeaders) {
-                HttpHeaders headers = (HttpHeaders) httpResponseMessage;
+            if (httpResponseMessage instanceof HttpHeaders headers) {
                 headers.forEach((name, values) -> {
                     for (String value : values) {
-                        response.addHeader(name, value);
+                        if (!response.containsHeader(name)) {
+                            response.addHeader(name, value);
+                        }
                     }
                 });
             }
