@@ -301,11 +301,7 @@ public final class AzureFunctionHttpRequest<T> implements
 
     @Override
     public @Nullable ExecutionFlow<ByteBuffer<?>> bufferContents() {
-        ByteBuffer<?> contents = contents();
-        if (contents == null) {
-            return null;
-        }
-        return ExecutionFlow.just(contents);
+        return ExecutionFlow.just(contents());
     }
 
     /**
