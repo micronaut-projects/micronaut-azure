@@ -40,6 +40,7 @@ import io.micronaut.http.MutableHttpParameters;
 import io.micronaut.http.MutableHttpRequest;
 import io.micronaut.http.cookie.Cookie;
 import io.micronaut.http.cookie.Cookies;
+import io.micronaut.http.simple.SimpleHttpParameters;
 import io.micronaut.servlet.http.BodyBuilder;
 import io.micronaut.servlet.http.ByteArrayByteBuffer;
 import io.micronaut.servlet.http.MutableServletHttpRequest;
@@ -56,13 +57,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
@@ -139,12 +134,27 @@ public final class AzureFunctionHttpRequest<T> implements
 
     @Override
     public MutableHttpHeaders getHeaders() {
-        return getHeaders(requestEvent::getHeaders, Collections::emptyMap);
+        Map<String, List<String>> headersMap = transformCommaSeparatedValue(requestEvent.getHeaders());
+        return new CaseInsensitiveMutableHttpHeaders(headersMap, conversionService);
     }
 
     @Override
     public MutableHttpParameters getParameters() {
-        return getParameters(Collections::emptyMap, () -> transformCommaSeparatedValue(requestEvent.getQueryParameters()));
+        MediaType mediaType = getContentType().orElse(MediaType.APPLICATION_JSON_TYPE);
+        Map<CharSequence, List<String>> values = new HashMap<>(transformCommaSeparatedValue(requestEvent.getQueryParameters()));
+        if (isFormSubmission(mediaType)) {
+            Map<String, List<String>> parameters = null;
+            try {
+                parameters = new QueryStringDecoder(new String(getBodyBytes(), getCharacterEncoding()), false).parameters();
+            } catch (IOException ex) {
+                if (LOG.isErrorEnabled()) {
+                    LOG.error("Error decoding form data: " + ex.getMessage(), ex);
+                }
+                parameters = new HashMap<>();
+            }
+            values.putAll(parameters);
+        }
+        return new SimpleHttpParameters(values, conversionService);
     }
 
     @Override
@@ -256,23 +266,6 @@ public final class AzureFunctionHttpRequest<T> implements
         return (MutableHttpRequest<B>) this;
     }
 
-    /**
-     * Parse the parameters from the body.
-     * @param queryStringParameters Any query string parameters
-     * @return The parameters
-     */
-    protected MapListOfStringAndMapStringMutableHttpParameters getParametersFromBody(Map<String, String> queryStringParameters) {
-        Map<String, List<String>> parameters = null;
-        try {
-            parameters = new QueryStringDecoder(new String(getBodyBytes(), getCharacterEncoding()), false).parameters();
-        } catch (IOException ex) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Error decoding form data: " + ex.getMessage(), ex);
-            }
-        }
-        return new MapListOfStringAndMapStringMutableHttpParameters(conversionService, parameters, queryStringParameters);
-    }
-
     @Override
     public void setConversionService(ConversionService conversionService) {
         this.conversionService = conversionService;
@@ -317,15 +310,20 @@ public final class AzureFunctionHttpRequest<T> implements
     }
 
     @NonNull
-    protected static List<String> splitCommaSeparatedValue(@Nullable String value) {
+    private static List<String> splitCommaSeparatedValue(@Nullable String value) {
         if (value == null) {
             return Collections.emptyList();
         }
-        return Arrays.asList(value.split(","));
+        String[] arr = value.split(",");
+        List<String> result = new ArrayList<>();
+        for (String str : arr) {
+            result.add(str.trim());
+        }
+        return result;
     }
 
     @NonNull
-    protected static Map<String, List<String>> transformCommaSeparatedValue(@Nullable Map<String, String> input) {
+    private static Map<String, List<String>> transformCommaSeparatedValue(@Nullable Map<String, String> input) {
         if (input == null) {
             return Collections.emptyMap();
         }
@@ -334,35 +332,5 @@ public final class AzureFunctionHttpRequest<T> implements
             output.put(entry.getKey(), splitCommaSeparatedValue(entry.getValue()));
         }
         return output;
-    }
-
-    /**
-     *
-     * @param queryStringParametersSupplier Query String parameters as a map with key string and value string
-     * @param multiQueryStringParametersSupplier Query String parameters as a map with key string and value list of strings
-     * @return Mutable HTTP parameters
-     */
-    @NonNull
-    protected MutableHttpParameters getParameters(@NonNull Supplier<Map<String, String>> queryStringParametersSupplier,
-                                                  @NonNull Supplier<Map<String, List<String>>> multiQueryStringParametersSupplier) {
-        Map<String, List<String>> multi = multiQueryStringParametersSupplier.get();
-        Map<String, String> single = queryStringParametersSupplier.get();
-        MediaType mediaType = getContentType().orElse(MediaType.APPLICATION_JSON_TYPE);
-        if (isFormSubmission(mediaType)) {
-            return getParametersFromBody(MapCollapseUtils.collapse(MapCollapseUtils.collapse(multi, single)));
-        } else {
-            return new MapListOfStringAndMapStringMutableHttpParameters(conversionService, multi, single);
-        }
-    }
-
-    /**
-     *
-     * @param singleHeaders Single value headers
-     * @param multiValueHeaders Multi-value headers
-     * @return The combined mutable headers
-     */
-    @NonNull
-    protected MutableHttpHeaders getHeaders(@NonNull Supplier<Map<String, String>> singleHeaders, @NonNull Supplier<Map<String, List<String>>> multiValueHeaders) {
-        return new CaseInsensitiveMutableHttpHeaders(MapCollapseUtils.collapse(multiValueHeaders.get(), singleHeaders.get()), conversionService);
     }
 }

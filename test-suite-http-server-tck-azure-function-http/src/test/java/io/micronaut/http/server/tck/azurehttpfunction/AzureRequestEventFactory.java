@@ -20,7 +20,6 @@ import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
 import com.microsoft.azure.functions.HttpStatus;
 import com.microsoft.azure.functions.HttpStatusType;
-import io.micronaut.azure.function.http.MapCollapseUtils;
 import io.micronaut.azure.function.http.ResponseBuilder;
 import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.annotation.NonNull;
@@ -33,17 +32,15 @@ import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.handler.codec.http.cookie.ClientCookieEncoder;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * TODO: Write JavaDoc
  */
 @Internal
 public final class AzureRequestEventFactory {
+
+    private static final String COMMA = ",";
 
     private AzureRequestEventFactory() {
     }
@@ -75,7 +72,7 @@ public final class AzureRequestEventFactory {
         } catch (UnsupportedOperationException e) {
             //not all request types support retrieving cookies
         }
-        return new HttpRequestMessage<Optional<String>>() {
+        return new HttpRequestMessage<>() {
 
             @Override
             public Map<String, String> getHeaders() {
@@ -84,7 +81,11 @@ public final class AzureRequestEventFactory {
 
             @Override
             public Map<String, String> getQueryParameters() {
-                return MapCollapseUtils.collapse(new QueryStringDecoder(request.getUri()).parameters());
+                Map<String, String> result = new HashMap<>();
+                for (String name : request.getParameters().names()) {
+                    result.put(name, String.join(COMMA, request.getParameters().getAll(name)));
+                }
+                return result;
             }
 
             @Override
