@@ -119,10 +119,18 @@ class DefaultHttpRequestMessageBuilder<T> implements HttpRequestMessageBuilder<T
         return buildEncodedRequest();
     }
 
+    @Override
+    public HttpResponseMessage invoke() {
+        return applicationContext.getBean(AzureHttpFunction.class).route(
+            buildEncodedRequest(),
+            new DefaultExecutionContext()
+        );
+    }
+
     private HttpRequestMessage<Optional<String>> buildEncodedRequest() {
         if (this.body != null) {
-            if (this.body instanceof byte[]) {
-                this.body = Optional.of((byte[]) this.body);
+            if (this.body instanceof byte[] byteArr) {
+                this.body = Optional.of(byteArr);
             } else if (this.body instanceof CharSequence) {
                 this.body = Optional.of(this.body.toString());
             } else {

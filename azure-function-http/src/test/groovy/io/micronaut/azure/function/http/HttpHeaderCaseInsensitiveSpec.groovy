@@ -44,6 +44,6 @@ class HttpHeaderCaseInsensitiveSpec extends Specification {
         for (String headerName : headersMap.keySet()) {
             builder.header(headerName, headersMap.get(headerName))
         }
-        TestUtils.invoke(function, builder)
+        builder.invoke()
     }
 }

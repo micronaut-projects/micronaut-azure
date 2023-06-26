@@ -16,6 +16,7 @@
 package io.micronaut.azure.function.http;
 
 import com.microsoft.azure.functions.HttpRequestMessage;
+import com.microsoft.azure.functions.HttpResponseMessage;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.http.HttpMethod;
@@ -79,6 +80,8 @@ public interface HttpRequestMessageBuilder<T> {
      * @return Builds the message
      */
     HttpRequestMessage<Optional<String>> buildEncoded();
+
+    HttpResponseMessage invoke();
 
     /**
      * Sets the request method.

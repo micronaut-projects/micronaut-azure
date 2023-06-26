@@ -16,7 +16,7 @@ class DemoFunctionSpec extends Specification {
 
     void "test function"() {
         when:"The function is executed"
-        def response = function.invoke(function.request(HttpMethod.GET, "/demo").build(), new DefaultExecutionContext())
+        def response = function.request(HttpMethod.GET, "/demo").invoke();
 
         then:"The response is correct"
         response.status == HttpStatus.OK
