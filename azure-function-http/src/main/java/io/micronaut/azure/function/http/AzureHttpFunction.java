@@ -58,6 +58,7 @@ import java.util.Optional;
  */
 public class AzureHttpFunction extends AzureFunction {
 
+    private static final String SLASH_API = "/api";
     protected ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> httpHandler;
     private final String contextPath;
 
@@ -85,7 +86,7 @@ public class AzureHttpFunction extends AzureFunction {
         registerApplicationContextShutDownHook();
         registerHttpHandlerShutDownHook();
         applicationContext.registerSingleton(this);
-        this.contextPath = applicationContext.findBean(ServerContextPathProvider.class).map(ServerContextPathProvider::getContextPath).orElse("/api");
+        this.contextPath = applicationContext.findBean(ServerContextPathProvider.class).map(ServerContextPathProvider::getContextPath).orElse(SLASH_API);
     }
 
     /**
