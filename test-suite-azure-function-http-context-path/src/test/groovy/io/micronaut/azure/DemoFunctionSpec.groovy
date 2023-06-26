@@ -1,7 +1,7 @@
 package io.micronaut.azure
 
+import com.microsoft.azure.functions.HttpResponseMessage
 import com.microsoft.azure.functions.HttpStatus
-import io.micronaut.azure.function.http.DefaultExecutionContext
 import io.micronaut.http.HttpMethod
 import io.micronaut.web.router.Router
 import spock.lang.AutoCleanup
@@ -16,7 +16,7 @@ class DemoFunctionSpec extends Specification {
 
     void "test function"() {
         when:"The function is executed"
-        def response = function.request(HttpMethod.GET, "/demo").invoke();
+        HttpResponseMessage response = function.request(HttpMethod.GET, "/demo").invoke();
 
         then:"The response is correct"
         response.status == HttpStatus.OK
@@ -25,7 +25,7 @@ class DemoFunctionSpec extends Specification {
 
     void "check routes"() {
         given:
-        def router = function.applicationContext.getBean(Router)
+        Router router = function.applicationContext.getBean(Router)
 
         expect:
         router.GET("/test/demo").present

@@ -15,7 +15,7 @@ class HttpHeaderCaseInsensitiveSpec extends Specification {
         AzureHttpFunction function = new AzureHttpFunction()
 
         when: 'send  request with an Http Header Host in lowercase'
-        def responseMessage = retrieve(function, headers)
+        HttpResponseMessage responseMessage = retrieve(function, headers)
 
         then:
         responseMessage.statusCode == HttpStatus.OK.code

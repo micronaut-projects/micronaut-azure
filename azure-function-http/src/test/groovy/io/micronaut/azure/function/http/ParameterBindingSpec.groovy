@@ -1,6 +1,7 @@
 package io.micronaut.azure.function.http
 
 import com.microsoft.azure.functions.HttpMethod
+import com.microsoft.azure.functions.HttpResponseMessage
 import io.micronaut.http.HttpHeaders
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
@@ -12,7 +13,7 @@ class ParameterBindingSpec extends Specification {
 
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = function
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.GET, "/parameters/uri/Foo")
                 .invoke()
 
@@ -28,13 +29,13 @@ class ParameterBindingSpec extends Specification {
     void "test invalid HTTP method"() {
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = function
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.POST, "/parameters/uri/Foo")
                 .invoke()
 
         expect:
         responseMessage.statusCode == HttpStatus.METHOD_NOT_ALLOWED.code
-        def allow = responseMessage.getHeader(HttpHeaders.ALLOW)
+        String allow = responseMessage.getHeader(HttpHeaders.ALLOW)
         allow == "HEAD,GET"
 
         cleanup:
@@ -45,7 +46,7 @@ class ParameterBindingSpec extends Specification {
 
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = function
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.GET, "/parameters/query")
                 .parameter("q", "Foo")
                 .invoke()
@@ -64,7 +65,7 @@ class ParameterBindingSpec extends Specification {
         given:
         AzureHttpFunction function = new AzureHttpFunction()
 
-        def responseMessage = function
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.GET, "/parameters/allParams")
                 .parameter("name", "Foo")
                 .parameter("age", "20")
@@ -82,7 +83,7 @@ class ParameterBindingSpec extends Specification {
     void "test header value"() {
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = function
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.GET, "/parameters/header")
                 .header(HttpHeaders.CONTENT_TYPE, "text/plain;q=1.0")
                 .invoke()
@@ -99,7 +100,7 @@ class ParameterBindingSpec extends Specification {
     void "test request and response"() {
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = function
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.GET, "/parameters/reqAndRes")
                 .invoke()
 
@@ -116,7 +117,7 @@ class ParameterBindingSpec extends Specification {
 
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = function
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.POST, "/parameters/stringBody")
                 .body("Foo")
                 .header(HttpHeaders.CONTENT_TYPE, "text/plain")
@@ -173,8 +174,8 @@ class ParameterBindingSpec extends Specification {
     void "test JSON POJO body - invalid JSON"() {
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def json = '{"name":"bar","age":30'
-        def responseMessage = function
+        String json = '{"name":"bar","age":30'
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.POST, "/parameters/jsonBody")
                 .body(json)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
@@ -191,8 +192,8 @@ class ParameterBindingSpec extends Specification {
     void "test JSON POJO body with no @Body binds to arguments"() {
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def json = '{"name":"bar","age":20}'
-        def responseMessage = function
+        String json = '{"name":"bar","age":20}'
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.POST, "/parameters/jsonBodySpread")
                 .body(json)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
@@ -209,9 +210,9 @@ class ParameterBindingSpec extends Specification {
 
     void "full Micronaut request and response"() {
         given:
-        def json = '{"name":"bar","age":20}'
+        String json = '{"name":"bar","age":20}'
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = function
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.POST, "/parameters/fullRequest")
                 .body(json)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
@@ -230,8 +231,8 @@ class ParameterBindingSpec extends Specification {
     void "full Micronaut request and response - invalid JSON"() {
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def json = '{"name":"bar","age":20'
-        def responseMessage = function
+        String json = '{"name":"bar","age":20'
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.POST, "/parameters/fullRequest")
                 .body(json)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
