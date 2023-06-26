@@ -1,5 +1,5 @@
 [versions]
-managed-azure-sdk = "1.2.13"
+managed-azure-sdk = "1.2.14"
 managed-azure-functions-java-library = "3.0.0"
 managed-azure-cosmos = "4.46.0"
 
@@ -12,7 +12,7 @@ testcontainers = "1.18.3"
 # Micronaut
 micronaut = "4.0.0-RC3"
 micronaut-logging = "1.0.0-M5"
-micronaut-reactor = "3.0.0-M8"
+micronaut-reactor = "3.0.0-M9"
 micronaut-serde = "2.0.0-M12"
 micronaut-servlet = "4.0.0-M10"
 micronaut-test = "4.0.0-M8"
