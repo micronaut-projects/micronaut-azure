@@ -28,7 +28,7 @@ import jakarta.inject.Singleton;
 import java.util.Optional;
 
 /**
- *
+ * An HTTP handler to can deal with Azure Servlet Request {@link HttpRequestMessage} and response {@link HttpResponseMessage}.
  * @author Tim Yates
  * @since 5.0.0
  */
