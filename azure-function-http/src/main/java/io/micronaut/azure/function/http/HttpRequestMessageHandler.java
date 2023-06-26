@@ -48,6 +48,7 @@ class HttpRequestMessageHandler extends ServletHttpHandler<HttpRequestMessage<Op
         return new AzureFunctionHttpRequest<>(
             request,
             new AzureFunctionHttpResponse<>(
+                request,
                 getApplicationContext().getConversionService(),
                 getApplicationContext().getBean(BinaryContentConfiguration.class)
             ),

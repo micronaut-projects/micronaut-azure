@@ -21,6 +21,7 @@ import com.microsoft.azure.functions.HttpResponseMessage;
 import com.microsoft.azure.functions.HttpStatus;
 import com.microsoft.azure.functions.HttpStatusType;
 import io.micronaut.azure.function.http.MapCollapseUtils;
+import io.micronaut.azure.function.http.ResponseBuilder;
 import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.http.HttpHeaders;
@@ -107,12 +108,12 @@ public final class AzureRequestEventFactory {
 
             @Override
             public HttpResponseMessage.Builder createResponseBuilder(HttpStatus status) {
-                return null;
+                return new ResponseBuilder().status(status);
             }
 
             @Override
             public HttpResponseMessage.Builder createResponseBuilder(HttpStatusType status) {
-                return null;
+                return new ResponseBuilder().status(status);
             }
         };
     }

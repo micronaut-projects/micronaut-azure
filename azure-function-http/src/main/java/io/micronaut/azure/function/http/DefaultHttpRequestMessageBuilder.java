@@ -22,9 +22,6 @@ import com.microsoft.azure.functions.HttpStatus;
 import com.microsoft.azure.functions.HttpStatusType;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.core.annotation.Internal;
-import io.micronaut.core.convert.ArgumentConversionContext;
-import io.micronaut.core.convert.ConversionService;
-import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.codec.MediaTypeCodec;
@@ -32,15 +29,10 @@ import io.micronaut.http.codec.MediaTypeCodecRegistry;
 
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * Internal class for building request messages.
@@ -188,84 +180,4 @@ class DefaultHttpRequestMessageBuilder<T> implements HttpRequestMessageBuilder<T
         return new ResponseBuilder().status(status);
     }
 
-    /**
-     * Response builder implementation. Used for testing.
-     */
-    private static class ResponseBuilder implements HttpResponseMessage.Builder, HttpResponseMessage, HttpHeaders {
-        private HttpStatusType status = HttpStatus.OK;
-        private final Map<String, List<String>> headers = new LinkedHashMap<>(3);
-        private Object body;
-
-        @Override
-        public Builder status(HttpStatusType status) {
-            this.status = status;
-            return this;
-        }
-
-        @Override
-        public Builder header(String key, String value) {
-            headers.computeIfAbsent(key, (k) -> new ArrayList<>()).add(value);
-            return this;
-        }
-
-        @Override
-        public Builder body(Object body) {
-            this.body = body;
-            return this;
-        }
-
-        @Override
-        public HttpResponseMessage build() {
-            return this;
-        }
-
-        @Override
-        public HttpStatusType getStatus() {
-            return status;
-        }
-
-        @Override
-        public String getHeader(String key) {
-            List<String> v = headers.get(key);
-            if (CollectionUtils.isNotEmpty(v)) {
-                return v.iterator().next();
-            }
-            return null;
-        }
-
-        @Override
-        public Object getBody() {
-            return this.body;
-        }
-
-        @Override
-        public List<String> getAll(CharSequence name) {
-            List<String> values = headers.get(name.toString());
-            if (values != null) {
-                return Collections.unmodifiableList(values);
-            }
-            return Collections.emptyList();
-        }
-
-        @Override
-        public String get(CharSequence name) {
-            return getHeader(name.toString());
-        }
-
-        @Override
-        public Set<String> names() {
-            return headers.keySet();
-        }
-
-        @Override
-        public Collection<List<String>> values() {
-            return headers.values();
-        }
-
-        @Override
-        public <T> Optional<T> get(CharSequence name, ArgumentConversionContext<T> conversionContext) {
-            return ConversionService.SHARED
-                    .convert(name.toString(), conversionContext);
-        }
-    }
 }

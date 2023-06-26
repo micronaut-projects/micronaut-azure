@@ -103,6 +103,7 @@ public class AzureHttpFunction extends AzureFunction {
                 new AzureFunctionHttpRequest<>(
                     request,
                     new AzureFunctionHttpResponse<>(
+                        request,
                         httpHandler.getApplicationContext().getBean(ConversionService.class),
                         httpHandler.getApplicationContext().getBean(BinaryContentConfiguration.class)
                     ),

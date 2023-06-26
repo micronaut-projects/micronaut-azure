@@ -280,6 +280,7 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
                     new AzureFunctionHttpRequest<>(
                             requestMessage,
                             new AzureFunctionHttpResponse<>(
+                                requestMessage,
                                 handlerConversionService,
                                 binaryContentConfiguration
                             ),
