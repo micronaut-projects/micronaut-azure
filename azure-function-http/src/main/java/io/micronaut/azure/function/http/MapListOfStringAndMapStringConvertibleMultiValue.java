@@ -32,7 +32,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Implementations of {@link ConvertibleMultiValues} which takes a Map with key string and value List of strings and another map with key string and value string to support classes such as {@link com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent}.
+ * Implementations of {@link ConvertibleMultiValues} which takes a Map with key string and value List of strings and another map with key string and value string.
  * @author Sergio del Amo
  * @since 5.0.0
  */

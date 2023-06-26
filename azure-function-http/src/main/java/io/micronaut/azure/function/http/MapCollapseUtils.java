@@ -55,7 +55,7 @@ public final class MapCollapseUtils {
      * @param headers The headers
      * @return The map
      */
-    public static Map<String, List<String>> getMulitHeaders(MutableHttpHeaders headers) {
+    public static Map<String, List<String>> getMultiHeaders(MutableHttpHeaders headers) {
         Map<String, List<String>> result = new HashMap<>();
         for (String paramName : headers.names()) {
             result.put(paramName, headers.getAll(paramName));
@@ -64,7 +64,7 @@ public final class MapCollapseUtils {
     }
 
     /**
-     * Collapse the aws single and multi headers into a single value map.
+     * Collapse the single and multi headers into a single value map.
      *
      * @param multi  The multi value map
      * @param single The single value map
