@@ -50,7 +50,10 @@ import org.eclipse.jetty.server.handler.ContextHandler;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.Reader;
 import java.net.BindException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -255,7 +258,9 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
 
             HttpMethod httpMethod = HttpMethod.parse(request.getMethod());
             if (HttpMethod.permitsRequestBody(httpMethod)) {
-                try (BufferedReader requestBody = request.getReader()) {
+                try (InputStream inputStream = request.getInputStream();
+                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                     BufferedReader requestBody = new BufferedReader(inputStreamReader)) {
                     String body = IOUtils.readText(requestBody);
                     requestMessageBuilder.body(body);
                 } catch (IOException e) {
