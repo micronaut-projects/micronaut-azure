@@ -31,7 +31,6 @@ import io.micronaut.core.io.IOUtils;
 import io.micronaut.core.io.socket.SocketUtils;
 import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpMethod;
-import io.micronaut.http.context.ServerContextPathProvider;
 import io.micronaut.http.server.HttpServerConfiguration;
 import io.micronaut.http.server.exceptions.HttpServerException;
 import io.micronaut.http.server.exceptions.ServerStartupException;
@@ -41,6 +40,7 @@ import io.micronaut.servlet.http.BodyBuilder;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpHandler;
 import io.micronaut.servlet.http.ServletHttpResponse;
+import jakarta.inject.Singleton;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
@@ -48,12 +48,14 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jetty.server.handler.ContextHandler;
 
-import jakarta.inject.Singleton;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.*;
+import java.net.BindException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Enumeration;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -233,6 +235,7 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
                     request.getRequestURI(),
                     httpHandler.getApplicationContext()
             );
+
             Enumeration<String> headerNames = request.getHeaderNames();
             while (headerNames.hasMoreElements()) {
                 String s = headerNames.nextElement();
@@ -242,16 +245,13 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
                     requestMessageBuilder.header(s, v);
                 }
             }
+
             Enumeration<String> parameterNames = request.getParameterNames();
             while (parameterNames.hasMoreElements()) {
                 String s = parameterNames.nextElement();
-                Enumeration<String> headers = request.getHeaders(s);
-                while (headers.hasMoreElements()) {
-                    String v = headers.nextElement();
-                    requestMessageBuilder.parameter(s, v);
-                }
+                String[] parameterValues = request.getParameterValues(s);
+                requestMessageBuilder.parameter(s, String.join(",", parameterValues));
             }
-
 
             HttpMethod httpMethod = HttpMethod.parse(request.getMethod());
             if (HttpMethod.permitsRequestBody(httpMethod)) {
