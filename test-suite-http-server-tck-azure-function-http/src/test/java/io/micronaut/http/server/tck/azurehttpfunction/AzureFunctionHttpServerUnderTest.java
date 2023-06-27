@@ -4,7 +4,6 @@ import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
 import io.micronaut.azure.function.AzureFunction;
 import io.micronaut.azure.function.http.DefaultExecutionContext;
-import io.micronaut.azure.function.http.HttpResponseMessageAdapter;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.convert.ConversionService;
