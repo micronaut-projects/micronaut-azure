@@ -23,8 +23,9 @@ include 'azure-secret-manager'
 include 'doc-examples:example-java'
 include 'doc-examples:example-groovy'
 include 'doc-examples:example-kotlin'
-include("test-suite-http-server-tck-azure-function-http")
 include("test-suite-azure-function-http-context-path")
+include("test-suite-http-server-tck-azure-function-http")
+include("test-suite-http-server-tck-azure-function-http-test")
 
 micronautBuild {
     // Required for 4.0.0-SNAPSHOT, can be removed after

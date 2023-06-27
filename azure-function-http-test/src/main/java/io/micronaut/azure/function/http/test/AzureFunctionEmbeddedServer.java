@@ -71,27 +71,22 @@ import java.util.logging.Logger;
 final class AzureFunctionEmbeddedServer implements EmbeddedServer {
     private final ApplicationContext applicationContext;
     private final boolean randomPort;
-    private final ServerContextPathProvider contextPathProvider;
     private final ConversionService conversionService;
     private int port;
     private final AtomicBoolean running = new AtomicBoolean(false);
     private Server server;
-    private String contextPath;
 
     /**
-     * Default cosntructor.
+     * Default constructor.
      * @param applicationContext the app context
      * @param httpServerConfiguration the http server configuration
-     * @param contextPathProvider THe context path provider
      */
     AzureFunctionEmbeddedServer(
             ApplicationContext applicationContext,
             HttpServerConfiguration httpServerConfiguration,
-            ServerContextPathProvider contextPathProvider,
             ConversionService conversionService
     ) {
         this.applicationContext = applicationContext;
-        this.contextPathProvider = contextPathProvider;
         this.conversionService = conversionService;
         Optional<Integer> port = httpServerConfiguration.getPort();
         if (port.isPresent()) {
@@ -121,11 +116,6 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
                 try {
                     this.server = new Server(port);
                     ContextHandler context = new ContextHandler();
-                    this.contextPath = contextPathProvider.getContextPath();
-                    if (contextPath == null) {
-                        contextPath = "/api";
-                    }
-                    context.setContextPath(contextPath);
                     context.setResourceBase(".");
                     context.setClassLoader(Thread.currentThread().getContextClassLoader());
                     context.setHandler(new AzureHandler(getApplicationContext(), conversionService));
