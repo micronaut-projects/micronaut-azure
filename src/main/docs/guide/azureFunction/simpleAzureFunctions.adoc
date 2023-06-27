@@ -4,7 +4,7 @@ To get started follow the instructions to create an Azure Function project with 
 
 Then add the following dependency to the project:
 
-dependency:io.micronaut.azure:micronaut-azure-function:{version}[]
+dependency:io.micronaut.azure:micronaut-azure-function[]
 
 And ensure the Micronaut annotation processors are configured:
 

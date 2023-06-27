@@ -31,7 +31,6 @@ public class AzureFunctionHttpServerUnderTest implements ServerUnderTest {
     Function function;
 
     public AzureFunctionHttpServerUnderTest(@NonNull Map<String, Object> properties) {
-        properties.put("micronaut.server.context-path", "/");
         properties.put("endpoints.health.service-ready-indicator-enabled", StringUtils.FALSE);
         properties.put("endpoints.refresh.enabled", StringUtils.FALSE);
         this.function = new Function(AzureFunction.defaultApplicationContextBuilder().properties(properties));

@@ -21,6 +21,7 @@ import jakarta.inject.Inject
 import static io.micronaut.http.HttpHeaders.*
 
 @MicronautTest
+@Property(name = "micronaut.server.context-path", value =  "/api")
 class AzureFunctionCorsSpec extends Specification implements TestPropertyProvider {
 
     @Inject @Client("/") HttpClient client

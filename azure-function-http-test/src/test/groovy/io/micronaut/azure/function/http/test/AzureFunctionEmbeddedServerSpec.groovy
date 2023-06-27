@@ -17,6 +17,7 @@ import jakarta.inject.Inject
 
 @MicronautTest
 @Property(name = "spec.name", value = "AzureFunctionEmbeddedServerSpec")
+@Property(name = "micronaut.server.context-path", value =  "/api")
 class AzureFunctionEmbeddedServerSpec extends Specification {
 
     @Inject

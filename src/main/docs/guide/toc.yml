@@ -1,5 +1,7 @@
 introduction: Introduction
 releaseHistory: Release History
+whatsNew: What's new?
+breaks: Breaking Changes
 azureSdk:
   title: Azure SDK
   credentials:
@@ -9,7 +11,9 @@ azureSdk:
 azureFunction:
   title: Azure Function Support
   simpleAzureFunctions: Simple Azure Functions
-  azureHttpFunctions: Azure HTTP Functions
+  azureHttpFunctions:
+    title: Azure HTTP Functions
+    routePrefix: Function Route Prefix
 azureKeyVault:
   title: Azure Key Vault Support
   distributedConfiguration: Distributed Configuration

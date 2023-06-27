@@ -1,5 +1,40 @@
 [
   {
+    "type": "io.micronaut.azure.function.http.$AzureAnnotatedMethodRouteBuilder$Definition$Reference",
+    "member": "Field $ANNOTATION_METADATA",
+    "reason": "Changed in micronaut 4"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.$AzureAnnotatedMethodRouteBuilder$Definition$Reference",
+    "member": "Constructor io.micronaut.azure.function.http.$AzureAnnotatedMethodRouteBuilder$Definition$Reference()",
+    "reason": "Changed in micronaut 4"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.$AzureAnnotatedMethodRouteBuilder$Definition$Reference",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationSource",
+    "reason": "Changed in micronaut 4"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.$AzureAnnotatedMethodRouteBuilder$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.BeanContextConditional",
+    "reason": "Changed in micronaut 4"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.$AzureAnnotatedMethodRouteBuilder$Definition$Reference",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationMetadataProvider",
+    "reason": "Changed in micronaut 4"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.$AzureAnnotatedMethodRouteBuilder$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.BeanType",
+    "reason": "Changed in micronaut 4"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.$AzureAnnotatedMethodRouteBuilder$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.BeanDefinitionReference",
+    "reason": "Provide a human readable reason for the change"
+  },
+  {
     "type": "io.micronaut.azure.function.http.AzureHttpFunction",
     "member": "Field httpHandler",
     "reason": "Changed in micronaut 4"

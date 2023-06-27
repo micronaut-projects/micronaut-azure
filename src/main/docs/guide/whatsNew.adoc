@@ -1,0 +1,1 @@
+- Micronaut Azure HTTP Functions pass the Micronaut HTTP Server TCK (Test Compatibility Kit). You can write your code as if you target the Netty runtime but deploy it as an https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-http-webhook-trigger[Azure Function with an HTTP trigger].

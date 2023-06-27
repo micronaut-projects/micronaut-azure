@@ -16,7 +16,7 @@ class DemoFunctionSpec extends Specification {
 
     void "test function"() {
         when:"The function is executed"
-        HttpResponseMessage response = function.request(HttpMethod.GET, "/demo").invoke();
+        HttpResponseMessage response = function.request(HttpMethod.GET, "/test/demo").invoke();
 
         then:"The response is correct"
         response.status == HttpStatus.OK

@@ -2,4 +2,4 @@ The Azure SDK module provides integration between Micronaut and https://docs.mic
 
 First you need add a dependency on the azure-sdk module:
 
-dependency:io.micronaut.azure:micronaut-azure-sdk:{version}[]
+dependency:io.micronaut.azure:micronaut-azure-sdk[]
