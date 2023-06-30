@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2023 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,241 +19,164 @@ import com.microsoft.azure.functions.ExecutionContext;
 import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
 import io.micronaut.core.annotation.Internal;
-import io.micronaut.core.convert.ArgumentConversionContext;
+import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.convert.ConversionService;
 import io.micronaut.core.convert.value.MutableConvertibleValues;
 import io.micronaut.core.convert.value.MutableConvertibleValuesMap;
+import io.micronaut.core.execution.ExecutionFlow;
+import io.micronaut.core.io.buffer.ByteBuffer;
 import io.micronaut.core.type.Argument;
-import io.micronaut.core.util.ArgumentUtils;
+import io.micronaut.core.util.ArrayUtils;
+import io.micronaut.core.util.StringUtils;
 import io.micronaut.core.util.SupplierUtil;
+import io.micronaut.http.CaseInsensitiveMutableHttpHeaders;
+import io.micronaut.http.FullHttpRequest;
 import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpMethod;
-import io.micronaut.http.HttpParameters;
 import io.micronaut.http.MediaType;
-import io.micronaut.http.codec.MediaTypeCodecRegistry;
+import io.micronaut.http.MutableHttpHeaders;
+import io.micronaut.http.MutableHttpParameters;
+import io.micronaut.http.MutableHttpRequest;
+import io.micronaut.http.cookie.Cookie;
 import io.micronaut.http.cookie.Cookies;
-import io.micronaut.http.simple.cookies.SimpleCookies;
+import io.micronaut.http.simple.SimpleHttpParameters;
 import io.micronaut.servlet.http.BodyBuilder;
+import io.micronaut.servlet.http.ByteArrayByteBuffer;
+import io.micronaut.servlet.http.MutableServletHttpRequest;
+import io.micronaut.servlet.http.ParsedBodyHolder;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpRequest;
 import io.micronaut.servlet.http.ServletHttpResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.annotation.Nullable;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URI;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
 /**
- * Implementation of Micronaut's request interface for Azure.
+ * Servlet request implementation for Azure Functions.
  *
- * @param <B> The body type
- * @author graemerocher
- * @since 1.0
+ * @param <T> The body type
  */
 @Internal
-public class AzureFunctionHttpRequest<B>
-    implements ServletHttpRequest<HttpRequestMessage<Optional<String>>, B>,
-    ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> {
-    private static final Map<String, String> UPPERCASE_HEADER_TO_HEADER;
+@SuppressWarnings("java:S119") // More descriptive generics are better here
+public final class AzureFunctionHttpRequest<T> implements
+    MutableServletHttpRequest<HttpRequestMessage<Optional<String>>, T>,
+    ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage>,
+    FullHttpRequest<T>,
+    ParsedBodyHolder<T> {
 
-    static {
-        Map<String, String> m = new HashMap<>();
-        m.put(HttpHeaders.ACCEPT.toUpperCase(Locale.ENGLISH), HttpHeaders.ACCEPT);
-        m.put(HttpHeaders.ACCEPT.toUpperCase(Locale.ENGLISH), HttpHeaders.ACCEPT);
-        m.put(HttpHeaders.ACCEPT_CH.toUpperCase(Locale.ENGLISH), HttpHeaders.ACCEPT_CH);
-        m.put(HttpHeaders.ACCEPT_CH_LIFETIME.toUpperCase(Locale.ENGLISH), HttpHeaders.ACCEPT_CH_LIFETIME);
-        m.put(HttpHeaders.ACCEPT_CHARSET.toUpperCase(Locale.ENGLISH), HttpHeaders.ACCEPT_CHARSET);
-        m.put(HttpHeaders.ACCEPT_ENCODING.toUpperCase(Locale.ENGLISH), HttpHeaders.ACCEPT_ENCODING);
-        m.put(HttpHeaders.ACCEPT_LANGUAGE.toUpperCase(Locale.ENGLISH), HttpHeaders.ACCEPT_LANGUAGE);
-        m.put(HttpHeaders.ACCEPT_RANGES.toUpperCase(Locale.ENGLISH), HttpHeaders.ACCEPT_RANGES);
-        m.put(HttpHeaders.ACCEPT_PATCH.toUpperCase(Locale.ENGLISH), HttpHeaders.ACCEPT_PATCH);
-        m.put(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS.toUpperCase(Locale.ENGLISH), HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS);
-        m.put(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS.toUpperCase(Locale.ENGLISH), HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS);
-        m.put(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS.toUpperCase(Locale.ENGLISH), HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS);
-        m.put(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN.toUpperCase(Locale.ENGLISH), HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN);
-        m.put(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS.toUpperCase(Locale.ENGLISH), HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS);
-        m.put(HttpHeaders.ACCESS_CONTROL_MAX_AGE.toUpperCase(Locale.ENGLISH), HttpHeaders.ACCESS_CONTROL_MAX_AGE);
-        m.put(HttpHeaders.ACCESS_CONTROL_REQUEST_HEADERS.toUpperCase(Locale.ENGLISH), HttpHeaders.ACCESS_CONTROL_REQUEST_HEADERS);
-        m.put(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD.toUpperCase(Locale.ENGLISH), HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD);
-        m.put(HttpHeaders.AGE.toUpperCase(Locale.ENGLISH), HttpHeaders.AGE);
-        m.put(HttpHeaders.ALLOW.toUpperCase(Locale.ENGLISH), HttpHeaders.ALLOW);
-        m.put(HttpHeaders.AUTHORIZATION.toUpperCase(Locale.ENGLISH), HttpHeaders.AUTHORIZATION);
-        m.put(HttpHeaders.AUTHORIZATION_INFO.toUpperCase(Locale.ENGLISH), HttpHeaders.AUTHORIZATION_INFO);
-        m.put(HttpHeaders.CACHE_CONTROL.toUpperCase(Locale.ENGLISH), HttpHeaders.CACHE_CONTROL);
-        m.put(HttpHeaders.CONNECTION.toUpperCase(Locale.ENGLISH), HttpHeaders.CONNECTION);
-        m.put(HttpHeaders.CONTENT_BASE.toUpperCase(Locale.ENGLISH), HttpHeaders.CONTENT_BASE);
-        m.put(HttpHeaders.CONTENT_DISPOSITION.toUpperCase(Locale.ENGLISH), HttpHeaders.CONTENT_DISPOSITION);
-        m.put(HttpHeaders.CONTENT_DPR.toUpperCase(Locale.ENGLISH), HttpHeaders.CONTENT_DPR);
-        m.put(HttpHeaders.CONTENT_ENCODING.toUpperCase(Locale.ENGLISH), HttpHeaders.CONTENT_ENCODING);
-        m.put(HttpHeaders.CONTENT_LANGUAGE.toUpperCase(Locale.ENGLISH), HttpHeaders.CONTENT_LANGUAGE);
-        m.put(HttpHeaders.CONTENT_LENGTH.toUpperCase(Locale.ENGLISH), HttpHeaders.CONTENT_LENGTH);
-        m.put(HttpHeaders.CONTENT_LOCATION.toUpperCase(Locale.ENGLISH), HttpHeaders.CONTENT_LOCATION);
-        m.put(HttpHeaders.CONTENT_TRANSFER_ENCODING.toUpperCase(Locale.ENGLISH), HttpHeaders.CONTENT_TRANSFER_ENCODING);
-        m.put(HttpHeaders.CONTENT_MD5.toUpperCase(Locale.ENGLISH), HttpHeaders.CONTENT_MD5);
-        m.put(HttpHeaders.CONTENT_RANGE.toUpperCase(Locale.ENGLISH), HttpHeaders.CONTENT_RANGE);
-        m.put(HttpHeaders.CONTENT_TYPE.toUpperCase(Locale.ENGLISH), HttpHeaders.CONTENT_TYPE);
-        m.put(HttpHeaders.COOKIE.toUpperCase(Locale.ENGLISH), HttpHeaders.COOKIE);
-        m.put(HttpHeaders.CROSS_ORIGIN_RESOURCE_POLICY.toUpperCase(Locale.ENGLISH), HttpHeaders.CROSS_ORIGIN_RESOURCE_POLICY);
-        m.put(HttpHeaders.DATE.toUpperCase(Locale.ENGLISH), HttpHeaders.DATE);
-        m.put(HttpHeaders.DEVICE_MEMORY.toUpperCase(Locale.ENGLISH), HttpHeaders.DEVICE_MEMORY);
-        m.put(HttpHeaders.DOWNLINK.toUpperCase(Locale.ENGLISH), HttpHeaders.DOWNLINK);
-        m.put(HttpHeaders.DPR.toUpperCase(Locale.ENGLISH), HttpHeaders.DPR);
-        m.put(HttpHeaders.ECT.toUpperCase(Locale.ENGLISH), HttpHeaders.ECT);
-        m.put(HttpHeaders.ETAG.toUpperCase(Locale.ENGLISH), HttpHeaders.ETAG);
-        m.put(HttpHeaders.EXPECT.toUpperCase(Locale.ENGLISH), HttpHeaders.EXPECT);
-        m.put(HttpHeaders.EXPIRES.toUpperCase(Locale.ENGLISH), HttpHeaders.EXPIRES);
-        m.put(HttpHeaders.FEATURE_POLICY.toUpperCase(Locale.ENGLISH), HttpHeaders.FEATURE_POLICY);
-        m.put(HttpHeaders.FORWARDED.toUpperCase(Locale.ENGLISH), HttpHeaders.FORWARDED);
-        m.put(HttpHeaders.FROM.toUpperCase(Locale.ENGLISH), HttpHeaders.FROM);
-        m.put(HttpHeaders.HOST.toUpperCase(Locale.ENGLISH), HttpHeaders.HOST);
-        m.put(HttpHeaders.IF_MATCH.toUpperCase(Locale.ENGLISH), HttpHeaders.IF_MATCH);
-        m.put(HttpHeaders.IF_MODIFIED_SINCE.toUpperCase(Locale.ENGLISH), HttpHeaders.IF_MODIFIED_SINCE);
-        m.put(HttpHeaders.IF_NONE_MATCH.toUpperCase(Locale.ENGLISH), HttpHeaders.IF_NONE_MATCH);
-        m.put(HttpHeaders.IF_RANGE.toUpperCase(Locale.ENGLISH), HttpHeaders.IF_RANGE);
-        m.put(HttpHeaders.IF_UNMODIFIED_SINCE.toUpperCase(Locale.ENGLISH), HttpHeaders.IF_UNMODIFIED_SINCE);
-        m.put(HttpHeaders.LAST_MODIFIED.toUpperCase(Locale.ENGLISH), HttpHeaders.LAST_MODIFIED);
-        m.put(HttpHeaders.LINK.toUpperCase(Locale.ENGLISH), HttpHeaders.LINK);
-        m.put(HttpHeaders.LOCATION.toUpperCase(Locale.ENGLISH), HttpHeaders.LOCATION);
-        m.put(HttpHeaders.MAX_FORWARDS.toUpperCase(Locale.ENGLISH), HttpHeaders.MAX_FORWARDS);
-        m.put(HttpHeaders.ORIGIN.toUpperCase(Locale.ENGLISH), HttpHeaders.ORIGIN);
-        m.put(HttpHeaders.PRAGMA.toUpperCase(Locale.ENGLISH), HttpHeaders.PRAGMA);
-        m.put(HttpHeaders.PROXY_AUTHENTICATE.toUpperCase(Locale.ENGLISH), HttpHeaders.PROXY_AUTHENTICATE);
-        m.put(HttpHeaders.PROXY_AUTHORIZATION.toUpperCase(Locale.ENGLISH), HttpHeaders.PROXY_AUTHORIZATION);
-        m.put(HttpHeaders.RANGE.toUpperCase(Locale.ENGLISH), HttpHeaders.RANGE);
-        m.put(HttpHeaders.REFERER.toUpperCase(Locale.ENGLISH), HttpHeaders.REFERER);
-        m.put(HttpHeaders.REFERRER_POLICY.toUpperCase(Locale.ENGLISH), HttpHeaders.REFERRER_POLICY);
-        m.put(HttpHeaders.RETRY_AFTER.toUpperCase(Locale.ENGLISH), HttpHeaders.RETRY_AFTER);
-        m.put(HttpHeaders.RTT.toUpperCase(Locale.ENGLISH), HttpHeaders.RTT);
-        m.put(HttpHeaders.SAVE_DATA.toUpperCase(Locale.ENGLISH), HttpHeaders.SAVE_DATA);
-        m.put(HttpHeaders.SEC_WEBSOCKET_KEY1.toUpperCase(Locale.ENGLISH), HttpHeaders.SEC_WEBSOCKET_KEY1);
-        m.put(HttpHeaders.SEC_WEBSOCKET_KEY2.toUpperCase(Locale.ENGLISH), HttpHeaders.SEC_WEBSOCKET_KEY2);
-        m.put(HttpHeaders.SEC_WEBSOCKET_LOCATION.toUpperCase(Locale.ENGLISH), HttpHeaders.SEC_WEBSOCKET_LOCATION);
-        m.put(HttpHeaders.SEC_WEBSOCKET_ORIGIN.toUpperCase(Locale.ENGLISH), HttpHeaders.SEC_WEBSOCKET_ORIGIN);
-        m.put(HttpHeaders.SEC_WEBSOCKET_PROTOCOL.toUpperCase(Locale.ENGLISH), HttpHeaders.SEC_WEBSOCKET_PROTOCOL);
-        m.put(HttpHeaders.SEC_WEBSOCKET_VERSION.toUpperCase(Locale.ENGLISH), HttpHeaders.SEC_WEBSOCKET_VERSION);
-        m.put(HttpHeaders.SEC_WEBSOCKET_KEY.toUpperCase(Locale.ENGLISH), HttpHeaders.SEC_WEBSOCKET_KEY);
-        m.put(HttpHeaders.SEC_WEBSOCKET_ACCEPT.toUpperCase(Locale.ENGLISH), HttpHeaders.SEC_WEBSOCKET_ACCEPT);
-        m.put(HttpHeaders.SERVER.toUpperCase(Locale.ENGLISH), HttpHeaders.SERVER);
-        m.put(HttpHeaders.SET_COOKIE.toUpperCase(Locale.ENGLISH), HttpHeaders.SET_COOKIE);
-        m.put(HttpHeaders.SET_COOKIE2.toUpperCase(Locale.ENGLISH), HttpHeaders.SET_COOKIE2);
-        m.put(HttpHeaders.SOURCE_MAP.toUpperCase(Locale.ENGLISH), HttpHeaders.SOURCE_MAP);
-        m.put(HttpHeaders.TE.toUpperCase(Locale.ENGLISH), HttpHeaders.TE);
-        m.put(HttpHeaders.TRAILER.toUpperCase(Locale.ENGLISH), HttpHeaders.TRAILER);
-        m.put(HttpHeaders.TRANSFER_ENCODING.toUpperCase(Locale.ENGLISH), HttpHeaders.TRANSFER_ENCODING);
-        m.put(HttpHeaders.UPGRADE.toUpperCase(Locale.ENGLISH), HttpHeaders.UPGRADE);
-        m.put(HttpHeaders.USER_AGENT.toUpperCase(Locale.ENGLISH), HttpHeaders.USER_AGENT);
-        m.put(HttpHeaders.VARY.toUpperCase(Locale.ENGLISH), HttpHeaders.VARY);
-        m.put(HttpHeaders.VIA.toUpperCase(Locale.ENGLISH), HttpHeaders.VIA);
-        m.put(HttpHeaders.VIEWPORT_WIDTH.toUpperCase(Locale.ENGLISH), HttpHeaders.VIEWPORT_WIDTH);
-        m.put(HttpHeaders.WARNING.toUpperCase(Locale.ENGLISH), HttpHeaders.WARNING);
-        m.put(HttpHeaders.WEBSOCKET_LOCATION.toUpperCase(Locale.ENGLISH), HttpHeaders.WEBSOCKET_LOCATION);
-        m.put(HttpHeaders.WEBSOCKET_ORIGIN.toUpperCase(Locale.ENGLISH), HttpHeaders.WEBSOCKET_ORIGIN);
-        m.put(HttpHeaders.WEBSOCKET_PROTOCOL.toUpperCase(Locale.ENGLISH), HttpHeaders.WEBSOCKET_PROTOCOL);
-        m.put(HttpHeaders.WIDTH.toUpperCase(Locale.ENGLISH), HttpHeaders.WIDTH);
-        m.put(HttpHeaders.WWW_AUTHENTICATE.toUpperCase(Locale.ENGLISH), HttpHeaders.WWW_AUTHENTICATE);
-        m.put(HttpHeaders.X_AUTH_TOKEN.toUpperCase(Locale.ENGLISH), HttpHeaders.X_AUTH_TOKEN);
-        UPPERCASE_HEADER_TO_HEADER = Collections.unmodifiableMap(m);
-    }
+    private static final Logger LOG = LoggerFactory.getLogger(AzureFunctionHttpRequest.class);
 
-    private final HttpRequestMessage<Optional<String>> azureRequest;
-    private final URI uri;
-    private final HttpMethod method;
-    private final AzureMutableHeaders headers;
-    private final MediaTypeCodecRegistry codecRegistry;
-    private final AzureFunctionHttpResponse<?> azureResponse;
     private final ExecutionContext executionContext;
-    private HttpParameters httpParameters;
-    private MutableConvertibleValues<Object> attributes;
-    private Supplier<Optional<B>> body;
-
+    private final BinaryContentConfiguration binaryContentConfiguration;
     private ConversionService conversionService;
+    private final HttpRequestMessage<Optional<String>> requestEvent;
+    private final AzureFunctionHttpResponse<Object> response;
+    private URI uri;
+    private final HttpMethod httpMethod;
     private Cookies cookies;
+    private MutableConvertibleValues<Object> attributes;
+    private Supplier<Optional<T>> body;
+    private T parsedBody;
+    private T overriddenBody;
 
-    /**
-     * Default constructor.
-     *
-     * @param contextPath      The context path
-     * @param azureRequest     The native google request
-     * @param codecRegistry    The codec registry
-     * @param executionContext The execution context.
-     * @param conversionService conversionService
-     * @param bodyBuilder BodyBuilder
-     */
+    private ByteArrayByteBuffer<T> servletByteBuffer;
+
     public AzureFunctionHttpRequest(
-        String contextPath,
-        HttpRequestMessage<Optional<String>> azureRequest,
-        MediaTypeCodecRegistry codecRegistry,
+        HttpRequestMessage<Optional<String>> request,
+        AzureFunctionHttpResponse<Object> response,
         ExecutionContext executionContext,
         ConversionService conversionService,
-        BodyBuilder bodyBuilder) {
+        BinaryContentConfiguration binaryContentConfiguration,
+        BodyBuilder bodyBuilder
+    ) {
         this.executionContext = executionContext;
-        this.azureRequest = azureRequest;
-        this.azureResponse = new AzureFunctionHttpResponse<>(azureRequest, codecRegistry);
-        this.uri = azureRequest.getUri();
-        HttpMethod method;
-        try {
-            method = HttpMethod.valueOf(azureRequest.getHttpMethod().name());
-        } catch (IllegalArgumentException e) {
-            method = HttpMethod.CUSTOM;
-        }
-        this.method = method;
-        this.headers = new AzureMutableHeaders(toMultiValueMap(azureRequest.getHeaders()), ConversionService.SHARED);
-        this.codecRegistry = codecRegistry;
-
         this.conversionService = conversionService;
+        this.binaryContentConfiguration = binaryContentConfiguration;
+        this.requestEvent = request;
+        this.response = response;
+        this.uri = URI.create(requestEvent.getUri().getPath());
+        this.httpMethod = parseMethod(requestEvent.getHttpMethod()::name);
         this.body = SupplierUtil.memoizedNonEmpty(() -> {
-            B built = (B) bodyBuilder.buildBody(this::getInputStream, this);
+            T built = parsedBody != null ? parsedBody :  (T) bodyBuilder.buildBody(this::getInputStream, this);
             return Optional.ofNullable(built);
         });
     }
 
-    /**
-     * Given a HTTP Header it will attempt to normalize to a {@link HttpHeaders} constant.
-     * If it does not find any matching constant, it will return the supplied header name.
-     * For example:
-     * - Accept -> Accept
-     * - accept -> Accept
-     * - Turbo-Frame -> Turbo-Frame
-     *
-     * @param headerName HTTP Header name
-     * @return A matching {@link HttpHeaders} constant or the supplied header name if no match found.
-     * @see <a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html">RFC 2616 - HTTP Headers should be case insensitive</a>
-     */
-    @NonNull
-    private static String normalizeHeaderName(@NonNull String headerName) {
-        return UPPERCASE_HEADER_TO_HEADER.getOrDefault(headerName.toUpperCase(Locale.ENGLISH), headerName);
-    }
-
-    private Map<CharSequence, List<String>> toMultiValueMap(Map<String, String> headers) {
-        Map<CharSequence, List<String>> result = new LinkedHashMap<>(headers.size());
-        headers.forEach((key, value) -> {
-            List<String> values = new ArrayList<>(1);
-            values.add(value);
-            result.put(normalizeHeaderName(key), values);
-        });
-        return result;
-    }
-
-    @Override
-    public String getMethodName() {
-        return azureRequest.getHttpMethod().name();
-    }
-
-    /**
-     * @return The execution context.
-     */
     public ExecutionContext getExecutionContext() {
         return executionContext;
     }
 
+    public byte[] getBodyBytes() throws IOException {
+        if (requestEvent.getBody().isPresent()) {
+            return getBodyBytes(requestEvent.getBody()::get, () -> binaryContentConfiguration.isBinary(requestEvent.getHeaders().get(HttpHeaders.CONTENT_TYPE)));
+        } else {
+            return ArrayUtils.EMPTY_BYTE_ARRAY;
+        }
+    }
+
+    protected static HttpMethod parseMethod(Supplier<String> httpMethodConsumer) {
+        try {
+            return HttpMethod.valueOf(httpMethodConsumer.get());
+        } catch (IllegalArgumentException e) {
+            return HttpMethod.CUSTOM;
+        }
+    }
+
+    @Override
+    public MutableHttpHeaders getHeaders() {
+        Map<String, List<String>> headersMap = transformCommaSeparatedValue(requestEvent.getHeaders());
+        return new CaseInsensitiveMutableHttpHeaders(headersMap, conversionService);
+    }
+
+    @Override
+    public MutableHttpParameters getParameters() {
+        MediaType mediaType = getContentType().orElse(MediaType.APPLICATION_JSON_TYPE);
+        Map<CharSequence, List<String>> values = new HashMap<>(transformCommaSeparatedValue(requestEvent.getQueryParameters()));
+        if (isFormSubmission(mediaType)) {
+            Map<String, List<String>> parameters = null;
+            try {
+                parameters = new QueryStringDecoder(new String(getBodyBytes(), getCharacterEncoding()), false).parameters();
+            } catch (IOException ex) {
+                if (LOG.isErrorEnabled()) {
+                    LOG.error("Error decoding form data: " + ex.getMessage(), ex);
+                }
+                parameters = new HashMap<>();
+            }
+            values.putAll(parameters);
+        }
+        return new SimpleHttpParameters(values, conversionService);
+    }
+
+    @Override
+    public ServletHttpResponse<HttpResponseMessage, ?> getResponse() {
+        return response;
+    }
+
     @Override
     public InputStream getInputStream() throws IOException {
-        return new ByteArrayInputStream(
-            azureRequest.getBody().map(s -> s.getBytes(getCharacterEncoding())).orElseThrow(() -> new IOException("Empty Body"))
-        );
+        return servletByteBuffer != null ? servletByteBuffer.toInputStream() : new ByteArrayInputStream(getBodyBytes());
+    }
+
+    @Override
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public ServletHttpRequest<HttpRequestMessage<Optional<String>>, ? super Object> getRequest() {
+        return (ServletHttpRequest) this;
     }
 
     @Override
@@ -263,167 +186,157 @@ public class AzureFunctionHttpRequest<B>
 
     @Override
     public HttpRequestMessage<Optional<String>> getNativeRequest() {
-        return azureRequest;
+        return requestEvent;
     }
 
-    /**
-     * Reference to the response object.
-     *
-     * @return The response.
-     */
-    AzureFunctionHttpResponse<?> getAzureResponse() {
-        return azureResponse;
+    @Override
+    public HttpMethod getMethod() {
+        return httpMethod;
+    }
+
+    @Override
+    public URI getUri() {
+        return uri;
     }
 
     @NonNull
     @Override
     public Cookies getCookies() {
-        Cookies cookies = this.cookies;
-        if (cookies == null) {
+        Cookies localCookies = this.cookies;
+        if (localCookies == null) {
             synchronized (this) { // double check
-                cookies = this.cookies;
-                if (cookies == null) {
-                    cookies = new SimpleCookies(ConversionService.SHARED);
-                    this.cookies = cookies;
+                localCookies = this.cookies;
+                if (localCookies == null) {
+                    localCookies = new AzureCookies(getPath(), getHeaders(), conversionService);
+                    this.cookies = localCookies;
                 }
             }
         }
-        return cookies;
+        return localCookies;
     }
 
-    @NonNull
-    @Override
-    public HttpParameters getParameters() {
-        HttpParameters httpParameters = this.httpParameters;
-        if (httpParameters == null) {
-            synchronized (this) { // double check
-                httpParameters = this.httpParameters;
-                if (httpParameters == null) {
-                    httpParameters = new AzureParameters();
-                    this.httpParameters = httpParameters;
-                }
-            }
-        }
-        return httpParameters;
-    }
-
-    @NonNull
-    @Override
-    public HttpMethod getMethod() {
-        return method;
-    }
-
-    @NonNull
-    @Override
-    public URI getUri() {
-        return this.uri;
-    }
-
-    @NonNull
-    @Override
-    public HttpHeaders getHeaders() {
-        return headers;
-    }
-
-    @NonNull
     @Override
     public MutableConvertibleValues<Object> getAttributes() {
-        MutableConvertibleValues<Object> attributes = this.attributes;
-        if (attributes == null) {
+        MutableConvertibleValues<Object> localAttributes = this.attributes;
+        if (localAttributes == null) {
             synchronized (this) { // double check
-                attributes = this.attributes;
-                if (attributes == null) {
-                    attributes = new MutableConvertibleValuesMap<>();
-                    this.attributes = attributes;
+                localAttributes = this.attributes;
+                if (localAttributes == null) {
+                    localAttributes = new MutableConvertibleValuesMap<>();
+                    this.attributes = localAttributes;
                 }
             }
         }
-        return attributes;
+        return localAttributes;
     }
-
 
     @NonNull
     @Override
-    public Optional<B> getBody() {
+    public Optional<T> getBody() {
+        if (overriddenBody != null) {
+            return Optional.of(overriddenBody);
+        }
         return this.body.get();
     }
 
     @NonNull
     @Override
-    public <T> Optional<T> getBody(@NonNull Argument<T> arg) {
+    public <B> Optional<B> getBody(Argument<B> arg) {
         return getBody().map(t -> conversionService.convertRequired(t, arg));
     }
 
-    private boolean isFormSubmission(MediaType contentType) {
-        return MediaType.FORM.equals(contentType) || MediaType.MULTIPART_FORM_DATA_TYPE.equals(contentType);
+    /**
+     *
+     * @param contentType Content Type
+     * @return returns true if the content type is either application/x-www-form-urlencoded or multipart/form-data
+     */
+    protected boolean isFormSubmission(MediaType contentType) {
+        return MediaType.APPLICATION_FORM_URLENCODED_TYPE.equals(contentType) || MediaType.MULTIPART_FORM_DATA_TYPE.equals(contentType);
     }
 
     @Override
-    public ServletHttpRequest<HttpRequestMessage<Optional<String>>, ? super Object> getRequest() {
-        //noinspection unchecked
-        return (ServletHttpRequest) this;
+    public MutableHttpRequest<T> cookie(Cookie cookie) {
+        return this;
     }
 
     @Override
-    public ServletHttpResponse<HttpResponseMessage, ? super Object> getResponse() {
-        //noinspection unchecked
-        return (ServletHttpResponse<HttpResponseMessage, ? super Object>) azureResponse;
+    public MutableHttpRequest<T> uri(URI uri) {
+        this.uri = uri;
+        return this;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <B> MutableHttpRequest<B> body(B body) {
+        this.overriddenBody = (T) body;
+        return (MutableHttpRequest<B>) this;
+    }
+
+    @Override
+    public void setConversionService(ConversionService conversionService) {
+        this.conversionService = conversionService;
+    }
+
+    @Override
+    public void setParsedBody(T body) {
+        this.parsedBody = body;
+    }
+
+    @Override
+    public @Nullable ByteBuffer<?> contents() {
+        try {
+            if (servletByteBuffer == null) {
+                this.servletByteBuffer = new ByteArrayByteBuffer<>(getInputStream().readAllBytes());
+            }
+            return servletByteBuffer;
+        } catch (IOException e) {
+            throw new IllegalStateException("Error getting all body contents", e);
+        }
+    }
+
+    @Override
+    public @Nullable ExecutionFlow<ByteBuffer<?>> bufferContents() {
+        return ExecutionFlow.just(contents());
     }
 
     /**
-     * Models the http parameters.
+     *
+     * @param bodySupplier HTTP Request's Body Supplier
+     * @param base64EncodedSupplier Whether the body is Base 64 encoded
+     * @return body bytes
+     * @throws IOException if the body is empty
      */
-    private final class AzureParameters implements HttpParameters {
-        @Override
-        public Optional<String> getFirst(CharSequence name) {
-            ArgumentUtils.requireNonNull("name", name);
-            return Optional.ofNullable(azureRequest.getQueryParameters().get(name.toString()));
+    protected byte[] getBodyBytes(@NonNull Supplier<String> bodySupplier, @NonNull BooleanSupplier base64EncodedSupplier) throws IOException {
+        String requestBody = bodySupplier.get();
+        if (StringUtils.isEmpty(requestBody)) {
+            throw new IOException("Empty Body");
         }
+        return base64EncodedSupplier.getAsBoolean() ?
+            Base64.getDecoder().decode(requestBody) : requestBody.getBytes(getCharacterEncoding());
+    }
 
-        @Override
-        public List<String> getAll(CharSequence name) {
-            if (name != null) {
-                String v = azureRequest.getQueryParameters().get(name.toString());
-                if (v != null) {
-                    return Collections.singletonList(v);
-                }
-            }
+    @NonNull
+    private static List<String> splitCommaSeparatedValue(@Nullable String value) {
+        if (value == null) {
             return Collections.emptyList();
         }
-
-        @Nullable
-        @Override
-        public String get(CharSequence name) {
-            return getFirst(name).orElse(null);
+        String[] arr = value.split(",");
+        List<String> result = new ArrayList<>();
+        for (String str : arr) {
+            result.add(str.trim());
         }
+        return result;
+    }
 
-        @Override
-        public Set<String> names() {
-            return azureRequest.getQueryParameters().keySet();
+    @NonNull
+    private static Map<String, List<String>> transformCommaSeparatedValue(@Nullable Map<String, String> input) {
+        if (input == null) {
+            return Collections.emptyMap();
         }
-
-        @Override
-        public Collection<List<String>> values() {
-            return azureRequest.getQueryParameters()
-                .values()
-                .stream()
-                .map(Collections::singletonList)
-                .toList();
+        Map<String, List<String>> output = new HashMap<>();
+        for (var entry: input.entrySet()) {
+            output.put(entry.getKey(), splitCommaSeparatedValue(entry.getValue()));
         }
-
-        @Override
-        public <T> Optional<T> get(CharSequence name, ArgumentConversionContext<T> conversionContext) {
-            if (name != null) {
-                String value = azureRequest.getQueryParameters().get(name.toString());
-                if (value != null) {
-                    if (conversionContext.getArgument().getType().isInstance(value)) {
-                        return (Optional<T>) Optional.of(value);
-                    } else {
-                        return ConversionService.SHARED.convert(value, conversionContext);
-                    }
-                }
-            }
-            return Optional.empty();
-        }
+        return output;
     }
 }

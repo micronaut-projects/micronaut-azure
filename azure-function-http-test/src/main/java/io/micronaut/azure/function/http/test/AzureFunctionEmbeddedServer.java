@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2023 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@ import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
 import com.microsoft.azure.functions.HttpStatusType;
 import io.micronaut.azure.function.http.AzureFunctionHttpRequest;
+import io.micronaut.azure.function.http.AzureFunctionHttpResponse;
+import io.micronaut.azure.function.http.BinaryContentConfiguration;
 import io.micronaut.azure.function.http.HttpRequestMessageBuilder;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.env.Environment;
@@ -29,7 +31,6 @@ import io.micronaut.core.io.IOUtils;
 import io.micronaut.core.io.socket.SocketUtils;
 import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpMethod;
-import io.micronaut.http.context.ServerContextPathProvider;
 import io.micronaut.http.server.HttpServerConfiguration;
 import io.micronaut.http.server.exceptions.HttpServerException;
 import io.micronaut.http.server.exceptions.ServerStartupException;
@@ -38,6 +39,8 @@ import io.micronaut.runtime.server.EmbeddedServer;
 import io.micronaut.servlet.http.BodyBuilder;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpHandler;
+import io.micronaut.servlet.http.ServletHttpResponse;
+import jakarta.inject.Singleton;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
@@ -45,12 +48,16 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.eclipse.jetty.server.handler.ContextHandler;
 
-import jakarta.inject.Singleton;
-
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.*;
+import java.net.BindException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Enumeration;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -68,27 +75,22 @@ import java.util.logging.Logger;
 final class AzureFunctionEmbeddedServer implements EmbeddedServer {
     private final ApplicationContext applicationContext;
     private final boolean randomPort;
-    private final ServerContextPathProvider contextPathProvider;
     private final ConversionService conversionService;
     private int port;
     private final AtomicBoolean running = new AtomicBoolean(false);
     private Server server;
-    private String contextPath;
 
     /**
-     * Default cosntructor.
+     * Default constructor.
      * @param applicationContext the app context
      * @param httpServerConfiguration the http server configuration
-     * @param contextPathProvider THe context path provider
      */
     AzureFunctionEmbeddedServer(
             ApplicationContext applicationContext,
             HttpServerConfiguration httpServerConfiguration,
-            ServerContextPathProvider contextPathProvider,
             ConversionService conversionService
     ) {
         this.applicationContext = applicationContext;
-        this.contextPathProvider = contextPathProvider;
         this.conversionService = conversionService;
         Optional<Integer> port = httpServerConfiguration.getPort();
         if (port.isPresent()) {
@@ -118,14 +120,9 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
                 try {
                     this.server = new Server(port);
                     ContextHandler context = new ContextHandler();
-                    this.contextPath = contextPathProvider.getContextPath();
-                    if (contextPath == null) {
-                        contextPath = "/api";
-                    }
-                    context.setContextPath(contextPath);
                     context.setResourceBase(".");
                     context.setClassLoader(Thread.currentThread().getContextClassLoader());
-                    context.setHandler(new AzureHandler(getApplicationContext(), contextPath, conversionService));
+                    context.setHandler(new AzureHandler(getApplicationContext(), conversionService));
                     server.setHandler(context);
                     this.server.setHandler(context);
                     this.server.start();
@@ -215,15 +212,12 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
     private static final class AzureHandler extends AbstractHandler {
 
         private final ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> httpHandler;
-        private final String contextPath;
 
         /**
          * Default constructor.
          * @param applicationContext The app context
-         * @param contextPath The context path
          */
-        AzureHandler(ApplicationContext applicationContext, String contextPath, ConversionService conversionService) {
-            this.contextPath = contextPath;
+        AzureHandler(ApplicationContext applicationContext, ConversionService conversionService) {
             httpHandler = new ServletHttpHandler<>(applicationContext, conversionService) {
                 @Override
                 public boolean isRunning() {
@@ -243,6 +237,7 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
                     request.getRequestURI(),
                     httpHandler.getApplicationContext()
             );
+
             Enumeration<String> headerNames = request.getHeaderNames();
             while (headerNames.hasMoreElements()) {
                 String s = headerNames.nextElement();
@@ -252,20 +247,19 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
                     requestMessageBuilder.header(s, v);
                 }
             }
+
             Enumeration<String> parameterNames = request.getParameterNames();
             while (parameterNames.hasMoreElements()) {
                 String s = parameterNames.nextElement();
-                Enumeration<String> headers = request.getHeaders(s);
-                while (headers.hasMoreElements()) {
-                    String v = headers.nextElement();
-                    requestMessageBuilder.parameter(s, v);
-                }
+                String[] parameterValues = request.getParameterValues(s);
+                requestMessageBuilder.parameter(s, String.join(",", parameterValues));
             }
-
 
             HttpMethod httpMethod = HttpMethod.parse(request.getMethod());
             if (HttpMethod.permitsRequestBody(httpMethod)) {
-                try (BufferedReader requestBody = request.getReader()) {
+                try (InputStream inputStream = request.getInputStream();
+                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                     BufferedReader requestBody = new BufferedReader(inputStreamReader)) {
                     String body = IOUtils.readText(requestBody);
                     requestMessageBuilder.body(body);
                 } catch (IOException e) {
@@ -274,30 +268,45 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
             }
 
             HttpRequestMessage<Optional<String>> requestMessage = requestMessageBuilder.buildEncoded();
+            ConversionService handlerConversionService = httpHandler.getApplicationContext().getBean(ConversionService.class);
+            BinaryContentConfiguration binaryContentConfiguration = httpHandler.getApplicationContext().getBean(BinaryContentConfiguration.class);
             AzureFunctionHttpRequest<?> azureFunctionHttpRequest =
                     new AzureFunctionHttpRequest<>(
-                            contextPath,
                             requestMessage,
-                            httpHandler.getMediaTypeCodecRegistry(),
+                            new AzureFunctionHttpResponse<>(
+                                requestMessage,
+                                handlerConversionService,
+                                binaryContentConfiguration
+                            ),
                             new DefaultExecutionContext(),
-                            httpHandler.getApplicationContext().getBean(ConversionService.class),
+                            handlerConversionService,
+                            binaryContentConfiguration,
                             httpHandler.getApplicationContext().getBean(BodyBuilder.class)
                     );
 
             ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> exchange =
                     httpHandler.exchange(azureFunctionHttpRequest);
 
-            HttpResponseMessage httpResponseMessage = exchange.getResponse().getNativeResponse();
+            ServletHttpResponse<HttpResponseMessage, ?> exchangeResponse = exchange.getResponse();
+            HttpResponseMessage httpResponseMessage = exchangeResponse.getNativeResponse();
             HttpStatusType httpStatus = httpResponseMessage.getStatus();
-            byte[] bodyAsBytes = (byte[]) httpResponseMessage.getBody();
+
+            Object bodyObject = httpResponseMessage.getBody();
+            byte[] bodyAsBytes = null;
+            if (bodyObject instanceof CharSequence charBody) {
+                bodyAsBytes = charBody.toString().getBytes(exchangeResponse.getCharacterEncoding());
+            } else if (bodyObject instanceof byte[] byteBody) {
+                bodyAsBytes = byteBody;
+            }
             response.setStatus(httpStatus.value());
             final boolean hasBody = bodyAsBytes != null;
             response.setContentLength(hasBody ? bodyAsBytes.length : 0);
-            if (httpResponseMessage instanceof HttpHeaders) {
-                HttpHeaders headers = (HttpHeaders) httpResponseMessage;
+            if (httpResponseMessage instanceof HttpHeaders headers) {
                 headers.forEach((name, values) -> {
                     for (String value : values) {
-                        response.addHeader(name, value);
+                        if (!response.containsHeader(name)) {
+                            response.addHeader(name, value);
+                        }
                     }
                 });
             }

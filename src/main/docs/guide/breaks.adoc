@@ -1,0 +1,1 @@
+<<routePrefix, Micronaut Azure HTTP Functions expect you remove the route prefix `api`>>.

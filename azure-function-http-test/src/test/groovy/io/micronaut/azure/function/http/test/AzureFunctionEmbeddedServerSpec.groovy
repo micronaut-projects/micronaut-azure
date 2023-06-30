@@ -1,5 +1,7 @@
 package io.micronaut.azure.function.http.test
 
+import io.micronaut.context.annotation.Property
+import io.micronaut.context.annotation.Requires
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Body
@@ -14,7 +16,10 @@ import spock.lang.Specification
 import jakarta.inject.Inject
 
 @MicronautTest
+@Property(name = "spec.name", value = "AzureFunctionEmbeddedServerSpec")
+@Property(name = "micronaut.server.context-path", value =  "/api")
 class AzureFunctionEmbeddedServerSpec extends Specification {
+
     @Inject
     @Client('/')
     HttpClient client
@@ -36,6 +41,7 @@ class AzureFunctionEmbeddedServerSpec extends Specification {
         result == 'goodbody'
     }
 
+    @Requires(property = 'spec.name', value = 'AzureFunctionEmbeddedServerSpec')
     @Controller('/test')
     static class TestController {
         @Get(value = '/', produces = MediaType.TEXT_PLAIN)

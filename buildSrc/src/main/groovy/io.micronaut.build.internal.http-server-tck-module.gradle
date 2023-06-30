@@ -24,3 +24,7 @@ dependencies {
 tasks.named("test") {
     useJUnitPlatform()
 }
+
+configurations.all {
+    resolutionStrategy.preferProjectModules()
+}

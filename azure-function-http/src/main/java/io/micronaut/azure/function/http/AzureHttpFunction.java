@@ -22,8 +22,6 @@ import com.microsoft.azure.functions.HttpResponseMessage;
 import io.micronaut.azure.function.AzureFunction;
 import io.micronaut.context.ApplicationContextBuilder;
 import io.micronaut.core.convert.ConversionService;
-import io.micronaut.core.util.StringUtils;
-import io.micronaut.http.context.ServerContextPathProvider;
 import io.micronaut.runtime.exceptions.ApplicationStartupException;
 import io.micronaut.servlet.http.BodyBuilder;
 import io.micronaut.servlet.http.ServletExchange;
@@ -59,7 +57,6 @@ import java.util.Optional;
 public class AzureHttpFunction extends AzureFunction {
 
     protected ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> httpHandler;
-    private final String contextPath;
 
     /**
      * Default constructor.
@@ -72,7 +69,7 @@ public class AzureHttpFunction extends AzureFunction {
      *
      * @param applicationContextBuilder ApplicationContext Builder;
      */
-    protected AzureHttpFunction(ApplicationContextBuilder applicationContextBuilder) {
+    public AzureHttpFunction(ApplicationContextBuilder applicationContextBuilder) {
         try {
             AzureFunction.startApplicationContext(applicationContextBuilder);
         } catch (Throwable  e) {
@@ -85,7 +82,6 @@ public class AzureHttpFunction extends AzureFunction {
         registerApplicationContextShutDownHook();
         registerHttpHandlerShutDownHook();
         applicationContext.registerSingleton(this);
-        this.contextPath = applicationContext.findBean(ServerContextPathProvider.class).map(ServerContextPathProvider::getContextPath).orElse("/api");
     }
 
     /**
@@ -101,11 +97,15 @@ public class AzureHttpFunction extends AzureFunction {
         try {
             AzureFunctionHttpRequest<?> azureFunctionHttpRequest =
                 new AzureFunctionHttpRequest<>(
-                    contextPath,
                     request,
-                    httpHandler.getMediaTypeCodecRegistry(),
+                    new AzureFunctionHttpResponse<>(
+                        request,
+                        httpHandler.getApplicationContext().getBean(ConversionService.class),
+                        httpHandler.getApplicationContext().getBean(BinaryContentConfiguration.class)
+                    ),
                     executionContext,
                     httpHandler.getApplicationContext().getBean(ConversionService.class),
+                    httpHandler.getApplicationContext().getBean(BinaryContentConfiguration.class),
                     httpHandler.getApplicationContext().getBean(BodyBuilder.class)
                 );
 
@@ -126,7 +126,6 @@ public class AzureHttpFunction extends AzureFunction {
      */
     public HttpRequestMessageBuilder<?> request(HttpMethod method, String uri) {
         Objects.requireNonNull(uri, "The URI cannot be null");
-        uri = StringUtils.prependUri(contextPath, uri);
         return HttpRequestMessageBuilder.builder(method, uri, applicationContext);
     }
 

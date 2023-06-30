@@ -1,0 +1,25 @@
+IMPORTANT: When you use Micronaut Azure HTTP Functions, you need to remove the api route prefix. You can set the property `micronaut.server.context-path` to achieve a route prefix.
+
+https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-http-webhook-trigger[Azure Functions HTTP Trigger]
+
+> By default, all function routes are prefixed with _api_. You can also customize or remove the prefix using the extensions.http.routePrefix property in your host.json file. The following example removes the api route prefix by using an empty string for the prefix in the _host.json_ file.
+
+For example, by defining a `hosts.json` file such as:
+
+[source,json]
+----
+{
+    "version": "2.0",
+    "extensionBundle": {
+        "id": "Microsoft.Azure.Functions.ExtensionBundle",
+        "version": "[2.*, 3.0.0)"
+    },
+    "extensions": {
+        "http": {
+           "routePrefix": ""
+        }
+    }
+}
+----
+
+Micronaut CLI and https://micronaut.io/launch?type=DEFAULT&features=azure-function[[Micronaut Launch] generate a `hosts.json` with the necessary configuration if you select the `azure-function` feature.

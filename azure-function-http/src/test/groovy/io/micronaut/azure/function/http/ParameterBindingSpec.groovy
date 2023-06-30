@@ -1,6 +1,7 @@
 package io.micronaut.azure.function.http
 
 import com.microsoft.azure.functions.HttpMethod
+import com.microsoft.azure.functions.HttpResponseMessage
 import io.micronaut.http.HttpHeaders
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
@@ -12,14 +13,14 @@ class ParameterBindingSpec extends Specification {
 
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = TestUtils.invoke(function, function
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.GET, "/parameters/uri/Foo")
-        )
+                .invoke()
 
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
-        responseMessage.bodyAsString == 'Hello Foo'
+        responseMessage.body == 'Hello Foo'
 
         cleanup:
         function.close()
@@ -28,13 +29,13 @@ class ParameterBindingSpec extends Specification {
     void "test invalid HTTP method"() {
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = TestUtils.invoke(function, function
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.POST, "/parameters/uri/Foo")
-        )
+                .invoke()
 
         expect:
         responseMessage.statusCode == HttpStatus.METHOD_NOT_ALLOWED.code
-        def allow = responseMessage.getHeader(HttpHeaders.ALLOW)
+        String allow = responseMessage.getHeader(HttpHeaders.ALLOW)
         allow == "HEAD,GET"
 
         cleanup:
@@ -45,16 +46,15 @@ class ParameterBindingSpec extends Specification {
 
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = TestUtils.invoke(function, function
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.GET, "/parameters/query")
                 .parameter("q", "Foo")
-        )
-
+                .invoke()
 
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
-        responseMessage.bodyAsString == 'Hello Foo'
+        responseMessage.body == 'Hello Foo'
 
         cleanup:
         function.close()
@@ -65,16 +65,16 @@ class ParameterBindingSpec extends Specification {
         given:
         AzureHttpFunction function = new AzureHttpFunction()
 
-        def responseMessage = TestUtils.invoke(function, function
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.GET, "/parameters/allParams")
                 .parameter("name", "Foo")
                 .parameter("age", "20")
-        )
+                .invoke()
 
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
-        responseMessage.bodyAsString == 'Hello Foo 20'
+        responseMessage.body == 'Hello Foo 20'
 
         cleanup:
         function.close()
@@ -83,30 +83,29 @@ class ParameterBindingSpec extends Specification {
     void "test header value"() {
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = TestUtils.invoke(function, function
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.GET, "/parameters/header")
                 .header(HttpHeaders.CONTENT_TYPE, "text/plain;q=1.0")
-        )
+                .invoke()
 
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
-        responseMessage.bodyAsString == 'Hello text/plain;q=1.0'
+        responseMessage.body == 'Hello text/plain;q=1.0'
 
         cleanup:
         function.close()
     }
 
     void "test request and response"() {
-
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = TestUtils.invoke(function, function
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.GET, "/parameters/reqAndRes")
-        )
+                .invoke()
 
         expect:
-        responseMessage.bodyAsString == 'Good'
+        responseMessage.body == 'Good'
         responseMessage.statusCode == HttpStatus.ACCEPTED.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.TEXT_PLAIN
 
@@ -118,16 +117,16 @@ class ParameterBindingSpec extends Specification {
 
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = TestUtils.invoke(function, function
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.POST, "/parameters/stringBody")
                 .body("Foo")
                 .header(HttpHeaders.CONTENT_TYPE, "text/plain")
-        )
+                .invoke()
 
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
-        responseMessage.bodyAsString == 'Hello Foo'
+        responseMessage.body == 'Hello Foo'
 
         cleanup:
         function.close()
@@ -137,15 +136,16 @@ class ParameterBindingSpec extends Specification {
 
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = TestUtils.invoke(function, function
+        def responseMessage = function
                 .request(HttpMethod.POST, "/parameters/writable")
                 .body("Foo")
                 .header(HttpHeaders.CONTENT_TYPE, "text/plain")
-        )
+                .invoke()
+
         expect:
         responseMessage.statusCode == HttpStatus.CREATED.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.TEXT_PLAIN
-        responseMessage.bodyAsString == 'Hello Foo'
+        responseMessage.body == 'Hello Foo'
         responseMessage.getHeader("Foo") == 'Bar'
 
         cleanup:
@@ -156,16 +156,16 @@ class ParameterBindingSpec extends Specification {
         given:
         def json = '{"name":"bar","age":30}'
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = TestUtils.invoke(function, function
+        def responseMessage = function
                 .request(HttpMethod.POST, "/parameters/jsonBody")
                 .body(json)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
-        )
+                .invoke()
 
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
-        responseMessage.bodyAsString == json
+        responseMessage.body == json
 
         cleanup:
         function.close()
@@ -174,16 +174,16 @@ class ParameterBindingSpec extends Specification {
     void "test JSON POJO body - invalid JSON"() {
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def json = '{"name":"bar","age":30'
-        def responseMessage = TestUtils.invoke(function, function
+        String json = '{"name":"bar","age":30'
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.POST, "/parameters/jsonBody")
                 .body(json)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
-        )
+                .invoke()
 
         expect:
         responseMessage.statusCode == HttpStatus.BAD_REQUEST.code
-        responseMessage.bodyAsString.contains("Error decoding JSON stream for type")
+        responseMessage.body.contains("Error decoding JSON stream for type")
 
         cleanup:
         function.close()
@@ -192,18 +192,17 @@ class ParameterBindingSpec extends Specification {
     void "test JSON POJO body with no @Body binds to arguments"() {
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def json = '{"name":"bar","age":20}'
-        def responseMessage = TestUtils.invoke(function, function
+        String json = '{"name":"bar","age":20}'
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.POST, "/parameters/jsonBodySpread")
                 .body(json)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
-        )
-
+                .invoke()
 
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
-        responseMessage.bodyAsString == json
+        responseMessage.body == json
 
         cleanup:
         function.close()
@@ -211,18 +210,18 @@ class ParameterBindingSpec extends Specification {
 
     void "full Micronaut request and response"() {
         given:
-        def json = '{"name":"bar","age":20}'
+        String json = '{"name":"bar","age":20}'
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = TestUtils.invoke(function, function
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.POST, "/parameters/fullRequest")
                 .body(json)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
-        )
+                .invoke()
 
         expect:
         responseMessage.statusCode == HttpStatus.OK.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.APPLICATION_JSON
-        responseMessage.bodyAsString == json
+        responseMessage.body == json
         responseMessage.getHeader("Foo") == 'Bar'
 
         cleanup:
@@ -232,16 +231,16 @@ class ParameterBindingSpec extends Specification {
     void "full Micronaut request and response - invalid JSON"() {
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def json = '{"name":"bar","age":20'
-        def responseMessage = TestUtils.invoke(function, function
+        String json = '{"name":"bar","age":20'
+        HttpResponseMessage responseMessage = function
                 .request(HttpMethod.POST, "/parameters/fullRequest")
                 .body(json)
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON)
-        )
+                .invoke()
 
         expect:
         responseMessage.statusCode == HttpStatus.BAD_REQUEST.code
-        responseMessage.bodyAsString.contains("Error decoding request body")
+        responseMessage.body.contains("Error decoding request body")
 
         cleanup:
         function.close()
