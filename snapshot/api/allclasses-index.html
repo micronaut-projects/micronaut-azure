@@ -59,9 +59,9 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary" aria-labelledby="all-classes-table-tab0">
 <div class="table-header col-first">Class</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/micronaut/azure/function/http/AzureBinderRegistry.html" title="class in io.micronaut.azure.function.http">AzureBinderRegistry</a>&lt;<a href="io/micronaut/azure/function/http/AzureBinderRegistry.html" title="type parameter in AzureBinderRegistry">T</a>&gt;</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/micronaut/azure/function/http/AzureCookies.html" title="class in io.micronaut.azure.function.http">AzureCookies</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Implementation of <code>ServletBinderRegistry</code> for Azure.</div>
+<div class="block">Implementation of <code>Cookies</code> for serverless.</div>
 </div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/micronaut/azure/credentials/AzureCredentialFactory.html" title="class in io.micronaut.azure.credentials">AzureCredentialFactory</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
@@ -107,9 +107,9 @@ loadScripts(document, 'script');</script>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">A base Azure function class that sets up the Azure environment and preferred configuration.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/micronaut/azure/function/http/AzureFunctionHttpRequest.html" title="class in io.micronaut.azure.function.http">AzureFunctionHttpRequest</a>&lt;<a href="io/micronaut/azure/function/http/AzureFunctionHttpRequest.html" title="type parameter in AzureFunctionHttpRequest">B</a>&gt;</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/micronaut/azure/function/http/AzureFunctionHttpRequest.html" title="class in io.micronaut.azure.function.http">AzureFunctionHttpRequest</a>&lt;<a href="io/micronaut/azure/function/http/AzureFunctionHttpRequest.html" title="type parameter in AzureFunctionHttpRequest">T</a>&gt;</div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Implementation of Micronaut's request interface for Azure.</div>
+<div class="block">Servlet request implementation for Azure Functions.</div>
 </div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/micronaut/azure/function/http/AzureFunctionHttpResponse.html" title="class in io.micronaut.azure.function.http">AzureFunctionHttpResponse</a>&lt;<a href="io/micronaut/azure/function/http/AzureFunctionHttpResponse.html" title="type parameter in AzureFunctionHttpResponse">B</a>&gt;</div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
@@ -121,25 +121,17 @@ loadScripts(document, 'script');</script>
  to classes annotated with <code>Controller</code> and the others annotations in the
  <code>io.micronaut.http.annotation</code> package.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="io/micronaut/azure/function/http/AzureHttpResponseMessage.html" title="interface in io.micronaut.azure.function.http">AzureHttpResponseMessage</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
-<div class="block">Extends <code>HttpResponseMessage</code> to provide a utlity method to return the body as a String.</div>
-</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/micronaut/azure/function/http/AzureHttpResponseMessageAdapter.html" title="class in io.micronaut.azure.function.http">AzureHttpResponseMessageAdapter</a></div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Adapter between <code>HttpResponseMessage</code> and <a href="io/micronaut/azure/function/http/AzureHttpResponseMessage.html" title="interface in io.micronaut.azure.function.http"><code>AzureHttpResponseMessage</code></a>.</div>
-</div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/micronaut/azure/secretmanager/configuration/AzureKeyVaultConfigurationProperties.html" title="class in io.micronaut.azure.secretmanager.configuration">AzureKeyVaultConfigurationProperties</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Configuration for azure SecretClient.</div>
 </div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/micronaut/azure/function/http/AzureServletBodyBinder.html" title="class in io.micronaut.azure.function.http">AzureServletBodyBinder</a>&lt;<a href="io/micronaut/azure/function/http/AzureServletBodyBinder.html" title="type parameter in AzureServletBodyBinder">T</a>&gt;</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/micronaut/azure/secretmanager/AzureVaultConfigurationClient.html" title="class in io.micronaut.azure.secretmanager">AzureVaultConfigurationClient</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
-<div class="block">Extends the body binding abilities of <code>ServletBodyBinder</code> for Azure.</div>
-</div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/micronaut/azure/secretmanager/AzureVaultConfigurationClient.html" title="class in io.micronaut.azure.secretmanager">AzureVaultConfigurationClient</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
 <div class="block">Distributed configuration client implementation that fetches application secret values from Azure keyvalut.</div>
+</div>
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/micronaut/azure/function/http/BinaryContentConfiguration.html" title="class in io.micronaut.azure.function.http">BinaryContentConfiguration</a></div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">
+<div class="block">Bean to check if response content is binary and should be base 64 encoded.</div>
 </div>
 <div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/micronaut/azure/condition/ClientCertificateCredentialsCondition.html" title="class in io.micronaut.azure.condition">ClientCertificateCredentialsCondition</a></div>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
@@ -161,11 +153,13 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color all-classes-table all-classes-table-tab2">
 <div class="block">A custom condition that matches when the following environment variables are defined.</div>
 </div>
-<div class="col-first odd-row-color all-classes-table all-classes-table-tab2"><a href="io/micronaut/azure/function/http/HttpHandler.html" title="class in io.micronaut.azure.function.http">HttpHandler</a></div>
-<div class="col-last odd-row-color all-classes-table all-classes-table-tab2">&nbsp;</div>
-<div class="col-first even-row-color all-classes-table all-classes-table-tab1"><a href="io/micronaut/azure/function/http/HttpRequestMessageBuilder.html" title="interface in io.micronaut.azure.function.http">HttpRequestMessageBuilder</a>&lt;<a href="io/micronaut/azure/function/http/HttpRequestMessageBuilder.html" title="type parameter in HttpRequestMessageBuilder">T</a>&gt;</div>
-<div class="col-last even-row-color all-classes-table all-classes-table-tab1">
+<div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="io/micronaut/azure/function/http/HttpRequestMessageBuilder.html" title="interface in io.micronaut.azure.function.http">HttpRequestMessageBuilder</a>&lt;<a href="io/micronaut/azure/function/http/HttpRequestMessageBuilder.html" title="type parameter in HttpRequestMessageBuilder">T</a>&gt;</div>
+<div class="col-last odd-row-color all-classes-table all-classes-table-tab1">
 <div class="block">Utility interface to help with testing of Azure cloud functions.</div>
+</div>
+<div class="col-first even-row-color all-classes-table all-classes-table-tab2"><a href="io/micronaut/azure/function/http/ResponseBuilder.html" title="class in io.micronaut.azure.function.http">ResponseBuilder</a></div>
+<div class="col-last even-row-color all-classes-table all-classes-table-tab2">
+<div class="block">Response builder implementation.</div>
 </div>
 <div class="col-first odd-row-color all-classes-table all-classes-table-tab1"><a href="io/micronaut/azure/secretmanager/client/SecretKeyVaultClient.html" title="interface in io.micronaut.azure.secretmanager.client">SecretKeyVaultClient</a></div>
 <div class="col-last odd-row-color all-classes-table all-classes-table-tab1">

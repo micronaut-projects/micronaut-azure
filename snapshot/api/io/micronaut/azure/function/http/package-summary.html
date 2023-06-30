@@ -83,13 +83,13 @@ loadScripts(document, 'script');</script>
 <div class="summary-table two-column-summary" aria-labelledby="class-summary-tab0">
 <div class="table-header col-first">Class</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="AzureBinderRegistry.html" title="class in io.micronaut.azure.function.http">AzureBinderRegistry</a>&lt;T&gt;</div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="AzureCookies.html" title="class in io.micronaut.azure.function.http">AzureCookies</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
-<div class="block">Implementation of <code>ServletBinderRegistry</code> for Azure.</div>
+<div class="block">Implementation of <code>Cookies</code> for serverless.</div>
 </div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="AzureFunctionHttpRequest.html" title="class in io.micronaut.azure.function.http">AzureFunctionHttpRequest</a>&lt;B&gt;</div>
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="AzureFunctionHttpRequest.html" title="class in io.micronaut.azure.function.http">AzureFunctionHttpRequest</a>&lt;T&gt;</div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
-<div class="block">Implementation of Micronaut's request interface for Azure.</div>
+<div class="block">Servlet request implementation for Azure Functions.</div>
 </div>
 <div class="col-first even-row-color class-summary class-summary-tab2"><a href="AzureFunctionHttpResponse.html" title="class in io.micronaut.azure.function.http">AzureFunctionHttpResponse</a>&lt;B&gt;</div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
@@ -101,27 +101,21 @@ loadScripts(document, 'script');</script>
  to classes annotated with <code>Controller</code> and the others annotations in the
  <code>io.micronaut.http.annotation</code> package.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab1"><a href="AzureHttpResponseMessage.html" title="interface in io.micronaut.azure.function.http">AzureHttpResponseMessage</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab1">
-<div class="block">Extends <code>HttpResponseMessage</code> to provide a utlity method to return the body as a String.</div>
-</div>
-<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="AzureHttpResponseMessageAdapter.html" title="class in io.micronaut.azure.function.http">AzureHttpResponseMessageAdapter</a></div>
-<div class="col-last odd-row-color class-summary class-summary-tab2">
-<div class="block">Adapter between <code>HttpResponseMessage</code> and <a href="AzureHttpResponseMessage.html" title="interface in io.micronaut.azure.function.http"><code>AzureHttpResponseMessage</code></a>.</div>
-</div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="AzureServletBodyBinder.html" title="class in io.micronaut.azure.function.http">AzureServletBodyBinder</a>&lt;T&gt;</div>
+<div class="col-first even-row-color class-summary class-summary-tab2"><a href="BinaryContentConfiguration.html" title="class in io.micronaut.azure.function.http">BinaryContentConfiguration</a></div>
 <div class="col-last even-row-color class-summary class-summary-tab2">
-<div class="block">Extends the body binding abilities of <code>ServletBodyBinder</code> for Azure.</div>
+<div class="block">Bean to check if response content is binary and should be base 64 encoded.</div>
 </div>
 <div class="col-first odd-row-color class-summary class-summary-tab2"><a href="DefaultExecutionContext.html" title="class in io.micronaut.azure.function.http">DefaultExecutionContext</a></div>
 <div class="col-last odd-row-color class-summary class-summary-tab2">
 <div class="block">Default execution context impl.</div>
 </div>
-<div class="col-first even-row-color class-summary class-summary-tab2"><a href="HttpHandler.html" title="class in io.micronaut.azure.function.http">HttpHandler</a></div>
-<div class="col-last even-row-color class-summary class-summary-tab2">&nbsp;</div>
-<div class="col-first odd-row-color class-summary class-summary-tab1"><a href="HttpRequestMessageBuilder.html" title="interface in io.micronaut.azure.function.http">HttpRequestMessageBuilder</a>&lt;T&gt;</div>
-<div class="col-last odd-row-color class-summary class-summary-tab1">
+<div class="col-first even-row-color class-summary class-summary-tab1"><a href="HttpRequestMessageBuilder.html" title="interface in io.micronaut.azure.function.http">HttpRequestMessageBuilder</a>&lt;T&gt;</div>
+<div class="col-last even-row-color class-summary class-summary-tab1">
 <div class="block">Utility interface to help with testing of Azure cloud functions.</div>
+</div>
+<div class="col-first odd-row-color class-summary class-summary-tab2"><a href="ResponseBuilder.html" title="class in io.micronaut.azure.function.http">ResponseBuilder</a></div>
+<div class="col-last odd-row-color class-summary class-summary-tab2">
+<div class="block">Response builder implementation.</div>
 </div>
 </div>
 </div>

@@ -58,30 +58,17 @@ loadScripts(document, 'script');</script>
 <ul>
 <li class="circle">java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" class="type-name-link external-link" title="class or interface in java.lang">Object</a>
 <ul>
+<li class="circle">io.micronaut.azure.function.http.<a href="AzureCookies.html" class="type-name-link" title="class in io.micronaut.azure.function.http">AzureCookies</a> (implements io.micronaut.http.cookie.Cookies)</li>
 <li class="circle">io.micronaut.azure.function.<a href="../AzureFunction.html" class="type-name-link" title="class in io.micronaut.azure.function">AzureFunction</a> (implements io.micronaut.context.ApplicationContextProvider, java.io.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Closeable.html" title="class or interface in java.io" class="external-link">Closeable</a>)
 <ul>
 <li class="circle">io.micronaut.azure.function.http.<a href="AzureHttpFunction.html" class="type-name-link" title="class in io.micronaut.azure.function.http">AzureHttpFunction</a></li>
 </ul>
 </li>
-<li class="circle">io.micronaut.azure.function.http.<a href="AzureFunctionHttpRequest.html" class="type-name-link" title="class in io.micronaut.azure.function.http">AzureFunctionHttpRequest</a>&lt;B&gt; (implements io.micronaut.servlet.http.ServletExchange&lt;Req,<wbr>Res&gt;, io.micronaut.servlet.http.ServletHttpRequest&lt;N,<wbr>B&gt;)</li>
+<li class="circle">io.micronaut.azure.function.http.<a href="AzureFunctionHttpRequest.html" class="type-name-link" title="class in io.micronaut.azure.function.http">AzureFunctionHttpRequest</a>&lt;T&gt; (implements io.micronaut.http.FullHttpRequest&lt;B&gt;, io.micronaut.servlet.http.MutableServletHttpRequest&lt;N,<wbr>B&gt;, io.micronaut.servlet.http.ParsedBodyHolder&lt;B&gt;, io.micronaut.servlet.http.ServletExchange&lt;Req,<wbr>Res&gt;)</li>
 <li class="circle">io.micronaut.azure.function.http.<a href="AzureFunctionHttpResponse.html" class="type-name-link" title="class in io.micronaut.azure.function.http">AzureFunctionHttpResponse</a>&lt;B&gt; (implements io.micronaut.servlet.http.ServletHttpResponse&lt;N,<wbr>B&gt;)</li>
-<li class="circle">io.micronaut.azure.function.http.<a href="AzureHttpResponseMessageAdapter.html" class="type-name-link" title="class in io.micronaut.azure.function.http">AzureHttpResponseMessageAdapter</a> (implements io.micronaut.azure.function.http.<a href="AzureHttpResponseMessage.html" title="interface in io.micronaut.azure.function.http">AzureHttpResponseMessage</a>)</li>
+<li class="circle">io.micronaut.azure.function.http.<a href="BinaryContentConfiguration.html" class="type-name-link" title="class in io.micronaut.azure.function.http">BinaryContentConfiguration</a></li>
 <li class="circle">io.micronaut.azure.function.http.<a href="DefaultExecutionContext.html" class="type-name-link" title="class in io.micronaut.azure.function.http">DefaultExecutionContext</a> (implements com.microsoft.azure.functions.ExecutionContext)</li>
-<li class="circle">io.micronaut.servlet.http.ServletBinderRegistry&lt;T&gt; (implements io.micronaut.http.bind.RequestBinderRegistry)
-<ul>
-<li class="circle">io.micronaut.azure.function.http.<a href="AzureBinderRegistry.html" class="type-name-link" title="class in io.micronaut.azure.function.http">AzureBinderRegistry</a>&lt;T&gt;</li>
-</ul>
-</li>
-<li class="circle">io.micronaut.servlet.http.ServletBodyBinder&lt;T&gt; (implements io.micronaut.http.bind.binders.AnnotatedRequestArgumentBinder&lt;A,<wbr>T&gt;)
-<ul>
-<li class="circle">io.micronaut.azure.function.http.<a href="AzureServletBodyBinder.html" class="type-name-link" title="class in io.micronaut.azure.function.http">AzureServletBodyBinder</a>&lt;T&gt;</li>
-</ul>
-</li>
-<li class="circle">io.micronaut.servlet.http.ServletHttpHandler&lt;REQ,<wbr>RES&gt; (implements java.lang.<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/AutoCloseable.html" title="class or interface in java.lang" class="external-link">AutoCloseable</a>, io.micronaut.context.LifeCycle&lt;T&gt;)
-<ul>
-<li class="circle">io.micronaut.azure.function.http.<a href="HttpHandler.html" class="type-name-link" title="class in io.micronaut.azure.function.http">HttpHandler</a></li>
-</ul>
-</li>
+<li class="circle">io.micronaut.azure.function.http.<a href="ResponseBuilder.html" class="type-name-link" title="class in io.micronaut.azure.function.http">ResponseBuilder</a> (implements io.micronaut.http.HttpHeaders, com.microsoft.azure.functions.HttpResponseMessage, com.microsoft.azure.functions.HttpResponseMessage.Builder)</li>
 </ul>
 </li>
 </ul>
@@ -90,11 +77,6 @@ loadScripts(document, 'script');</script>
 <h2 title="Interface Hierarchy">Interface Hierarchy</h2>
 <ul>
 <li class="circle">io.micronaut.azure.function.http.<a href="HttpRequestMessageBuilder.html" class="type-name-link" title="interface in io.micronaut.azure.function.http">HttpRequestMessageBuilder</a>&lt;T&gt;</li>
-<li class="circle">com.microsoft.azure.functions.HttpResponseMessage
-<ul>
-<li class="circle">io.micronaut.azure.function.http.<a href="AzureHttpResponseMessage.html" class="type-name-link" title="interface in io.micronaut.azure.function.http">AzureHttpResponseMessage</a></li>
-</ul>
-</li>
 </ul>
 </section>
 </main>
