@@ -11,7 +11,7 @@ testcontainers = "1.18.3"
 
 # Micronaut
 micronaut = "4.0.0-RC5"
-micronaut-logging = "1.0.0-M5"
+micronaut-logging = "1.0.0-M6"
 micronaut-reactor = "3.0.0-M10"
 micronaut-serde = "2.0.0-M13"
 micronaut-servlet = "4.0.0-M11"
