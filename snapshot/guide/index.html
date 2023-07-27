@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <title>Micronaut Azure</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
     <link rel="stylesheet" href="../css/custom.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
@@ -47,17 +48,21 @@
                                 
                                 <div class="toc-item" style="margin-left:0"><a href="#releaseHistory"><strong>2</strong><span>Release History</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#azureSdk"><strong>3</strong><span>Azure SDK</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#whatsNew"><strong>3</strong><span>What's new?</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#azureFunction"><strong>4</strong><span>Azure Function Support</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#breaks"><strong>4</strong><span>Breaking Changes</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#azureKeyVault"><strong>5</strong><span>Azure Key Vault Support</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#azureSdk"><strong>5</strong><span>Azure SDK</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#azureBlobStorage"><strong>6</strong><span>Azure Blog Storage Support</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#azureFunction"><strong>6</strong><span>Azure Function Support</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#azureCosmosClient"><strong>7</strong><span>Azure Cosmos Client</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#azureKeyVault"><strong>7</strong><span>Azure Key Vault Support</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>8</strong><span>Repository</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#azureBlobStorage"><strong>8</strong><span>Azure Blob Storage Support</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#azureCosmosClient"><strong>9</strong><span>Azure Cosmos Client</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>10</strong><span>Repository</span></a></div>
                                 
                             </div>
                         </div>
@@ -92,29 +97,35 @@
         
         <div class="toc-item" style="margin-left:0px" id="toc-item-releaseHistory"><a href="#releaseHistory"><strong>2</strong><span>Release History</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-azureSdk"><a href="#azureSdk"><strong>3</strong><span>Azure SDK</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-whatsNew"><a href="#whatsNew"><strong>3</strong><span>What's new?</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-credentials"><a href="#credentials"><strong>3.1</strong><span>Authentication</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-breaks"><a href="#breaks"><strong>4</strong><span>Breaking Changes</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-client"><a href="#client"><strong>3.2</strong><span>Client</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-azureSdk"><a href="#azureSdk"><strong>5</strong><span>Azure SDK</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-azureFunction"><a href="#azureFunction"><strong>4</strong><span>Azure Function Support</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-credentials"><a href="#credentials"><strong>5.1</strong><span>Authentication</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-simpleAzureFunctions"><a href="#simpleAzureFunctions"><strong>4.1</strong><span>Simple Azure Functions</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-client"><a href="#client"><strong>5.2</strong><span>Client</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-azureHttpFunctions"><a href="#azureHttpFunctions"><strong>4.2</strong><span>Azure HTTP Functions</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-azureFunction"><a href="#azureFunction"><strong>6</strong><span>Azure Function Support</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-azureKeyVault"><a href="#azureKeyVault"><strong>5</strong><span>Azure Key Vault Support</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-simpleAzureFunctions"><a href="#simpleAzureFunctions"><strong>6.1</strong><span>Simple Azure Functions</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-distributedConfiguration"><a href="#distributedConfiguration"><strong>5.1</strong><span>Distributed Configuration</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-azureHttpFunctions"><a href="#azureHttpFunctions"><strong>6.2</strong><span>Azure HTTP Functions</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-azureBlobStorage"><a href="#azureBlobStorage"><strong>6</strong><span>Azure Blog Storage Support</span></a></div>
+        <div class="toc-item" style="margin-left:20px" id="toc-item-routePrefix"><a href="#routePrefix"><strong>6.2.1</strong><span>Function Route Prefix</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-azureCosmosClient"><a href="#azureCosmosClient"><strong>7</strong><span>Azure Cosmos Client</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-azureKeyVault"><a href="#azureKeyVault"><strong>7</strong><span>Azure Key Vault Support</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-azureCosmosClientConfiguration"><a href="#azureCosmosClientConfiguration"><strong>7.1</strong><span>Configuration</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-distributedConfiguration"><a href="#distributedConfiguration"><strong>7.1</strong><span>Distributed Configuration</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>8</strong><span>Repository</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-azureBlobStorage"><a href="#azureBlobStorage"><strong>8</strong><span>Azure Blob Storage Support</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-azureCosmosClient"><a href="#azureCosmosClient"><strong>9</strong><span>Azure Cosmos Client</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-azureCosmosClientConfiguration"><a href="#azureCosmosClientConfiguration"><strong>9.1</strong><span>Configuration</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>10</strong><span>Repository</span></a></div>
         
         </div>
     </div>
@@ -124,13 +135,13 @@
         <h1>Micronaut Azure</h1>
         <p></p>
         <p>Micronaut projects for Microsoft Azure</p>
-        <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option selected='selected' value='https://micronaut-projects.github.io/micronaut-azure/snapshot/guide/index.html'>SNAPSHOT</option><option value='https://micronaut-projects.github.io/micronaut-azure/latest/guide/index.html'>LATEST</option><option value='https://micronaut-projects.github.io/micronaut-azure/5.0.1/guide/index.html'>5.0.1</option><option value='https://micronaut-projects.github.io/micronaut-azure/5.0.0/guide/index.html'>5.0.0</option><option value='https://micronaut-projects.github.io/micronaut-azure/5.0.0-M8/guide/index.html'>5.0.0-M8</option><option value='https://micronaut-projects.github.io/micronaut-azure/5.0.0-M7/guide/index.html'>5.0.0-M7</option><option value='https://micronaut-projects.github.io/micronaut-azure/5.0.0-M6/guide/index.html'>5.0.0-M6</option><option value='https://micronaut-projects.github.io/micronaut-azure/5.0.0-M5/guide/index.html'>5.0.0-M5</option><option value='https://micronaut-projects.github.io/micronaut-azure/5.0.0-M4/guide/index.html'>5.0.0-M4</option><option value='https://micronaut-projects.github.io/micronaut-azure/5.0.0-M3/guide/index.html'>5.0.0-M3</option><option value='https://micronaut-projects.github.io/micronaut-azure/5.0.0-M2/guide/index.html'>5.0.0-M2</option><option value='https://micronaut-projects.github.io/micronaut-azure/5.0.0-M1/guide/index.html'>5.0.0-M1</option><option value='https://micronaut-projects.github.io/micronaut-azure/4.1.1/guide/index.html'>4.1.1</option><option value='https://micronaut-projects.github.io/micronaut-azure/4.1.0/guide/index.html'>4.1.0</option><option value='https://micronaut-projects.github.io/micronaut-azure/4.0.2/guide/index.html'>4.0.2</option><option value='https://micronaut-projects.github.io/micronaut-azure/4.0.1/guide/index.html'>4.0.1</option><option value='https://micronaut-projects.github.io/micronaut-azure/4.0.0/guide/index.html'>4.0.0</option><option value='https://micronaut-projects.github.io/micronaut-azure/3.10.0/guide/index.html'>3.10.0</option><option value='https://micronaut-projects.github.io/micronaut-azure/3.9.1/guide/index.html'>3.9.1</option><option value='https://micronaut-projects.github.io/micronaut-azure/3.9.0/guide/index.html'>3.9.0</option><option value='https://micronaut-projects.github.io/micronaut-azure/3.8.1/guide/index.html'>3.8.1</option><option value='https://micronaut-projects.github.io/micronaut-azure/3.8.0/guide/index.html'>3.8.0</option><option value='https://micronaut-projects.github.io/micronaut-azure/3.7.1/guide/index.html'>3.7.1</option><option value='https://micronaut-projects.github.io/micronaut-azure/3.7.0/guide/index.html'>3.7.0</option><option value='https://micronaut-projects.github.io/micronaut-azure/3.6.0/guide/index.html'>3.6.0</option><option value='https://micronaut-projects.github.io/micronaut-azure/3.5.0/guide/index.html'>3.5.0</option><option value='https://micronaut-projects.github.io/micronaut-azure/3.4.0/guide/index.html'>3.4.0</option><option value='https://micronaut-projects.github.io/micronaut-azure/3.3.0/guide/index.html'>3.3.0</option><option value='https://micronaut-projects.github.io/micronaut-azure/3.2.3/guide/index.html'>3.2.3</option><option value='https://micronaut-projects.github.io/micronaut-azure/3.2.2/guide/index.html'>3.2.2</option><option value='https://micronaut-projects.github.io/micronaut-azure/3.2.1/guide/index.html'>3.2.1</option><option value='https://micronaut-projects.github.io/micronaut-azure/3.2.0/guide/index.html'>3.2.0</option></select> </p>
+        <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option selected='selected' value='https://micronaut-projects.github.io/micronaut-azure/snapshot/guide/index.html'>SNAPSHOT</option><option value='https://micronaut-projects.github.io/micronaut-azure/latest/guide/index.html'>LATEST</option></select> </p>
     </div>
     
 <h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/4.2.x/src/main/docs/guide/introduction.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/introduction.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -143,7 +154,7 @@
 <h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>2 Release History</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/4.2.x/src/main/docs/guide/releaseHistory.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/releaseHistory.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -156,10 +167,40 @@
 <p><a href="https://github.com/micronaut-projects/micronaut-azure/releases">https://github.com/micronaut-projects/micronaut-azure/releases</a></p>
 </div>
 
-<h1 id="azureSdk"><a class="anchor" href="#azureSdk"></a>3 Azure SDK</h1>
+<h1 id="whatsNew"><a class="anchor" href="#whatsNew"></a>3 What's new?</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/4.2.x/src/main/docs/guide/azureSdk.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/whatsNew.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="ulist">
+<ul>
+<li>
+<p>Micronaut Azure HTTP Functions pass the Micronaut HTTP Server TCK (Test Compatibility Kit). You can write your code as if you target the Netty runtime but deploy it as an <a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-http-webhook-trigger">Azure Function with an HTTP trigger</a>.</p>
+</li>
+</ul>
+</div>
+
+<h1 id="breaks"><a class="anchor" href="#breaks"></a>4 Breaking Changes</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/breaks.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p><a href="#routePrefix">Micronaut Azure HTTP Functions expect you remove the route prefix <code>api</code></a>.</p>
+</div>
+
+<h1 id="azureSdk"><a class="anchor" href="#azureSdk"></a>5 Azure SDK</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureSdk.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -175,7 +216,7 @@
 <p>        <div class="listingblock multi-language-sample">
 <div class="title"></div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.azure:micronaut-azure-sdk:4.2.0-SNAPSHOT")</span></code></pre>
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.azure:micronaut-azure-sdk")</span></code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -183,16 +224,15 @@
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
     &lt;groupId&gt;io.micronaut.azure&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-azure-sdk&lt;/artifactId&gt;
-    &lt;version&gt;4.2.0-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div></p>
 </div>
 
-<h2 id="credentials"><a class="anchor" href="#credentials"></a>3.1 Authentication</h2>
+<h2 id="credentials"><a class="anchor" href="#credentials"></a>5.1 Authentication</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/4.2.x/src/main/docs/guide/azureSdk/credentials.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureSdk/credentials.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1020,10 +1060,10 @@ azure.credential.storage-shared-key.account-key=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1
 </div>
 </div>
 
-<h2 id="client"><a class="anchor" href="#client"></a>3.2 Client</h2>
+<h2 id="client"><a class="anchor" href="#client"></a>5.2 Client</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/4.2.x/src/main/docs/guide/azureSdk/client.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureSdk/client.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1064,10 +1104,10 @@ public class BlobServiceFactory {  // <b class="conum">(1)</b>
 </table>
 </div>
 
-<h1 id="azureFunction"><a class="anchor" href="#azureFunction"></a>4 Azure Function Support</h1>
+<h1 id="azureFunction"><a class="anchor" href="#azureFunction"></a>6 Azure Function Support</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/4.2.x/src/main/docs/guide/azureFunction.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureFunction.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1077,10 +1117,10 @@ public class BlobServiceFactory {  // <b class="conum">(1)</b>
 <p>The Azure function module provides support for writing Serverless functions with Micronaut that target the Azure Function environment.</p>
 </div>
 
-<h2 id="simpleAzureFunctions"><a class="anchor" href="#simpleAzureFunctions"></a>4.1 Simple Azure Functions</h2>
+<h2 id="simpleAzureFunctions"><a class="anchor" href="#simpleAzureFunctions"></a>6.1 Simple Azure Functions</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/4.2.x/src/main/docs/guide/azureFunction/simpleAzureFunctions.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureFunction/simpleAzureFunctions.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1099,7 +1139,7 @@ public class BlobServiceFactory {  // <b class="conum">(1)</b>
 <p>        <div class="listingblock multi-language-sample">
 <div class="title"></div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.azure:micronaut-azure-function:4.2.0-SNAPSHOT")</span></code></pre>
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.azure:micronaut-azure-function")</span></code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -1107,7 +1147,6 @@ public class BlobServiceFactory {  // <b class="conum">(1)</b>
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
     &lt;groupId&gt;io.micronaut.azure&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-azure-function&lt;/artifactId&gt;
-    &lt;version&gt;4.2.0-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div></p>
@@ -1259,10 +1298,10 @@ class BlobFunction : AzureFunction() { // <b class="conum">(1)</b>
 </table>
 </div>
 
-<h2 id="azureHttpFunctions"><a class="anchor" href="#azureHttpFunctions"></a>4.2 Azure HTTP Functions</h2>
+<h2 id="azureHttpFunctions"><a class="anchor" href="#azureHttpFunctions"></a>6.2 Azure HTTP Functions</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/4.2.x/src/main/docs/guide/azureFunction/azureHttpFunctions.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureFunction/azureHttpFunctions.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1275,7 +1314,7 @@ class BlobFunction : AzureFunction() { // <b class="conum">(1)</b>
 <p>        <div class="listingblock multi-language-sample">
 <div class="title"></div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.microaut.azure:micronaut-azure-function-http:4.2.0-SNAPSHOT")</span></code></pre>
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.microaut.azure:micronaut-azure-function-http")</span></code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -1283,7 +1322,6 @@ class BlobFunction : AzureFunction() { // <b class="conum">(1)</b>
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
     &lt;groupId&gt;io.microaut.azure&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-azure-function-http&lt;/artifactId&gt;
-    &lt;version&gt;4.2.0-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div></p>
@@ -1417,10 +1455,64 @@ class MyHttpFunction : AzureHttpFunction() { // <b class="conum">(1)</b>
 <p>This approach allows you to develop a regular Micronaut application and deploy slices of the application as Serverless functions as desired.</p>
 </div>
 
-<h1 id="azureKeyVault"><a class="anchor" href="#azureKeyVault"></a>5 Azure Key Vault Support</h1>
+<h2 id="routePrefix"><a class="anchor" href="#routePrefix"></a>6.2.1 Function Route Prefix</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/4.2.x/src/main/docs/guide/azureKeyVault.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureFunction/azureHttpFunctions/routePrefix.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+When you use Micronaut Azure HTTP Functions, you need to remove the api route prefix. You can set the property <code>micronaut.server.context-path</code> to achieve a route prefix.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><a href="https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-http-webhook-trigger">Azure Functions HTTP Trigger</a></p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>By default, all function routes are prefixed with <em>api</em>. You can also customize or remove the prefix using the extensions.http.routePrefix property in your host.json file. The following example removes the api route prefix by using an empty string for the prefix in the <em>host.json</em> file.</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p>For example, by defining a <code>hosts.json</code> file such as:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+    "version": "2.0",
+    "extensionBundle": {
+        "id": "Microsoft.Azure.Functions.ExtensionBundle",
+        "version": "[2.*, 3.0.0)"
+    },
+    "extensions": {
+        "http": {
+           "routePrefix": ""
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Micronaut CLI and <a href="https://micronaut.io/launch?type=DEFAULT&amp;features=azure-function">[Micronaut Launch</a> generate a <code>hosts.json</code> with the necessary configuration if you select the <code>azure-function</code> feature.</p>
+</div>
+
+<h1 id="azureKeyVault"><a class="anchor" href="#azureKeyVault"></a>7 Azure Key Vault Support</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureKeyVault.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1459,10 +1551,10 @@ Azure doesn&#8217;t allow _ and . in name of the secrets so the secret with name
 </table>
 </div>
 
-<h2 id="distributedConfiguration"><a class="anchor" href="#distributedConfiguration"></a>5.1 Distributed Configuration</h2>
+<h2 id="distributedConfiguration"><a class="anchor" href="#distributedConfiguration"></a>7.1 Distributed Configuration</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/4.2.x/src/main/docs/guide/azureKeyVault/distributedConfiguration.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureKeyVault/distributedConfiguration.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1587,10 +1679,10 @@ And that the service account you designated your application has proper rights t
 </table>
 </div>
 
-<h1 id="azureBlobStorage"><a class="anchor" href="#azureBlobStorage"></a>6 Azure Blog Storage Support</h1>
+<h1 id="azureBlobStorage"><a class="anchor" href="#azureBlobStorage"></a>8 Azure Blob Storage Support</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/4.2.x/src/main/docs/guide/azureBlobStorage.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureBlobStorage.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1622,10 +1714,10 @@ And that the service account you designated your application has proper rights t
 <p>For more information, check the <a href="https://micronaut-projects.github.io/micronaut-object-storage/latest/guide/#azure">Micronaut Object Storage Azure support</a> documentation.</p>
 </div>
 
-<h1 id="azureCosmosClient"><a class="anchor" href="#azureCosmosClient"></a>7 Azure Cosmos Client</h1>
+<h1 id="azureCosmosClient"><a class="anchor" href="#azureCosmosClient"></a>9 Azure Cosmos Client</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/4.2.x/src/main/docs/guide/azureCosmosClient.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureCosmosClient.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1652,10 +1744,10 @@ And that the service account you designated your application has proper rights t
 </div></p>
 </div>
 
-<h2 id="azureCosmosClientConfiguration"><a class="anchor" href="#azureCosmosClientConfiguration"></a>7.1 Configuration</h2>
+<h2 id="azureCosmosClientConfiguration"><a class="anchor" href="#azureCosmosClientConfiguration"></a>9.1 Configuration</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/4.2.x/src/main/docs/guide/azureCosmosClient/azureCosmosClientConfiguration.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureCosmosClient/azureCosmosClientConfiguration.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1768,10 +1860,10 @@ azure {
 <p><a href="https://docs.microsoft.com/en-us/java/api/com.azure.cosmos.cosmosclientbuilder?view=azure-java-stable">CosmosClientBuilder</a> will be available also when dependencies and configuration are added to the project.</p>
 </div>
 
-<h1 id="repository"><a class="anchor" href="#repository"></a>8 Repository</h1>
+<h1 id="repository"><a class="anchor" href="#repository"></a>10 Repository</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/4.2.x/src/main/docs/guide/repository.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/repository.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
