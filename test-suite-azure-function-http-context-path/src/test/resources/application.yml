@@ -1,0 +1,5 @@
+micronaut:
+  application:
+    name: demo
+  server:
+    context-path: /test
