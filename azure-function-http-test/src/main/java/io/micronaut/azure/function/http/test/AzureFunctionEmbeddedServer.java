@@ -149,6 +149,7 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
     public EmbeddedServer stop() {
         if (running.compareAndSet(true, false)) {
             try {
+                applicationContext.stop();
                 server.stop();
             } catch (Exception e) {
                 // ignore / unrecoverable
