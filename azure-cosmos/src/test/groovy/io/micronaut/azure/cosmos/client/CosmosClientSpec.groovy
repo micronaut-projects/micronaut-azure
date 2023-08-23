@@ -19,7 +19,7 @@ import spock.lang.Shared
 import spock.lang.Specification
 
 @Requires({ DockerClientFactory.instance().isDockerAvailable() })
-@IgnoreIf({ env["GITHUB_WORKFLOW"] })
+@IgnoreIf(value = { env["GITHUB_WORKFLOW"] }, reason = "https://github.com/Azure/azure-cosmos-db-emulator-docker/issues/56")
 class CosmosClientSpec extends Specification implements AzureCosmosTestProperties {
 
     @AutoCleanup
