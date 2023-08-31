@@ -7,14 +7,21 @@ import org.testcontainers.utility.DockerImageName
 import java.nio.file.Files
 import java.nio.file.Path
 import java.security.KeyStore
+import java.time.Duration
 
 trait AzureCosmosTestProperties implements TestPropertyProvider {
+
+    private static final String PARTITION_COUNT_PROP = "AZURE_COSMOS_EMULATOR_PARTITION_COUNT"
+    // This will create 2 partitions, by default it creates 11 and we don't need that much
+    // and it prolongs startup time which can cause test to fail intermittently
+    private static final String PARTITION_COUNT_VAL = "1"
+    private static final Duration STARTUP_TIMEOUT = Duration.ofMinutes(3)
 
     @Override
     Map<String, String> getProperties() {
         CosmosDBEmulatorContainer emulator = new CosmosDBEmulatorContainer(
-                DockerImageName.parse("mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:latest")
-        )
+                DockerImageName.parse("mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator")
+        ).withEnv(PARTITION_COUNT_PROP, PARTITION_COUNT_VAL).withStartupTimeout(STARTUP_TIMEOUT)
         emulator.start()
         Path keyStoreFile = Files.createTempFile("azure-cosmos-emulator", ".keystore")
         KeyStore keyStore = emulator.buildNewKeyStore()
