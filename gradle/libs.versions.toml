@@ -21,7 +21,7 @@ micronaut-validation = "4.0.1"
 micronaut-gradle-plugin = "4.0.2"
 
 micronaut-docs = "2.0.0"
-groovy = "4.0.13"
+groovy = "4.0.15"
 spock = "2.3-groovy-4.0"
 
 [libraries]
