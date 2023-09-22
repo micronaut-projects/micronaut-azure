@@ -14,6 +14,8 @@ snippet::example.MyHttpFunction[project-base="doc-examples/example", indent="0"]
 <6> The received request optionally contains the raw bytes
 <7> The body of the method should just invoke the `route` method of the super implementation.
 
+NOTE: The example also illustrates that you can bind to Micronaut Azure HTTP functions the Microsoft Azure types https://docs.microsoft.com/en-us/java/api/com.microsoft.azure.functions.executioncontext?view=azure-java-stable[ExecutionContext], https://docs.microsoft.com/en-us/java/api/com.microsoft.azure.functions.httprequestmessage?view=azure-java-stable[HttpRequestMessage] and https://docs.microsoft.com/en-us/java/api/com.microsoft.azure.functions.tracecontext?view=azure-java-stable[TraceContext]. If you are already binding `ExecutionContext`– as in the example – the host tracing context can be obtained from the bean with a method call to https://docs.microsoft.com/en-us/java/api/com.microsoft.azure.functions.executioncontext?view=azure-java-stable#com-microsoft-azure-functions-tracecontext-gettracestate()[getTraceContext()].
+
 With this in place you can write regular Micronaut controllers as documented in the https://docs.micronaut.io/latest/guide/index.html#httpServer[user guide] for the HTTP server and incoming function requests will be routed to the controllers and executed.
 
 This approach allows you to develop a regular Micronaut application and deploy slices of the application as Serverless functions as desired.
