@@ -12,7 +12,7 @@ import static com.azure.core.util.Configuration.PROPERTY_AZURE_TENANT_ID
 import static com.azure.core.util.Configuration.PROPERTY_AZURE_USERNAME
 import static com.github.stefanbirkner.systemlambda.SystemLambda.withEnvironmentVariable
 
-@IgnoreIf({ jvm.java17 })
+@IgnoreIf({ sys['java.version'] >= '1.9' })
 class EnvironmentCredentialsConditionSpec extends Specification{
 
     void "condition doesn't match without variables"() {

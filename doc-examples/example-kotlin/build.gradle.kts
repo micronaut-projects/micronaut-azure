@@ -6,3 +6,9 @@ dependencies {
     testImplementation(projects.micronautAzureFunctionHttp)
     testImplementation(libs.managed.azure.functions.java.library)
 }
+
+kotlin {
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
