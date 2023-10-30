@@ -5,7 +5,7 @@ managed-azure-cosmos = "4.48.1"
 
 jakarta-inject-api = "2.0.1"
 jetty-server = "11.0.15"
-kotlin = "1.9.10"
+kotlin = "1.9.20"
 system-lambda = "1.2.1"
 testcontainers = "1.18.3"
 
