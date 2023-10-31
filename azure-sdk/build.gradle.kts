@@ -14,3 +14,8 @@ dependencies {
     testImplementation(libs.system.lambda)
     testRuntimeOnly(libs.azure.storage.common)
 }
+
+tasks.withType(Test::class) {
+    // required for SystemLambda
+    jvmArgs = listOf("--add-opens", "java.base/java.util=ALL-UNNAMED")
+}
