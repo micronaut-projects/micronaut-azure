@@ -21,7 +21,6 @@ import io.micronaut.core.annotation.Internal;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 /**
@@ -34,7 +33,7 @@ public class DefaultExecutionContext implements ExecutionContext {
 
     @Override
     public Logger getLogger() {
-        return LogManager.getLogManager().getLogger(DefaultHttpRequestMessageBuilder.class.getName());
+        return Logger.getLogger(DefaultExecutionContext.class.getName());
     }
 
     @Override
