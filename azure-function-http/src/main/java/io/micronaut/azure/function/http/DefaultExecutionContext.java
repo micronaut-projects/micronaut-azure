@@ -16,8 +16,11 @@
 package io.micronaut.azure.function.http;
 
 import com.microsoft.azure.functions.ExecutionContext;
+import com.microsoft.azure.functions.TraceContext;
 import io.micronaut.core.annotation.Internal;
 
+import java.util.Collections;
+import java.util.Map;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
@@ -42,5 +45,25 @@ public class DefaultExecutionContext implements ExecutionContext {
     @Override
     public String getFunctionName() {
         return "io.micronaut.azure.function.http.AzureHttpFunction";
+    }
+
+    @Override
+    public TraceContext getTraceContext() {
+        return new TraceContext() {
+            @Override
+            public String getTraceparent() {
+                return null;
+            }
+
+            @Override
+            public String getTracestate() {
+                return null;
+            }
+
+            @Override
+            public Map<String, String> getAttributes() {
+                return Collections.emptyMap();
+            }
+        };
     }
 }
