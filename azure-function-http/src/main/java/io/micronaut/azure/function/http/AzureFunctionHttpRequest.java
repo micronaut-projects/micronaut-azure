@@ -110,7 +110,7 @@ public final class AzureFunctionHttpRequest<T> implements
         this.binaryContentConfiguration = binaryContentConfiguration;
         this.requestEvent = request;
         this.response = response;
-        this.uri = URI.create(requestEvent.getUri().getPath());
+        this.uri = requestEvent.getUri();
         this.httpMethod = parseMethod(requestEvent.getHttpMethod()::name);
         this.body = SupplierUtil.memoizedNonEmpty(() -> {
             T built = parsedBody != null ? parsedBody :  (T) bodyBuilder.buildBody(this::getInputStream, this);

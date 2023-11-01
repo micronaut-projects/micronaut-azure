@@ -235,7 +235,7 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
         public void handle(String target, Request baseRequest, HttpServletRequest request, HttpServletResponse response) throws IOException {
             HttpRequestMessageBuilder<Object> requestMessageBuilder = HttpRequestMessageBuilder.builder(
                     com.microsoft.azure.functions.HttpMethod.value(request.getMethod()),
-                    request.getRequestURI(),
+                    baseRequest.getOriginalURI(),
                     httpHandler.getApplicationContext()
             );
 
