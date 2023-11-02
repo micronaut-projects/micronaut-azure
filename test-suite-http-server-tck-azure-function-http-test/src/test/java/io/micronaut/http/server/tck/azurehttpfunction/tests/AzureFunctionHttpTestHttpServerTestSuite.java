@@ -7,8 +7,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 
 @Suite
 @ExcludeClassNamePatterns({
-        "io.micronaut.http.server.tck.tests.RequestUriContainsQueryValueTest",
-        "io.micronaut.http.server.tck.tests.RequestUriTest",
         "io.micronaut.http.server.tck.tests.FilterProxyTest",
         "io.micronaut.http.server.tck.tests.HeadersTest"
 })
