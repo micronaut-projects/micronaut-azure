@@ -89,11 +89,10 @@ class AzureBinderRegistry<T> extends ServletBinderRegistry<T> {
             @Override
             public BindingResult<Logger> bind(
                 ArgumentConversionContext<Logger> context, HttpRequest<?> source) {
-                if (source instanceof AzureFunctionHttpRequest<?> req) {
+                if (source instanceof AzureFunctionHttpRequest<?> req && req.getExecutionContext() != null && req.getExecutionContext().getLogger() != null) {
                     return () -> Optional.of(req.getExecutionContext().getLogger());
-                } else {
-                    return BindingResult.EMPTY;
                 }
+                return BindingResult.EMPTY;
             }
 
             @Override

@@ -1,7 +1,9 @@
 package io.micronaut.azure.function.http
 
 import com.microsoft.azure.functions.HttpMethod
+import com.microsoft.azure.functions.HttpRequestMessage
 import com.microsoft.azure.functions.HttpResponseMessage
+import com.microsoft.azure.functions.HttpStatusType
 import io.micronaut.http.HttpHeaders
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
@@ -108,6 +110,51 @@ class ParameterBindingSpec extends Specification {
         responseMessage.body == 'Good'
         responseMessage.statusCode == HttpStatus.ACCEPTED.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.TEXT_PLAIN
+
+        cleanup:
+        function.close()
+    }
+
+    void "ExecutionContext can be bound as a controller method parameter"() {
+        given:
+        AzureHttpFunction function = new AzureHttpFunction()
+
+        HttpRequestMessage<Optional<String>> request = createHttpRequestMessage("/parameters/executionContext")
+        HttpResponseMessage responseMessage = function
+                .route(request, new DefaultExecutionContext())
+
+        expect:
+        responseMessage.statusCode == HttpStatus.OK.code
+
+        cleanup:
+        function.close()
+    }
+
+    void "TraceContext can be bound as a controller method parameter"() {
+        given:
+        AzureHttpFunction function = new AzureHttpFunction()
+
+        HttpRequestMessage<Optional<String>> request = createHttpRequestMessage("/parameters/traceContext")
+        HttpResponseMessage responseMessage = function
+                .route(request, new DefaultExecutionContext())
+
+        expect:
+        responseMessage.statusCode == HttpStatus.OK.code
+
+        cleanup:
+        function.close()
+    }
+
+    void "java.util.logging.Logger can be bound as a controller method parameter"() {
+        given:
+        AzureHttpFunction function = new AzureHttpFunction()
+
+        HttpRequestMessage<Optional<String>> request = createHttpRequestMessage("/parameters/loggerBinding")
+        HttpResponseMessage responseMessage = function
+                .route(request, new DefaultExecutionContext())
+
+        expect:
+        responseMessage.statusCode == HttpStatus.OK.code
 
         cleanup:
         function.close()
@@ -266,4 +313,44 @@ class ParameterBindingSpec extends Specification {
 //        googleResponse.text == 'Good: true'
 //
 //    }
+
+
+    private HttpRequestMessage<Optional<String>> createHttpRequestMessage(String path) {
+        return new HttpRequestMessage<Optional<String>>() {
+            @Override
+            URI getUri() {
+                return URI.create(path);
+            }
+
+            @Override
+            HttpMethod getHttpMethod() {
+                return HttpMethod.GET;
+            }
+
+            @Override
+            Map<String, String> getHeaders() {
+                return Collections.emptyMap();
+            }
+
+            @Override
+            Map<String, String> getQueryParameters() {
+                return Collections.emptyMap();
+            }
+
+            @Override
+            Optional<String> getBody() {
+                return Optional.empty();
+            }
+
+            @Override
+            HttpResponseMessage.Builder createResponseBuilder(com.microsoft.azure.functions.HttpStatus status) {
+                return new ResponseBuilder().status(status);
+            }
+
+            @Override
+            HttpResponseMessage.Builder createResponseBuilder(HttpStatusType status) {
+                return new ResponseBuilder().status(status);
+            }
+        }
+    }
 }

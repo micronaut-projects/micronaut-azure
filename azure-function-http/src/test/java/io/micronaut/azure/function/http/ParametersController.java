@@ -1,10 +1,9 @@
 package io.micronaut.azure.function.http;
 
-import com.microsoft.azure.functions.HttpRequestMessage;
-import com.microsoft.azure.functions.HttpResponseMessage;
-import com.microsoft.azure.functions.HttpStatusType;
+import com.microsoft.azure.functions.*;
 import io.micronaut.core.io.Writable;
 import io.micronaut.http.*;
+import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
 import io.micronaut.http.cookie.Cookie;
 
@@ -49,6 +48,24 @@ public class ParametersController {
         builder.status(HttpStatusType.custom(HttpStatus.ACCEPTED.getCode()));
         builder.body("Good");
         return builder.build();
+    }
+
+    @Get("/executionContext")
+    @Status(HttpStatus.OK)
+    void executionContextBinding(
+            ExecutionContext executionContext) throws IOException {
+    }
+
+    @Get("/traceContext")
+    @Status(HttpStatus.OK)
+    void traceContextBinding(
+            TraceContext traceContext) throws IOException {
+    }
+
+    @Get("/loggerBinding")
+    @Status(HttpStatus.OK)
+    void loggerBinding(
+            java.util.logging.Logger logger) throws IOException {
     }
 
     @Post("/stringBody")

@@ -1,0 +1,6 @@
+You can bind the following types as a controller method's parameters.
+
+* `com.microsoft.azure.functions.ExecutionContext`
+* `com.microsoft.azure.functions.HttpRequestMessage`
+* `com.microsoft.azure.functions.TraceContext`
+* `java.util.logging.Logger`

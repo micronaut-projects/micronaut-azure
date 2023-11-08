@@ -14,6 +14,7 @@ azureFunction:
   azureHttpFunctions:
     title: Azure HTTP Functions
     routePrefix: Function Route Prefix
+    controllerMethodParameters: Access the ExecutionContext
 azureKeyVault:
   title: Azure Key Vault Support
   distributedConfiguration: Distributed Configuration
