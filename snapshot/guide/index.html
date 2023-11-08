@@ -115,6 +115,8 @@
         
         <div class="toc-item" style="margin-left:20px" id="toc-item-routePrefix"><a href="#routePrefix"><strong>6.2.1</strong><span>Function Route Prefix</span></a></div>
         
+        <div class="toc-item" style="margin-left:20px" id="toc-item-controllerMethodParameters"><a href="#controllerMethodParameters"><strong>6.2.2</strong><span>Access the ExecutionContext</span></a></div>
+        
         <div class="toc-item" style="margin-left:0px" id="toc-item-azureKeyVault"><a href="#azureKeyVault"><strong>7</strong><span>Azure Key Vault Support</span></a></div>
         
         <div class="toc-item" style="margin-left:10px" id="toc-item-distributedConfiguration"><a href="#distributedConfiguration"><strong>7.1</strong><span>Distributed Configuration</span></a></div>
@@ -1507,6 +1509,35 @@ When you use Micronaut Azure HTTP Functions, you need to remove the api route pr
 </div>
 <div class="paragraph">
 <p>Micronaut CLI and <a href="https://micronaut.io/launch?type=DEFAULT&amp;features=azure-function">[Micronaut Launch</a> generate a <code>hosts.json</code> with the necessary configuration if you select the <code>azure-function</code> feature.</p>
+</div>
+
+<h2 id="controllerMethodParameters"><a class="anchor" href="#controllerMethodParameters"></a>6.2.2 Access the ExecutionContext</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureFunction/azureHttpFunctions/controllerMethodParameters.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>You can bind the following types as a controller method&#8217;s parameters.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>com.microsoft.azure.functions.ExecutionContext</code></p>
+</li>
+<li>
+<p><code>com.microsoft.azure.functions.HttpRequestMessage</code></p>
+</li>
+<li>
+<p><code>com.microsoft.azure.functions.TraceContext</code></p>
+</li>
+<li>
+<p><code>java.util.logging.Logger</code></p>
+</li>
+</ul>
 </div>
 
 <h1 id="azureKeyVault"><a class="anchor" href="#azureKeyVault"></a>7 Azure Key Vault Support</h1>
