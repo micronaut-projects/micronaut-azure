@@ -37,6 +37,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * TODO: Write JavaDoc
@@ -51,36 +52,33 @@ public final class AzureRequestEventFactory {
 
     @NonNull
     public static HttpRequestMessage<Optional<String>> create(@NonNull HttpRequest<?> request, JsonMapper jsonMapper) {
-        Map<String, String> headers = new LinkedHashMap<>();
         Map<String, List<String>> multiHeaders = new LinkedHashMap<>();
         request.getHeaders().forEach((name, values) -> {
-            if (values.size() > 1) {
-                multiHeaders.put(name, values);
-            } else {
-                headers.put(name, values.get(0));
-            }
+            multiHeaders.merge(name, values, (existingValues, newValues) -> {
+                existingValues.addAll(newValues);
+                return existingValues;
+            });
         });
         try {
             Cookies cookies = request.getCookies();
-            boolean many = cookies.getAll().size() > 1;
             cookies.forEach((s, cookie) -> {
                 if (cookie instanceof NettyCookie nettyCookie) {
-                    if (many) {
-                        multiHeaders.computeIfAbsent(HttpHeaders.COOKIE, s1 -> new ArrayList<>())
-                            .add(ClientCookieEncoder.STRICT.encode(nettyCookie.getNettyCookie()));
-                    } else {
-                        headers.put(HttpHeaders.COOKIE, ClientCookieEncoder.STRICT.encode(nettyCookie.getNettyCookie()));
-                    }
+                    multiHeaders.computeIfAbsent(HttpHeaders.COOKIE, s1 -> new ArrayList<>())
+                        .add(ClientCookieEncoder.STRICT.encode(nettyCookie.getNettyCookie()));
                 }
             });
         } catch (UnsupportedOperationException e) {
             //not all request types support retrieving cookies
         }
+
+        Map<String, String> flatHeaders = multiHeaders.entrySet().stream()
+            .collect(Collectors.toMap(Map.Entry::getKey, entry -> String.join(",", entry.getValue())));
+
         return new HttpRequestMessage<>() {
 
             @Override
             public Map<String, String> getHeaders() {
-                return headers;
+                return flatHeaders;
             }
 
             @Override

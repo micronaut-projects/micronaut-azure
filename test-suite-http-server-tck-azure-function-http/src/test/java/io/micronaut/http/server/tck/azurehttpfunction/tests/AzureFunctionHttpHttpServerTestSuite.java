@@ -1,14 +1,15 @@
 package io.micronaut.http.server.tck.azurehttpfunction.tests;
 
+import io.micronaut.http.server.tck.tests.HeadersTest;
 import org.junit.platform.suite.api.ExcludeClassNamePatterns;
+import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.SelectPackages;
 import org.junit.platform.suite.api.Suite;
 import org.junit.platform.suite.api.SuiteDisplayName;
 
 @Suite
 @ExcludeClassNamePatterns({
-        "io.micronaut.http.server.tck.tests.FilterProxyTest",
-        "io.micronaut.http.server.tck.tests.HeadersTest"
+        "io.micronaut.http.server.tck.tests.FilterProxyTest"
 })
 @SelectPackages("io.micronaut.http.server.tck.tests")
 @SuiteDisplayName("HTTP Server TCK for Azure Functions")
