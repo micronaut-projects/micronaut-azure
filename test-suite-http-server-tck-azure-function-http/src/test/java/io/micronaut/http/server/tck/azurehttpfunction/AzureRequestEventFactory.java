@@ -31,13 +31,10 @@ import io.micronaut.json.JsonMapper;
 import io.netty.handler.codec.http.cookie.ClientCookieEncoder;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * TODO: Write JavaDoc
@@ -52,33 +49,23 @@ public final class AzureRequestEventFactory {
 
     @NonNull
     public static HttpRequestMessage<Optional<String>> create(@NonNull HttpRequest<?> request, JsonMapper jsonMapper) {
-        Map<String, List<String>> multiHeaders = new LinkedHashMap<>();
-        request.getHeaders().forEach((name, values) -> {
-            multiHeaders.merge(name, values, (existingValues, newValues) -> {
-                existingValues.addAll(newValues);
-                return existingValues;
-            });
-        });
+        FlattenedHeaders headers = new FlattenedHeaders(request.getHeaders());
         try {
             Cookies cookies = request.getCookies();
             cookies.forEach((s, cookie) -> {
                 if (cookie instanceof NettyCookie nettyCookie) {
-                    multiHeaders.computeIfAbsent(HttpHeaders.COOKIE, s1 -> new ArrayList<>())
-                        .add(ClientCookieEncoder.STRICT.encode(nettyCookie.getNettyCookie()));
+                    headers.add(HttpHeaders.COOKIE, ClientCookieEncoder.STRICT.encode(nettyCookie.getNettyCookie()));
                 }
             });
         } catch (UnsupportedOperationException e) {
             //not all request types support retrieving cookies
         }
 
-        Map<String, String> flatHeaders = multiHeaders.entrySet().stream()
-            .collect(Collectors.toMap(Map.Entry::getKey, entry -> String.join(",", entry.getValue())));
-
         return new HttpRequestMessage<>() {
 
             @Override
             public Map<String, String> getHeaders() {
-                return flatHeaders;
+                return headers.asMap();
             }
 
             @Override
@@ -119,5 +106,25 @@ public final class AzureRequestEventFactory {
                 return new ResponseBuilder().status(status);
             }
         };
+    }
+
+    private static class FlattenedHeaders {
+
+        private final Map<String, String> headers;
+
+        private FlattenedHeaders(HttpHeaders mnHeaders) {
+            this.headers = new LinkedHashMap<>();
+            mnHeaders.forEach((name, values) -> {
+                add(name, String.join(",", values));
+            });
+        }
+
+        private void add(String name, String value) {
+            headers.merge(name, value, (existingValue, newValue) -> String.join(",", existingValue, newValue));
+        }
+
+        private Map<String, String> asMap() {
+            return headers;
+        }
     }
 }
