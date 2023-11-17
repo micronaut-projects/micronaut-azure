@@ -73,10 +73,7 @@ class DefaultHttpRequestMessageBuilder<T> implements HttpRequestMessageBuilder<T
         if (value == null) {
             headers.remove(headerName);
         } else {
-            headers.put(
-                    headerName,
-                    value
-            );
+            headers.merge(headerName, value, (v1, v2) -> String.join(",", v1, v2));
         }
         return this;
     }

@@ -8,7 +8,6 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 @Suite
 @ExcludeClassNamePatterns({
         "io.micronaut.http.server.tck.tests.FilterProxyTest",
-        "io.micronaut.http.server.tck.tests.HeadersTest"
 })
 @SelectPackages("io.micronaut.http.server.tck.tests")
 @SuiteDisplayName("HTTP Server TCK for Azure Functions")
