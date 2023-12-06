@@ -22,6 +22,7 @@ import com.microsoft.azure.functions.HttpResponseMessage;
 import io.micronaut.azure.function.AzureFunction;
 import io.micronaut.context.ApplicationContextBuilder;
 import io.micronaut.core.convert.ConversionService;
+import io.micronaut.function.BinaryTypeConfiguration;
 import io.micronaut.runtime.exceptions.ApplicationStartupException;
 import io.micronaut.servlet.http.BodyBuilder;
 import io.micronaut.servlet.http.ServletExchange;
@@ -101,11 +102,11 @@ public class AzureHttpFunction extends AzureFunction {
                     new AzureFunctionHttpResponse<>(
                         request,
                         httpHandler.getApplicationContext().getBean(ConversionService.class),
-                        httpHandler.getApplicationContext().getBean(BinaryContentConfiguration.class)
+                        httpHandler.getApplicationContext().getBean(BinaryTypeConfiguration.class)
                     ),
                     executionContext,
                     httpHandler.getApplicationContext().getBean(ConversionService.class),
-                    httpHandler.getApplicationContext().getBean(BinaryContentConfiguration.class),
+                    httpHandler.getApplicationContext().getBean(BinaryTypeConfiguration.class),
                     httpHandler.getApplicationContext().getBean(BodyBuilder.class)
                 );
 

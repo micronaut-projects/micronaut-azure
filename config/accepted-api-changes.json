@@ -78,5 +78,65 @@
     "type": "io.micronaut.azure.function.http.AzureServletBodyBinder",
     "member": "Implemented interface io.micronaut.core.bind.ArgumentBinder",
     "reason": "Removed for Micronaut 4"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.$BinaryContentConfiguration$Definition$Reference",
+    "member": "Field $ANNOTATION_METADATA",
+    "reason": "Removed BinaryContentConfiguration to use BinaryTypeConfiguration from core"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.$BinaryContentConfiguration$Definition$Reference",
+    "member": "Constructor io.micronaut.azure.function.http.$BinaryContentConfiguration$Definition$Reference()",
+    "reason": "Removed BinaryContentConfiguration to use BinaryTypeConfiguration from core"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.$BinaryContentConfiguration$Definition$Reference",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationSource",
+    "reason": "Removed BinaryContentConfiguration to use BinaryTypeConfiguration from core"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.$BinaryContentConfiguration$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.BeanContextConditional",
+    "reason": "Removed BinaryContentConfiguration to use BinaryTypeConfiguration from core"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.$BinaryContentConfiguration$Definition$Reference",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationMetadataProvider",
+    "reason": "Removed BinaryContentConfiguration to use BinaryTypeConfiguration from core"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.$BinaryContentConfiguration$Definition$Reference",
+    "member": "Implemented interface io.micronaut.core.beans.BeanInfo",
+    "reason": "Removed BinaryContentConfiguration to use BinaryTypeConfiguration from core"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.$BinaryContentConfiguration$Definition$Reference",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationMetadataDelegate",
+    "reason": "Removed BinaryContentConfiguration to use BinaryTypeConfiguration from core"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.$BinaryContentConfiguration$Definition$Reference",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationMetadata",
+    "reason": "Removed BinaryContentConfiguration to use BinaryTypeConfiguration from core"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.$BinaryContentConfiguration$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.QualifiedBeanType",
+    "reason": "Removed BinaryContentConfiguration to use BinaryTypeConfiguration from core"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.$BinaryContentConfiguration$Definition$Reference",
+    "member": "Implemented interface io.micronaut.core.type.ArgumentCoercible",
+    "reason": "Removed BinaryContentConfiguration to use BinaryTypeConfiguration from core"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.$BinaryContentConfiguration$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.BeanType",
+    "reason": "Removed BinaryContentConfiguration to use BinaryTypeConfiguration from core"
+  },
+  {
+    "type": "io.micronaut.azure.function.http.$BinaryContentConfiguration$Definition$Reference",
+    "member": "Implemented interface io.micronaut.inject.BeanDefinitionReference",
+    "reason": "Removed BinaryContentConfiguration to use BinaryTypeConfiguration from core"
   }
 ]

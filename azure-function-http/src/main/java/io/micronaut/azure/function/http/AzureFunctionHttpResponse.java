@@ -22,6 +22,7 @@ import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.convert.ConversionService;
 import io.micronaut.core.convert.value.MutableConvertibleValues;
 import io.micronaut.core.convert.value.MutableConvertibleValuesMap;
+import io.micronaut.function.BinaryTypeConfiguration;
 import io.micronaut.http.CaseInsensitiveMutableHttpHeaders;
 import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpStatus;
@@ -56,7 +57,7 @@ public final class AzureFunctionHttpResponse<B> implements ServletHttpResponse<H
     private int status = HttpStatus.OK.getCode();
     private final HttpRequestMessage<Optional<String>> azureRequest;
     private  final MutableHttpHeaders headers;
-    private final BinaryContentConfiguration binaryContentConfiguration;
+    private final BinaryTypeConfiguration binaryTypeConfiguration;
     private MutableConvertibleValues<Object> attributes;
     private B bodyObject;
     private String reason = HttpStatus.OK.getReason();
@@ -64,11 +65,11 @@ public final class AzureFunctionHttpResponse<B> implements ServletHttpResponse<H
     public AzureFunctionHttpResponse(
         HttpRequestMessage<Optional<String>> azureRequest,
         ConversionService conversionService,
-        BinaryContentConfiguration binaryContentConfiguration
+        BinaryTypeConfiguration binaryTypeConfiguration
     ) {
         this.azureRequest = azureRequest;
         this.headers = new CaseInsensitiveMutableHttpHeaders(conversionService);
-        this.binaryContentConfiguration = binaryContentConfiguration;
+        this.binaryTypeConfiguration = binaryTypeConfiguration;
     }
 
     @Override
@@ -160,7 +161,7 @@ public final class AzureFunctionHttpResponse<B> implements ServletHttpResponse<H
             }
         });
         if (bodyObject != null) {
-            if (binaryContentConfiguration.isBinary(getHeaders().getContentType().orElse(null))) {
+            if (binaryTypeConfiguration.isMediaTypeBinary(getHeaders().getContentType().orElse(null))) {
                 responseBuilder.body(body.toByteArray());
             } else {
                 responseBuilder.body(body.toString(getCharacterEncoding()));

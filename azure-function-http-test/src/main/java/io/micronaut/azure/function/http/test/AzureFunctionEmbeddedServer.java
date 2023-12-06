@@ -21,7 +21,6 @@ import com.microsoft.azure.functions.HttpResponseMessage;
 import com.microsoft.azure.functions.HttpStatusType;
 import io.micronaut.azure.function.http.AzureFunctionHttpRequest;
 import io.micronaut.azure.function.http.AzureFunctionHttpResponse;
-import io.micronaut.azure.function.http.BinaryContentConfiguration;
 import io.micronaut.azure.function.http.HttpRequestMessageBuilder;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.env.Environment;
@@ -29,6 +28,7 @@ import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.convert.ConversionService;
 import io.micronaut.core.io.IOUtils;
 import io.micronaut.core.io.socket.SocketUtils;
+import io.micronaut.function.BinaryTypeConfiguration;
 import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpMethod;
 import io.micronaut.http.server.HttpServerConfiguration;
@@ -270,18 +270,18 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
 
             HttpRequestMessage<Optional<String>> requestMessage = requestMessageBuilder.buildEncoded();
             ConversionService handlerConversionService = httpHandler.getApplicationContext().getBean(ConversionService.class);
-            BinaryContentConfiguration binaryContentConfiguration = httpHandler.getApplicationContext().getBean(BinaryContentConfiguration.class);
+            BinaryTypeConfiguration binaryTypeConfiguration = httpHandler.getApplicationContext().getBean(BinaryTypeConfiguration.class);
             AzureFunctionHttpRequest<?> azureFunctionHttpRequest =
                     new AzureFunctionHttpRequest<>(
                             requestMessage,
                             new AzureFunctionHttpResponse<>(
                                 requestMessage,
                                 handlerConversionService,
-                                binaryContentConfiguration
+                                binaryTypeConfiguration
                             ),
                             new DefaultExecutionContext(),
                             handlerConversionService,
-                            binaryContentConfiguration,
+                            binaryTypeConfiguration,
                             httpHandler.getApplicationContext().getBean(BodyBuilder.class)
                     );
 

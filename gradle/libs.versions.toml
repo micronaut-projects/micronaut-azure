@@ -4,21 +4,21 @@ managed-azure-functions-java-library = "3.0.0"
 managed-azure-cosmos = "4.52.0"
 
 jakarta-inject-api = "2.0.1"
-jetty-server = "11.0.15"
-kotlin = "1.9.20"
+jetty-server = "11.0.18"
+kotlin = "1.9.21"
 system-lambda = "1.2.1"
-testcontainers = "1.19.1"
+testcontainers = "1.19.3"
 
 # Micronaut
-micronaut = "4.1.11"
+micronaut = "4.2.1"
 micronaut-logging = "1.1.2"
 micronaut-reactor = "3.1.0"
-micronaut-serde = "2.3.2"
+micronaut-serde = "2.4.0"
 micronaut-servlet = "4.2.1"
 micronaut-test = "4.1.0"
-micronaut-validation = "4.0.3"
+micronaut-validation = "4.2.0"
 
-micronaut-gradle-plugin = "4.1.2"
+micronaut-gradle-plugin = "4.2.0"
 
 micronaut-docs = "2.0.0"
 groovy = "4.0.15"

@@ -30,6 +30,7 @@ import io.micronaut.core.type.Argument;
 import io.micronaut.core.util.ArrayUtils;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.core.util.SupplierUtil;
+import io.micronaut.function.BinaryTypeConfiguration;
 import io.micronaut.http.CaseInsensitiveMutableHttpHeaders;
 import io.micronaut.http.FullHttpRequest;
 import io.micronaut.http.HttpHeaders;
@@ -83,7 +84,7 @@ public final class AzureFunctionHttpRequest<T> implements
     private static final Logger LOG = LoggerFactory.getLogger(AzureFunctionHttpRequest.class);
 
     private final ExecutionContext executionContext;
-    private final BinaryContentConfiguration binaryContentConfiguration;
+    private final BinaryTypeConfiguration binaryTypeConfiguration;
     private ConversionService conversionService;
     private final HttpRequestMessage<Optional<String>> requestEvent;
     private final AzureFunctionHttpResponse<Object> response;
@@ -102,12 +103,12 @@ public final class AzureFunctionHttpRequest<T> implements
         AzureFunctionHttpResponse<Object> response,
         ExecutionContext executionContext,
         ConversionService conversionService,
-        BinaryContentConfiguration binaryContentConfiguration,
+        BinaryTypeConfiguration binaryTypeConfiguration,
         BodyBuilder bodyBuilder
     ) {
         this.executionContext = executionContext;
         this.conversionService = conversionService;
-        this.binaryContentConfiguration = binaryContentConfiguration;
+        this.binaryTypeConfiguration = binaryTypeConfiguration;
         this.requestEvent = request;
         this.response = response;
         this.uri = requestEvent.getUri();
@@ -124,7 +125,7 @@ public final class AzureFunctionHttpRequest<T> implements
 
     public byte[] getBodyBytes() throws IOException {
         if (requestEvent.getBody().isPresent()) {
-            return getBodyBytes(requestEvent.getBody()::get, () -> binaryContentConfiguration.isBinary(requestEvent.getHeaders().get(HttpHeaders.CONTENT_TYPE)));
+            return getBodyBytes(requestEvent.getBody()::get, () -> binaryTypeConfiguration.isMediaTypeBinary(requestEvent.getHeaders().get(HttpHeaders.CONTENT_TYPE)));
         } else {
             return ArrayUtils.EMPTY_BYTE_ARRAY;
         }
