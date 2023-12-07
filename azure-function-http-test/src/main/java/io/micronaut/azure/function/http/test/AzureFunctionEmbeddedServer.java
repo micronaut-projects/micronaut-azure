@@ -28,7 +28,6 @@ import io.micronaut.context.env.Environment;
 import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.convert.ConversionService;
 import io.micronaut.core.io.IOUtils;
-import io.micronaut.core.io.socket.SocketUtils;
 import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpMethod;
 import io.micronaut.http.server.HttpServerConfiguration;
@@ -46,14 +45,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
-import org.eclipse.jetty.server.handler.ContextHandler;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.BindException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -73,10 +70,9 @@ import java.util.logging.Logger;
 @Singleton
 @Internal
 final class AzureFunctionEmbeddedServer implements EmbeddedServer {
+
     private final ApplicationContext applicationContext;
-    private final boolean randomPort;
-    private final ConversionService conversionService;
-    private int port;
+    private final ServerPort serverPort;
     private final AtomicBoolean running = new AtomicBoolean(false);
     private Server server;
 
@@ -87,27 +83,27 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
      */
     AzureFunctionEmbeddedServer(
             ApplicationContext applicationContext,
-            HttpServerConfiguration httpServerConfiguration,
-            ConversionService conversionService
+            HttpServerConfiguration httpServerConfiguration
     ) {
         this.applicationContext = applicationContext;
-        this.conversionService = conversionService;
-        Optional<Integer> port = httpServerConfiguration.getPort();
-        if (port.isPresent()) {
-            this.port = port.get();
-            if (this.port == -1) {
-                this.port = SocketUtils.findAvailableTcpPort();
-                this.randomPort = true;
+        this.serverPort = createServerPort(httpServerConfiguration);
+    }
+
+    private ServerPort createServerPort(HttpServerConfiguration httpServerConfiguration) {
+        Optional<Integer> portOpt = httpServerConfiguration.getPort();
+        if (portOpt.isPresent()) {
+            Integer port = portOpt.get();
+            if (port == -1) {
+                return new ServerPort(true, 0);
+
             } else {
-                this.randomPort = false;
+                return new ServerPort(false, port);
             }
         } else {
             if (applicationContext.getEnvironment().getActiveNames().contains(Environment.TEST)) {
-                this.randomPort = true;
-                this.port = SocketUtils.findAvailableTcpPort();
+                return new ServerPort(true, 0);
             } else {
-                this.randomPort = false;
-                this.port = 8080;
+                return new ServerPort(false, 8080);
             }
         }
     }
@@ -115,31 +111,13 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
     @Override
     public EmbeddedServer start() {
         if (running.compareAndSet(false, true)) {
-            int retryCount = 0;
-            while (retryCount <= 3) {
-                try {
-                    this.server = new Server(port);
-                    ContextHandler context = new ContextHandler();
-                    context.setResourceBase(".");
-                    context.setClassLoader(Thread.currentThread().getContextClassLoader());
-                    context.setHandler(new AzureHandler(getApplicationContext(), conversionService));
-                    server.setHandler(context);
-                    this.server.setHandler(context);
-                    this.server.start();
-                    break;
-                } catch (BindException e) {
-                    if (randomPort) {
-                        this.port = SocketUtils.findAvailableTcpPort();
-                        retryCount++;
-                    } else {
-                        throw new ServerStartupException(e.getMessage(), e);
-                    }
-                } catch (Exception e) {
-                    throw new ServerStartupException(e.getMessage(), e);
-                }
-            }
-            if (server == null) {
-                throw new HttpServerException("No available ports");
+            int port = serverPort.port();
+            try {
+                this.server = new Server(port);
+                this.server.setHandler(new AzureHandler(applicationContext, applicationContext.getConversionService()));
+                this.server.start();
+            } catch (Exception e) {
+                throw new ServerStartupException(e.getMessage(), e);
             }
         }
         return this;
@@ -160,7 +138,7 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
 
     @Override
     public int getPort() {
-        return port;
+        return server.getURI().getPort();
     }
 
     @Override
@@ -341,5 +319,8 @@ final class AzureFunctionEmbeddedServer implements EmbeddedServer {
         public String getFunctionName() {
             return "io.micronaut.azure.function.http.AzureHttpFunction";
         }
+    }
+
+    private record ServerPort(boolean random, Integer port) {
     }
 }
