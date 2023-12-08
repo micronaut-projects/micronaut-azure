@@ -56,10 +56,6 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html#ACCOUNT_NAME" class="member-name-link">ACCOUNT_NAME</a> - Static variable in interface io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.html" title="interface in io.micronaut.azure.credentials">AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="io/micronaut/azure/function/http/BinaryContentConfiguration.html#addBinaryContentType(java.lang.String)" class="member-name-link">addBinaryContentType(String)</a> - Method in class io.micronaut.azure.function.http.<a href="io/micronaut/azure/function/http/BinaryContentConfiguration.html" title="class in io.micronaut.azure.function.http">BinaryContentConfiguration</a></dt>
-<dd>
-<div class="block">Add a content type to the list of binary content types.</div>
-</dd>
 <dt><a href="io/micronaut/azure/function/AzureFunction.html#applicationContext" class="member-name-link">applicationContext</a> - Static variable in class io.micronaut.azure.function.<a href="io/micronaut/azure/function/AzureFunction.html" title="class in io.micronaut.azure.function">AzureFunction</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/azure/credentials/AzureCredentialFactory.html#azureCliCredential(com.azure.identity.AzureCliCredentialBuilder)" class="member-name-link">azureCliCredential(AzureCliCredentialBuilder)</a> - Method in class io.micronaut.azure.credentials.<a href="io/micronaut/azure/credentials/AzureCredentialFactory.html" title="class in io.micronaut.azure.credentials">AzureCredentialFactory</a></dt>
@@ -133,13 +129,13 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Servlet request implementation for Azure Functions.</div>
 </dd>
-<dt><a href="io/micronaut/azure/function/http/AzureFunctionHttpRequest.html#%3Cinit%3E(com.microsoft.azure.functions.HttpRequestMessage,io.micronaut.azure.function.http.AzureFunctionHttpResponse,com.microsoft.azure.functions.ExecutionContext,io.micronaut.core.convert.ConversionService,io.micronaut.azure.function.http.BinaryContentConfiguration,io.micronaut.servlet.http.BodyBuilder)" class="member-name-link">AzureFunctionHttpRequest(HttpRequestMessage&lt;Optional&lt;String&gt;&gt;, AzureFunctionHttpResponse&lt;Object&gt;, ExecutionContext, ConversionService, BinaryContentConfiguration, BodyBuilder)</a> - Constructor for class io.micronaut.azure.function.http.<a href="io/micronaut/azure/function/http/AzureFunctionHttpRequest.html" title="class in io.micronaut.azure.function.http">AzureFunctionHttpRequest</a></dt>
+<dt><a href="io/micronaut/azure/function/http/AzureFunctionHttpRequest.html#%3Cinit%3E(com.microsoft.azure.functions.HttpRequestMessage,io.micronaut.azure.function.http.AzureFunctionHttpResponse,com.microsoft.azure.functions.ExecutionContext,io.micronaut.core.convert.ConversionService,io.micronaut.function.BinaryTypeConfiguration,io.micronaut.servlet.http.BodyBuilder)" class="member-name-link">AzureFunctionHttpRequest(HttpRequestMessage&lt;Optional&lt;String&gt;&gt;, AzureFunctionHttpResponse&lt;Object&gt;, ExecutionContext, ConversionService, BinaryTypeConfiguration, BodyBuilder)</a> - Constructor for class io.micronaut.azure.function.http.<a href="io/micronaut/azure/function/http/AzureFunctionHttpRequest.html" title="class in io.micronaut.azure.function.http">AzureFunctionHttpRequest</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/azure/function/http/AzureFunctionHttpResponse.html" class="type-name-link" title="class in io.micronaut.azure.function.http">AzureFunctionHttpResponse</a>&lt;<a href="io/micronaut/azure/function/http/AzureFunctionHttpResponse.html" title="type parameter in AzureFunctionHttpResponse">B</a>&gt; - Class in <a href="io/micronaut/azure/function/http/package-summary.html">io.micronaut.azure.function.http</a></dt>
 <dd>
 <div class="block">Azure implementation of <code>ServletHttpResponse</code>.</div>
 </dd>
-<dt><a href="io/micronaut/azure/function/http/AzureFunctionHttpResponse.html#%3Cinit%3E(com.microsoft.azure.functions.HttpRequestMessage,io.micronaut.core.convert.ConversionService,io.micronaut.azure.function.http.BinaryContentConfiguration)" class="member-name-link">AzureFunctionHttpResponse(HttpRequestMessage&lt;Optional&lt;String&gt;&gt;, ConversionService, BinaryContentConfiguration)</a> - Constructor for class io.micronaut.azure.function.http.<a href="io/micronaut/azure/function/http/AzureFunctionHttpResponse.html" title="class in io.micronaut.azure.function.http">AzureFunctionHttpResponse</a></dt>
+<dt><a href="io/micronaut/azure/function/http/AzureFunctionHttpResponse.html#%3Cinit%3E(com.microsoft.azure.functions.HttpRequestMessage,io.micronaut.core.convert.ConversionService,io.micronaut.function.BinaryTypeConfiguration)" class="member-name-link">AzureFunctionHttpResponse(HttpRequestMessage&lt;Optional&lt;String&gt;&gt;, ConversionService, BinaryTypeConfiguration)</a> - Constructor for class io.micronaut.azure.function.http.<a href="io/micronaut/azure/function/http/AzureFunctionHttpResponse.html" title="class in io.micronaut.azure.function.http">AzureFunctionHttpResponse</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/azure/function/http/AzureHttpFunction.html" class="type-name-link" title="class in io.micronaut.azure.function.http">AzureHttpFunction</a> - Class in <a href="io/micronaut/azure/function/http/package-summary.html">io.micronaut.azure.function.http</a></dt>
 <dd>
@@ -170,12 +166,6 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:B">B</h2>
 <dl class="index">
-<dt><a href="io/micronaut/azure/function/http/BinaryContentConfiguration.html" class="type-name-link" title="class in io.micronaut.azure.function.http">BinaryContentConfiguration</a> - Class in <a href="io/micronaut/azure/function/http/package-summary.html">io.micronaut.azure.function.http</a></dt>
-<dd>
-<div class="block">Bean to check if response content is binary and should be base 64 encoded.</div>
-</dd>
-<dt><a href="io/micronaut/azure/function/http/BinaryContentConfiguration.html#%3Cinit%3E()" class="member-name-link">BinaryContentConfiguration()</a> - Constructor for class io.micronaut.azure.function.http.<a href="io/micronaut/azure/function/http/BinaryContentConfiguration.html" title="class in io.micronaut.azure.function.http">BinaryContentConfiguration</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="io/micronaut/azure/function/http/AzureFunctionHttpRequest.html#body(B)" class="member-name-link">body(B)</a> - Method in class io.micronaut.azure.function.http.<a href="io/micronaut/azure/function/http/AzureFunctionHttpRequest.html" title="class in io.micronaut.azure.function.http">AzureFunctionHttpRequest</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/azure/function/http/HttpRequestMessageBuilder.html#body(B)" class="member-name-link">body(B)</a> - Method in interface io.micronaut.azure.function.http.<a href="io/micronaut/azure/function/http/HttpRequestMessageBuilder.html" title="interface in io.micronaut.azure.function.http">HttpRequestMessageBuilder</a></dt>
@@ -505,8 +495,6 @@ loadScripts(document, 'script');</script>
 <dt><a href="io/micronaut/azure/secretmanager/client/package-summary.html">io.micronaut.azure.secretmanager.client</a> - package io.micronaut.azure.secretmanager.client</dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/azure/secretmanager/configuration/package-summary.html">io.micronaut.azure.secretmanager.configuration</a> - package io.micronaut.azure.secretmanager.configuration</dt>
-<dd>&nbsp;</dd>
-<dt><a href="io/micronaut/azure/function/http/BinaryContentConfiguration.html#isBinary(java.lang.String)" class="member-name-link">isBinary(String)</a> - Method in class io.micronaut.azure.function.http.<a href="io/micronaut/azure/function/http/BinaryContentConfiguration.html" title="class in io.micronaut.azure.function.http">BinaryContentConfiguration</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/azure/function/http/AzureFunctionHttpRequest.html#isFormSubmission(io.micronaut.http.MediaType)" class="member-name-link">isFormSubmission(MediaType)</a> - Method in class io.micronaut.azure.function.http.<a href="io/micronaut/azure/function/http/AzureFunctionHttpRequest.html" title="class in io.micronaut.azure.function.http">AzureFunctionHttpRequest</a></dt>
 <dd>&nbsp;</dd>
