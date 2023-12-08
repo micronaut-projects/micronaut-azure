@@ -20,6 +20,7 @@ import com.microsoft.azure.functions.HttpResponseMessage;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.convert.ConversionService;
+import io.micronaut.function.BinaryTypeConfiguration;
 import io.micronaut.servlet.http.BodyBuilder;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpHandler;
@@ -50,11 +51,11 @@ class HttpRequestMessageHandler extends ServletHttpHandler<HttpRequestMessage<Op
             new AzureFunctionHttpResponse<>(
                 request,
                 getApplicationContext().getConversionService(),
-                getApplicationContext().getBean(BinaryContentConfiguration.class)
+                getApplicationContext().getBean(BinaryTypeConfiguration.class)
             ),
             new DefaultExecutionContext(),
             applicationContext.getConversionService(),
-            applicationContext.getBean(BinaryContentConfiguration.class),
+            applicationContext.getBean(BinaryTypeConfiguration.class),
             applicationContext.getBean(BodyBuilder.class)
         );
     }
