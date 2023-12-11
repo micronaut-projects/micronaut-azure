@@ -62,7 +62,9 @@
                                 
                                 <div class="toc-item" style="margin-left:0"><a href="#azureCosmosClient"><strong>9</strong><span>Azure Cosmos Client</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>10</strong><span>Repository</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#azureGuides"><strong>10</strong><span>Guides</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>11</strong><span>Repository</span></a></div>
                                 
                             </div>
                         </div>
@@ -127,7 +129,9 @@
         
         <div class="toc-item" style="margin-left:10px" id="toc-item-azureCosmosClientConfiguration"><a href="#azureCosmosClientConfiguration"><strong>9.1</strong><span>Configuration</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>10</strong><span>Repository</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-azureGuides"><a href="#azureGuides"><strong>10</strong><span>Guides</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>11</strong><span>Repository</span></a></div>
         
         </div>
     </div>
@@ -1456,6 +1460,18 @@ class MyHttpFunction : AzureHttpFunction() { // <b class="conum">(1)</b>
 <div class="paragraph">
 <p>This approach allows you to develop a regular Micronaut application and deploy slices of the application as Serverless functions as desired.</p>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+See the guide for <a href="https://guides.micronaut.io/latest/micronaut-azure-http-functions.html">Micronaut Azure HTTP Functions</a> to learn more.
+</td>
+</tr>
+</table>
+</div>
 
 <h2 id="routePrefix"><a class="anchor" href="#routePrefix"></a>6.2.1 Function Route Prefix</h2>
 
@@ -1577,6 +1593,18 @@ To add support for Azure Key Vault to an existing project, add the following dep
 </td>
 <td class="content">
 Azure doesn&#8217;t allow _ and . in name of the secrets so the secret with name SECRET-ONE can be resolved also with SECRET_ONE and SECRET.ONE
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+See the guide for <a href="https://guides.micronaut.io/latest/micronaut-cloud-secrets-azure.html">Securely store Micronaut application secrets in Azure Key Vault</a> to learn more.
 </td>
 </tr>
 </table>
@@ -1891,7 +1919,23 @@ azure {
 <p><a href="https://docs.microsoft.com/en-us/java/api/com.azure.cosmos.cosmosclientbuilder?view=azure-java-stable">CosmosClientBuilder</a> will be available also when dependencies and configuration are added to the project.</p>
 </div>
 
-<h1 id="repository"><a class="anchor" href="#repository"></a>10 Repository</h1>
+<h1 id="azureGuides"><a class="anchor" href="#azureGuides"></a>10 Guides</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/azureGuides.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>See the following list of guides to learn more about working with Microsoft Azure in the Micronaut Framework:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://guides.micronaut.io/latest/tag-azure.html" class="bare">https://guides.micronaut.io/latest/tag-azure.html</a></p>
+</div>
+
+<h1 id="repository"><a class="anchor" href="#repository"></a>11 Repository</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/master/src/main/docs/guide/repository.adoc"'>
