@@ -17,3 +17,5 @@ snippet::example.MyHttpFunction[project-base="doc-examples/example", indent="0"]
 With this in place you can write regular Micronaut controllers as documented in the https://docs.micronaut.io/latest/guide/index.html#httpServer[user guide] for the HTTP server and incoming function requests will be routed to the controllers and executed.
 
 This approach allows you to develop a regular Micronaut application and deploy slices of the application as Serverless functions as desired.
+
+TIP: See the guide for https://guides.micronaut.io/latest/micronaut-azure-http-functions.html[Micronaut Azure HTTP Functions] to learn more.

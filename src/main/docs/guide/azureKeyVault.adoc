@@ -4,3 +4,5 @@ To add support for Azure Key Vault to an existing project, add the following dep
 dependency:micronaut-azure-secret-manager[groupId="io.micronaut.azure"]
 
 NOTE: Azure doesn't allow _ and . in name of the secrets so the secret with name SECRET-ONE can be resolved also with SECRET_ONE and SECRET.ONE
+
+TIP: See the guide for https://guides.micronaut.io/latest/micronaut-cloud-secrets-azure.html[Securely store Micronaut application secrets in Azure Key Vault] to learn more.

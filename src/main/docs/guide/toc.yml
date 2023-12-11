@@ -22,4 +22,5 @@ azureBlobStorage: Azure Blob Storage Support
 azureCosmosClient:
   title: Azure Cosmos Client
   azureCosmosClientConfiguration: Configuration
+azureGuides: Guides
 repository: Repository
