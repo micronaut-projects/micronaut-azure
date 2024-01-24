@@ -9,6 +9,7 @@ import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.convert.ConversionService;
 import io.micronaut.core.type.Argument;
 import io.micronaut.core.util.StringUtils;
+import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.client.exceptions.HttpClientResponseException;
@@ -75,7 +76,8 @@ public class AzureFunctionHttpServerUnderTest implements ServerUnderTest {
 
     private final static Set<String> HEADERS_USED_IN_TEST_SUITE = Set.of(
         "X-Test-Filter",
-        "X-Captured-Remote-Address"
+        "X-Captured-Remote-Address",
+        HttpHeaders.ACCESS_CONTROL_ALLOW_PRIVATE_NETWORK
     );
 
 }

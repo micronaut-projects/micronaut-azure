@@ -20,8 +20,6 @@ import com.microsoft.azure.functions.HttpResponseMessage;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.core.annotation.Internal;
 import io.micronaut.servlet.http.ServletExchange;
-import io.netty.util.internal.MacAddressUtil;
-import io.netty.util.internal.PlatformDependent;
 
 import java.util.Optional;
 
@@ -35,18 +33,7 @@ import java.util.Optional;
 class HttpHandler extends HttpRequestMessageHandler {
 
     public HttpHandler(ApplicationContext applicationContext) {
-        super(init(applicationContext));
-    }
-
-    private static ApplicationContext init(ApplicationContext applicationContext) {
-        setIoNettyMachineIdSystemProperty();
-        return applicationContext;
-    }
-
-    private static void setIoNettyMachineIdSystemProperty() {
-        byte[] bestMacAddr = new byte[8];
-        PlatformDependent.threadLocalRandom().nextBytes(bestMacAddr);
-        System.setProperty("io.netty.machineId", MacAddressUtil.formatAddress(bestMacAddr));
+        super(applicationContext);
     }
 
     @Override
