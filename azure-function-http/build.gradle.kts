@@ -8,7 +8,6 @@ dependencies {
     api(mn.micronaut.http.server)
     api(projects.micronautAzureFunction)
     api(mnServlet.micronaut.servlet.core)
-    implementation(mn.micronaut.http.netty)
     implementation(mn.micronaut.router)
     implementation(libs.jakarta.inject.api)
     compileOnly(libs.managed.azure.functions.java.library)

@@ -21,16 +21,9 @@ import io.micronaut.core.convert.ConversionService;
 import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.cookie.Cookie;
 import io.micronaut.http.cookie.Cookies;
-import io.micronaut.http.netty.cookies.NettyCookie;
-import io.netty.handler.codec.http.cookie.ServerCookieDecoder;
+import io.micronaut.http.cookie.ServerCookieDecoder;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Implementation of {@link Cookies} for serverless.
@@ -51,18 +44,11 @@ public final class AzureCookies implements Cookies {
         this.conversionService = conversionService;
         String value = headers.get(HttpHeaders.COOKIE);
         if (value != null) {
-            cookies = new LinkedHashMap<>(10);
-            Set<io.netty.handler.codec.http.cookie.Cookie> nettyCookies = ServerCookieDecoder.STRICT.decode(value);
-            for (io.netty.handler.codec.http.cookie.Cookie nettyCookie : nettyCookies) {
-                String cookiePath = nettyCookie.path();
-                if (cookiePath != null) {
-                    if (path.startsWith(cookiePath)) {
-                        cookies.put(nettyCookie.name(), new NettyCookie(nettyCookie));
-                    }
-                } else {
-                    cookies.put(nettyCookie.name(), new NettyCookie(nettyCookie));
-                }
-            }
+            List<Cookie> cookieList = ServerCookieDecoder.INSTANCE.decode(value);
+            cookies = new LinkedHashMap<>(cookieList.size());
+            cookieList.stream()
+                    .filter(c -> c.getPath() == null || path.startsWith(c.getPath()))
+                    .forEach(c -> cookies.put(c.getName(), c));
         } else {
             cookies = Collections.emptyMap();
         }
