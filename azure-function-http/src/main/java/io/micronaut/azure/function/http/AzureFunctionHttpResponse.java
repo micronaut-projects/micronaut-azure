@@ -156,12 +156,10 @@ public final class AzureFunctionHttpResponse<B> implements ServletHttpResponse<H
                 responseBuilder.header(s, string);
             }
         });
-        if (bodyObject != null) {
-            if (binaryTypeConfiguration.isMediaTypeBinary(getHeaders().getContentType().orElse(null))) {
-                responseBuilder.body(body.toByteArray());
-            } else {
-                responseBuilder.body(body.toString(getCharacterEncoding()));
-            }
+        if (binaryTypeConfiguration.isMediaTypeBinary(getHeaders().getContentType().orElse(null))) {
+            responseBuilder.body(body.toByteArray());
+        } else {
+            responseBuilder.body(body.toString(getCharacterEncoding()));
         }
         return responseBuilder.build();
     }
