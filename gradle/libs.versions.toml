@@ -9,7 +9,7 @@ kotlin = "1.9.22"
 system-lambda = "1.2.1"
 
 # Micronaut
-micronaut = "4.3.0"
+micronaut = "4.3.9"
 micronaut-logging = "1.1.2"
 micronaut-reactor = "3.2.1"
 micronaut-serde = "2.7.1"
@@ -18,7 +18,7 @@ micronaut-test = "4.1.1"
 micronaut-test-resources = "2.3.2"
 micronaut-validation = "4.2.0"
 
-micronaut-gradle-plugin = "4.2.1"
+micronaut-gradle-plugin = "4.3.3"
 
 micronaut-docs = "2.0.0"
 groovy = "4.0.18"
