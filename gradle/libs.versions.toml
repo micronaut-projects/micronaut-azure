@@ -4,7 +4,7 @@ managed-azure-functions-java-library = "3.1.0"
 managed-azure-cosmos = "4.56.0"
 
 jakarta-inject-api = "2.0.1"
-jetty-server = "11.0.20"
+jetty-server = "12.0.7"
 kotlin = "1.9.22"
 system-lambda = "1.2.1"
 
