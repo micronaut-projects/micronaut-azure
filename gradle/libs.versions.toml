@@ -4,7 +4,6 @@ managed-azure-functions-java-library = "3.1.0"
 managed-azure-cosmos = "4.56.0"
 
 jakarta-inject-api = "2.0.1"
-jetty-server = "11.0.20"
 kotlin = "1.9.22"
 system-lambda = "1.2.1"
 
@@ -13,7 +12,7 @@ micronaut = "4.3.9"
 micronaut-logging = "1.1.2"
 micronaut-reactor = "3.2.1"
 micronaut-serde = "2.8.1"
-micronaut-servlet = "4.5.0"
+micronaut-servlet = "4.6.0"
 micronaut-test = "4.1.1"
 micronaut-test-resources = "2.3.3"
 micronaut-validation = "4.4.3"
@@ -46,7 +45,7 @@ azure-storage-common = { module = "com.azure:azure-storage-common" }
 azure-storage-blob = { module = "com.azure:azure-storage-blob" }
 groovy-all = { module = "org.apache.groovy:groovy-all", version.ref = "groovy" }
 jakarta-inject-api = { module = "jakarta.inject:jakarta.inject-api", version.ref = "jakarta-inject-api" }
-jetty-server = { module = "org.eclipse.jetty:jetty-server", version.ref = "jetty-server" }
+jetty-server = { module = 'org.eclipse.jetty:jetty-server' }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 system-lambda = { module = "com.github.stefanbirkner:system-lambda", version.ref = "system-lambda" }
