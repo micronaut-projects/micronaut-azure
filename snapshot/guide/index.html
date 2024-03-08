@@ -1567,7 +1567,7 @@ When you use Micronaut Azure HTTP Functions, you need to remove the api route pr
 
 <div class="paragraph">
 <p><a href="https://docs.microsoft.com/en-us/azure/key-vault/general/">Azure Key Vault</a> is a secure and convenient storage system for API keys, passwords and other sensitive data.
-To add support for Azure Key Vault to an existing project, add the following dependency to your build.</p>
+To add support for Azure Key Vault to an existing project, add the following dependencies to your build.</p>
 </div>
 <div class="paragraph">
 <p>        <div class="listingblock multi-language-sample">
@@ -1581,6 +1581,22 @@ To add support for Azure Key Vault to an existing project, add the following dep
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
     &lt;groupId&gt;io.micronaut.azure&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-azure-secret-manager&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.discovery:micronaut-discovery-client")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.discovery&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-discovery-client&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div></p>
