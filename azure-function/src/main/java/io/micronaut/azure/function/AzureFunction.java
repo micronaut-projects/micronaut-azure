@@ -35,7 +35,7 @@ import java.io.Closeable;
 public abstract class AzureFunction implements ApplicationContextProvider, Closeable {
 
     protected static final Logger LOG = LoggerFactory.getLogger(AzureFunction.class);
-    protected static ApplicationContext applicationContext;
+    protected ApplicationContext applicationContext;
 
     /**
      * Default constructor.
@@ -53,9 +53,7 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
             LOG.trace("Initializing Azure function");
         }
         try {
-            if (applicationContext == null) {
-                startApplicationContext(applicationContextBuilder);
-            }
+            startApplicationContext(applicationContextBuilder);
         } catch (Throwable  e) {
             if (LOG.isErrorEnabled()) {
                 LOG.error("Error initializing Azure function: " + e.getMessage(), e);
@@ -92,7 +90,7 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
         }
     }
 
-    public static void startApplicationContext(ApplicationContextBuilder applicationContextBuilder) {
+    public void startApplicationContext(ApplicationContextBuilder applicationContextBuilder) {
         if (applicationContext == null) {
             applicationContext = (applicationContextBuilder != null ? applicationContextBuilder : defaultApplicationContextBuilder()).build();
             applicationContext.start();

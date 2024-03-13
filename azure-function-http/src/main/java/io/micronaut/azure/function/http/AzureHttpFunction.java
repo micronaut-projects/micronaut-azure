@@ -76,6 +76,7 @@ public class AzureHttpFunction extends AzureFunction {
         }
         httpHandler = new HttpHandler(getApplicationContext());
         registerHttpHandlerShutDownHook();
+        getApplicationContext().registerSingleton(this);
     }
 
     /**
