@@ -1,13 +1,13 @@
 plugins {
     groovy
     id("io.micronaut.build.internal.azure-example")
-    id("com.microsoft.azure.azurefunctions") version "1.15.0"
+    alias(libs.plugins.azurefunctions.plugin)
 }
 
 version = "1.0"
 
 micronaut {
-    version("4.3.5")
+    version(libs.versions.micronaut.platform.get())
     runtime("azure_function")
     testRuntime("spock")
 }
