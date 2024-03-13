@@ -16,7 +16,6 @@ dependencies {
     annotationProcessor(mn.micronaut.inject.java)
     annotationProcessor(mnSerde.micronaut.serde.processor)
 
-//    implementation("io.micronaut.azure:micronaut-azure-function-http")
     implementation(projects.micronautAzureFunctionHttp)
     implementation(mnSerde.micronaut.serde.jackson)
     implementation(libs.managed.azure.functions.java.library)
