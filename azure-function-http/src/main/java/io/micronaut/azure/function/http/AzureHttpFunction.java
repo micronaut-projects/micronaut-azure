@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import io.micronaut.azure.function.AzureFunction;
 import io.micronaut.context.ApplicationContextBuilder;
 import io.micronaut.core.convert.ConversionService;
 import io.micronaut.function.BinaryTypeConfiguration;
-import io.micronaut.runtime.exceptions.ApplicationStartupException;
 import io.micronaut.servlet.http.BodyBuilder;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpHandler;
@@ -71,18 +70,12 @@ public class AzureHttpFunction extends AzureFunction {
      * @param applicationContextBuilder ApplicationContext Builder;
      */
     public AzureHttpFunction(ApplicationContextBuilder applicationContextBuilder) {
-        try {
-            AzureFunction.startApplicationContext(applicationContextBuilder);
-        } catch (Throwable  e) {
-            if (LOG.isErrorEnabled()) {
-                LOG.error("Error initializing Azure function: " + e.getMessage(), e);
-            }
-            throw new ApplicationStartupException("Error initializing Azure function: " + e.getMessage(), e);
+        super(applicationContextBuilder);
+        if (LOG.isTraceEnabled()) {
+            LOG.trace("Initializing AzureHttpFunction");
         }
         httpHandler = new HttpHandler(getApplicationContext());
-        registerApplicationContextShutDownHook();
         registerHttpHandlerShutDownHook();
-        applicationContext.registerSingleton(this);
     }
 
     /**
@@ -94,7 +87,11 @@ public class AzureHttpFunction extends AzureFunction {
      */
     public HttpResponseMessage route(
         HttpRequestMessage<Optional<String>> request,
-        ExecutionContext executionContext) {
+        ExecutionContext executionContext
+    ) {
+        if (LOG.isTraceEnabled()) {
+            LOG.trace("Route request: {}", request);
+        }
         try {
             AzureFunctionHttpRequest<?> azureFunctionHttpRequest =
                 new AzureFunctionHttpRequest<>(
@@ -115,6 +112,9 @@ public class AzureHttpFunction extends AzureFunction {
 
             return exchange.getResponse().getNativeResponse();
         } finally {
+            if (LOG.isTraceEnabled()) {
+                LOG.trace("Request complete, destroying request bean {}", this);
+            }
             applicationContext.destroyBean(this);
         }
     }
@@ -142,10 +142,6 @@ public class AzureHttpFunction extends AzureFunction {
     }
 
     private void registerHttpHandlerShutDownHook() {
-        Runtime.getRuntime().addShutdownHook(createHttpHandlerShutDownHook());
-    }
-
-    private Thread createHttpHandlerShutDownHook() {
-        return new Thread(() -> httpHandler = null);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> httpHandler = null));
     }
 }

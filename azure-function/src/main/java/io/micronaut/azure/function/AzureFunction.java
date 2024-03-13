@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2024 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Closeable;
-import java.io.IOException;
 
 /**
  * A base Azure function class that sets up the Azure environment and preferred configuration.
@@ -50,8 +49,13 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
      * @param applicationContextBuilder ApplicationContext Builder;
      */
     protected AzureFunction(ApplicationContextBuilder applicationContextBuilder) {
+        if (LOG.isTraceEnabled()) {
+            LOG.trace("Initializing Azure function");
+        }
         try {
-            startApplicationContext(applicationContextBuilder);
+            if (applicationContext == null) {
+                startApplicationContext(applicationContextBuilder);
+            }
         } catch (Throwable  e) {
             if (LOG.isErrorEnabled()) {
                 LOG.error("Error initializing Azure function: " + e.getMessage(), e);
@@ -75,11 +79,13 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
 
     @Override
     public ApplicationContext getApplicationContext() {
+        LOG.trace("getApplicationContext() called. Returning: {}", applicationContext);
         return applicationContext;
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
+        LOG.trace("Closing Azure Function");
         if (applicationContext != null) {
             applicationContext.close();
             applicationContext = null;
@@ -87,8 +93,10 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
     }
 
     public static void startApplicationContext(ApplicationContextBuilder applicationContextBuilder) {
-        applicationContext = (applicationContextBuilder != null ? applicationContextBuilder : defaultApplicationContextBuilder()).build();
-        applicationContext.start();
+        if (applicationContext == null) {
+            applicationContext = (applicationContextBuilder != null ? applicationContextBuilder : defaultApplicationContextBuilder()).build();
+            applicationContext.start();
+        }
     }
 
     /**
@@ -103,11 +111,6 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
      * @return A new Thread which closes and sets to null the application context if not null
      */
     private Thread createApplicationContextShutDownHook() {
-        return new Thread(() -> {
-            if (applicationContext != null) {
-                applicationContext.close();
-            }
-            applicationContext = null;
-        });
+        return new Thread(this::close);
     }
 }
