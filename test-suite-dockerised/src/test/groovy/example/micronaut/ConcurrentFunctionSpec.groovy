@@ -1,6 +1,5 @@
 package example.micronaut
 
-import io.micronaut.context.ApplicationContext
 import org.testcontainers.containers.GenericContainer
 import org.testcontainers.containers.wait.strategy.Wait
 import org.testcontainers.utility.MountableFile
@@ -12,7 +11,6 @@ import spock.lang.Specification
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
-import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.atomic.AtomicInteger
 
 @Issue("https://github.com/micronaut-projects/micronaut-azure/issues/611")
@@ -26,6 +24,7 @@ class ConcurrentFunctionSpec extends Specification {
     GenericContainer azureFunctionContainer = new GenericContainer("mcr.microsoft.com/azure-functions/java:4-java17")
             .withEnv("AzureWebJobsScriptRoot", "/home/site/wwwroot")
             .withEnv("AzureFunctionsJobHost__Logging__Console__IsEnabled", "true")
+            .withLogConsumer { log -> print("${log.getUtf8String()}") }
             .withExposedPorts(80)
             .waitingFor(Wait.forLogMessage(".*Host lock lease acquired by instance ID.*", 1))
 
@@ -35,7 +34,7 @@ class ConcurrentFunctionSpec extends Specification {
                 .start()
     }
 
-    def "should work"() {
+    void "multiple concurrent requests should work"() {
         when:
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI("http://localhost:${azureFunctionContainer.getMappedPort(80)}/default"))
@@ -49,7 +48,7 @@ class ConcurrentFunctionSpec extends Specification {
             Thread.start {
                 (1..NUMBER_OF_REQUESTS).each {
                     def response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString())
-                    if (response.statusCode() != 200) {
+                    if (response.statusCode() != 200 || response.body() != '{"returnMessage":"Hello Fred, thank you for sending the message"}') {
                         failures.incrementAndGet()
                     }
                 }
