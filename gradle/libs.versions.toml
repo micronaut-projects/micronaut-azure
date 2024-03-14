@@ -2,6 +2,7 @@
 managed-azure-sdk = "1.2.21"
 managed-azure-functions-java-library = "3.1.0"
 managed-azure-cosmos = "4.56.0"
+azurefunctions-plugin = "1.15.0"
 
 jakarta-inject-api = "2.0.1"
 kotlin = "1.9.23"
@@ -9,6 +10,7 @@ system-lambda = "1.2.1"
 
 # Micronaut
 micronaut = "4.3.10"
+micronaut-platform = "4.3.5"
 micronaut-logging = "1.1.2"
 micronaut-reactor = "3.2.1"
 micronaut-serde = "2.8.1"
@@ -26,6 +28,7 @@ spock = "2.3-groovy-4.0"
 [libraries]
 # Core
 micronaut-core = { module = 'io.micronaut:micronaut-core-bom', version.ref = 'micronaut' }
+micronaut-platform = { module = 'io.micronaut.platform:micronaut-platform', version.ref = 'micronaut-platform' }
 
 boms-azure-sdk = { module = "com.azure:azure-sdk-bom", version.ref = "managed-azure-sdk" }
 
@@ -60,3 +63,4 @@ testcontainers-azure = { module = "org.testcontainers:azure"}
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+azurefunctions-plugin = { id = "com.microsoft.azure.azurefunctions", version.ref = "azurefunctions-plugin"}
