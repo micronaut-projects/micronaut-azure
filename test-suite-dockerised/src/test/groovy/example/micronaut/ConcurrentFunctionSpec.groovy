@@ -7,6 +7,7 @@ import spock.lang.AutoCleanup
 import spock.lang.Issue
 import spock.lang.Shared
 import spock.lang.Specification
+import spock.util.environment.Jvm
 
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
@@ -16,12 +17,13 @@ import java.util.concurrent.atomic.AtomicInteger
 @Issue("https://github.com/micronaut-projects/micronaut-azure/issues/611")
 class ConcurrentFunctionSpec extends Specification {
 
+    private static final String DOCKER_IMAGE_NAME = "mcr.microsoft.com/azure-functions/java:4-java${Jvm.current.javaSpecificationVersion}"
     private static final int NUMBER_OF_THREADS = 3
     private static final int NUMBER_OF_REQUESTS = 100
 
     @Shared
     @AutoCleanup
-    GenericContainer azureFunctionContainer = new GenericContainer("mcr.microsoft.com/azure-functions/java:4-java17")
+    GenericContainer azureFunctionContainer = new GenericContainer(DOCKER_IMAGE_NAME)
             .withEnv("AzureWebJobsScriptRoot", "/home/site/wwwroot")
             .withEnv("AzureFunctionsJobHost__Logging__Console__IsEnabled", "true")
             .withLogConsumer { log -> print("${log.getUtf8String()}") }
@@ -59,7 +61,7 @@ class ConcurrentFunctionSpec extends Specification {
     }
 
     void copyDirectory(GenericContainer container, File dir, String root) {
-        println("Copying directory: ${dir.canonicalPath} to $root")
+        println("Copying directory: ${dir.canonicalPath} to ${DOCKER_IMAGE_NAME}:$root")
         dir.traverse { file ->
             if (file.isFile()) {
                 println("Copying file: $file to $root${file.path.substring(dir.path.size())}")
