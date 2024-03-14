@@ -138,5 +138,10 @@
     "type": "io.micronaut.azure.function.http.$BinaryContentConfiguration$Definition$Reference",
     "member": "Implemented interface io.micronaut.inject.BeanDefinitionReference",
     "reason": "Removed BinaryContentConfiguration to use BinaryTypeConfiguration from core"
+  },
+  {
+    "type": "io.micronaut.azure.function.AzureFunction",
+    "member": "Field applicationContext",
+    "reason": "Application context was changed from a static to fix a concurrency issue #611"
   }
 ]
