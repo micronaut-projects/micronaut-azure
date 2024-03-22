@@ -17,17 +17,23 @@ package io.micronaut.http.server.tck.azurehttpfunction;
 
 import com.microsoft.azure.functions.HttpResponseMessage;
 import io.micronaut.core.annotation.Internal;
+import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.convert.ArgumentConversionContext;
 import io.micronaut.core.convert.ConversionService;
 import io.micronaut.core.convert.value.MutableConvertibleValues;
 import io.micronaut.core.convert.value.MutableConvertibleValuesMap;
+import io.micronaut.core.type.Argument;
 import io.micronaut.core.util.ArgumentUtils;
 import io.micronaut.http.CaseInsensitiveMutableHttpHeaders;
 import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpStatus;
+import io.micronaut.http.MediaType;
 import io.micronaut.http.MutableHttpHeaders;
 import io.micronaut.http.MutableHttpResponse;
 import io.micronaut.http.cookie.Cookie;
+import io.micronaut.json.JsonMapper;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
@@ -47,6 +53,7 @@ public class HttpResponseMessageAdapter<T> implements MutableHttpResponse<T> {
     private final MutableConvertibleValues<Object> attributes = new MutableConvertibleValuesMap<>();
     private final MutableHttpHeaders headers;
     private Map<String, Cookie> cookies = new ConcurrentHashMap<>(2);
+    private final JsonMapper jsonMapper;
 
     private Integer status;
     private String reason;
@@ -54,10 +61,12 @@ public class HttpResponseMessageAdapter<T> implements MutableHttpResponse<T> {
     public HttpResponseMessageAdapter(
         HttpResponseMessage message,
         ConversionService conversionService,
+        JsonMapper jsonMapper,
         Set<String> extraHeaders
     ) {
         this.message = message;
         this.headers = new CaseInsensitiveMutableHttpHeaders(conversionService);
+        this.jsonMapper = jsonMapper;
         populateHeaders(HttpHeaders.STANDARD_HEADERS);
         populateHeaders(extraHeaders);
     }
@@ -95,6 +104,26 @@ public class HttpResponseMessageAdapter<T> implements MutableHttpResponse<T> {
     @Override
     public <B> MutableHttpResponse<B> body(B body) {
         return (MutableHttpResponse<B>) this;
+    }
+
+    @Override
+    public <T> @NonNull Optional<T> getBody(@NonNull ArgumentConversionContext<T> conversionContext) {
+        ArgumentUtils.requireNonNull("conversionContext", conversionContext);
+        return Optional
+            .ofNullable(message.getBody())
+            .flatMap((b) -> ConversionService.SHARED.convert(b, conversionContext))
+            .or(() -> headers.contentType()
+                .filter(m -> m.matches(MediaType.APPLICATION_JSON_TYPE))
+                .flatMap(m -> fromJson((String) message.getBody(), conversionContext.getArgument()))
+            );
+    }
+
+    private <T> Optional<T> fromJson(String body, Argument<T> argument) {
+        try {
+            return Optional.of(jsonMapper.readValue(body, argument));
+        } catch (IOException e) {
+            return Optional.empty();
+        }
     }
 
     @Override

@@ -40,7 +40,12 @@ public class AzureFunctionHttpServerUnderTest implements ServerUnderTest {
     public <I, O> HttpResponse<O> exchange(HttpRequest<I> request, Argument<O> bodyType) {
         HttpRequestMessage<Optional<String>> requestMessage = AzureRequestEventFactory.create(request, function.getApplicationContext().getBean(JsonMapper.class));
         HttpResponseMessage responseMessage = function.route(requestMessage, new DefaultExecutionContext());
-        HttpResponse<O> response = new HttpResponseMessageAdapter<>(responseMessage, function.getApplicationContext().getBean(ConversionService.class), HEADERS_USED_IN_TEST_SUITE);
+        HttpResponse<O> response = new HttpResponseMessageAdapter<>(
+            responseMessage,
+            function.getApplicationContext().getBean(ConversionService.class),
+            function.getApplicationContext().getBean(JsonMapper.class),
+            HEADERS_USED_IN_TEST_SUITE
+        );
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("Response status: {}", response.getStatus());
