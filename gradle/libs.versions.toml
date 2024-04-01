@@ -1,5 +1,5 @@
 [versions]
-managed-azure-sdk = "1.2.21"
+managed-azure-sdk = "1.2.22"
 managed-azure-functions-java-library = "3.1.0"
 managed-azure-cosmos = "4.56.0"
 azurefunctions-plugin = "1.15.0"
@@ -10,16 +10,16 @@ system-lambda = "1.2.1"
 
 # Micronaut
 micronaut = "4.3.12"
-micronaut-platform = "4.3.5"
+micronaut-platform = "4.3.7"
 micronaut-logging = "1.1.2"
 micronaut-reactor = "3.2.1"
-micronaut-serde = "2.8.1"
+micronaut-serde = "2.8.2"
 micronaut-servlet = "4.6.0"
 micronaut-test = "4.1.1"
 micronaut-test-resources = "2.4.0"
 micronaut-validation = "4.4.3"
 
-micronaut-gradle-plugin = "4.3.4"
+micronaut-gradle-plugin = "4.3.5"
 
 micronaut-docs = "2.0.0"
 groovy = "4.0.20"
