@@ -35,7 +35,7 @@ import java.io.Closeable;
 public abstract class AzureFunction implements ApplicationContextProvider, Closeable {
 
     protected static final Logger LOG = LoggerFactory.getLogger(AzureFunction.class);
-    protected ApplicationContext applicationContext;
+    protected static ApplicationContext applicationContext;
 
     /**
      * Default constructor.
