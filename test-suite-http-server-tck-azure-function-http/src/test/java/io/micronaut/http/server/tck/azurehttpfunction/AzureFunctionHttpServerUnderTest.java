@@ -82,6 +82,7 @@ public class AzureFunctionHttpServerUnderTest implements ServerUnderTest {
     private final static Set<String> HEADERS_USED_IN_TEST_SUITE = Set.of(
         "X-Test-Filter",
         "X-Captured-Remote-Address",
+        "X-HEAD-BODY",
         HttpHeaders.ACCESS_CONTROL_ALLOW_PRIVATE_NETWORK
     );
 
