@@ -39,21 +39,22 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.MutableHttpHeaders;
 import io.micronaut.http.MutableHttpParameters;
 import io.micronaut.http.MutableHttpRequest;
+import io.micronaut.http.ServerHttpRequest;
+import io.micronaut.http.body.AvailableByteBody;
 import io.micronaut.http.cookie.Cookie;
 import io.micronaut.http.cookie.Cookies;
 import io.micronaut.http.simple.SimpleHttpParameters;
 import io.micronaut.servlet.http.BodyBuilder;
-import io.micronaut.servlet.http.ByteArrayByteBuffer;
 import io.micronaut.servlet.http.MutableServletHttpRequest;
 import io.micronaut.servlet.http.ParsedBodyHolder;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpRequest;
 import io.micronaut.servlet.http.ServletHttpResponse;
+import io.micronaut.servlet.http.body.AvailableByteArrayBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -78,6 +79,7 @@ import java.util.function.Supplier;
 public final class AzureFunctionHttpRequest<T> implements
     MutableServletHttpRequest<HttpRequestMessage<Optional<String>>, T>,
     ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage>,
+    ServerHttpRequest<T>,
     FullHttpRequest<T>,
     ParsedBodyHolder<T> {
 
@@ -95,8 +97,6 @@ public final class AzureFunctionHttpRequest<T> implements
     private Supplier<Optional<T>> body;
     private T parsedBody;
     private T overriddenBody;
-
-    private ByteArrayByteBuffer<T> servletByteBuffer;
 
     public AzureFunctionHttpRequest(
         HttpRequestMessage<Optional<String>> request,
@@ -131,7 +131,17 @@ public final class AzureFunctionHttpRequest<T> implements
         }
     }
 
-    protected static HttpMethod parseMethod(Supplier<String> httpMethodConsumer) {
+    @Override
+    public @NonNull AvailableByteBody byteBody() {
+        try {
+            return new AvailableByteArrayBody(getBodyBytes());
+        } catch (IOException e) {
+            // empty body
+            return new AvailableByteArrayBody(ArrayUtils.EMPTY_BYTE_ARRAY);
+        }
+    }
+
+    private static HttpMethod parseMethod(Supplier<String> httpMethodConsumer) {
         try {
             return HttpMethod.valueOf(httpMethodConsumer.get());
         } catch (IllegalArgumentException e) {
@@ -171,7 +181,7 @@ public final class AzureFunctionHttpRequest<T> implements
 
     @Override
     public InputStream getInputStream() throws IOException {
-        return servletByteBuffer != null ? servletByteBuffer.toInputStream() : new ByteArrayInputStream(getBodyBytes());
+        return byteBody().split().toInputStream();
     }
 
     @Override
@@ -251,7 +261,7 @@ public final class AzureFunctionHttpRequest<T> implements
      * @param contentType Content Type
      * @return returns true if the content type is either application/x-www-form-urlencoded or multipart/form-data
      */
-    protected boolean isFormSubmission(MediaType contentType) {
+    private boolean isFormSubmission(MediaType contentType) {
         return MediaType.APPLICATION_FORM_URLENCODED_TYPE.equals(contentType) || MediaType.MULTIPART_FORM_DATA_TYPE.equals(contentType);
     }
 
@@ -285,14 +295,7 @@ public final class AzureFunctionHttpRequest<T> implements
 
     @Override
     public @Nullable ByteBuffer<?> contents() {
-        try {
-            if (servletByteBuffer == null) {
-                this.servletByteBuffer = new ByteArrayByteBuffer<>(getInputStream().readAllBytes());
-            }
-            return servletByteBuffer;
-        } catch (IOException e) {
-            throw new IllegalStateException("Error getting all body contents", e);
-        }
+        return byteBody().split().toByteBuffer();
     }
 
     @Override
@@ -307,7 +310,7 @@ public final class AzureFunctionHttpRequest<T> implements
      * @return body bytes
      * @throws IOException if the body is empty
      */
-    protected byte[] getBodyBytes(@NonNull Supplier<String> bodySupplier, @NonNull BooleanSupplier base64EncodedSupplier) throws IOException {
+    private byte[] getBodyBytes(@NonNull Supplier<String> bodySupplier, @NonNull BooleanSupplier base64EncodedSupplier) throws IOException {
         String requestBody = bodySupplier.get();
         if (StringUtils.isEmpty(requestBody)) {
             throw new IOException("Empty Body");
