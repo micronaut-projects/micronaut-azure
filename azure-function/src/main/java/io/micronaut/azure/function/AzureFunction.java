@@ -90,6 +90,11 @@ public abstract class AzureFunction implements ApplicationContextProvider, Close
         }
     }
 
+    /**
+     * Initializes the application context. The context manages bean definitions and resolves dependencies.
+     *
+     * @param applicationContextBuilder the builder used to construct the application context
+     */
     public void startApplicationContext(ApplicationContextBuilder applicationContextBuilder) {
         if (applicationContext == null) {
             applicationContext = (applicationContextBuilder != null ? applicationContextBuilder : defaultApplicationContextBuilder()).build();

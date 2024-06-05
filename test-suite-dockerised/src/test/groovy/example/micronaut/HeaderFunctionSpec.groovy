@@ -43,7 +43,7 @@ class HeaderFunctionSpec extends Specification {
         then:
         def response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString())
         response.statusCode() == 200
-        response.body() == '[0, 1, 2, 3, 4]'
+        response.body() == '01234'
 
         and:
         response.headers().allValues("Transfer-Encoding").size() == 1
