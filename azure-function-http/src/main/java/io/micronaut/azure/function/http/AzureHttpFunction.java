@@ -115,6 +115,8 @@ public class AzureHttpFunction extends AzureFunction {
             ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> exchange =
                 httpHandler.exchange(azureFunctionHttpRequest);
 
+            this.updateResponseHeadersFunction(exchange);
+
             return exchange.getResponse().getNativeResponse();
         } finally {
             if (LOG.isTraceEnabled()) {
@@ -148,5 +150,16 @@ public class AzureHttpFunction extends AzureFunction {
 
     private void registerHttpHandlerShutDownHook() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> httpHandler = null));
+    }
+
+    /**
+     * Updates the headers of the response. Only necessary headers that do not conflict with Azure Function HTTP Trigger should be retained.
+     *
+     * @param exchange The exchange containing the response.
+     */
+    private void updateResponseHeadersFunction(ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> exchange) {
+        if (exchange.getResponse().getHeaders().contains(HttpHeaders.TRANSFER_ENCODING)) {
+            exchange.getResponse().getHeaders().remove(HttpHeaders.TRANSFER_ENCODING);
+        }
     }
 }
