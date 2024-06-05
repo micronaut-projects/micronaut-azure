@@ -23,6 +23,7 @@ import io.micronaut.azure.function.AzureFunction;
 import io.micronaut.context.ApplicationContextBuilder;
 import io.micronaut.core.convert.ConversionService;
 import io.micronaut.function.BinaryTypeConfiguration;
+import io.micronaut.http.HttpHeaders;
 import io.micronaut.servlet.http.BodyBuilder;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpHandler;
@@ -77,8 +78,8 @@ public class AzureHttpFunction extends AzureFunction {
         httpHandler = new HttpHandler(getApplicationContext());
         registerHttpHandlerShutDownHook();
 
-        if(!getApplicationContext().containsBean(this.getClass())) {
-            getApplicationContext().registerSingleton(this);
+        if (!getApplicationContext().containsBean(AzureHttpFunction.class)) {
+            getApplicationContext().registerSingleton(AzureHttpFunction.class, this);
         }
     }
 
