@@ -9,7 +9,7 @@ system-lambda = "1.2.1"
 
 # Micronaut
 micronaut = "4.6.1"
-micronaut-platform = "4.4.3"
+micronaut-platform = "4.5.1"
 micronaut-logging = "1.1.2"
 micronaut-reactor = "3.4.0"
 micronaut-serde = "2.10.2"
