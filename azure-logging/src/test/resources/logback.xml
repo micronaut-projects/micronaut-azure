@@ -1,0 +1,24 @@
+<configuration debug='true'>
+
+    <statusListener class='ch.qos.logback.core.status.OnConsoleStatusListener'/>
+
+    <appender name='MOCK' class='ch.qos.logback.core.read.ListAppender'/>
+
+    <appender name='AZURE' class='io.micronaut.azure.logging.AzureAppender'>
+        <appender-ref ref='MOCK'/>
+        <blackListLoggerName>name1</blackListLoggerName>
+        <blackListLoggerName>name2</blackListLoggerName>
+        <queueSize>300</queueSize>
+        <publishPeriod>120</publishPeriod>
+        <encoder class='ch.qos.logback.core.encoder.LayoutWrappingEncoder'>
+            <layout class='ch.qos.logback.contrib.json.classic.JsonLayout'>
+                <jsonFormatter class='io.micronaut.azure.logging.AzureJsonFormatter'/>
+            </layout>
+        </encoder>
+    </appender>
+
+    <root level='INFO'>
+        <appender-ref ref='AZURE'/>
+    </root>
+
+</configuration>
