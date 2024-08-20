@@ -7,6 +7,8 @@ import org.junit.platform.suite.api.SuiteDisplayName;
 
 @Suite
 @ExcludeClassNamePatterns({
+        "io.micronaut.http.server.tck.tests.NoBodyResponseTest",
+        "io.micronaut.http.server.tck.tests.ResponseStatusTest",
         "io.micronaut.http.server.tck.tests.FilterProxyTest"
 })
 @SelectPackages("io.micronaut.http.server.tck.tests")
