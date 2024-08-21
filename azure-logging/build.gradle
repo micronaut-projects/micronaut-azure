@@ -3,7 +3,6 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor mn.micronaut.inject.java
     implementation platform(projects.micronautAzureBom)
 
     api mn.micronaut.inject
@@ -15,9 +14,6 @@ dependencies {
         exclude group: 'ch.qos.logback', module: 'logback-classic'
     }
 
-    testAnnotationProcessor mn.micronaut.inject.java
-    testImplementation mn.micronaut.inject.groovy
-    testImplementation mnTest.micronaut.test.spock
     testAnnotationProcessor(mnSerde.micronaut.serde.processor)
     testImplementation(mnSerde.micronaut.serde.jackson)
 }

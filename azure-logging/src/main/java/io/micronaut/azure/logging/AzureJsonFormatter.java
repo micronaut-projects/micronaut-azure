@@ -30,10 +30,13 @@ import java.util.Map;
 @Internal
 public class AzureJsonFormatter implements JsonFormatter {
 
-    private final JsonMapper objectMapper = JsonMapper.createDefault();
+    private JsonMapper objectMapper;
 
     @Override
     public String toJsonString(Map map) throws IOException {
+        if (objectMapper == null) {
+            objectMapper = JsonMapper.createDefault();
+        }
         return objectMapper.writeValueAsString(map);
     }
 }

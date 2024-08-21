@@ -1,0 +1,33 @@
+Since the Azure appender queues log messages and then writes them remotely, there are situations which might result in log events not getting remoted correctly.
+To address such scenarios you can configure the emergency appender to preserve those messages.
+
+Configure an appender element in your `src/main/resources/logback.xml`; in the example it is `STDOUT`, but any valid Logback appender can be used.
+Inside the `AzureAppender` element, add an `appender-ref` element that references the emergency appender.
+
+.src/main/resources/logback.xml
+[source,xml]
+----
+<configuration>
+
+    <appender name='STDOUT' class='ch.qos.logback.core.ConsoleAppender'>
+        <encoder>
+            <pattern>%cyan(%d{HH:mm:ss.SSS}) %gray([%thread]) %highlight(%-5level) %magenta(%logger{36}) - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name='AZURE' class='io.micronaut.azure.logging.AzureAppender'>
+        <appender-ref ref='STDOUT'/>
+        <blackListLoggerName>org.apache.http.impl.conn.PoolingHttpClientConnectionManager</blackListLoggerName>
+        <encoder class='ch.qos.logback.core.encoder.LayoutWrappingEncoder'>
+            <layout class='ch.qos.logback.contrib.json.classic.JsonLayout'>
+                <jsonFormatter class='io.micronaut.azure.logging.AzureJsonFormatter' />
+            </layout>
+        </encoder>
+    </appender>
+
+    <root level='INFO'>
+        <appender-ref ref='AZURE' />
+    </root>
+
+</configuration>
+----
