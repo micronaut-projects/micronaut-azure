@@ -17,7 +17,7 @@ package io.micronaut.azure.logging;
 
 import ch.qos.logback.contrib.json.JsonFormatter;
 import io.micronaut.core.annotation.Internal;
-import io.micronaut.serde.ObjectMapper;
+import io.micronaut.json.JsonMapper;
 
 import java.io.IOException;
 import java.util.Map;
@@ -30,7 +30,7 @@ import java.util.Map;
 @Internal
 public class AzureJsonFormatter implements JsonFormatter {
 
-    private final ObjectMapper objectMapper = ObjectMapper.getDefault();
+    private final JsonMapper objectMapper = JsonMapper.createDefault();
 
     @Override
     public String toJsonString(Map map) throws IOException {

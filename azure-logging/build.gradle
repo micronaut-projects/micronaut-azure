@@ -8,7 +8,7 @@ dependencies {
 
     api mn.micronaut.inject
     api projects.micronautAzureSdk
-    api mnSerde.micronaut.serde.jackson
+    api mnSerde.micronaut.serde.api
     api libs.azure.monitor.ingestion
     implementation mnLogging.logback.classic
     implementation libs.logback.json.classic, {
@@ -18,6 +18,8 @@ dependencies {
     testAnnotationProcessor mn.micronaut.inject.java
     testImplementation mn.micronaut.inject.groovy
     testImplementation mnTest.micronaut.test.spock
+    testAnnotationProcessor(mnSerde.micronaut.serde.processor)
+    testImplementation(mnSerde.micronaut.serde.jackson)
 }
 
 micronautBuild {
