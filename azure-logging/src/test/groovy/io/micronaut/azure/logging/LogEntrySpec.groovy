@@ -1,7 +1,7 @@
 package io.micronaut.azure.logging
 
 import io.micronaut.context.annotation.Property
-import io.micronaut.serde.ObjectMapper
+import io.micronaut.json.JsonMapper
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import spock.lang.Specification
@@ -14,7 +14,7 @@ import static io.micronaut.core.util.StringUtils.FALSE
 class LogEntrySpec extends Specification {
 
     @Inject
-    ObjectMapper objectMapper
+    JsonMapper objectMapper
 
     void 'check serialization'() {
         expect:
