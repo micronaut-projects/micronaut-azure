@@ -18,6 +18,8 @@ package io.micronaut.azure.logging;
 import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.annotation.NonNull;
 
+import java.io.Closeable;
+
 /**
  * Wraps a LogsIngestionClient and provides access via an upload method.
  * This helps with testing - LogsIngestionClient is final and doesn't implement an interface.
@@ -25,9 +27,7 @@ import io.micronaut.core.annotation.NonNull;
  * @since 5.6
  */
 @Internal
-interface ClientWrapper {
+interface ClientWrapper extends Closeable {
 
     void upload(@NonNull Iterable<Object> logs);
-
-    void close();
 }
