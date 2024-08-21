@@ -24,6 +24,8 @@ import io.micronaut.runtime.server.event.ServerStartupEvent;
 import jakarta.annotation.PreDestroy;
 import jakarta.inject.Singleton;
 
+import java.io.IOException;
+
 import static io.micronaut.core.util.StringUtils.TRUE;
 
 /**
@@ -72,7 +74,7 @@ final class AzureLoggingClient implements ApplicationEventListener<ServerStartup
         AzureLoggingClient.appName = appName;
     }
 
-    static synchronized void destroy() {
+    static synchronized void destroy() throws IOException {
         AzureLoggingClient.client.close();
         AzureLoggingClient.client = null;
         AzureLoggingClient.host = null;
@@ -89,7 +91,7 @@ final class AzureLoggingClient implements ApplicationEventListener<ServerStartup
     }
 
     @PreDestroy
-    public void close() {
+    public void close() throws IOException {
         AzureLoggingClient.destroy();
     }
 
