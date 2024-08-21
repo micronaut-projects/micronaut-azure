@@ -1,0 +1,3 @@
+Refer to the https://guides.micronaut.io/latest/micronaut-azure-logging.html[Micronaut Azure Logging guide] for how to retrieve log entries published to Azure Monitor Logs.
+
+If you have any troubles with configuring the Azure Appender you can try to add `<configuration debug='false'>` into your Logback configuration.

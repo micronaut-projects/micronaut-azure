@@ -1,0 +1,3 @@
+To use https://learn.microsoft.com/en-us/azure/azure-monitor/logs/data-platform-logs[Azure Monitor Logs], add the following dependency to your project:
+
+dependency:io.micronaut.azure:micronaut-azure-logging[]

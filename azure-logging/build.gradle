@@ -1,0 +1,24 @@
+plugins {
+    id 'io.micronaut.build.internal.azure-module'
+}
+
+dependencies {
+    implementation platform(projects.micronautAzureBom)
+    api projects.micronautAzureSdk
+    api mnSerde.micronaut.serde.api
+    api libs.azure.monitor.ingestion
+    implementation mnLogging.logback.classic
+    implementation libs.logback.json.classic, {
+        exclude group: 'ch.qos.logback', module: 'logback-classic'
+    }
+
+    testAnnotationProcessor(mnSerde.micronaut.serde.processor)
+    testImplementation(mnSerde.micronaut.serde.jackson)
+}
+
+micronautBuild {
+    // new module, so no binary check
+    binaryCompatibility {
+        enabled = false
+    }
+}

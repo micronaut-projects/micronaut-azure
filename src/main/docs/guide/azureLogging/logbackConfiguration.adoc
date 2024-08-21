@@ -1,0 +1,67 @@
+Edit your `src/main/resources/logback.xml` file to look like this:
+
+.src/main/resources/logback.xml
+[source,xml]
+----
+<configuration>
+
+    <appender name='AZURE' class='io.micronaut.azure.logging.AzureAppender'>
+        <!-- <blackListLoggerName>example.app.Application</blackListLoggerName> -->
+        <encoder class='ch.qos.logback.core.encoder.LayoutWrappingEncoder'>
+            <layout class='ch.qos.logback.contrib.json.classic.JsonLayout'>
+                <jsonFormatter class='io.micronaut.azure.logging.AzureJsonFormatter' />
+            </layout>
+        </encoder>
+    </appender>
+
+    <root level='INFO'>
+        <appender-ref ref='AZURE' />
+    </root>
+
+</configuration>
+----
+
+You can customize your JsonLayout with additional parameters that are described in the Logback https://javadoc.io/static/ch.qos.logback.contrib/logback-json-classic/0.1.5/ch/qos/logback/contrib/json/classic/JsonLayout.html[JsonLayout] documentation.
+
+The `AzureAppender` supports blacklisting loggers by specifying the logger name(s) to exclude in `blackListLoggerName` elements.
+
+.Configurable AzureAppender Appender Properties
+|===
+|Property|Type|Required|Default value|Description
+
+|`subject`
+|`String`
+|false
+|application-name
+|the subject of the log
+
+|`source`
+|`String`
+|false
+|host-name
+|the source of the log
+
+|`publishPeriod`
+|`Integer`
+|false
+|100
+|Time in ms between two batch publishing of logs
+
+|`maxBatchSize`
+|`Integer`
+|false
+|128
+|The maximum number of log events that will be sent in one batch request
+
+|`queueSize`
+|`Integer`
+|false
+|128
+|The size of publishing log queue
+
+|`blackListLoggerName`
+|`String`
+|false
+|_none_
+|Logger name(s) that will be excluded
+|===
