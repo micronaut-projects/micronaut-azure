@@ -22,6 +22,12 @@ azureBlobStorage: Azure Blob Storage Support
 azureCosmosClient:
   title: Azure Cosmos Client
   azureCosmosClientConfiguration: Configuration
-azureLogging: Azure Logging
+azureLogging:
+  title: Azure Logging
+  createAzureLoggingResources: Create Azure Logging Resources
+  azureLoggingApplicationConfiguration: Application configuration
+  logbackConfiguration: Logback Configuration
+  emergencyAppender: Emergency Appender
+  browsingTheLogs: Browsing the logs
 azureGuides: Guides
 repository: Repository
