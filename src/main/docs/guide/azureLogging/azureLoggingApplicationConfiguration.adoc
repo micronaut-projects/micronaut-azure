@@ -1,0 +1,31 @@
+There are three application configuration properties required to configure the Logback appender that pushes Logback log events to Azure Monitor Logs.
+In addition, you can enable or disable the appender, which defaults to being enabled.
+
+.Azure Logging Configuration Properties
+|===
+|Property|Type|Required|Default value|Description
+
+|`azure.logging.enabled`
+|`boolean`
+|`false`
+|`true`
+|Whether the Logback appender is enabled
+
+|`azure.logging.data-collection-endpoint`
+|`String`
+|`true`
+|_none_
+|Azure Monitor data collection endpoint URL
+
+|`azure.logging.rule-id`
+|`String`
+|`true`
+|_none_
+|The Azure Monitor data collection rule id that is configured to collect and transform the logs
+
+|`azure.logging.stream-name`
+|`String`
+|`true`
+|_none_
+|The Azure Monitor stream name configured in the data collection rule, for example a table in a Log Analytics workspace
+|===
