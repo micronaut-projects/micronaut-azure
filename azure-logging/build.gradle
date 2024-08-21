@@ -4,8 +4,6 @@ plugins {
 
 dependencies {
     implementation platform(projects.micronautAzureBom)
-
-    api mn.micronaut.inject
     api projects.micronautAzureSdk
     api mnSerde.micronaut.serde.api
     api libs.azure.monitor.ingestion
