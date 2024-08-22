@@ -1,13 +1,9 @@
 package io.micronaut.http.server.tck.azurehttpfunction.tests;
 
-import org.junit.platform.suite.api.ExcludeClassNamePatterns;
-import org.junit.platform.suite.api.SelectPackages;
-import org.junit.platform.suite.api.Suite;
-import org.junit.platform.suite.api.SuiteDisplayName;
+import org.junit.platform.suite.api.*;
 
 @Suite
 @ExcludeClassNamePatterns({
-        "io.micronaut.http.server.tck.tests.NoBodyResponseTest",
         "io.micronaut.http.server.tck.tests.FilterProxyTest"
 })
 @SelectPackages("io.micronaut.http.server.tck.tests")
