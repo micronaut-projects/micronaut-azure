@@ -3,7 +3,6 @@ io.micronaut.azure.cosmos.client
 io.micronaut.azure.credentials
 io.micronaut.azure.function
 io.micronaut.azure.function.http
-io.micronaut.azure.logging
 io.micronaut.azure.secretmanager
 io.micronaut.azure.secretmanager.client
 io.micronaut.azure.secretmanager.configuration
