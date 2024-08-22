@@ -22,6 +22,7 @@ import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.convert.ConversionService;
 import io.micronaut.core.convert.value.MutableConvertibleValues;
 import io.micronaut.core.convert.value.MutableConvertibleValuesMap;
+import io.micronaut.core.util.StringUtils;
 import io.micronaut.function.BinaryTypeConfiguration;
 import io.micronaut.http.CaseInsensitiveMutableHttpHeaders;
 import io.micronaut.http.HttpHeaders;
@@ -159,7 +160,10 @@ public final class AzureFunctionHttpResponse<B> implements ServletHttpResponse<H
         if (binaryTypeConfiguration.isMediaTypeBinary(getHeaders().getContentType().orElse(null))) {
             responseBuilder.body(body.toByteArray());
         } else {
-            responseBuilder.body(body.toString(getCharacterEncoding()));
+            String bodyStr = body.toString(getCharacterEncoding());
+            if (StringUtils.isNotEmpty(bodyStr)) {
+                responseBuilder.body(bodyStr);
+            }
         }
         return responseBuilder.build();
     }
