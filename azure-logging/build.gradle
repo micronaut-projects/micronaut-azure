@@ -15,10 +15,3 @@ dependencies {
     testAnnotationProcessor(mnSerde.micronaut.serde.processor)
     testImplementation(mnSerde.micronaut.serde.jackson)
 }
-
-micronautBuild {
-    // new module, so no binary check
-    binaryCompatibility {
-        enabled = false
-    }
-}
