@@ -1,7 +1,7 @@
 [versions]
 managed-azure-sdk = "1.2.26"
 managed-azure-functions-java-library = "3.1.0"
-managed-azure-cosmos = "4.63.1"
+managed-azure-cosmos = "4.63.2"
 azurefunctions-plugin = "1.16.1"
 jakarta-inject-api = "2.0.1"
 kotlin = "1.9.25"
