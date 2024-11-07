@@ -1,6 +1,6 @@
 An additional module exists called `micronaut-azure-function-http` that allows you to write regular Micronaut controllers and have them executed using Azure Function. To get started add the `micronaut-azure-function-http` module.
 
-dependency:io.microaut.azure:micronaut-azure-function-http[]
+dependency:io.micronaut.azure:micronaut-azure-function-http[]
 
 You then need to define a function that subclasses api:azure.function.http.AzureHttpFunction[] and overrides the `invoke` method:
 
