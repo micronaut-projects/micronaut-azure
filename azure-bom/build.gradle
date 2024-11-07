@@ -6,4 +6,7 @@ micronautBom {
     excludeProject.set({ p ->
         p.name.contains('benchmark') || p.name.contains('example')
     } as Spec<String>)
+    suppressions {
+        dependencies.add("com.azure:azure-health-deidentification:1.0.0")
+    }
 }
