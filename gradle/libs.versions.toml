@@ -1,5 +1,5 @@
 [versions]
-managed-azure-sdk = "1.2.30"
+managed-azure-sdk = "1.2.31"
 managed-azure-functions-java-library = "3.1.0"
 managed-azure-cosmos = "4.65.0"
 azurefunctions-plugin = "1.16.1"
