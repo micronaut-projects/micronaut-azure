@@ -8,6 +8,7 @@ kotlin = "2.1.10"
 logback-json-classic = "0.1.5"
 system-lambda = "1.2.1"
 jetty = '11.0.24'
+json-smart = "2.5.2"
 
 # Micronaut
 micronaut = "4.8.3"
@@ -55,7 +56,7 @@ kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref =
 kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 logback-json-classic = { module = 'ch.qos.logback.contrib:logback-json-classic', version.ref = 'logback-json-classic' }
 system-lambda = { module = "com.github.stefanbirkner:system-lambda", version.ref = "system-lambda" }
-
+json-smart = { module = "net.minidev:json-smart", version.ref = "json-smart" }
 junit-jupiter-engine = { module = 'org.junit.jupiter:junit-jupiter-engine' }
 junit-platform-engine = { module = "org.junit.platform:junit-platform-suite-engine" }
 sonatype-scan = { module = "org.sonatype.gradle.plugins:scan-gradle-plugin", version.ref = "sonatype-scan" }
