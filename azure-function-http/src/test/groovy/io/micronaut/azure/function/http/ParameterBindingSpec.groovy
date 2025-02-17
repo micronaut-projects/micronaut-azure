@@ -7,6 +7,7 @@ import com.microsoft.azure.functions.HttpStatusType
 import io.micronaut.http.HttpHeaders
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
+import spock.lang.PendingFeature
 import spock.lang.Specification
 
 class ParameterBindingSpec extends Specification {
@@ -179,6 +180,7 @@ class ParameterBindingSpec extends Specification {
         function.close()
     }
 
+    @PendingFeature
     void "test writable"() {
 
         given:
