@@ -6,6 +6,7 @@ import org.junit.platform.suite.api.*;
 @ExcludeClassNamePatterns({
         "io.micronaut.http.server.tck.tests.FilterProxyTest",
     "io.micronaut.http.server.tck.tests.ErrorHandlerFluxTest", // test fails testErrorHandlerWithFluxChunkedSignaledDelayedError
+    "io.micronaut.http.server.tck.tests.forms.FormsJacksonAnnotationsTest", // test fails httpClientFormSubmissionsDoesNotSupportJacksonAnnotations"
 })
 @SelectPackages("io.micronaut.http.server.tck.tests")
 @SuiteDisplayName("HTTP Server TCK for Azure Functions")
