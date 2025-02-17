@@ -12,7 +12,7 @@ jetty = '11.0.24'
 # Micronaut
 micronaut = "4.8.3"
 micronaut-platform = "4.7.6"
-micronaut-logging = "1.6.0"
+micronaut-logging = "1.6.1"
 micronaut-reactor = "3.7.0"
 micronaut-serde = "2.14.0"
 micronaut-servlet = "5.1.0"
