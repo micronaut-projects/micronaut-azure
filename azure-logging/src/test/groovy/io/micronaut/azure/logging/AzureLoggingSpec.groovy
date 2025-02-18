@@ -13,7 +13,6 @@ import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 import org.slf4j.LoggerFactory
-import spock.lang.PendingFeature
 import spock.lang.Specification
 import spock.util.concurrent.PollingConditions
 
@@ -33,7 +32,6 @@ class AzureLoggingSpec extends Specification {
     @Inject
     ApplicationConfiguration applicationConfiguration
 
-    @PendingFeature
     void 'test Azure logging'() {
         given:
         String logMessage = 'test logging'

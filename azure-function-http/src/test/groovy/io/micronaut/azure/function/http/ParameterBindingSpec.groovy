@@ -180,7 +180,7 @@ class ParameterBindingSpec extends Specification {
         function.close()
     }
 
-    @PendingFeature
+    @PendingFeature(reason = "Old servlet-specific feature")
     void "test writable"() {
 
         given:
