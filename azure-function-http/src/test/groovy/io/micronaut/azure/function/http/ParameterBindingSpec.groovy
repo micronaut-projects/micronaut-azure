@@ -180,25 +180,39 @@ class ParameterBindingSpec extends Specification {
         function.close()
     }
 
-    @PendingFeature(reason = "Old servlet-specific feature")
     void "test writable"() {
-
         given:
         AzureHttpFunction function = new AzureHttpFunction()
-        def responseMessage = function
-                .request(HttpMethod.POST, "/parameters/writable")
-                .body("Foo")
-                .header(HttpHeaders.CONTENT_TYPE, "text/plain")
-                .invoke()
+        HttpResponseMessage responseMessage = executeWritable(function)
 
         expect:
         responseMessage.statusCode == HttpStatus.CREATED.code
         responseMessage.getHeader(HttpHeaders.CONTENT_TYPE) == MediaType.TEXT_PLAIN
         responseMessage.body == 'Hello Foo'
+
+        cleanup:
+        function.close()
+    }
+
+    @PendingFeature
+    void "test writable header"() {
+        given:
+        AzureHttpFunction function = new AzureHttpFunction()
+        HttpResponseMessage responseMessage = executeWritable(function)
+
+        expect:
         responseMessage.getHeader("Foo") == 'Bar'
 
         cleanup:
         function.close()
+    }
+
+    static HttpResponseMessage executeWritable(AzureHttpFunction function) {
+        function
+                .request(HttpMethod.POST, "/parameters/writable")
+                .body("Foo")
+                .header(HttpHeaders.CONTENT_TYPE, "text/plain")
+                .invoke()
     }
 
     void "test JSON POJO body"() {
