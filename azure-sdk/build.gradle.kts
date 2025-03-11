@@ -7,6 +7,7 @@ dependencies {
     implementation(mn.micronaut.context)
     implementation(platform(projects.micronautAzureBom))
     api(libs.azure.identity)
+    implementation(libs.json.smart) // force version of json-smart as version coming from azure bom has a CVE
     compileOnly(libs.azure.storage.common)
     testAnnotationProcessor(mn.micronaut.inject.java)
     testImplementation(mn.micronaut.inject.java)

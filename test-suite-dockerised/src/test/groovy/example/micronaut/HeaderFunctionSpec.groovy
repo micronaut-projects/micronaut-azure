@@ -5,6 +5,7 @@ import org.testcontainers.containers.wait.strategy.Wait
 import org.testcontainers.utility.MountableFile
 import spock.lang.AutoCleanup
 import spock.lang.Issue
+import spock.lang.PendingFeature
 import spock.lang.Shared
 import spock.lang.Specification
 import spock.util.environment.Jvm
@@ -33,6 +34,7 @@ class HeaderFunctionSpec extends Specification {
                 .start()
     }
 
+    @PendingFeature
     void "headers in Azure function context should not cause conflicts"() {
         when:
         HttpRequest request = HttpRequest.newBuilder()

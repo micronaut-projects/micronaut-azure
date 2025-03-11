@@ -25,6 +25,7 @@ import io.micronaut.core.convert.ConversionService;
 import io.micronaut.core.convert.value.MutableConvertibleValues;
 import io.micronaut.core.convert.value.MutableConvertibleValuesMap;
 import io.micronaut.core.execution.ExecutionFlow;
+import io.micronaut.core.io.buffer.ByteArrayBufferFactory;
 import io.micronaut.core.io.buffer.ByteBuffer;
 import io.micronaut.core.type.Argument;
 import io.micronaut.core.util.ArrayUtils;
@@ -41,6 +42,7 @@ import io.micronaut.http.MutableHttpParameters;
 import io.micronaut.http.MutableHttpRequest;
 import io.micronaut.http.ServerHttpRequest;
 import io.micronaut.http.body.AvailableByteBody;
+import io.micronaut.http.body.stream.AvailableByteArrayBody;
 import io.micronaut.http.cookie.Cookie;
 import io.micronaut.http.cookie.Cookies;
 import io.micronaut.http.simple.SimpleHttpParameters;
@@ -50,7 +52,6 @@ import io.micronaut.servlet.http.ParsedBodyHolder;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpRequest;
 import io.micronaut.servlet.http.ServletHttpResponse;
-import io.micronaut.servlet.http.body.AvailableByteArrayBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -134,10 +135,10 @@ public final class AzureFunctionHttpRequest<T> implements
     @Override
     public @NonNull AvailableByteBody byteBody() {
         try {
-            return new AvailableByteArrayBody(getBodyBytes());
+            return AvailableByteArrayBody.create(ByteArrayBufferFactory.INSTANCE, getBodyBytes());
         } catch (IOException e) {
             // empty body
-            return new AvailableByteArrayBody(ArrayUtils.EMPTY_BYTE_ARRAY);
+            return AvailableByteArrayBody.create(ByteArrayBufferFactory.INSTANCE, ArrayUtils.EMPTY_BYTE_ARRAY);
         }
     }
 
