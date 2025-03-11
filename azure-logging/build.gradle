@@ -11,7 +11,7 @@ dependencies {
     implementation libs.logback.json.classic, {
         exclude group: 'ch.qos.logback', module: 'logback-classic'
     }
-
+    implementation(libs.json.smart) // force version of json-smart as version coming from azure bom has a CVE
     testAnnotationProcessor(mnSerde.micronaut.serde.processor)
     testImplementation(mnSerde.micronaut.serde.jackson)
 }

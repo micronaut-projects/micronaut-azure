@@ -7,15 +7,17 @@ jakarta-inject-api = "2.0.1"
 kotlin = "2.1.10"
 logback-json-classic = "0.1.5"
 system-lambda = "1.2.1"
+jetty = '11.0.24'
+json-smart = "2.5.2"
 
 # Micronaut
 micronaut = "4.8.6"
 micronaut-platform = "4.7.6"
-micronaut-logging = "1.5.1"
+micronaut-logging = "1.6.1"
 micronaut-reactor = "3.7.0"
 micronaut-serde = "2.14.0"
 micronaut-servlet = "5.1.1"
-micronaut-test = "4.5.0"
+micronaut-test = "4.7.0"
 micronaut-test-resources = "2.7.3"
 micronaut-validation = "4.9.0"
 micronaut-gradle-plugin = "4.4.5"
@@ -49,12 +51,12 @@ azure-storage-blob = { module = "com.azure:azure-storage-blob" }
 azure-monitor-ingestion = { module = 'com.azure:azure-monitor-ingestion' }
 groovy-all = { module = "org.apache.groovy:groovy-all", version.ref = "groovy" }
 jakarta-inject-api = { module = "jakarta.inject:jakarta.inject-api", version.ref = "jakarta-inject-api" }
-jetty-server = { module = 'org.eclipse.jetty:jetty-server' }
+jetty-server = { module = 'org.eclipse.jetty:jetty-server', version.ref = "jetty" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 logback-json-classic = { module = 'ch.qos.logback.contrib:logback-json-classic', version.ref = 'logback-json-classic' }
 system-lambda = { module = "com.github.stefanbirkner:system-lambda", version.ref = "system-lambda" }
-
+json-smart = { module = "net.minidev:json-smart", version.ref = "json-smart" }
 junit-jupiter-engine = { module = 'org.junit.jupiter:junit-jupiter-engine' }
 junit-platform-engine = { module = "org.junit.platform:junit-platform-suite-engine" }
 sonatype-scan = { module = "org.sonatype.gradle.plugins:scan-gradle-plugin", version.ref = "sonatype-scan" }
