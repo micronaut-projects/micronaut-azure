@@ -11,7 +11,7 @@ jetty = '11.0.24'
 json-smart = "2.5.2"
 
 # Micronaut
-micronaut = "4.8.6"
+micronaut = "4.8.7"
 micronaut-platform = "4.7.6"
 micronaut-logging = "1.6.1"
 micronaut-reactor = "3.7.0"
