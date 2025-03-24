@@ -38,6 +38,9 @@ import io.micronaut.servlet.http.BodyBuilder;
 import io.micronaut.servlet.http.ServletExchange;
 import io.micronaut.servlet.http.ServletHttpResponse;
 import jakarta.inject.Singleton;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,11 +51,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 @Internal
 @Singleton
 public class AzureFunctionHttpHandler implements HttpHandler {
+    private static final Logger LOG = LoggerFactory.getLogger(AzureFunctionHttpHandler.class);
     private final HttpRequestMessageHandler handler;
 
     public AzureFunctionHttpHandler(HttpRequestMessageHandler handler) {
@@ -62,7 +65,11 @@ public class AzureFunctionHttpHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> servletExchange = createHttpRequest(exchange, handler);
-        handler.exchange(servletExchange);
+        try {
+            handler.exchange(servletExchange);
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
         ServletHttpResponse<HttpResponseMessage, ?> exchangeResponse = servletExchange.getResponse();
         HttpResponseMessage httpResponseMessage = exchangeResponse.getNativeResponse();
         HttpStatusType httpStatus = httpResponseMessage.getStatus();
@@ -78,9 +85,9 @@ public class AzureFunctionHttpHandler implements HttpHandler {
         final boolean hasBody = bodyAsBytes != null;
         int contentLength = hasBody ? bodyAsBytes.length : 0;
         if (httpResponseMessage instanceof HttpHeaders headers) {
-            headers.forEach((name, values) -> {
-                exchange.getRequestHeaders().put(name, values);
-            });
+            for (String headerName : headers.names()) {
+                exchange.getResponseHeaders().put(headerName, headers.getAll(headerName));
+            }
         }
         exchange.sendResponseHeaders(status, contentLength);
         if (hasBody && bodyAsBytes.length > 0) {
@@ -91,6 +98,7 @@ public class AzureFunctionHttpHandler implements HttpHandler {
         } else {
             exchange.getResponseBody().flush();
         }
+        exchange.close();
     }
 
     private static AzureFunctionHttpRequest createHttpRequest(HttpExchange request, ApplicationContextProvider applicationContextProvider) {
@@ -146,7 +154,7 @@ public class AzureFunctionHttpHandler implements HttpHandler {
     private static class DefaultExecutionContext implements ExecutionContext {
 
         @Override
-        public Logger getLogger() {
+        public java.util.logging.Logger getLogger() {
             return LogManager.getLogManager().getLogger(AzureFunctionHttpHandler.class.getName());
         }
 
