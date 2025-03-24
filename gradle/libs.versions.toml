@@ -7,7 +7,6 @@ jakarta-inject-api = "2.0.1"
 kotlin = "2.1.10"
 logback-json-classic = "0.1.5"
 system-lambda = "1.2.1"
-jetty = '11.0.25'
 json-smart = "2.5.2"
 
 # Micronaut
@@ -51,7 +50,6 @@ azure-storage-blob = { module = "com.azure:azure-storage-blob" }
 azure-monitor-ingestion = { module = 'com.azure:azure-monitor-ingestion' }
 groovy-all = { module = "org.apache.groovy:groovy-all", version.ref = "groovy" }
 jakarta-inject-api = { module = "jakarta.inject:jakarta.inject-api", version.ref = "jakarta-inject-api" }
-jetty-server = { module = 'org.eclipse.jetty:jetty-server', version.ref = "jetty" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 logback-json-classic = { module = 'ch.qos.logback.contrib:logback-json-classic', version.ref = 'logback-json-classic' }

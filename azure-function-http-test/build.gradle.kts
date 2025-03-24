@@ -10,7 +10,6 @@ dependencies {
     api(libs.managed.azure.functions.java.library)
 
     api(mnServlet.micronaut.servlet.core)
-    implementation(libs.jetty.server)
     implementation(libs.jakarta.inject.api)
     testCompileOnly(mn.micronaut.inject.groovy)
     testImplementation(mnSerde.micronaut.serde.jackson)
