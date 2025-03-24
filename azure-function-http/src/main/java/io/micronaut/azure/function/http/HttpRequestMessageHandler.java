@@ -18,6 +18,7 @@ package io.micronaut.azure.function.http;
 import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
 import io.micronaut.context.ApplicationContext;
+import io.micronaut.context.ApplicationContextProvider;
 import io.micronaut.core.annotation.Internal;
 import io.micronaut.core.convert.ConversionService;
 import io.micronaut.function.BinaryTypeConfiguration;
@@ -35,9 +36,10 @@ import java.util.Optional;
  */
 @Internal
 @Singleton
-class HttpRequestMessageHandler extends ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> {
+public class HttpRequestMessageHandler extends ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage>
+    implements ApplicationContextProvider {
 
-    HttpRequestMessageHandler(ApplicationContext applicationContext) {
+    public HttpRequestMessageHandler(ApplicationContext applicationContext) {
         super(applicationContext, applicationContext.getBean(ConversionService.class));
     }
 
