@@ -34,7 +34,7 @@ import java.util.Optional;
 @Experimental
 @Internal
 @Factory
-public class EmbeddedServerFactory {
+class EmbeddedServerFactory {
     @Named("HttpServer")
     @Singleton
     ApplicationContextProvider httpServerApplicationContextProvider(ApplicationContext applicationContext) {

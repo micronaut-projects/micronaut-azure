@@ -52,6 +52,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.logging.LogManager;
 
+/**
+ * {@link HttpHandler} implementation based on {@link HttpRequestMessageHandler}.
+ */
 @Internal
 @Singleton
 public class AzureFunctionHttpHandler implements HttpHandler {
@@ -65,11 +68,7 @@ public class AzureFunctionHttpHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> servletExchange = createHttpRequest(exchange, handler);
-        try {
-            handler.exchange(servletExchange);
-        } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
-        }
+        handler.exchange(servletExchange);
         ServletHttpResponse<HttpResponseMessage, ?> exchangeResponse = servletExchange.getResponse();
         HttpResponseMessage httpResponseMessage = exchangeResponse.getNativeResponse();
         HttpStatusType httpStatus = httpResponseMessage.getStatus();
