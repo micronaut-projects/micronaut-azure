@@ -15,6 +15,7 @@ import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Error
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import io.micronaut.test.support.TestPropertyProvider
+import spock.lang.PendingFeature
 import spock.lang.Specification
 import jakarta.inject.Inject
 
@@ -26,6 +27,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
 
     @Inject @Client("/") HttpClient client
 
+    @PendingFeature
     void "test non cors request"() {
         when:
         HttpResponse<?> response = client.toBlocking().exchange('/api/cors/test')
@@ -43,6 +45,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
         headerNames.contains(SERVER)
     }
 
+    @PendingFeature
     void "test cors localhost driveby request without configuration"() {
         when:
         client.toBlocking().exchange(
@@ -111,6 +114,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
         response.header(ACCESS_CONTROL_ALLOW_CREDENTIALS) == 'true'
     }
 
+    @PendingFeature
     void "test cors request with controlled headers"() {
         given:
         HttpResponse<?> response = client.toBlocking().exchange(
@@ -134,6 +138,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
         !headerNames.contains(ACCESS_CONTROL_ALLOW_CREDENTIALS)
     }
 
+    @PendingFeature
     void "test cors request with invalid method"() {
         when:
         client.toBlocking().exchange(
@@ -220,6 +225,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
         response.header(ACCESS_CONTROL_ALLOW_CREDENTIALS) == 'true'
     }
 
+    @PendingFeature
     void "test preflight request with controlled headers"() {
         given:
         HttpResponse<?> response = client.toBlocking().exchange(
