@@ -10,7 +10,7 @@ system-lambda = "1.2.1"
 json-smart = "2.5.2"
 
 # Micronaut
-micronaut = "4.8.10"
+micronaut = "4.8.11"
 micronaut-platform = "4.7.6"
 micronaut-logging = "1.6.1"
 micronaut-reactor = "3.7.0"
