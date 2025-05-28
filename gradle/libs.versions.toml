@@ -22,7 +22,7 @@ micronaut-validation = "4.9.0"
 micronaut-gradle-plugin = "4.5.3"
 
 micronaut-docs = "2.0.0"
-groovy = "4.0.26"
+groovy = "4.0.27"
 spock = "2.3-groovy-4.0"
 sonatype-scan = "3.0.0"
 
