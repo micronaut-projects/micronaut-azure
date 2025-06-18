@@ -9,3 +9,10 @@ dependencies {
     testAnnotationProcessor(mn.micronaut.inject.java)
     testCompileOnly(mn.micronaut.inject.groovy)
 }
+
+micronautBuild {
+    // new module
+    binaryCompatibility {
+        enabled.set(false)
+    }
+}
