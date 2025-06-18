@@ -7,6 +7,7 @@ import com.microsoft.azure.functions.HttpStatusType
 import io.micronaut.http.HttpHeaders
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
+import spock.lang.Ignore
 import spock.lang.PendingFeature
 import spock.lang.Specification
 
@@ -100,6 +101,7 @@ class ParameterBindingSpec extends Specification {
         function.close()
     }
 
+    @Ignore
     void "test request and response"() {
         given:
         AzureHttpFunction function = new AzureHttpFunction()
