@@ -11,8 +11,8 @@ json-smart = "2.5.2"
 opentelemetry-autoconfigure = "1.2.0"
 
 # Micronaut
-micronaut = "4.9.2"
 micronaut-platform = "4.8.3"
+micronaut = "4.9.3"
 micronaut-logging = "1.7.0"
 micronaut-reactor = "3.8.0"
 micronaut-serde = "2.15.0"
