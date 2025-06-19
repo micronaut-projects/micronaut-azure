@@ -15,7 +15,6 @@
  */
 package io.micronaut.azure.tracing;
 
-import io.micronaut.context.annotation.BootstrapContextCompatible;
 import io.micronaut.context.annotation.ConfigurationProperties;
 import io.micronaut.context.env.Environment;
 
@@ -25,7 +24,6 @@ import io.micronaut.context.env.Environment;
  * @since 5.10
  */
 @ConfigurationProperties(AzureTracingConfigurationProperties.PREFIX)
-@BootstrapContextCompatible
 public class AzureTracingConfigurationProperties {
 
     /**
