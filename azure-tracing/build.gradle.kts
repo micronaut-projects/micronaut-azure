@@ -8,7 +8,7 @@ dependencies {
     annotationProcessor(mn.micronaut.inject.java)
     api(libs.opentelemetry.autoconfigure)
     api(mnTracing.micronaut.tracing.opentelemetry)
-
+    testImplementation(mnTest.mockito.core)
 }
 
 micronautBuild {
