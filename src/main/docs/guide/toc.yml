@@ -29,5 +29,8 @@ azureLogging:
   logbackConfiguration: Logback Configuration
   emergencyAppender: Emergency Appender
   browsingTheLogs: Browsing the logs
+azureTracing:
+  title: Azure Tracing
+  azureTracingApplicationConfiguration: Application configuration
 azureGuides: Guides
 repository: Repository

@@ -1,0 +1,13 @@
+To configure publishing application trace data to Azure Monitor, specify the Azure Monitor workspace connection string in your application configuration.
+
+.Azure Tracing Configuration Properties
+|===
+|Property|Type|Required|Default value|Description
+
+|`azure.tracing.connection-string`
+|`String`
+|`true`
+|_none_
+|Azure Monitor workspace connection string, e.g. `InstrumentationKey=2ad3...;IngestionEndpoint=https://eastus...;LiveEndpoint=https://eastus..../;ApplicationId=09de44...`
+
+|===
