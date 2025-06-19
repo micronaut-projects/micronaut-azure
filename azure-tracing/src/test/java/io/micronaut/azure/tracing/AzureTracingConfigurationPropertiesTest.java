@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AzureTracingConfigurationPropertiesTest {
 
     @Test
-    void connectionStringCanBePopulatedViaConfiguration() {
+    void setterAndGetter() {
         AzureTracingConfigurationProperties tracingConfig =
             new AzureTracingConfigurationProperties();
         tracingConfig.setConnectionString("foobar");
