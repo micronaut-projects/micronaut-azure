@@ -64,9 +64,11 @@
                                 
                                 <div class="toc-item" style="margin-left:0"><a href="#azureLogging"><strong>10</strong><span>Azure Logging</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#azureGuides"><strong>11</strong><span>Guides</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#azureTracing"><strong>11</strong><span>Azure Tracing</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>12</strong><span>Repository</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#azureGuides"><strong>12</strong><span>Guides</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>13</strong><span>Repository</span></a></div>
                                 
                             </div>
                         </div>
@@ -143,9 +145,13 @@
         
         <div class="toc-item" style="margin-left:10px" id="toc-item-browsingTheLogs"><a href="#browsingTheLogs"><strong>10.5</strong><span>Browsing the logs</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-azureGuides"><a href="#azureGuides"><strong>11</strong><span>Guides</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-azureTracing"><a href="#azureTracing"><strong>11</strong><span>Azure Tracing</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>12</strong><span>Repository</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-azureTracingApplicationConfiguration"><a href="#azureTracingApplicationConfiguration"><strong>11.1</strong><span>Application configuration</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-azureGuides"><a href="#azureGuides"><strong>12</strong><span>Guides</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>13</strong><span>Repository</span></a></div>
         
         </div>
     </div>
@@ -2219,7 +2225,77 @@ Inside the <code>AzureAppender</code> element, add an <code>appender-ref</code> 
 <p>If you have any troubles with configuring the Azure Appender you can try to add <code>&lt;configuration debug='false'&gt;</code> into your Logback configuration.</p>
 </div>
 
-<h1 id="azureGuides"><a class="anchor" href="#azureGuides"></a>11 Guides</h1>
+<h1 id="azureTracing"><a class="anchor" href="#azureTracing"></a>11 Azure Tracing</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.11.x/src/main/docs/guide/azureTracing.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To use <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/fundamentals/overview">Azure Monitor Tracing</a>, add the following dependency to your project:</p>
+</div>
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.azure:micronaut-azure-tracing")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.azure&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-azure-tracing&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></p>
+</div>
+
+<h2 id="azureTracingApplicationConfiguration"><a class="anchor" href="#azureTracingApplicationConfiguration"></a>11.1 Application configuration</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.11.x/src/main/docs/guide/azureTracing/azureTracingApplicationConfiguration.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To configure publishing application trace data to Azure Monitor, specify the Azure Monitor workspace connection string in your application configuration.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Azure Tracing Configuration Properties</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Required</th>
+<th class="tableblock halign-left valign-top">Default value</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>azure.tracing.connection-string</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>true</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>none</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Azure Monitor workspace connection string, e.g. <code>InstrumentationKey=2ad3&#8230;&#8203;;IngestionEndpoint=https://eastus&#8230;&#8203;;LiveEndpoint=https://eastus&#8230;&#8203;./;ApplicationId=09de44&#8230;&#8203;</code></p></td>
+</tr>
+</tbody>
+</table>
+
+<h1 id="azureGuides"><a class="anchor" href="#azureGuides"></a>12 Guides</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.11.x/src/main/docs/guide/azureGuides.adoc"'>
@@ -2235,7 +2311,7 @@ Inside the <code>AzureAppender</code> element, add an <code>appender-ref</code> 
 <p><a href="https://guides.micronaut.io/latest/tag-azure.html" class="bare">https://guides.micronaut.io/latest/tag-azure.html</a></p>
 </div>
 
-<h1 id="repository"><a class="anchor" href="#repository"></a>12 Repository</h1>
+<h1 id="repository"><a class="anchor" href="#repository"></a>13 Repository</h1>
 
 <div class='contribute-btn'>
     <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.11.x/src/main/docs/guide/repository.adoc"'>

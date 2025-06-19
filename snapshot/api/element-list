@@ -8,3 +8,4 @@ io.micronaut.azure.logging
 io.micronaut.azure.secretmanager
 io.micronaut.azure.secretmanager.client
 io.micronaut.azure.secretmanager.configuration
+io.micronaut.azure.tracing
