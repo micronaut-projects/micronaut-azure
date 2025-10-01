@@ -1,5 +1,5 @@
 [versions]
-managed-azure-sdk = "1.2.35"
+managed-azure-sdk = "1.2.38"
 managed-azure-functions-java-library = "3.1.0"
 managed-azure-cosmos = "4.71.0"
 managed-opentelemetry-autoconfigure = "1.2.0"
