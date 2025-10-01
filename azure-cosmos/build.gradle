@@ -15,4 +15,5 @@ dependencies {
             because("Older versions have CVEs")
         }
     }
+    runtimeOnly("io.projectreactor.netty:reactor-netty-http:1.2.10")
 }

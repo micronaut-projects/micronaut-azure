@@ -10,7 +10,7 @@ dependencies {
     testAnnotationProcessor(mn.micronaut.inject.java)
 
     constraints {
-        implementation("io.projectreactor.netty:reactor-netty-http:1.2.8") {
+        implementation("io.projectreactor.netty:reactor-netty-http:1.2.10") {
             because("Older versions have CVEs")
         }
     }
