@@ -4,7 +4,12 @@ plugins {
 
 dependencies {
     annotationProcessor(mn.micronaut.inject.java)
-    api libs.managed.azure.cosmos
+    api(libs.managed.azure.cosmos) {
+        exclude group: "io.projectreactor.netty", module: "reactor-netty-http"
+    }
+    api("io.projectreactor.netty:reactor-netty-http:1.2.8") {
+        because("CVE-2025-22227 - older versions leak credentials")
+    }
     testCompileOnly(mn.micronaut.inject.groovy)
     testAnnotationProcessor(mn.micronaut.inject.java)
     testImplementation(platform(mnTestResources.boms.testcontainers))
