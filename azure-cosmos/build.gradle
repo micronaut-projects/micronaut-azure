@@ -9,4 +9,10 @@ dependencies {
     testAnnotationProcessor(mn.micronaut.inject.java)
     testImplementation(platform(mnTestResources.boms.testcontainers))
     testImplementation(libs.testcontainers.azure)
+
+    constraints {
+        implementation("io.projectreactor.netty:reactor-netty-http:1.2.8") {
+            because("Older versions have CVEs")
+        }
+    }
 }
