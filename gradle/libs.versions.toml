@@ -13,7 +13,7 @@ json-smart = "2.6.0"
 # Micronaut
 micronaut = "4.10.2"
 micronaut-platform = "4.9.4"
-micronaut-logging = "1.7.0"
+micronaut-logging = "1.7.1"
 micronaut-reactor = "3.8.0"
 micronaut-serde = "2.15.0"
 micronaut-servlet = "5.5.1"
