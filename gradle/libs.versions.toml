@@ -8,7 +8,7 @@ jakarta-inject-api = "2.0.1"
 kotlin = "2.1.21"
 logback-json-classic = "0.1.5"
 system-lambda = "1.2.1"
-json-smart = "2.5.2"
+json-smart = "2.6.0"
 
 # Micronaut
 micronaut-platform = "4.8.3"
