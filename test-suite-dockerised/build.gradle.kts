@@ -24,6 +24,7 @@ dependencies {
     testImplementation(libs.jakarta.inject.api)
 
     runtimeOnly(mnLogging.logback.classic)
+    runtimeOnly(libs.commons.codec)
 }
 
 azurefunctions {
