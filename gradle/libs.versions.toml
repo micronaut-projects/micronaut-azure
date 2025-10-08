@@ -9,6 +9,7 @@ kotlin = "2.1.21"
 logback-json-classic = "0.1.5"
 system-lambda = "1.2.1"
 json-smart = "2.6.0"
+commons-codec = "1.19.0"
 
 # Micronaut
 micronaut = "4.10.2"
@@ -47,6 +48,7 @@ managed-azure-functions-java-library = { module = "com.microsoft.azure.functions
 managed-azure-cosmos = { module = "com.azure:azure-cosmos", version.ref = "managed-azure-cosmos" }
 managed-opentelemetry-autoconfigure = { module = "com.azure:azure-monitor-opentelemetry-autoconfigure", version.ref = "managed-opentelemetry-autoconfigure" }
 
+commons-codec = { module = "commons-codec:commons-codec", version.ref = "commons-codec" }
 azure-identity = { module = "com.azure:azure-identity" }
 azure-security-keyvault-secrets = { module = "com.azure:azure-security-keyvault-secrets" }
 azure-storage-common = { module = "com.azure:azure-storage-common" }
