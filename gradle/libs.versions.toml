@@ -27,7 +27,6 @@ micronaut-gradle-plugin = "4.5.5"
 micronaut-docs = "2.0.0"
 groovy = "4.0.28"
 spock = "2.3-groovy-4.0"
-sonatype-scan = "3.1.4"
 
 [libraries]
 # Core
@@ -63,7 +62,6 @@ system-lambda = { module = "com.github.stefanbirkner:system-lambda", version.ref
 json-smart = { module = "net.minidev:json-smart", version.ref = "json-smart" }
 junit-jupiter-engine = { module = 'org.junit.jupiter:junit-jupiter-engine' }
 junit-platform-engine = { module = "org.junit.platform:junit-platform-suite-engine" }
-sonatype-scan = { module = "org.sonatype.gradle.plugins:scan-gradle-plugin", version.ref = "sonatype-scan" }
 
 # TestContainers
 
