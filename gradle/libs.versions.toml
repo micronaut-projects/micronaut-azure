@@ -12,19 +12,19 @@ json-smart = "2.6.0"
 commons-codec = "1.19.0"
 
 # Micronaut
-micronaut = "4.10.6"
+micronaut = "4.10.7"
 micronaut-platform = "4.9.4"
 micronaut-logging = "1.7.1"
 micronaut-reactor = "3.9.0"
 micronaut-serde = "2.15.5"
 micronaut-servlet = "5.5.1"
-micronaut-test = "4.9.0"
+micronaut-test = "4.10.2"
 micronaut-test-resources = "2.10.1"
 micronaut-tracing = "7.2.0"
 micronaut-validation = "4.11.0"
-micronaut-gradle-plugin = "4.5.5"
+micronaut-gradle-plugin = "4.6.1"
 
-micronaut-docs = "2.0.0"
+micronaut-docs = "3.0.0"
 groovy = "4.0.28"
 spock = "2.3-groovy-4.0"
 
