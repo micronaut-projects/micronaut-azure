@@ -13,7 +13,7 @@ dependencies {
 
     testImplementation(platform(mn.micronaut.core.bom))
     testImplementation(libs.junit.platform.engine)
-    testImplementation(libs.junit.jupiter.engine)
+    testImplementation(mnTest.junit.jupiter.engine)
     testImplementation(mnTest.micronaut.test.spock)
     testImplementation(mnSerde.micronaut.serde.jackson)
     testImplementation(mnLogging.logback.classic)
