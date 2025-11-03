@@ -12,7 +12,7 @@ json-smart = "2.6.0"
 commons-codec = "1.19.0"
 
 # Micronaut
-micronaut = "4.10.6"
+micronaut = "4.10.8"
 micronaut-platform = "4.9.4"
 micronaut-logging = "1.7.1"
 micronaut-reactor = "3.9.0"
