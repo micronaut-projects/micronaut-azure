@@ -19,7 +19,7 @@ import io.micronaut.context.ApplicationContext;
 import io.micronaut.context.ApplicationContextBuilder;
 import io.micronaut.context.ApplicationContextProvider;
 import io.micronaut.context.env.Environment;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import io.micronaut.runtime.exceptions.ApplicationStartupException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -19,7 +19,7 @@ import com.azure.core.credential.TokenCredential;
 import com.azure.monitor.ingestion.LogsIngestionClient;
 import com.azure.monitor.ingestion.LogsIngestionClientBuilder;
 import io.micronaut.core.annotation.Internal;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Default implementation.
