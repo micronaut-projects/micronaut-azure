@@ -13,6 +13,5 @@ dependencies {
     compileOnly(mn.micronaut.inject.groovy)
     implementation(projects.micronautAzureFunctionHttp)
     implementation(libs.managed.azure.functions.java.library)
-    testImplementation(libs.groovy.all)
     testImplementation(libs.jakarta.inject.api)
 }

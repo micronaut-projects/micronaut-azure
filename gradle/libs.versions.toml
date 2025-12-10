@@ -51,7 +51,6 @@ azure-security-keyvault-secrets = { module = "com.azure:azure-security-keyvault-
 azure-storage-common = { module = "com.azure:azure-storage-common" }
 azure-storage-blob = { module = "com.azure:azure-storage-blob" }
 azure-monitor-ingestion = { module = 'com.azure:azure-monitor-ingestion' }
-groovy-all = { module = "org.apache.groovy:groovy-all", version.ref = "groovy" }
 jakarta-inject-api = { module = "jakarta.inject:jakarta.inject-api", version.ref = "jakarta-inject-api" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
