@@ -24,7 +24,6 @@ micronaut-tracing = "7.2.0"
 micronaut-validation = "5.0.0-M1"
 micronaut-gradle-plugin = "4.6.1"
 
-micronaut-docs = "3.0.0"
 spock = "2.3-groovy-4.0"
 
 [libraries]
