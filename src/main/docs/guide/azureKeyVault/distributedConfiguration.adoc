@@ -22,3 +22,5 @@ image::key_vault_url.png[Key Vault URL]
 
 IMPORTANT: Make sure you have configured the correct credentials on your project following the <<azureSdk, Setting up Azure SDK >> section.
 And that the service account you designated your application has proper rights to read secrets. Follow the official link:https://docs.microsoft.com/en-us/azure/key-vault/general/rbac-guide?tabs=azure-cli[Access Control] guide for Azure Key Vault if you need more information.
+
+To enable Key Vault key signing support (for example, to sign JWT assertions without exposing private key material), see the "Signing with Key Vault Keys" section.
