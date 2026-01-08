@@ -30,6 +30,7 @@ public class AzureKeyVaultConfigurationProperties {
     public static final String PREFIX = Environment.AZURE + ".key-vault";
 
     private String vaultURL;
+    private KeysConfiguration keys = new KeysConfiguration();
 
     /**
      * @return key vault url.
@@ -45,4 +46,100 @@ public class AzureKeyVaultConfigurationProperties {
         this.vaultURL = vaultURL;
     }
 
+    /**
+     * @return key specific configuration.
+     */
+    public KeysConfiguration getKeys() {
+        return keys;
+    }
+
+    /**
+     * @param keys key specific configuration.
+     */
+    public void setKeys(KeysConfiguration keys) {
+        if (keys != null) {
+            this.keys = keys;
+        }
+    }
+
+    /**
+     * Configuration for interacting with Key Vault keys.
+     */
+    @ConfigurationProperties("keys")
+    @BootstrapContextCompatible
+    public static class KeysConfiguration {
+        public static final boolean DEFAULT_ENABLED = false;
+
+        private boolean enabled = DEFAULT_ENABLED;
+        private SigningConfiguration signing = new SigningConfiguration();
+
+        /**
+         * @return true if the key configuration client should be enabled.
+         */
+        public boolean isEnabled() {
+            return enabled;
+        }
+
+        /**
+         * @param enabled enable or disable the key configuration client.
+         */
+        public void setEnabled(boolean enabled) {
+            this.enabled = enabled;
+        }
+
+        /**
+         * @return signing configuration.
+         */
+        public SigningConfiguration getSigning() {
+            return signing;
+        }
+
+        /**
+         * @param signing signing configuration.
+         */
+        public void setSigning(SigningConfiguration signing) {
+            if (signing != null) {
+                this.signing = signing;
+            }
+        }
+
+        /**
+         * Configuration specific to signing operations.
+         */
+        @ConfigurationProperties("signing")
+        @BootstrapContextCompatible
+        public static class SigningConfiguration {
+
+            private boolean enabled;
+            private String defaultAlgorithm;
+
+            /**
+             * @return true if signing support is enabled.
+             */
+            public boolean isEnabled() {
+                return enabled;
+            }
+
+            /**
+             * @param enabled enable or disable signing support.
+             */
+            public void setEnabled(boolean enabled) {
+                this.enabled = enabled;
+            }
+
+            /**
+             * @return the default signature algorithm (e.g. RS256).
+             */
+            public String getDefaultAlgorithm() {
+                return defaultAlgorithm;
+            }
+
+            /**
+             * @param defaultAlgorithm default algorithm (e.g. RS256).
+             */
+            public void setDefaultAlgorithm(String defaultAlgorithm) {
+                this.defaultAlgorithm = defaultAlgorithm;
+            }
+        }
+    }
 }
