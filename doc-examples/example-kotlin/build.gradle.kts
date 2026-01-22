@@ -1,7 +1,5 @@
 plugins {
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.kapt)
-    id ("io.micronaut.build.internal.kotlin-base")
+    id("io.micronaut.build.internal.kotlin-kapt")
 }
 
 dependencies {
