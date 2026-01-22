@@ -55,8 +55,8 @@ junit-jupiter-engine = { module = 'org.junit.jupiter:junit-jupiter-engine' }
 junit-platform-engine = { module = "org.junit.platform:junit-platform-suite-engine" }
 
 # TestContainers
-
-testcontainers-azure = { module = "org.testcontainers:azure"}
+testcontainers = { module = "org.testcontainers:testcontainers" }
+testcontainers-azure = { module = "org.testcontainers:testcontainers-azure"}
 
 [plugins]
 azurefunctions-plugin = { id = "com.microsoft.azure.azurefunctions", version.ref = "azurefunctions-plugin"}

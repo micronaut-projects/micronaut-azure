@@ -7,6 +7,7 @@ dependencies {
     api libs.managed.azure.cosmos
     testCompileOnly(mn.micronaut.inject.groovy)
     testAnnotationProcessor(mn.micronaut.inject.java)
-    testImplementation(platform(mnTestResources.boms.testcontainers))
+
+    testImplementation(platform(mnTest.boms.testcontainers))
     testImplementation(libs.testcontainers.azure)
 }
