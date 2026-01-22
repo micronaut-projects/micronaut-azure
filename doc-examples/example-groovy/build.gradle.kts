@@ -15,3 +15,7 @@ dependencies {
     implementation(libs.managed.azure.functions.java.library)
     testImplementation(libs.jakarta.inject.api)
 }
+
+tasks.withType<Test>().configureEach {
+    failOnNoDiscoveredTests = false
+}
