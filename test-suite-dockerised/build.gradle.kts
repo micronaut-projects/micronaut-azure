@@ -49,7 +49,4 @@ tasks {
         dependsOn(rootProject.getTasksByName("publishAllPublicationsToBuildRepository", true))
     }
 
-//    named("test") {
-//        dependsOn(functionPackage)
-//    }
 }
