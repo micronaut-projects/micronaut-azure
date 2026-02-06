@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2026 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,6 +36,8 @@ import java.util.Map;
  *
  * <p>Maintains a bounded LRU cache of {@link CryptographyClient} instances to avoid
  * creating a new client for every signing operation while preventing unbounded memory growth.</p>
+ *
+ * @since 5.13.0
  */
 @Singleton
 @BootstrapContextCompatible

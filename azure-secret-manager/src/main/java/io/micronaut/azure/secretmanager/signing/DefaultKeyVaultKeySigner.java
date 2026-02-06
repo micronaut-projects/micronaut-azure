@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2026 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,8 @@ import jakarta.inject.Singleton;
  *
  * <p>Constructs key identifiers from the configured vault URL and key name,
  * delegating the actual signing operation to Azure Key Vault via {@link KeyVaultSigningClient}.</p>
+ *
+ * @since 5.13.0
  */
 @Singleton
 @BootstrapContextCompatible

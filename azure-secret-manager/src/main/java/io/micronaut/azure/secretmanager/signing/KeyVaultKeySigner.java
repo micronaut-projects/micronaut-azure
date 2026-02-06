@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2026 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@ import io.micronaut.core.annotation.NonNull;
 
 /**
  * Service for signing payloads with Azure Key Vault keys.
+ *
+ * @since 5.13.0
  */
 public interface KeyVaultKeySigner {
 

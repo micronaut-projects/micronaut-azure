@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2020 original authors
+ * Copyright 2017-2026 original authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,6 +48,7 @@ public class AzureKeyVaultConfigurationProperties {
 
     /**
      * @return key specific configuration.
+     * @since 5.13.0
      */
     public KeysConfiguration getKeys() {
         return keys;
@@ -55,6 +56,7 @@ public class AzureKeyVaultConfigurationProperties {
 
     /**
      * @param keys key specific configuration.
+     * @since 5.13.0
      */
     public void setKeys(KeysConfiguration keys) {
         if (keys != null) {
@@ -64,6 +66,8 @@ public class AzureKeyVaultConfigurationProperties {
 
     /**
      * Configuration for interacting with Key Vault keys.
+     *
+     * @since 5.13.0
      */
     @ConfigurationProperties("keys")
     @BootstrapContextCompatible
@@ -105,6 +109,8 @@ public class AzureKeyVaultConfigurationProperties {
 
         /**
          * Configuration specific to signing operations.
+         *
+         * @since 5.13.0
          */
         @ConfigurationProperties("signing")
         @BootstrapContextCompatible
