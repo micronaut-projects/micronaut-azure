@@ -8,3 +8,48 @@ dependency:micronaut-discovery-client[groupId="io.micronaut.discovery"]
 NOTE: Azure doesn't allow _ and . in name of the secrets so the secret with name SECRET-ONE can be resolved also with SECRET_ONE and SECRET.ONE
 
 TIP: See the guide for https://guides.micronaut.io/latest/micronaut-cloud-secrets-azure.html[Securely store Micronaut application secrets in Azure Key Vault] to learn more.
+
+== Signing with Key Vault Keys
+
+Azure Key Vault can store cryptographic keys and perform signing operations without ever exposing the private key material. This is ideal for signing JWTs, assertions, or other payloads where you want the private key to remain secured in the vault.
+
+To enable signing with Key Vault keys:
+
+[configuration]
+----
+azure:
+  key-vault:
+    vault-url: https://your-vault.vault.azure.net
+    keys:
+      enabled: true
+      signing:
+        enabled: true
+        default-algorithm: RS256
+----
+
+The `KeyVaultKeySigner` bean lets you sign arbitrary payloads:
+
+[source,java]
+----
+@Singleton
+class JwtSigner {
+    private final KeyVaultKeySigner signer;
+
+    JwtSigner(KeyVaultKeySigner signer) {
+        this.signer = signer;
+    }
+
+    byte[] sign(byte[] payload) {
+        return signer.sign("jwt-signing-key", payload); // uses default algorithm
+    }
+}
+----
+
+If you need to override the algorithm per call, use the overloaded method:
+
+[source,java]
+----
+byte[] signature = signer.sign("jwt-signing-key", SignatureAlgorithm.RS256, payload);
+----
+
+Supported algorithms include RS256, RS384, RS512, PS256, PS384, PS512, ES256, ES384, and ES512, depending on your key type.
