@@ -9,7 +9,7 @@ kotlin = "2.2.21"
 logback-json-classic = "0.1.5"
 system-lambda = "1.2.1"
 json-smart = "2.6.0"
-commons-codec = "1.19.0"
+commons-codec = "1.21.0"
 
 # Micronaut
 micronaut-platform = "4.10.3"
