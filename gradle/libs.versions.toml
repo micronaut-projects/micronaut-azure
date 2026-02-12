@@ -21,7 +21,7 @@ micronaut-servlet = "6.0.0-M1"
 micronaut-test-resources = "2.10.1"
 micronaut-tracing = "7.2.0"
 micronaut-validation = "5.0.0-M1"
-micronaut-gradle-plugin = "4.6.1"
+micronaut-gradle-plugin = "4.6.2"
 
 [libraries]
 # Core
