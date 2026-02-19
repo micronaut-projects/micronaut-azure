@@ -5,6 +5,6 @@ plugins {
 }
 
 dependencies {
-    testImplementation(projects.micronautAzureFunctionHttp)
-    testImplementation(libs.managed.azure.functions.java.library)
+    implementation(projects.micronautAzureFunctionHttp)
+    implementation(libs.managed.azure.functions.java.library)
 }

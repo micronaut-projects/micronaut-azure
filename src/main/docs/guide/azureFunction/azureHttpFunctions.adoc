@@ -4,7 +4,7 @@ dependency:io.micronaut.azure:micronaut-azure-function-http[]
 
 You then need to define a function that subclasses api:azure.function.http.AzureHttpFunction[] and overrides the `invoke` method:
 
-snippet::example.MyHttpFunction[project-base="doc-examples/example", indent="0"]
+snippet::example.MyHttpFunction[project-base="doc-examples/example", indent="0", source="main"]
 
 <1> The function class subclasses api:azure.function.http.AzureHttpFunction[] and includes a zero argument constructor.
 <2> The function name can be whatever you prefer
