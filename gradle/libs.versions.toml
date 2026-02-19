@@ -60,7 +60,7 @@ junit-platform-engine = { module = "org.junit.platform:junit-platform-suite-engi
 
 # TestContainers
 
-testcontainers-azure = { module = "org.testcontainers:azure"}
+testcontainers-azure = { module = "org.testcontainers:testcontainers-azure"}
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
