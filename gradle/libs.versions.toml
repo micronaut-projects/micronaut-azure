@@ -45,6 +45,7 @@ managed-opentelemetry-autoconfigure = { module = "com.azure:azure-monitor-opente
 commons-codec = { module = "commons-codec:commons-codec", version.ref = "commons-codec" }
 azure-identity = { module = "com.azure:azure-identity" }
 azure-security-keyvault-secrets = { module = "com.azure:azure-security-keyvault-secrets" }
+azure-security-keyvault-keys = { module = "com.azure:azure-security-keyvault-keys" }
 azure-storage-common = { module = "com.azure:azure-storage-common" }
 azure-storage-blob = { module = "com.azure:azure-storage-blob" }
 azure-monitor-ingestion = { module = 'com.azure:azure-monitor-ingestion' }
