@@ -28,7 +28,6 @@ import static ch.qos.logback.classic.Level.INFO
 @Property(name = 'azure.logging.dataCollectionEndpoint', value = 'test-dataCollectionEndpoint-from-application-config')
 @Property(name = 'azure.logging.ruleId', value = 'test-ruleId-from-application-config')
 @Property(name = 'azure.logging.streamName', value = 'test-streamName-from-application-config')
-@Property(name = 'micronaut.application.name', value = 'my-awesome-app')
 @Stepwise
 class AzureLoggingSpec extends Specification {
     private final LoggerContext context = new LoggerContext()
