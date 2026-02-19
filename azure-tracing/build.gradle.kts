@@ -16,5 +16,5 @@ micronautBuild {
     binaryCompatibility {
         enabled.set(false)
     }
-    testFramework = TestFramework.JUNIT5
+    testFramework = TestFramework.JUNIT6
 }
