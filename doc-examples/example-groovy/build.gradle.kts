@@ -13,9 +13,5 @@ dependencies {
     compileOnly(mn.micronaut.inject.groovy)
     implementation(projects.micronautAzureFunctionHttp)
     implementation(libs.managed.azure.functions.java.library)
-    testImplementation(libs.jakarta.inject.api)
-}
-
-tasks.withType<Test>().configureEach {
-    failOnNoDiscoveredTests = false
+    implementation(libs.jakarta.inject.api)
 }
