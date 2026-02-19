@@ -5,7 +5,6 @@ managed-azure-cosmos = "4.78.0"
 managed-opentelemetry-autoconfigure = "1.4.0"
 azurefunctions-plugin = "1.16.1"
 jakarta-inject-api = "2.0.1"
-kotlin = "2.2.21"
 logback-json-classic = "0.1.5"
 system-lambda = "1.2.1"
 json-smart = "2.6.0"
@@ -50,8 +49,6 @@ azure-storage-common = { module = "com.azure:azure-storage-common" }
 azure-storage-blob = { module = "com.azure:azure-storage-blob" }
 azure-monitor-ingestion = { module = 'com.azure:azure-monitor-ingestion' }
 jakarta-inject-api = { module = "jakarta.inject:jakarta.inject-api", version.ref = "jakarta-inject-api" }
-kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
-kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
 logback-json-classic = { module = 'ch.qos.logback.contrib:logback-json-classic', version.ref = 'logback-json-classic' }
 system-lambda = { module = "com.github.stefanbirkner:system-lambda", version.ref = "system-lambda" }
 json-smart = { module = "net.minidev:json-smart", version.ref = "json-smart" }
@@ -59,10 +56,8 @@ junit-jupiter-engine = { module = 'org.junit.jupiter:junit-jupiter-engine' }
 junit-platform-engine = { module = "org.junit.platform:junit-platform-suite-engine" }
 
 # TestContainers
-
+testcontainers = { module = "org.testcontainers:testcontainers" }
 testcontainers-azure = { module = "org.testcontainers:testcontainers-azure"}
 
 [plugins]
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 azurefunctions-plugin = { id = "com.microsoft.azure.azurefunctions", version.ref = "azurefunctions-plugin"}

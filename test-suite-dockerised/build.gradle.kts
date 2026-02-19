@@ -20,7 +20,8 @@ dependencies {
     implementation(mnSerde.micronaut.serde.jackson)
     implementation(libs.managed.azure.functions.java.library)
 
-    testImplementation(mnTestResources.testcontainers.core)
+    testImplementation(platform(mnTest.boms.testcontainers))
+    testImplementation(libs.testcontainers)
     testImplementation(libs.jakarta.inject.api)
 
     runtimeOnly(mnLogging.logback.classic)
@@ -47,7 +48,6 @@ tasks {
     val functionPackage = named("azureFunctionsPackage") {
         dependsOn(rootProject.getTasksByName("publishAllPublicationsToBuildRepository", true))
     }
-
     named("test") {
         dependsOn(functionPackage)
     }

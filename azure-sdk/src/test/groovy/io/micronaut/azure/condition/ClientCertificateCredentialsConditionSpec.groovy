@@ -68,7 +68,7 @@ class ClientCertificateCredentialsConditionSpec extends Specification {
         given:
         def applicationContext = ApplicationContext.run([
                 "azure.credential.client-certificate.client-id"                    : "client-id",
-                "azure.credential.client-certificate.pfx-certificate-path-password": "password",
+                "azure.credential.client-certificate.pfx-certificate-password"     : "password",
                 "azure.credential.client-certificate.tenant-id"                    : "tenant-id",
                 "azure.credential.client-certificate.pfx-certificate-path"         : "path"
         ])
