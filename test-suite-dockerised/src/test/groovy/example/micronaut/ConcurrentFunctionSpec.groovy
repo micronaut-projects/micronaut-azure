@@ -4,7 +4,6 @@ import org.testcontainers.containers.GenericContainer
 import org.testcontainers.containers.wait.strategy.Wait
 import org.testcontainers.utility.MountableFile
 import spock.lang.AutoCleanup
-import spock.lang.Ignore
 import spock.lang.Issue
 import spock.lang.Shared
 import spock.lang.Specification
@@ -15,7 +14,6 @@ import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 import java.util.concurrent.atomic.AtomicInteger
 
-@Ignore("https://github.com/microsoft/azure-gradle-plugins/issues/184")
 @Issue("https://github.com/micronaut-projects/micronaut-azure/issues/611")
 class ConcurrentFunctionSpec extends Specification {
 

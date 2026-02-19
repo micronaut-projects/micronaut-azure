@@ -48,5 +48,7 @@ tasks {
     val functionPackage = named("azureFunctionsPackage") {
         dependsOn(rootProject.getTasksByName("publishAllPublicationsToBuildRepository", true))
     }
-
+    named("test") {
+        dependsOn(functionPackage)
+    }
 }
