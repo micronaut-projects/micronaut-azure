@@ -28,7 +28,6 @@ import static ch.qos.logback.classic.Level.INFO
 @Property(name = 'azure.logging.dataCollectionEndpoint', value = 'test-dataCollectionEndpoint-from-application-config')
 @Property(name = 'azure.logging.ruleId', value = 'test-ruleId-from-application-config')
 @Property(name = 'azure.logging.streamName', value = 'test-streamName-from-application-config')
-@Stepwise
 class AzureLoggingSpec extends Specification {
     private final LoggerContext context = new LoggerContext()
     private final PatternLayout layout = new PatternLayout(context: context, pattern: '[%thread] %level %logger{20} - %msg%n%xThrowable')
