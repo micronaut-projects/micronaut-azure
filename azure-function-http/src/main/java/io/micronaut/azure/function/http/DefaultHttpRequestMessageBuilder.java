@@ -22,12 +22,18 @@ import com.microsoft.azure.functions.HttpStatus;
 import com.microsoft.azure.functions.HttpStatusType;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.core.annotation.Internal;
+import io.micronaut.core.type.Argument;
 import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.MediaType;
-import io.micronaut.json.JsonMapper;
+import io.micronaut.http.body.MessageBodyHandlerRegistry;
+import io.micronaut.http.body.MessageBodyWriter;
+import io.micronaut.http.simple.SimpleHttpHeaders;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -47,7 +53,7 @@ class DefaultHttpRequestMessageBuilder<T> implements HttpRequestMessageBuilder<T
     private final Map<String, String> headers = new LinkedHashMap<>(3);
     private final Map<String, String> queryParams = new LinkedHashMap<>(3);
     private Object body;
-    private Optional<JsonMapper> jsonMapper;
+    private Optional<MessageBodyHandlerRegistry> messageBodyHandlerRegistry;
 
     public DefaultHttpRequestMessageBuilder(HttpMethod method, URI uri, ApplicationContext applicationContext) {
         method(method);
@@ -118,7 +124,23 @@ class DefaultHttpRequestMessageBuilder<T> implements HttpRequestMessageBuilder<T
 
     private HttpRequestMessage<Optional<String>> buildEncodedRequest() {
         if (this.body != null) {
-            this.body = encodeBody(this.body);
+            Object currentBody = this.body;
+            if (currentBody instanceof Optional<?> optional) {
+                this.body = optional;
+            } else if (currentBody instanceof byte[] bytes) {
+                this.body = Optional.of(bytes);
+            } else if (currentBody instanceof CharSequence) {
+                this.body = Optional.of(currentBody.toString());
+            } else {
+                MediaType mediaType = resolveContentType();
+                if (isJsonLike(mediaType)) {
+                    serializeWithMessageBodyWriter(mediaType, currentBody)
+                        .ifPresentOrElse(serialized -> this.body = Optional.of(serialized),
+                            () -> this.body = Optional.of(currentBody.toString()));
+                } else {
+                    this.body = Optional.of(currentBody.toString());
+                }
+            }
         } else {
             this.body = Optional.empty();
         }
@@ -160,35 +182,34 @@ class DefaultHttpRequestMessageBuilder<T> implements HttpRequestMessageBuilder<T
         return new ResponseBuilder().status(status);
     }
 
-    private Optional<?> encodeBody(Object body) {
-        if (body instanceof Optional<?> optional) {
-            return optional;
+    private Optional<String> serializeWithMessageBodyWriter(MediaType mediaType, Object source) {
+        Optional<MessageBodyHandlerRegistry> registryOptional = messageBodyHandlerRegistry();
+        if (registryOptional.isEmpty()) {
+            return Optional.empty();
         }
-        if (body instanceof byte[] bytes) {
-            return Optional.of(bytes);
+        @SuppressWarnings("unchecked")
+        Argument<Object> argument = (Argument<Object>) Argument.of(source.getClass());
+        Optional<MessageBodyWriter<Object>> writerOptional = registryOptional.get().findWriter(argument, mediaType);
+        if (writerOptional.isEmpty()) {
+            return Optional.empty();
         }
-        if (body instanceof CharSequence) {
-            return Optional.of(body.toString());
+        MessageBodyWriter<Object> writer = writerOptional.get().createSpecific(argument);
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            SimpleHttpHeaders headers = new SimpleHttpHeaders();
+            writer.writeTo(argument, mediaType, source, headers, baos);
+            Charset charset = MessageBodyWriter.findCharset(mediaType, headers)
+                .orElseGet(() -> mediaType.getCharset().orElse(StandardCharsets.UTF_8));
+            return Optional.of(new String(baos.toByteArray(), charset));
+        } catch (IOException e) {
+            return Optional.empty();
         }
-        MediaType mediaType = resolveContentType();
-        if (isJsonLike(mediaType)) {
-            Optional<JsonMapper> mapper = jsonMapper();
-            if (mapper.isPresent()) {
-                try {
-                    return Optional.of(mapper.get().writeValueAsString(body));
-                } catch (IOException e) {
-                    // fall through to default handling
-                }
-            }
-        }
-        return Optional.of(body.toString());
     }
 
-    private Optional<JsonMapper> jsonMapper() {
-        if (jsonMapper == null) {
-            jsonMapper = applicationContext.findBean(JsonMapper.class);
+    private Optional<MessageBodyHandlerRegistry> messageBodyHandlerRegistry() {
+        if (messageBodyHandlerRegistry == null) {
+            messageBodyHandlerRegistry = applicationContext.findBean(MessageBodyHandlerRegistry.class);
         }
-        return jsonMapper;
+        return messageBodyHandlerRegistry;
     }
 
     private MediaType resolveContentType() {
