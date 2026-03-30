@@ -39,8 +39,8 @@ import java.util.Optional;
  * <p>To use this class you should define a new function that subclasses this class and then override the {@link #route(HttpRequestMessage, ExecutionContext)} (HttpRequestMessage, ExecutionContext)} method to customize the function mapping as per the Azure documentation. For example the following definition will route all requests to the function:</p>
  *
  * <pre>{@code
- *    @FunctionName("myFunction")
- *    @Override
+ *    {@literal @}FunctionName("myFunction")
+ *    {@literal @}Override
  *    public HttpResponseMessage invoke(
  *       @HttpTrigger(name = "req",
  *                    route = "{*url}", // catch all route

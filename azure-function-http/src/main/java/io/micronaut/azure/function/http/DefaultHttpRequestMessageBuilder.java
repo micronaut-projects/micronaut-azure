@@ -24,11 +24,10 @@ import io.micronaut.context.ApplicationContext;
 import io.micronaut.core.annotation.Internal;
 import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.MediaType;
-import io.micronaut.http.codec.MediaTypeCodec;
-import io.micronaut.http.codec.MediaTypeCodecRegistry;
+import io.micronaut.json.JsonMapper;
 
+import java.io.IOException;
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -48,6 +47,7 @@ class DefaultHttpRequestMessageBuilder<T> implements HttpRequestMessageBuilder<T
     private final Map<String, String> headers = new LinkedHashMap<>(3);
     private final Map<String, String> queryParams = new LinkedHashMap<>(3);
     private Object body;
+    private Optional<JsonMapper> jsonMapper;
 
     public DefaultHttpRequestMessageBuilder(HttpMethod method, URI uri, ApplicationContext applicationContext) {
         method(method);
@@ -118,24 +118,7 @@ class DefaultHttpRequestMessageBuilder<T> implements HttpRequestMessageBuilder<T
 
     private HttpRequestMessage<Optional<String>> buildEncodedRequest() {
         if (this.body != null) {
-            if (this.body instanceof byte[] byteArr) {
-                this.body = Optional.of(byteArr);
-            } else if (this.body instanceof CharSequence) {
-                this.body = Optional.of(this.body.toString());
-            } else {
-                MediaTypeCodecRegistry codecRegistry = applicationContext.getBean(MediaTypeCodecRegistry.class);
-                String ct = getHeaders().get(HttpHeaders.CONTENT_TYPE);
-                MediaType mediaType = MediaType.APPLICATION_JSON_TYPE;
-                if (ct != null) {
-                    mediaType = new MediaType(ct);
-                }
-                MediaTypeCodec codec = codecRegistry.findCodec(mediaType, body.getClass()).orElse(null);
-                if (codec != null) {
-                    this.body = Optional.of(new String(codec.encode(body), StandardCharsets.UTF_8));
-                } else {
-                    this.body = Optional.of(this.body.toString());
-                }
-            }
+            this.body = encodeBody(this.body);
         } else {
             this.body = Optional.empty();
         }
@@ -177,4 +160,57 @@ class DefaultHttpRequestMessageBuilder<T> implements HttpRequestMessageBuilder<T
         return new ResponseBuilder().status(status);
     }
 
+    private Optional<?> encodeBody(Object body) {
+        if (body instanceof Optional<?> optional) {
+            return optional;
+        }
+        if (body instanceof byte[] bytes) {
+            return Optional.of(bytes);
+        }
+        if (body instanceof CharSequence) {
+            return Optional.of(body.toString());
+        }
+        MediaType mediaType = resolveContentType();
+        if (isJsonLike(mediaType)) {
+            Optional<JsonMapper> mapper = jsonMapper();
+            if (mapper.isPresent()) {
+                try {
+                    return Optional.of(mapper.get().writeValueAsString(body));
+                } catch (IOException e) {
+                    // fall through to default handling
+                }
+            }
+        }
+        return Optional.of(body.toString());
+    }
+
+    private Optional<JsonMapper> jsonMapper() {
+        if (jsonMapper == null) {
+            jsonMapper = applicationContext.findBean(JsonMapper.class);
+        }
+        return jsonMapper;
+    }
+
+    private MediaType resolveContentType() {
+        String contentType = getHeaders().get(HttpHeaders.CONTENT_TYPE);
+        if (contentType == null) {
+            return MediaType.APPLICATION_JSON_TYPE;
+        }
+        try {
+            return new MediaType(contentType);
+        } catch (IllegalArgumentException e) {
+            return MediaType.APPLICATION_JSON_TYPE;
+        }
+    }
+
+    private static boolean isJsonLike(MediaType mediaType) {
+        if (mediaType == null) {
+            return true;
+        }
+        if (MediaType.APPLICATION_JSON_TYPE.equals(mediaType)) {
+            return true;
+        }
+        String subtype = mediaType.getSubtype();
+        return subtype != null && subtype.endsWith("+json");
+    }
 }
