@@ -17,7 +17,6 @@ package io.micronaut.azure.secretmanager;
 
 import com.azure.core.credential.TokenCredential;
 import com.azure.security.keyvault.secrets.SecretClient;
-import com.azure.security.keyvault.secrets.SecretClientBuilder;
 import io.micronaut.azure.secretmanager.configuration.AzureKeyVaultConfigurationProperties;
 import io.micronaut.context.annotation.BootstrapContextCompatible;
 import io.micronaut.context.annotation.Factory;
@@ -29,7 +28,7 @@ import jakarta.inject.Singleton;
 
 
 /**
- * Factory to create Azure Secret client.
+ * Factory to create Azure Secret client for the legacy bootstrap configuration path.
  * @author Nemanja Mikic
  */
 @Factory
@@ -50,10 +49,10 @@ public class SecretManagerFactory {
             @NonNull TokenCredential tokenCredential,
             @NonNull AzureKeyVaultConfigurationProperties azureKeyvaultConfigurationProperties
     ) {
-        return new SecretClientBuilder()
-                .vaultUrl(azureKeyvaultConfigurationProperties.getVaultURL())
-                .credential(tokenCredential)
-                .buildClient();
+        return AzureSecretManagerSupport.secretClient(
+                azureKeyvaultConfigurationProperties.getVaultURL(),
+                tokenCredential
+        );
     }
 
 }

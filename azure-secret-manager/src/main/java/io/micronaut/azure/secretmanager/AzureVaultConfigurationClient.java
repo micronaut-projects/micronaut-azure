@@ -37,15 +37,17 @@ import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
 /**
- * Distributed configuration client implementation that fetches application secret values from Azure keyvalut.
+ * Distributed configuration client implementation that fetches application secret values from Azure Key Vault.
+ *
+ * @deprecated Prefer Azure Key Vault config import via {@code micronaut.config.import=azure-key-vault://import}.
  * @author Nemanja Mikic
  */
+@Deprecated(forRemoval = false)
 @Singleton
 @Requires(beans = SecretClient.class)
 @BootstrapContextCompatible
@@ -64,7 +66,9 @@ public class AzureVaultConfigurationClient implements ConfigurationClient {
      * @param azureKeyVaultConfigurationProperties Azure Secret Vault Client Configuration
      * @param executorService                      Executor Service
      * @param secretClient                         The secrets client
+     * @deprecated Prefer Azure Key Vault config import via {@code micronaut.config.import=azure-key-vault://import}.
      */
+    @Deprecated(forRemoval = false)
     public AzureVaultConfigurationClient(
             AzureKeyVaultConfigurationProperties azureKeyVaultConfigurationProperties,
             @Named(TaskExecutors.IO) @Nullable ExecutorService executorService,
@@ -78,6 +82,10 @@ public class AzureVaultConfigurationClient implements ConfigurationClient {
     @Override
     public Publisher<PropertySource> getPropertySources(Environment environment) {
 
+        if (environment != null && AzureKeyVaultLegacyMode.isImportConfigured(environment)) {
+            return Flux.empty();
+        }
+
         if (StringUtils.isEmpty(vaultUrl)) {
             return Flux.empty();
         }
@@ -85,29 +93,17 @@ public class AzureVaultConfigurationClient implements ConfigurationClient {
         List<Flux<PropertySource>> propertySources = new ArrayList<>();
         Scheduler scheduler = executorService != null ? Schedulers.fromExecutor(executorService) : null;
 
-        Map<String, Object> secrets = new HashMap<>();
-
+        List<KeyVaultSecret> keyVaultSecrets = secretClient.listSecrets();
+        Map<String, Object> secrets = AzureKeyVaultPropertySourceMaterializer.materialize(keyVaultSecrets);
         int retrieved = 0;
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("Retrieving secrets from Azure Secret Vault with URL: {}", azureKeyVaultConfigurationProperties.getVaultURL());
         }
 
-        for (KeyVaultSecret keyVaultSecret : secretClient.listSecrets()) {
+        for (KeyVaultSecret keyVaultSecret : keyVaultSecrets) {
 
             retrieved += 1;
-            secrets.put(
-                    keyVaultSecret.getName(),
-                    keyVaultSecret.getValue()
-            );
-            secrets.put(
-                    keyVaultSecret.getName().replace('-', '.'),
-                    keyVaultSecret.getValue()
-            );
-            secrets.put(
-                    keyVaultSecret.getName().replace('-', '_'),
-                    keyVaultSecret.getValue()
-            );
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Retrieved secret: {}", keyVaultSecret.getName());
             }
