@@ -95,22 +95,13 @@ public class AzureVaultConfigurationClient implements ConfigurationClient {
 
         List<KeyVaultSecret> keyVaultSecrets = secretClient.listSecrets();
         Map<String, Object> secrets = AzureKeyVaultPropertySourceMaterializer.materialize(keyVaultSecrets);
-        int retrieved = 0;
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("Retrieving secrets from Azure Secret Vault with URL: {}", azureKeyVaultConfigurationProperties.getVaultURL());
         }
 
-        for (KeyVaultSecret keyVaultSecret : keyVaultSecrets) {
-
-            retrieved += 1;
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Retrieved secret: {}", keyVaultSecret.getName());
-            }
-
-        }
         if (LOG.isDebugEnabled()) {
-            LOG.debug("{} secrets were retrieved from Azure Secret Vault with URL: {}", retrieved, azureKeyVaultConfigurationProperties.getVaultURL());
+            LOG.debug("{} secrets were retrieved from Azure Secret Vault with URL: {}", keyVaultSecrets.size(), azureKeyVaultConfigurationProperties.getVaultURL());
         }
 
         Flux<PropertySource> propertySourceFlowable = Flux.just(

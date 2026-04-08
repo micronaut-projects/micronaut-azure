@@ -105,6 +105,26 @@ class AzureKeyVaultPropertySourceImporterSpec extends Specification {
         declaration.retryPolicy().delay().toMillis() == 100
     }
 
+
+    void "settings equality ignores secret-bearing fields"() {
+        given:
+        def left = new AzureKeyVaultImportSettings('https://contoso-vault2.vault.azure.net', 'client-secret', 'client', 'tenant', 'secret-one', 'alice', 'password-one', '/tmp/cert.pem', 'cert-password-one', 'managed-client')
+        def right = new AzureKeyVaultImportSettings('https://contoso-vault2.vault.azure.net', 'client-secret', 'client', 'tenant', 'secret-two', 'alice', 'password-two', '/tmp/cert.pem', 'cert-password-two', 'managed-client')
+
+        expect:
+        left == right
+        left.hashCode() == right.hashCode()
+    }
+
+    void "settings equality changes when non-secret identity changes"() {
+        given:
+        def left = new AzureKeyVaultImportSettings('https://contoso-vault2.vault.azure.net', 'client-secret', 'client', 'tenant', 'secret', 'alice', 'password', '/tmp/cert.pem', 'cert-password', 'managed-client')
+        def right = new AzureKeyVaultImportSettings('https://other-vault.vault.azure.net', 'client-secret', 'client', 'tenant', 'secret', 'alice', 'password', '/tmp/cert.pem', 'cert-password', 'managed-client')
+
+        expect:
+        left != right
+    }
+
     void "it closes cached closeable clients before clearing the cache"() {
         given:
         def importer = new AzureKeyVaultPropertySourceImporter()

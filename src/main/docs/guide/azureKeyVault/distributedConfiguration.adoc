@@ -77,7 +77,7 @@ micronaut:
     import: azure-key-vault://alice:secret@localhost/contoso-vault2?credential-mode=username-password&client-id=<client-id>&tenant-id=<tenant-id>
 ----
 
-The importer caches and reuses the underlying Key Vault client for repeated imports during configuration loading, and closes it when import processing finishes.
+The importer caches and reuses the underlying Key Vault client for repeated imports during configuration loading for the duration of import processing, and closes importer-managed clients when import processing finishes.
 
 Bootstrap-based distributed configuration remains available for compatibility, but it is deprecated and should only be used while migrating existing applications:
 

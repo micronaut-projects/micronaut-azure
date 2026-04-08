@@ -82,6 +82,29 @@ record AzureKeyVaultImportSettings(String vaultUrl,
         );
     }
 
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (!(object instanceof AzureKeyVaultImportSettings that)) {
+            return false;
+        }
+        return java.util.Objects.equals(vaultUrl, that.vaultUrl)
+                && java.util.Objects.equals(credentialMode, that.credentialMode)
+                && java.util.Objects.equals(clientId, that.clientId)
+                && java.util.Objects.equals(tenantId, that.tenantId)
+                && java.util.Objects.equals(username, that.username)
+                && java.util.Objects.equals(certificatePath, that.certificatePath)
+                && java.util.Objects.equals(managedIdentityClientId, that.managedIdentityClientId);
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(vaultUrl, credentialMode, clientId, tenantId, username, certificatePath, managedIdentityClientId);
+    }
+
     static AzureKeyVaultImportSettings resolve(Environment environment) {
         String vaultUrl = environment.getProperty(VAULT_URL, String.class)
                 .orElseGet(() -> environment.getProperty(VAULT_URL_CAMEL, String.class).orElse(null));
