@@ -82,8 +82,6 @@ record AzureKeyVaultImportSettings(String vaultUrl,
         );
     }
 
-
-
     @Override
     public String toString() {
         return "AzureKeyVaultImportSettings[" +

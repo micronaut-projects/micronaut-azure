@@ -43,7 +43,8 @@ import java.util.Optional;
 final class AzureKeyVaultPropertySourceImporter extends RetryablePropertySourceImporter<AzureKeyVaultImportSettings> {
 
     static final String PROVIDER = "azure-key-vault";
-    private final Map<AzureKeyVaultImportSettings, DefaultSecretKeyVaultClient> clients = new ConcurrentHashMap<>();
+
+    private final Map<CacheKey, DefaultSecretKeyVaultClient> clients = new ConcurrentHashMap<>();
 
     @Override
     public String getProvider() {
@@ -66,8 +67,8 @@ final class AzureKeyVaultPropertySourceImporter extends RetryablePropertySourceI
     @Override
     protected Optional<PropertySource> importRetryablePropertySource(ImportContext<AzureKeyVaultImportSettings> context) {
         AzureKeyVaultImportSettings settings = merge(context.importDeclaration(), context.environment());
-        DefaultSecretKeyVaultClient client = clients.computeIfAbsent(settings, s -> new DefaultSecretKeyVaultClient(
-                AzureSecretManagerSupport.secretClient(s.vaultUrl(), tokenCredential(s))
+        DefaultSecretKeyVaultClient client = clients.computeIfAbsent(CacheKey.of(settings), k -> new DefaultSecretKeyVaultClient(
+                AzureSecretManagerSupport.secretClient(settings.vaultUrl(), tokenCredential(settings))
         ));
         Map<String, Object> secrets = AzureKeyVaultPropertySourceMaterializer.materialize(
                 client.listSecrets()
@@ -179,5 +180,31 @@ final class AzureKeyVaultPropertySourceImporter extends RetryablePropertySourceI
 
     private boolean isBlank(String value) {
         return value == null || value.isBlank();
+    }
+
+    /**
+     * Cache key that excludes sensitive fields so secrets are not kept strongly referenced
+     * as map keys for the lifetime of the importer.
+     *
+     * @param vaultUrl the vault URL
+     * @param credentialMode the credential mode
+     * @param clientId the client ID
+     * @param tenantId the tenant ID
+     * @param username the username
+     * @param certificatePath the certificate path
+     * @param managedIdentityClientId the managed identity client ID
+     */
+    private record CacheKey(String vaultUrl,
+                            String credentialMode,
+                            String clientId,
+                            String tenantId,
+                            String username,
+                            String certificatePath,
+                            String managedIdentityClientId) {
+
+        static CacheKey of(AzureKeyVaultImportSettings s) {
+            return new CacheKey(s.vaultUrl(), s.credentialMode(), s.clientId(),
+                    s.tenantId(), s.username(), s.certificatePath(), s.managedIdentityClientId());
+        }
     }
 }
