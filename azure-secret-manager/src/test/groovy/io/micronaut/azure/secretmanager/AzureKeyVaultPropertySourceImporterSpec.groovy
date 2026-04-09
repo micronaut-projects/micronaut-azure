@@ -106,6 +106,25 @@ class AzureKeyVaultPropertySourceImporterSpec extends Specification {
     }
 
 
+
+    void "settings toString redacts secret-bearing fields"() {
+        given:
+        def settings = new AzureKeyVaultImportSettings('https://contoso-vault2.vault.azure.net', 'client-secret', 'client', 'tenant', 'secret-value', 'alice', 'password-value', '/tmp/cert.pem', 'certificate-password-value', 'managed-client')
+
+        when:
+        def rendered = settings.toString()
+
+        then:
+        rendered.contains('vaultUrl=https://contoso-vault2.vault.azure.net')
+        rendered.contains('credentialMode=client-secret')
+        rendered.contains('clientSecret=<redacted>')
+        rendered.contains('password=<redacted>')
+        rendered.contains('certificatePassword=<redacted>')
+        !rendered.contains('secret-value')
+        !rendered.contains('password-value')
+        !rendered.contains('certificate-password-value')
+    }
+
     void "settings equality ignores secret-bearing fields"() {
         given:
         def left = new AzureKeyVaultImportSettings('https://contoso-vault2.vault.azure.net', 'client-secret', 'client', 'tenant', 'secret-one', 'alice', 'password-one', '/tmp/cert.pem', 'cert-password-one', 'managed-client')

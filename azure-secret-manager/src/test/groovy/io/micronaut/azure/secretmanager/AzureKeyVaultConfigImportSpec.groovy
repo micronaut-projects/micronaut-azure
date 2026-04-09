@@ -6,7 +6,10 @@ import spock.lang.Shared
 import spock.lang.Specification
 
 @Requires({
-    System.getenv("AZURE_VAULT_URL")
+    System.getenv("AZURE_CLIENT_ID")
+            && System.getenv("AZURE_CLIENT_SECRET")
+            && System.getenv("AZURE_TENANT_ID")
+            && System.getenv("AZURE_VAULT_URL")
             && System.getenv("VAULT_SECRET_NAME")
             && System.getenv("VAULT_SECRET_VALUE")
 })
@@ -22,7 +25,7 @@ class AzureKeyVaultConfigImportSpec extends Specification {
     String vaultUrl = System.getenv("AZURE_VAULT_URL")
 
     @Shared
-    String configImport = "azure-key-vault://${vaultName(vaultUrl)}?credential-mode=cli"
+    String configImport = "azure-key-vault://${vaultName(vaultUrl)}?credential-mode=client-secret&client-id=${System.getenv('AZURE_CLIENT_ID')}&tenant-id=${System.getenv('AZURE_TENANT_ID')}&client-secret=${System.getenv('AZURE_CLIENT_SECRET')}"
 
     void "it loads secrets via micronaut config import"() {
         given:

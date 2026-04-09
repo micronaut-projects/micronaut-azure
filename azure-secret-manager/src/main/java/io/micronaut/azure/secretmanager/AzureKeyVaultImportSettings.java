@@ -83,6 +83,23 @@ record AzureKeyVaultImportSettings(String vaultUrl,
     }
 
 
+
+    @Override
+    public String toString() {
+        return "AzureKeyVaultImportSettings[" +
+                "vaultUrl=" + vaultUrl +
+                ", credentialMode=" + credentialMode +
+                ", clientId=" + clientId +
+                ", tenantId=" + tenantId +
+                ", clientSecret=<redacted>" +
+                ", username=" + username +
+                ", password=<redacted>" +
+                ", certificatePath=" + certificatePath +
+                ", certificatePassword=<redacted>" +
+                ", managedIdentityClientId=" + managedIdentityClientId +
+                ']';
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) {
