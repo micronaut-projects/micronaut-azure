@@ -202,9 +202,9 @@ final class AzureKeyVaultPropertySourceImporter extends RetryablePropertySourceI
                             String certificatePath,
                             String managedIdentityClientId) {
 
-        static CacheKey of(AzureKeyVaultImportSettings s) {
-            return new CacheKey(s.vaultUrl(), s.credentialMode(), s.clientId(),
-                    s.tenantId(), s.username(), s.certificatePath(), s.managedIdentityClientId());
+        static CacheKey of(AzureKeyVaultImportSettings settings) {
+            return new CacheKey(settings.vaultUrl(), settings.credentialMode(), settings.clientId(),
+                    settings.tenantId(), settings.username(), settings.certificatePath(), settings.managedIdentityClientId());
         }
     }
 }
