@@ -37,12 +37,13 @@ record AzureKeyVaultImportSettings(String vaultUrl,
 
     private static final String VAULT_URL = AzureKeyVaultConfigurationProperties.PREFIX + ".vault-url";
     private static final String VAULT_URL_CAMEL = AzureKeyVaultConfigurationProperties.PREFIX + ".vaultUrl";
+    private static final String DEFAULT_CREDENTIAL_MODE = "default";
     private static final String CREDENTIAL_MODE = "credential-mode";
     private static final String CLIENT_ID = "client-id";
     private static final String TENANT_ID = "tenant-id";
     private static final String CLIENT_SECRET = "client-secret";
-    private static final String USERNAME = "username";
-    private static final String PASSWORD = "password";
+    private static final String USERNAME_OPTION = "username";
+    private static final String PASSWORD_OPTION = "password";
     private static final String CERTIFICATE_PATH = "certificate-path";
     private static final String CERTIFICATE_PASSWORD = "certificate-password";
     private static final String MANAGED_IDENTITY_CLIENT_ID = "managed-identity-client-id";
@@ -51,12 +52,12 @@ record AzureKeyVaultImportSettings(String vaultUrl,
         String vaultUrl = toVaultUrl(connectionString.getPath());
         return new AzureKeyVaultImportSettings(
                 vaultUrl,
-                connectionString.getOptions().getOrDefault(CREDENTIAL_MODE, "default"),
+                connectionString.getOptions().getOrDefault(CREDENTIAL_MODE, DEFAULT_CREDENTIAL_MODE),
                 connectionString.getOptions().get(CLIENT_ID),
                 connectionString.getOptions().get(TENANT_ID),
                 connectionString.getOptions().get(CLIENT_SECRET),
-                connectionString.getUsername().orElse(connectionString.getOptions().get(USERNAME)),
-                connectionString.getPassword().orElse(connectionString.getOptions().get(PASSWORD)),
+                connectionString.getUsername().orElse(connectionString.getOptions().get(USERNAME_OPTION)),
+                connectionString.getPassword().orElse(connectionString.getOptions().get(PASSWORD_OPTION)),
                 connectionString.getOptions().get(CERTIFICATE_PATH),
                 connectionString.getOptions().get(CERTIFICATE_PASSWORD),
                 connectionString.getOptions().get(MANAGED_IDENTITY_CLIENT_ID)
@@ -70,18 +71,19 @@ record AzureKeyVaultImportSettings(String vaultUrl,
         }
         return new AzureKeyVaultImportSettings(
                 vaultUrl,
-                defaultString(stringValue(values, CREDENTIAL_MODE), "default"),
+                defaultString(stringValue(values, CREDENTIAL_MODE), DEFAULT_CREDENTIAL_MODE),
                 stringValue(values, CLIENT_ID),
                 stringValue(values, TENANT_ID),
                 stringValue(values, CLIENT_SECRET),
-                stringValue(values, USERNAME),
-                stringValue(values, PASSWORD),
+                stringValue(values, USERNAME_OPTION),
+                stringValue(values, PASSWORD_OPTION),
                 stringValue(values, CERTIFICATE_PATH),
                 stringValue(values, CERTIFICATE_PASSWORD),
                 stringValue(values, MANAGED_IDENTITY_CLIENT_ID)
         );
     }
 
+    @SuppressWarnings("java:S2068")
     @Override
     public String toString() {
         return "AzureKeyVaultImportSettings[" +
@@ -126,7 +128,7 @@ record AzureKeyVaultImportSettings(String vaultUrl,
         if (!StringUtils.hasText(vaultUrl)) {
             throw new ConfigurationException("Missing required Azure Key Vault configuration property: azure.key-vault.vault-url");
         }
-        return new AzureKeyVaultImportSettings(vaultUrl, "default", null, null, null, null, null, null, null, null);
+        return new AzureKeyVaultImportSettings(vaultUrl, DEFAULT_CREDENTIAL_MODE, null, null, null, null, null, null, null, null);
     }
 
     private static String toVaultUrl(String path) {

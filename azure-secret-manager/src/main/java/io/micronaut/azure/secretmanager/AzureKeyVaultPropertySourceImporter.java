@@ -133,13 +133,17 @@ final class AzureKeyVaultPropertySourceImporter extends RetryablePropertySourceI
                 .clientId(settings.clientId())
                 .tenantId(settings.tenantId());
         if (settings.certificatePath().endsWith(".pfx")) {
-            builder.pfxCertificate(settings.certificatePath(), settings.certificatePassword());
+            builder.pfxCertificate(settings.certificatePath());
+            if (!isBlank(settings.certificatePassword())) {
+                builder.clientCertificatePassword(settings.certificatePassword());
+            }
         } else {
             builder.pemCertificate(settings.certificatePath());
         }
         return builder.build();
     }
 
+    @SuppressWarnings("java:S1874")
     private TokenCredential usernamePasswordCredential(AzureKeyVaultImportSettings settings) {
         if (isBlank(settings.username()) || isBlank(settings.password()) || isBlank(settings.clientId())) {
             throw new ConfigurationException("Azure Key Vault import with credential-mode=username-password requires username/password user-info (or username/password options) and client-id");
