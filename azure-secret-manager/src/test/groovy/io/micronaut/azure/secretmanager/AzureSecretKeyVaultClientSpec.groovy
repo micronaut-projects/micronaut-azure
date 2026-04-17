@@ -37,6 +37,26 @@ class AzureSecretKeyVaultClientSpec extends Specification {
         ctx.close()
     }
 
+    void "it returns empty property source for empty vault"() {
+        given:
+        ApplicationContext ctx = ApplicationContext.run([
+                'spec.name'                      : 'it tests AzureVaultConfigurationClient empty vault',
+                "azure.key-vault.vaultUrl"       : "https://example-vault.azure.com",
+                'micronaut.config-client.enabled': true
+        ])
+        def client = ctx.getBean(AzureVaultConfigurationClient.class)
+
+        when:
+        PropertySource propertySource = Flux.from(client.getPropertySources(null)).blockFirst()
+
+        then:
+        propertySource != null
+        propertySource.isEmpty()
+
+        cleanup:
+        ctx.close()
+    }
+
     void "it tries to load from empty vault url"() {
         given:
         ApplicationContext ctx = ApplicationContext.run([
@@ -74,6 +94,22 @@ class AzureSecretKeyVaultClientSpec extends Specification {
         }
     }
 
-}
+    @Singleton
+    @Replaces(DefaultSecretKeyVaultClient)
+    @BootstrapContextCompatible
+    @Requires(property = 'spec.name', value = 'it tests AzureVaultConfigurationClient empty vault')
+    static class EmptyMockDefaultSecretKeyVaultClient implements SecretKeyVaultClient {
 
+        @Override
+        KeyVaultSecret getSecret(String secretName) {
+            return null
+        }
+
+        @Override
+        List<KeyVaultSecret> listSecrets() {
+            return []
+        }
+    }
+
+}
 
