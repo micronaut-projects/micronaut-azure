@@ -29,6 +29,7 @@ loadScripts(document, 'script');</script>
 <ul id="navbar-top-firstrow" class="nav-list" title="Navigation">
 <li><a href="index.html">Overview</a></li>
 <li><a href="overview-tree.html">Tree</a></li>
+<li><a href="deprecated-list.html">Deprecated</a></li>
 <li class="nav-bar-cell1-rev">Index</li>
 <li><a href="search.html">Search</a></li>
 <li><a href="help-doc.html#index">Help</a></li>
@@ -205,11 +206,15 @@ to classes annotated with <code>Controller</code> and the others annotations in 
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/azure/secretmanager/AzureVaultConfigurationClient.html" class="type-name-link" title="class in io.micronaut.azure.secretmanager">AzureVaultConfigurationClient</a> - Class in <a href="io/micronaut/azure/secretmanager/package-summary.html">io.micronaut.azure.secretmanager</a></dt>
 <dd>
-<div class="block">Distributed configuration client implementation that fetches application secret values from Azure keyvalut.</div>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span>
+<div class="deprecation-comment">Prefer Azure Key Vault config import via <code>micronaut.config.import=azure-key-vault://import</code>.</div>
+</div>
 </dd>
 <dt><a href="io/micronaut/azure/secretmanager/AzureVaultConfigurationClient.html#%3Cinit%3E(io.micronaut.azure.secretmanager.configuration.AzureKeyVaultConfigurationProperties,java.util.concurrent.ExecutorService,io.micronaut.azure.secretmanager.client.SecretKeyVaultClient)" class="member-name-link">AzureVaultConfigurationClient(AzureKeyVaultConfigurationProperties, ExecutorService, SecretKeyVaultClient)</a> - Constructor for class io.micronaut.azure.secretmanager.<a href="io/micronaut/azure/secretmanager/AzureVaultConfigurationClient.html" title="class in io.micronaut.azure.secretmanager">AzureVaultConfigurationClient</a></dt>
 <dd>
-<div class="block">Default Constructor.</div>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span>
+<div class="deprecation-comment">Prefer Azure Key Vault config import via <code>micronaut.config.import=azure-key-vault://import</code>.</div>
+</div>
 </dd>
 </dl>
 <h2 class="title" id="I:B">B</h2>
@@ -453,7 +458,9 @@ runs in the Azure Cloud.</div>
 <dt><a href="io/micronaut/azure/secretmanager/configuration/AzureKeyVaultConfigurationProperties.KeysConfiguration.SigningConfiguration.html#getDefaultAlgorithm()" class="member-name-link">getDefaultAlgorithm()</a> - Method in class io.micronaut.azure.secretmanager.configuration.<a href="io/micronaut/azure/secretmanager/configuration/AzureKeyVaultConfigurationProperties.KeysConfiguration.SigningConfiguration.html" title="class in io.micronaut.azure.secretmanager.configuration">AzureKeyVaultConfigurationProperties.KeysConfiguration.SigningConfiguration</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/azure/secretmanager/AzureVaultConfigurationClient.html#getDescription()" class="member-name-link">getDescription()</a> - Method in class io.micronaut.azure.secretmanager.<a href="io/micronaut/azure/secretmanager/AzureVaultConfigurationClient.html" title="class in io.micronaut.azure.secretmanager">AzureVaultConfigurationClient</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
+&nbsp;</dd>
 <dt><a href="io/micronaut/azure/logging/AzureAppender.html#getEncoder()" class="member-name-link">getEncoder()</a> - Method in class io.micronaut.azure.logging.<a href="io/micronaut/azure/logging/AzureAppender.html" title="class in io.micronaut.azure.logging">AzureAppender</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/azure/function/http/AzureFunctionHttpRequest.html#getExecutionContext()" class="member-name-link">getExecutionContext()</a> - Method in class io.micronaut.azure.function.http.<a href="io/micronaut/azure/function/http/AzureFunctionHttpRequest.html" title="class in io.micronaut.azure.function.http">AzureFunctionHttpRequest</a></dt>
@@ -507,7 +514,9 @@ runs in the Azure Cloud.</div>
 <div class="block">Gets the path of the PFX certificate for authenticating to AAD.</div>
 </dd>
 <dt><a href="io/micronaut/azure/secretmanager/AzureVaultConfigurationClient.html#getPropertySources(io.micronaut.context.env.Environment)" class="member-name-link">getPropertySources(Environment)</a> - Method in class io.micronaut.azure.secretmanager.<a href="io/micronaut/azure/secretmanager/AzureVaultConfigurationClient.html" title="class in io.micronaut.azure.secretmanager">AzureVaultConfigurationClient</a></dt>
-<dd>&nbsp;</dd>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
+&nbsp;</dd>
 <dt><a href="io/micronaut/azure/logging/AzureAppender.html#getPublishPeriod()" class="member-name-link">getPublishPeriod()</a> - Method in class io.micronaut.azure.logging.<a href="io/micronaut/azure/logging/AzureAppender.html" title="class in io.micronaut.azure.logging">AzureAppender</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/micronaut/azure/logging/AzureAppender.html#getQueueSize()" class="member-name-link">getQueueSize()</a> - Method in class io.micronaut.azure.logging.<a href="io/micronaut/azure/logging/AzureAppender.html" title="class in io.micronaut.azure.logging">AzureAppender</a></dt>
@@ -834,7 +843,7 @@ bean.</div>
 </dd>
 <dt><a href="io/micronaut/azure/secretmanager/SecretManagerFactory.html" class="type-name-link" title="class in io.micronaut.azure.secretmanager">SecretManagerFactory</a> - Class in <a href="io/micronaut/azure/secretmanager/package-summary.html">io.micronaut.azure.secretmanager</a></dt>
 <dd>
-<div class="block">Factory to create Azure Secret client.</div>
+<div class="block">Factory to create Azure Secret client for the legacy bootstrap configuration path.</div>
 </dd>
 <dt><a href="io/micronaut/azure/secretmanager/SecretManagerFactory.html#%3Cinit%3E()" class="member-name-link">SecretManagerFactory()</a> - Constructor for class io.micronaut.azure.secretmanager.<a href="io/micronaut/azure/secretmanager/SecretManagerFactory.html" title="class in io.micronaut.azure.secretmanager">SecretManagerFactory</a></dt>
 <dd>&nbsp;</dd>
