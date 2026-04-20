@@ -12,7 +12,7 @@ commons-codec = "1.19.0"
 
 # Micronaut
 micronaut-platform = "4.10.12"
-micronaut = "5.0.0-M22"
+micronaut = "5.0.0-M23"
 micronaut-logging = "2.0.0-M2"
 micronaut-reactor = "4.0.0-M2"
 micronaut-serde = "3.0.0-M7"
