@@ -9,6 +9,7 @@ dependencies {
     api(projects.micronautAzureFunction)
     api(mnServlet.micronaut.servlet.core)
     implementation(mn.micronaut.router)
+    implementation(mnSerde.micronaut.serde.api)
     implementation(libs.jakarta.inject.api)
     compileOnly(libs.managed.azure.functions.java.library)
 

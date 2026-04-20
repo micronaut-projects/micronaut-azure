@@ -3,9 +3,15 @@ To add support for Azure Key Vault to an existing project, add the following dep
 
 dependency:micronaut-azure-secret-manager[groupId="io.micronaut.azure"]
 
-dependency:micronaut-discovery-client[groupId="io.micronaut.discovery"]
-
 NOTE: Azure doesn't allow _ and . in name of the secrets so the secret with name SECRET-ONE can be resolved also with SECRET_ONE and SECRET.ONE
+
+TIP: For distributed configuration, prefer `micronaut.config.import=azure-key-vault://contoso-vault2`. The vault name is expanded automatically to `https://contoso-vault2.vault.azure.net`. The older bootstrap/config-client path remains for compatibility but is deprecated by this module.
+
+TIP: The importer supports multiple authentication modes including `default`, `client-secret`, `client-certificate`, `username-password`, `managed-identity`, `environment`, `cli`, `intellij`, and `visual-studio-code`.
+
+TIP: Standard config-import retry options are also supported for Azure Key Vault imports, including `retry-attempts`, `retry-delay`, `retry-max-delay`, `retry-multiplier`, and `retry-jitter`.
+
+IMPORTANT: Azure Key Vault configuration is currently loaded as a startup snapshot. Secret values are re-read when a new application context starts, but no automatic watch/poll refresh support is provided by this module.
 
 TIP: See the guide for https://guides.micronaut.io/latest/micronaut-cloud-secrets-azure.html[Securely store Micronaut application secrets in Azure Key Vault] to learn more.
 
