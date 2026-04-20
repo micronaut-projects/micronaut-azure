@@ -106,8 +106,8 @@ to classes annotated with <code>Controller</code> and the others annotations in 
 
 <p>To use this class you should define a new function that subclasses this class and then override the <a href="#route(com.microsoft.azure.functions.HttpRequestMessage,com.microsoft.azure.functions.ExecutionContext)"><code>route(HttpRequestMessage, ExecutionContext)</code></a> (HttpRequestMessage, ExecutionContext)} method to customize the function mapping as per the Azure documentation. For example the following definition will route all requests to the function:</p>
 
-<pre><code>   @FunctionName("myFunction")
-   @Override
+<pre><code>   {@literal @}FunctionName("myFunction")
+   {@literal @}Override
    public HttpResponseMessage invoke(
       @HttpTrigger(name = "req",
                    route = "{*url}", // catch all route
