@@ -90,7 +90,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
         !headerNames.contains(ACCESS_CONTROL_ALLOW_HEADERS)
         !headerNames.contains(ACCESS_CONTROL_ALLOW_METHODS)
         !headerNames.contains(ACCESS_CONTROL_EXPOSE_HEADERS)
-        response.header(ACCESS_CONTROL_ALLOW_CREDENTIALS) == 'true'
+        response.header(ACCESS_CONTROL_ALLOW_CREDENTIALS) == null
     }
 
     void "test cors request with controlled method"() {
@@ -111,7 +111,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
         !headerNames.contains(ACCESS_CONTROL_ALLOW_HEADERS)
         !headerNames.contains(ACCESS_CONTROL_ALLOW_METHODS)
         !headerNames.contains(ACCESS_CONTROL_EXPOSE_HEADERS)
-        response.header(ACCESS_CONTROL_ALLOW_CREDENTIALS) == 'true'
+        response.header(ACCESS_CONTROL_ALLOW_CREDENTIALS) == null
     }
 
     @PendingFeature
@@ -222,7 +222,7 @@ class AzureFunctionCorsSpec extends Specification implements TestPropertyProvide
         response.header(ACCESS_CONTROL_ALLOW_ORIGIN) == 'foo.com'
         response.header(VARY) == ORIGIN
         !headerNames.contains(ACCESS_CONTROL_EXPOSE_HEADERS)
-        response.header(ACCESS_CONTROL_ALLOW_CREDENTIALS) == 'true'
+        response.header(ACCESS_CONTROL_ALLOW_CREDENTIALS) == null
     }
 
     @PendingFeature
