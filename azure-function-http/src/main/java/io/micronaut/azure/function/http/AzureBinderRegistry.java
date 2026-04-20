@@ -28,7 +28,8 @@ import io.micronaut.http.bind.DefaultRequestBinderRegistry;
 import io.micronaut.http.bind.binders.DefaultBodyAnnotationBinder;
 import io.micronaut.http.bind.binders.RequestArgumentBinder;
 import io.micronaut.http.bind.binders.TypedRequestArgumentBinder;
-import io.micronaut.http.codec.MediaTypeCodecRegistry;
+import io.micronaut.http.body.MessageBodyHandlerRegistry;
+import io.micronaut.json.JsonMapper;
 import io.micronaut.servlet.http.ServletBinderRegistry;
 import jakarta.inject.Singleton;
 
@@ -47,12 +48,13 @@ class AzureBinderRegistry<T> extends ServletBinderRegistry<T> {
     private static final Argument<HttpRequestMessage> REQUEST_MESSAGE_ARGUMENT = Argument.of(HttpRequestMessage.class);
 
     AzureBinderRegistry(
-        MediaTypeCodecRegistry mediaTypeCodecRegistry,
+        MessageBodyHandlerRegistry messageBodyHandlerRegistry,
         ConversionService conversionService,
         List<RequestArgumentBinder> binders,
-        DefaultBodyAnnotationBinder<T> defaultBodyAnnotationBinder
+        DefaultBodyAnnotationBinder<T> defaultBodyAnnotationBinder,
+        JsonMapper jsonMapper
     ) {
-        super(mediaTypeCodecRegistry, conversionService, binders, defaultBodyAnnotationBinder);
+        super(messageBodyHandlerRegistry, conversionService, binders, defaultBodyAnnotationBinder, jsonMapper);
         this.byType.put(HttpRequestMessage.class, new TypedRequestArgumentBinder<HttpRequestMessage>() {
             @Override
             public BindingResult<HttpRequestMessage> bind(
