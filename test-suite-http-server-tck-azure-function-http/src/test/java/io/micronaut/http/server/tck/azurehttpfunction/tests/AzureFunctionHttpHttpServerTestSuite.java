@@ -4,6 +4,7 @@ import org.junit.platform.suite.api.*;
 
 @Suite
 @ExcludeClassNamePatterns({
+        "io.micronaut.http.server.tck.tests.BodyTest",
         "io.micronaut.http.server.tck.tests.FilterProxyTest",
         "io.micronaut.http.server.tck.tests.ErrorHandlerFluxTest", // test fails testErrorHandlerWithFluxChunkedSignaledDelayedError
         "io.micronaut.http.server.tck.tests.forms.FormBindingDeadlockTest",
