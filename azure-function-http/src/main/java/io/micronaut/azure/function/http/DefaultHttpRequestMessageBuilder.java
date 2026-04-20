@@ -28,6 +28,7 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.body.MessageBodyHandlerRegistry;
 import io.micronaut.http.body.MessageBodyWriter;
 import io.micronaut.http.simple.SimpleHttpHeaders;
+import org.jspecify.annotations.Nullable;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -53,7 +54,7 @@ class DefaultHttpRequestMessageBuilder<T> implements HttpRequestMessageBuilder<T
     private final Map<String, String> headers = new LinkedHashMap<>(3);
     private final Map<String, String> queryParams = new LinkedHashMap<>(3);
     private Object body;
-    private Optional<MessageBodyHandlerRegistry> messageBodyHandlerRegistry;
+    private MessageBodyHandlerRegistry messageBodyHandlerRegistry;
 
     public DefaultHttpRequestMessageBuilder(HttpMethod method, URI uri, ApplicationContext applicationContext) {
         method(method);
@@ -183,13 +184,13 @@ class DefaultHttpRequestMessageBuilder<T> implements HttpRequestMessageBuilder<T
     }
 
     private Optional<String> serializeWithMessageBodyWriter(MediaType mediaType, Object source) {
-        Optional<MessageBodyHandlerRegistry> registryOptional = messageBodyHandlerRegistry();
-        if (registryOptional.isEmpty()) {
+        MessageBodyHandlerRegistry registry = messageBodyHandlerRegistry();
+        if (registry == null) {
             return Optional.empty();
         }
         @SuppressWarnings("unchecked")
         Argument<Object> argument = (Argument<Object>) Argument.of(source.getClass());
-        Optional<MessageBodyWriter<Object>> writerOptional = registryOptional.get().findWriter(argument, mediaType);
+        Optional<MessageBodyWriter<Object>> writerOptional = registry.findWriter(argument, mediaType);
         if (writerOptional.isEmpty()) {
             return Optional.empty();
         }
@@ -205,9 +206,10 @@ class DefaultHttpRequestMessageBuilder<T> implements HttpRequestMessageBuilder<T
         }
     }
 
-    private Optional<MessageBodyHandlerRegistry> messageBodyHandlerRegistry() {
+    @Nullable
+    private MessageBodyHandlerRegistry messageBodyHandlerRegistry() {
         if (messageBodyHandlerRegistry == null) {
-            messageBodyHandlerRegistry = applicationContext.findBean(MessageBodyHandlerRegistry.class);
+            messageBodyHandlerRegistry = applicationContext.findBean(MessageBodyHandlerRegistry.class).orElse(null);
         }
         return messageBodyHandlerRegistry;
     }
