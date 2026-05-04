@@ -23,6 +23,7 @@ import java.util.stream.Stream;
 
 import static com.azure.core.util.Configuration.*;
 
+
 /**
  * <p>A custom condition that matches when the following environment variables are defined.</p>
  * <ul>
