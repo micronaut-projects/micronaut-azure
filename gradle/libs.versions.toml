@@ -2,8 +2,6 @@
 managed-azure-sdk = "1.3.6"
 managed-azure-functions-java-library = "3.3.0"
 managed-azure-cosmos = "4.79.1"
-# Legacy Jackson 2 line used transitively by Azure SDK.
-managed-jackson2 = "2.18.6"
 managed-opentelemetry-autoconfigure = "1.4.0"
 azurefunctions-plugin = "1.16.1"
 jakarta-inject-api = "2.0.1"
@@ -11,6 +9,9 @@ logback-json-classic = "0.1.5"
 system-lambda = "1.2.1"
 json-smart = "2.6.0"
 commons-codec = "1.22.0"
+# Legacy Jackson 2 line used transitively by Azure SDK.
+# TODO: Can be removed when azure libraries are moved to Jackson 3
+jackson-core = "2.18.6"
 
 # Micronaut
 micronaut-platform = "5.0.0-M2"
@@ -41,10 +42,10 @@ gradle-micronaut = { module = "io.micronaut.gradle:micronaut-gradle-plugin", ver
 
 managed-azure-functions-java-library = { module = "com.microsoft.azure.functions:azure-functions-java-library", version.ref = "managed-azure-functions-java-library" }
 managed-azure-cosmos = { module = "com.azure:azure-cosmos", version.ref = "managed-azure-cosmos" }
-managed-jackson2-bom = { module = "com.fasterxml.jackson:jackson-bom", version.ref = "managed-jackson2" }
 managed-opentelemetry-autoconfigure = { module = "com.azure:azure-monitor-opentelemetry-autoconfigure", version.ref = "managed-opentelemetry-autoconfigure" }
 
 commons-codec = { module = "commons-codec:commons-codec", version.ref = "commons-codec" }
+jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson-core" }
 azure-identity = { module = "com.azure:azure-identity" }
 azure-security-keyvault-secrets = { module = "com.azure:azure-security-keyvault-secrets" }
 azure-security-keyvault-keys = { module = "com.azure:azure-security-keyvault-keys" }
