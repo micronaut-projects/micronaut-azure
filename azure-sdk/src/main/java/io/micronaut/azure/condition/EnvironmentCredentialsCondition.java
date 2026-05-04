@@ -21,8 +21,12 @@ import io.micronaut.context.condition.ConditionContext;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-import static com.azure.core.util.Configuration.*;
-
+import static com.azure.core.util.Configuration.PROPERTY_AZURE_CLIENT_CERTIFICATE_PATH;
+import static com.azure.core.util.Configuration.PROPERTY_AZURE_CLIENT_ID;
+import static com.azure.core.util.Configuration.PROPERTY_AZURE_CLIENT_SECRET;
+import static com.azure.core.util.Configuration.PROPERTY_AZURE_PASSWORD;
+import static com.azure.core.util.Configuration.PROPERTY_AZURE_TENANT_ID;
+import static com.azure.core.util.Configuration.PROPERTY_AZURE_USERNAME;
 
 /**
  * <p>A custom condition that matches when the following environment variables are defined.</p>
