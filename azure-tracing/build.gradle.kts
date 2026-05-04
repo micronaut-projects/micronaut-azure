@@ -6,6 +6,7 @@ plugins {
 
 dependencies {
     annotationProcessor(mn.micronaut.inject.java)
+    implementation(platform(libs.managed.jackson2.bom))
     api(libs.managed.opentelemetry.autoconfigure)
     api(mnTracing.micronaut.tracing.opentelemetry)
     testImplementation(mnTest.mockito.core)
