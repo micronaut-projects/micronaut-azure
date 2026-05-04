@@ -43,7 +43,9 @@ import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.util.StringUtils;
 import jakarta.inject.Singleton;
 
-import static io.micronaut.azure.credentials.AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.*;
+import static io.micronaut.azure.credentials.AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.CONNECTION_STRING;
+import static io.micronaut.azure.credentials.AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.ACCOUNT_KEY;
+import static io.micronaut.azure.credentials.AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.ACCOUNT_NAME;
 
 /**
  * The factory creates the Azure SDK credentials based on the configuration {@link AzureCredentialsConfiguration}.
