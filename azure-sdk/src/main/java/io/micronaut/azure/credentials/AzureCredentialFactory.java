@@ -16,7 +16,24 @@
 package io.micronaut.azure.credentials;
 
 import com.azure.core.credential.TokenCredential;
-import com.azure.identity.*;
+import com.azure.identity.AzureCliCredential;
+import com.azure.identity.AzureCliCredentialBuilder;
+import com.azure.identity.ClientCertificateCredential;
+import com.azure.identity.ClientCertificateCredentialBuilder;
+import com.azure.identity.ClientSecretCredential;
+import com.azure.identity.ClientSecretCredentialBuilder;
+import com.azure.identity.DefaultAzureCredential;
+import com.azure.identity.DefaultAzureCredentialBuilder;
+import com.azure.identity.EnvironmentCredential;
+import com.azure.identity.EnvironmentCredentialBuilder;
+import com.azure.identity.IntelliJCredential;
+import com.azure.identity.IntelliJCredentialBuilder;
+import com.azure.identity.ManagedIdentityCredential;
+import com.azure.identity.ManagedIdentityCredentialBuilder;
+import com.azure.identity.UsernamePasswordCredential;
+import com.azure.identity.UsernamePasswordCredentialBuilder;
+import com.azure.identity.VisualStudioCodeCredential;
+import com.azure.identity.VisualStudioCodeCredentialBuilder;
 import com.azure.storage.common.StorageSharedKeyCredential;
 import io.micronaut.azure.condition.ClientCertificateCredentialsCondition;
 import io.micronaut.azure.condition.EnvironmentCredentialsCondition;
@@ -26,7 +43,9 @@ import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.util.StringUtils;
 import jakarta.inject.Singleton;
 
-import static io.micronaut.azure.credentials.AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.*;
+import static io.micronaut.azure.credentials.AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.CONNECTION_STRING;
+import static io.micronaut.azure.credentials.AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.ACCOUNT_KEY;
+import static io.micronaut.azure.credentials.AzureCredentialsConfiguration.StorageSharedKeyCredentialConfiguration.ACCOUNT_NAME;
 
 /**
  * The factory creates the Azure SDK credentials based on the configuration {@link AzureCredentialsConfiguration}.
