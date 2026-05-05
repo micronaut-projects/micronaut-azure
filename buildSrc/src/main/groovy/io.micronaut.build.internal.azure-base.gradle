@@ -5,13 +5,3 @@ repositories {
 configurations.all {
     resolutionStrategy.preferProjectModules()
 }
-
-plugins.withId("java") {
-    dependencies {
-        constraints {
-            implementation(libs.jackson.core) {
-                because("Bump transitive dependency version, fixes GHSA-72hv-8253-57qq")
-            }
-        }
-    }
-}

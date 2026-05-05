@@ -11,7 +11,6 @@ json-smart = "2.6.0"
 commons-codec = "1.22.0"
 # Legacy Jackson 2 line used transitively by Azure SDK.
 # TODO: Can be removed when azure libraries are moved to Jackson 3
-jackson-core = "2.18.6"
 
 # Micronaut
 micronaut-platform = "5.0.0-M2"
@@ -45,7 +44,6 @@ managed-azure-cosmos = { module = "com.azure:azure-cosmos", version.ref = "manag
 managed-opentelemetry-autoconfigure = { module = "com.azure:azure-monitor-opentelemetry-autoconfigure", version.ref = "managed-opentelemetry-autoconfigure" }
 
 commons-codec = { module = "commons-codec:commons-codec", version.ref = "commons-codec" }
-jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson-core" }
 azure-identity = { module = "com.azure:azure-identity" }
 azure-security-keyvault-secrets = { module = "com.azure:azure-security-keyvault-secrets" }
 azure-security-keyvault-keys = { module = "com.azure:azure-security-keyvault-keys" }
