@@ -85,6 +85,7 @@ public class AzureFunctionHttpHandler implements HttpHandler {
         int contentLength = hasBody ? bodyAsBytes.length : 0;
         if (httpResponseMessage instanceof HttpHeaders headers) {
             for (String headerName : headers.names()) {
+                // HttpExchange manages response framing; Netty rejects duplicate framing headers.
                 if (isManagedByHttpExchange(headerName)) {
                     continue;
                 }
