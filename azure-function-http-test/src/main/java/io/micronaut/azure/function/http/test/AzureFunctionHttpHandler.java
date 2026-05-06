@@ -85,6 +85,9 @@ public class AzureFunctionHttpHandler implements HttpHandler {
         int contentLength = hasBody ? bodyAsBytes.length : 0;
         if (httpResponseMessage instanceof HttpHeaders headers) {
             for (String headerName : headers.names()) {
+                if (isManagedByHttpExchange(headerName)) {
+                    continue;
+                }
                 exchange.getResponseHeaders().put(headerName, headers.getAll(headerName));
             }
         }
@@ -98,6 +101,11 @@ public class AzureFunctionHttpHandler implements HttpHandler {
             exchange.getResponseBody().flush();
         }
         exchange.close();
+    }
+
+    private static boolean isManagedByHttpExchange(String headerName) {
+        return HttpHeaders.CONTENT_LENGTH.equalsIgnoreCase(headerName)
+            || "Transfer-Encoding".equalsIgnoreCase(headerName);
     }
 
     private static AzureFunctionHttpRequest createHttpRequest(HttpExchange request, ApplicationContextProvider applicationContextProvider) {
