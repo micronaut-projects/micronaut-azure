@@ -4,6 +4,7 @@ io.micronaut.azure.credentials
 io.micronaut.azure.function
 io.micronaut.azure.function.http
 io.micronaut.azure.function.http.test
+io.micronaut.azure.info
 io.micronaut.azure.logging
 io.micronaut.azure.secretmanager
 io.micronaut.azure.secretmanager.client
