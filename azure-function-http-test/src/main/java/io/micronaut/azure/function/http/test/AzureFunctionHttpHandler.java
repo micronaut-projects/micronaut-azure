@@ -85,14 +85,10 @@ public class AzureFunctionHttpHandler implements HttpHandler {
         int contentLength = hasBody ? bodyAsBytes.length : 0;
         if (httpResponseMessage instanceof HttpHeaders headers) {
             for (String headerName : headers.names()) {
-                // HttpExchange manages response framing; Netty rejects duplicate framing headers.
-                if (isManagedByHttpExchange(headerName)) {
-                    continue;
-                }
                 exchange.getResponseHeaders().put(headerName, headers.getAll(headerName));
             }
         }
-        exchange.sendResponseHeaders(status, contentLength);
+        exchange.sendResponseHeaders(status, hasBody ? contentLength : -1);
         if (hasBody && bodyAsBytes.length > 0) {
             try (OutputStream responseBody = exchange.getResponseBody()) {
                 responseBody.write(bodyAsBytes);
@@ -102,11 +98,6 @@ public class AzureFunctionHttpHandler implements HttpHandler {
             exchange.getResponseBody().flush();
         }
         exchange.close();
-    }
-
-    private static boolean isManagedByHttpExchange(String headerName) {
-        return HttpHeaders.CONTENT_LENGTH.equalsIgnoreCase(headerName)
-            || "Transfer-Encoding".equalsIgnoreCase(headerName);
     }
 
     private static AzureFunctionHttpRequest createHttpRequest(HttpExchange request, ApplicationContextProvider applicationContextProvider) {
