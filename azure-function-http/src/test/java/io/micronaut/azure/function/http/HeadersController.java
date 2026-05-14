@@ -22,6 +22,21 @@ public class HeadersController {
     public HttpResponse<String> index2(HttpRequest<?> request) {
         return HttpResponse.ok("Good job!")
             .header(HttpHeaders.CONTENT_LENGTH, "9")
-            .header("Transfer-Encoding", "chunked");
+            .header("Transfer-Encoding", AzureHttpFunction.TRANSFER_ENCODING_CHUNKED);
+    }
+
+    @Produces(MediaType.TEXT_PLAIN)
+    @Get("/content-length")
+    public HttpResponse<String> contentLengthOnly(HttpRequest<?> request) {
+        return HttpResponse.ok("Good job!")
+            .header(HttpHeaders.CONTENT_LENGTH, "9");
+    }
+
+    @Produces(MediaType.TEXT_PLAIN)
+    @Get("/transfer-encoding-non-chunked")
+    public HttpResponse<String> transferEncodingNonChunked(HttpRequest<?> request) {
+        return HttpResponse.ok("Good job!")
+            .header(HttpHeaders.CONTENT_LENGTH, "9")
+            .header("Transfer-Encoding", "gzip");
     }
 }

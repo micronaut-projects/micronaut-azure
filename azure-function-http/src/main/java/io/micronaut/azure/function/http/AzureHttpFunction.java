@@ -57,6 +57,8 @@ import java.util.Optional;
  */
 public class AzureHttpFunction extends AzureFunction {
 
+    static final String TRANSFER_ENCODING_CHUNKED = "chunked";
+
     protected ServletHttpHandler<HttpRequestMessage<Optional<String>>, HttpResponseMessage> httpHandler;
 
     /**
@@ -159,10 +161,13 @@ public class AzureHttpFunction extends AzureFunction {
      */
     private void updateResponseHeadersFunction(ServletExchange<HttpRequestMessage<Optional<String>>, HttpResponseMessage> exchange) {
         if (exchange.getResponse().getHeaders().contains(HttpHeaders.TRANSFER_ENCODING)) {
+            boolean chunkedTransferEncoding = exchange.getResponse().getHeaders().getAll(HttpHeaders.TRANSFER_ENCODING)
+                .stream()
+                .anyMatch(val -> TRANSFER_ENCODING_CHUNKED.equalsIgnoreCase(val));
             exchange.getResponse().getHeaders().remove(HttpHeaders.TRANSFER_ENCODING);
-        }
-        if (exchange.getResponse().getHeaders().contains(HttpHeaders.CONTENT_LENGTH)) {
-            exchange.getResponse().getHeaders().remove(HttpHeaders.CONTENT_LENGTH);
+            if (chunkedTransferEncoding) {
+                exchange.getResponse().getHeaders().remove(HttpHeaders.CONTENT_LENGTH);
+            }
         }
     }
 }
