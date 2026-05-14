@@ -20,6 +20,8 @@ public class HeadersController {
     @Produces(MediaType.TEXT_PLAIN)
     @Get("/echo2")
     public HttpResponse<String> index2(HttpRequest<?> request) {
-        return HttpResponse.ok("Good job!").header("Transfer-Encoding", "chunked");
+        return HttpResponse.ok("Good job!")
+            .header(HttpHeaders.CONTENT_LENGTH, "9")
+            .header("Transfer-Encoding", "chunked");
     }
 }

@@ -161,5 +161,8 @@ public class AzureHttpFunction extends AzureFunction {
         if (exchange.getResponse().getHeaders().contains(HttpHeaders.TRANSFER_ENCODING)) {
             exchange.getResponse().getHeaders().remove(HttpHeaders.TRANSFER_ENCODING);
         }
+        if (exchange.getResponse().getHeaders().contains(HttpHeaders.CONTENT_LENGTH)) {
+            exchange.getResponse().getHeaders().remove(HttpHeaders.CONTENT_LENGTH);
+        }
     }
 }

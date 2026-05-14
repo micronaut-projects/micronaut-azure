@@ -9,7 +9,7 @@ import spock.lang.Specification;
 class HttpHeaderConflictFunctionSpec extends Specification {
 
     @Issue("https://github.com/micronaut-projects/micronaut-azure/issues/696")
-    void "verify Http header Transfer-Encoding is not return in context Azure Function"() {
+    void "verify managed response framing headers are not returned in context Azure Function"() {
         given:
         AzureHttpFunction function = new AzureHttpFunction()
 
@@ -22,6 +22,7 @@ class HttpHeaderConflictFunctionSpec extends Specification {
 
         and:
         responseMessage.getHeader('Transfer-Encoding') == null
+        responseMessage.getHeader('Content-Length') == null
 
         cleanup:
         function.close()
