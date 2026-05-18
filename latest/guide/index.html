@@ -15,7 +15,7 @@
     <script>hljs.initHighlightingOnLoad();</script>
     <link rel="stylesheet" href="../css/multi-language-sample.css"/>
     <script src="../js/docs.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js"></script>
     <script type="text/javascript">
         function addJsClass(el) {
             var classes = document.body.className.split(" ");
@@ -23,7 +23,9 @@
             document.body.className = classes.join(" ");
         }
     </script>
-
+    <style type="text/css">
+        .lang-java { display: block }; .lang-python { display: block }; .lang-kotlin { display: block }; .lang-groovy { display: block }; 
+    </style>
 </head>
 
 <body class="body" id="docs" onload="addJsClass();" onhashchange="highlightMenu()">
@@ -161,13 +163,13 @@
         <h1>Micronaut Azure</h1>
         <p></p>
         <p>Micronaut projects for Microsoft Azure</p>
-        <p><strong>Version:</strong> 5.12.0 </p>
+        <p><strong>Version:</strong> 6.0.0 </p>
     </div>
     
 <h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/introduction.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/introduction.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -180,7 +182,7 @@
 <h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>2 Release History</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/releaseHistory.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/releaseHistory.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -196,7 +198,7 @@
 <h1 id="whatsNew"><a class="anchor" href="#whatsNew"></a>3 What's new?</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/whatsNew.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/whatsNew.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -213,7 +215,7 @@
 <h1 id="breaks"><a class="anchor" href="#breaks"></a>4 Breaking Changes</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/breaks.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/breaks.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -226,7 +228,7 @@
 <h1 id="azureSdk"><a class="anchor" href="#azureSdk"></a>5 Azure SDK</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureSdk.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureSdk.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -252,13 +254,14 @@
     &lt;artifactId&gt;micronaut-azure-sdk&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div></p>
+</div>
+</p>
 </div>
 
 <h2 id="credentials"><a class="anchor" href="#credentials"></a>5.1 Authentication</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureSdk/credentials.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureSdk/credentials.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1089,7 +1092,7 @@ azure.credential.storage-shared-key.account-key=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1
 <h2 id="client"><a class="anchor" href="#client"></a>5.2 Client</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureSdk/client.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureSdk/client.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1133,7 +1136,7 @@ public class BlobServiceFactory {  // <b class="conum">(1)</b>
 <h1 id="azureFunction"><a class="anchor" href="#azureFunction"></a>6 Azure Function Support</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureFunction.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureFunction.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1146,7 +1149,7 @@ public class BlobServiceFactory {  // <b class="conum">(1)</b>
 <h2 id="simpleAzureFunctions"><a class="anchor" href="#simpleAzureFunctions"></a>6.1 Simple Azure Functions</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureFunction/simpleAzureFunctions.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureFunction/simpleAzureFunctions.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1175,7 +1178,8 @@ public class BlobServiceFactory {  // <b class="conum">(1)</b>
     &lt;artifactId&gt;micronaut-azure-function&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div></p>
+</div>
+</p>
 </div>
 <div class="paragraph">
 <p>And ensure the Micronaut annotation processors are configured:</p>
@@ -1197,7 +1201,8 @@ public class BlobServiceFactory {  // <b class="conum">(1)</b>
     &lt;/path&gt;
 &lt;/annotationProcessorPaths&gt;</code></pre>
 </div>
-</div></p>
+</div>
+</p>
 </div>
 <div class="paragraph">
 <p>You can then write a function that subclasses <a href="../api/io/micronaut/azure/function/AzureFunction.html">AzureFunction</a> and it will be dependency injected when executed. For example:</p>
@@ -1240,6 +1245,35 @@ public class BlobFunction extends AzureFunction { // <b class="conum">(1)</b>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
+
+import com.microsoft.azure.functions.annotation.BlobOutput
+import com.microsoft.azure.functions.annotation.BlobTrigger
+import com.microsoft.azure.functions.annotation.FunctionName
+import com.microsoft.azure.functions.annotation.StorageAccount
+import io.micronaut.azure.function.AzureFunction
+import io.micronaut.context.event.ApplicationEvent
+import io.micronaut.context.event.ApplicationEventPublisher
+import jakarta.inject.Inject
+
+class BlobFunction : AzureFunction() { // <b class="conum">(1)</b>
+    @Inject
+    lateinit var eventPublisher : ApplicationEventPublisher&lt;Any&gt; // <b class="conum">(2)</b>
+
+    @FunctionName("copy")
+    @StorageAccount("AzureWebJobsStorage")
+    @BlobOutput(name = "\$return", path = "samples-output-java/{name}") // <b class="conum">(3)</b>
+    fun copy(@BlobTrigger(name = "blob", path = "samples-input-java/{name}") content: String): String {
+        eventPublisher.publishEvent(BlobEvent(content)) // <b class="conum">(4)</b>
+        return content
+    }
+
+    class BlobEvent(content: String) : ApplicationEvent(content)
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package example
 
 import com.microsoft.azure.functions.annotation.BlobOutput
@@ -1274,35 +1308,6 @@ class BlobFunction extends AzureFunction { // <b class="conum">(1)</b>
 }</code></pre>
 </div>
 </div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
-
-import com.microsoft.azure.functions.annotation.BlobOutput
-import com.microsoft.azure.functions.annotation.BlobTrigger
-import com.microsoft.azure.functions.annotation.FunctionName
-import com.microsoft.azure.functions.annotation.StorageAccount
-import io.micronaut.azure.function.AzureFunction
-import io.micronaut.context.event.ApplicationEvent
-import io.micronaut.context.event.ApplicationEventPublisher
-import jakarta.inject.Inject
-
-class BlobFunction : AzureFunction() { // <b class="conum">(1)</b>
-    @Inject
-    lateinit var eventPublisher : ApplicationEventPublisher&lt;Any&gt; // <b class="conum">(2)</b>
-
-    @FunctionName("copy")
-    @StorageAccount("AzureWebJobsStorage")
-    @BlobOutput(name = "\$return", path = "samples-output-java/{name}") // <b class="conum">(3)</b>
-    fun copy(@BlobTrigger(name = "blob", path = "samples-input-java/{name}") content: String): String {
-        eventPublisher.publishEvent(BlobEvent(content)) // <b class="conum">(4)</b>
-        return content
-    }
-
-    class BlobEvent(content: String) : ApplicationEvent(content)
-}</code></pre>
-</div>
-</div>
 <div class="colist arabic">
 <table>
 <tr>
@@ -1327,7 +1332,7 @@ class BlobFunction : AzureFunction() { // <b class="conum">(1)</b>
 <h2 id="azureHttpFunctions"><a class="anchor" href="#azureHttpFunctions"></a>6.2 Azure HTTP Functions</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureFunction/azureHttpFunctions.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureFunction/azureHttpFunctions.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1350,7 +1355,8 @@ class BlobFunction : AzureFunction() { // <b class="conum">(1)</b>
     &lt;artifactId&gt;micronaut-azure-function-http&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div></p>
+</div>
+</p>
 </div>
 <div class="paragraph">
 <p>You then need to define a function that subclasses <a href="../api/io/micronaut/azure/function/http/AzureHttpFunction.html">AzureHttpFunction</a> and overrides the <code>invoke</code> method:</p>
@@ -1387,6 +1393,34 @@ public class MyHttpFunction extends AzureHttpFunction { // <b class="conum">(1)<
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
+
+import com.microsoft.azure.functions.ExecutionContext
+import com.microsoft.azure.functions.HttpMethod
+import com.microsoft.azure.functions.HttpRequestMessage
+import com.microsoft.azure.functions.HttpResponseMessage
+import com.microsoft.azure.functions.annotation.AuthorizationLevel
+import com.microsoft.azure.functions.annotation.FunctionName
+import com.microsoft.azure.functions.annotation.HttpTrigger
+import io.micronaut.azure.function.http.AzureHttpFunction
+import java.util.Optional
+
+class MyHttpFunction : AzureHttpFunction() { // <b class="conum">(1)</b>
+    @FunctionName("ExampleTrigger") // <b class="conum">(2)</b>
+    fun invoke(
+            @HttpTrigger(name = "req",
+                    methods = [HttpMethod.GET, HttpMethod.POST], // <b class="conum">(3)</b>
+                    route = "{*route}", // <b class="conum">(4)</b>
+                    authLevel = AuthorizationLevel.ANONYMOUS) // <b class="conum">(5)</b>
+            request: HttpRequestMessage&lt;Optional&lt;String&gt;&gt;,  // <b class="conum">(6)</b>
+            context: ExecutionContext): HttpResponseMessage {
+        return super.route(request, context) // <b class="conum">(7)</b>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package example
 
 import com.microsoft.azure.functions.ExecutionContext
@@ -1409,34 +1443,6 @@ class MyHttpFunction extends AzureHttpFunction { // <b class="conum">(1)</b>
                     authLevel = AuthorizationLevel.ANONYMOUS) // <b class="conum">(5)</b>
                     HttpRequestMessage&lt;Optional&lt;String&gt;&gt; request, // <b class="conum">(6)</b>
             final ExecutionContext context) {
-        return super.route(request, context) // <b class="conum">(7)</b>
-    }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package example
-
-import com.microsoft.azure.functions.ExecutionContext
-import com.microsoft.azure.functions.HttpMethod
-import com.microsoft.azure.functions.HttpRequestMessage
-import com.microsoft.azure.functions.HttpResponseMessage
-import com.microsoft.azure.functions.annotation.AuthorizationLevel
-import com.microsoft.azure.functions.annotation.FunctionName
-import com.microsoft.azure.functions.annotation.HttpTrigger
-import io.micronaut.azure.function.http.AzureHttpFunction
-import java.util.Optional
-
-class MyHttpFunction : AzureHttpFunction() { // <b class="conum">(1)</b>
-    @FunctionName("ExampleTrigger") // <b class="conum">(2)</b>
-    fun invoke(
-            @HttpTrigger(name = "req",
-                    methods = [HttpMethod.GET, HttpMethod.POST], // <b class="conum">(3)</b>
-                    route = "{*route}", // <b class="conum">(4)</b>
-                    authLevel = AuthorizationLevel.ANONYMOUS) // <b class="conum">(5)</b>
-            request: HttpRequestMessage&lt;Optional&lt;String&gt;&gt;,  // <b class="conum">(6)</b>
-            context: ExecutionContext): HttpResponseMessage {
         return super.route(request, context) // <b class="conum">(7)</b>
     }
 }</code></pre>
@@ -1496,7 +1502,7 @@ See the guide for <a href="https://guides.micronaut.io/latest/micronaut-azure-ht
 <h2 id="routePrefix"><a class="anchor" href="#routePrefix"></a>6.2.1 Function Route Prefix</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureFunction/azureHttpFunctions/routePrefix.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureFunction/azureHttpFunctions/routePrefix.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1550,7 +1556,7 @@ When you use Micronaut Azure HTTP Functions, you need to remove the api route pr
 <h2 id="controllerMethodParameters"><a class="anchor" href="#controllerMethodParameters"></a>6.2.2 Access the ExecutionContext</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureFunction/azureHttpFunctions/controllerMethodParameters.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureFunction/azureHttpFunctions/controllerMethodParameters.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1579,7 +1585,7 @@ When you use Micronaut Azure HTTP Functions, you need to remove the api route pr
 <h1 id="azureKeyVault"><a class="anchor" href="#azureKeyVault"></a>7 Azure Key Vault Support</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureKeyVault.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureKeyVault.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1603,23 +1609,8 @@ To add support for Azure Key Vault to an existing project, add the following dep
     &lt;artifactId&gt;micronaut-azure-secret-manager&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div></p>
 </div>
-<div class="paragraph">
-<p>        <div class="listingblock multi-language-sample">
-<div class="title"></div>
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.discovery:micronaut-discovery-client")</span></code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
-    &lt;groupId&gt;io.micronaut.discovery&lt;/groupId&gt;
-    &lt;artifactId&gt;micronaut-discovery-client&lt;/artifactId&gt;
-&lt;/dependency&gt;</code></pre>
-</div>
-</div></p>
+</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1640,16 +1631,193 @@ Azure doesn&#8217;t allow _ and . in name of the secrets so the secret with name
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
+For distributed configuration, prefer <code>micronaut.config.import=azure-key-vault://contoso-vault2</code>. The vault name is expanded automatically to <code><a href="https://contoso-vault2.vault.azure.net" class="bare">https://contoso-vault2.vault.azure.net</a></code>. The older bootstrap/config-client path remains for compatibility but is deprecated by this module.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The importer supports multiple authentication modes including <code>default</code>, <code>client-secret</code>, <code>client-certificate</code>, <code>username-password</code>, <code>managed-identity</code>, <code>environment</code>, <code>cli</code>, <code>intellij</code>, and <code>visual-studio-code</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Standard config-import retry options are also supported for Azure Key Vault imports, including <code>retry-attempts</code>, <code>retry-delay</code>, <code>retry-max-delay</code>, <code>retry-multiplier</code>, and <code>retry-jitter</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Azure Key Vault configuration is currently loaded as a startup snapshot. Secret values are re-read when a new application context starts, but no automatic watch/poll refresh support is provided by this module.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
 See the guide for <a href="https://guides.micronaut.io/latest/micronaut-cloud-secrets-azure.html">Securely store Micronaut application secrets in Azure Key Vault</a> to learn more.
 </td>
 </tr>
 </table>
 </div>
+<div class="sect1">
+<h2 id="_signing_with_key_vault_keys">Signing with Key Vault Keys</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Azure Key Vault can store cryptographic keys and perform signing operations without ever exposing the private key material. This is ideal for signing JWTs, assertions, or other payloads where you want the private key to remain secured in the vault.</p>
+</div>
+<div class="paragraph">
+<p>To enable signing with Key Vault keys:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">azure.key-vault.vault-url=https://your-vault.vault.azure.net
+azure.key-vault.keys.enabled=true
+azure.key-vault.keys.signing.enabled=true
+azure.key-vault.keys.signing.default-algorithm=RS256</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">azure:
+  key-vault:
+    vault-url: https://your-vault.vault.azure.net
+    keys:
+      enabled: true
+      signing:
+        enabled: true
+        default-algorithm: RS256</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[azure]
+  [azure.key-vault]
+    vault-url="https://your-vault.vault.azure.net"
+    [azure.key-vault.keys]
+      enabled=true
+      [azure.key-vault.keys.signing]
+        enabled=true
+        default-algorithm="RS256"</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">azure {
+  keyVault {
+    vaultUrl = "https://your-vault.vault.azure.net"
+    keys {
+      enabled = true
+      signing {
+        enabled = true
+        defaultAlgorithm = "RS256"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  azure {
+    key-vault {
+      vault-url = "https://your-vault.vault.azure.net"
+      keys {
+        enabled = true
+        signing {
+          enabled = true
+          default-algorithm = "RS256"
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "azure": {
+    "key-vault": {
+      "vault-url": "https://your-vault.vault.azure.net",
+      "keys": {
+        "enabled": true,
+        "signing": {
+          "enabled": true,
+          "default-algorithm": "RS256"
+        }
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>KeyVaultKeySigner</code> bean lets you sign arbitrary payloads:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Singleton
+class JwtSigner {
+    private final KeyVaultKeySigner signer;
+
+    JwtSigner(KeyVaultKeySigner signer) {
+        this.signer = signer;
+    }
+
+    byte[] sign(byte[] payload) {
+        return signer.sign("jwt-signing-key", payload); // uses default algorithm
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you need to override the algorithm per call, use the overloaded method:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">byte[] signature = signer.sign("jwt-signing-key", SignatureAlgorithm.RS256, payload);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Supported algorithms include RS256, RS384, RS512, PS256, PS384, PS512, ES256, ES384, and ES512, depending on your key type.</p>
+</div>
+</div>
+</div>
 
 <h2 id="distributedConfiguration"><a class="anchor" href="#distributedConfiguration"></a>7.1 Distributed Configuration</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureKeyVault/distributedConfiguration.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureKeyVault/distributedConfiguration.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1659,7 +1827,416 @@ See the guide for <a href="https://guides.micronaut.io/latest/micronaut-cloud-se
 <p>You can leverage <a href="https://docs.micronaut.io/latest/guide/index.html#distributedConfiguration">Distributed Configuration</a> and rely on Azure Key Vault to store your Key/Value secret pairs.</p>
 </div>
 <div class="paragraph">
-<p>To enable it, add a bootstrap configuration file to <code>src/main/resources/bootstrap</code>:</p>
+<p>The preferred configuration path is <code>micronaut.config.import</code>.</p>
+</div>
+<div class="openblock">
+<div class="title">application configuration</div>
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">micronaut.application.name=hello-world
+micronaut.config.import=azure-key-vault://contoso-vault2</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">micronaut:
+    application:
+        name: hello-world
+    config:
+        import: azure-key-vault://contoso-vault2</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[micronaut]
+  [micronaut.application]
+    name="hello-world"
+  [micronaut.config]
+    import="azure-key-vault://contoso-vault2"</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">micronaut {
+  application {
+    name = "hello-world"
+  }
+  config {
+    'import' = "azure-key-vault://contoso-vault2"
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  micronaut {
+    application {
+      name = "hello-world"
+    }
+    config {
+      import = "azure-key-vault://contoso-vault2"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "micronaut": {
+    "application": {
+      "name": "hello-world"
+    },
+    "config": {
+      "import": "azure-key-vault://contoso-vault2"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>azure-key-vault://contoso-vault2</code> declaration activates Azure Key Vault config import without requiring <code>micronaut.config-client.enabled=true</code>. The vault name is expanded automatically to <code><a href="https://contoso-vault2.vault.azure.net" class="bare">https://contoso-vault2.vault.azure.net</a></code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>optional:azure-key-vault://contoso-vault2</code> may be used when Azure Key Vault configuration should not fail startup if the import cannot be resolved.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Because the Azure Key Vault importer now extends Micronaut&#8217;s standard <code>RetryablePropertySourceImporter</code>, you can apply the same retry settings supported by other remote config importers.
+These options work for both URI-based and map-based declarations: <code>retry-attempts</code> (or <code>retry-count</code>), <code>retry-delay</code>, <code>retry-max-delay</code>, <code>retry-multiplier</code>, and <code>retry-jitter</code>.</p>
+</div>
+<div class="paragraph">
+<p>For example, to retry transient startup failures when reaching the vault:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">micronaut.config.import=azure-key-vault://contoso-vault2?retry-attempts=5&amp;retry-delay=250ms&amp;retry-max-delay=3s&amp;retry-multiplier=1.5&amp;retry-jitter=0.2</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">micronaut:
+  config:
+    import: azure-key-vault://contoso-vault2?retry-attempts=5&amp;retry-delay=250ms&amp;retry-max-delay=3s&amp;retry-multiplier=1.5&amp;retry-jitter=0.2</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[micronaut]
+  [micronaut.config]
+    import="azure-key-vault://contoso-vault2?retry-attempts=5&amp;retry-delay=250ms&amp;retry-max-delay=3s&amp;retry-multiplier=1.5&amp;retry-jitter=0.2"</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">micronaut {
+  config {
+    'import' = "azure-key-vault://contoso-vault2?retry-attempts=5&amp;retry-delay=250ms&amp;retry-max-delay=3s&amp;retry-multiplier=1.5&amp;retry-jitter=0.2"
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  micronaut {
+    config {
+      import = "azure-key-vault://contoso-vault2?retry-attempts=5&amp;retry-delay=250ms&amp;retry-max-delay=3s&amp;retry-multiplier=1.5&amp;retry-jitter=0.2"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "micronaut": {
+    "config": {
+      "import": "azure-key-vault://contoso-vault2?retry-attempts=5&amp;retry-delay=250ms&amp;retry-max-delay=3s&amp;retry-multiplier=1.5&amp;retry-jitter=0.2"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>As an alternative to the connection-string form, the importer also supports the provider-name map syntax:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">micronaut.config.import[0].provider=azure-key-vault
+micronaut.config.import[0].name=contoso-vault2
+micronaut.config.import[0].credential-mode=client-secret
+micronaut.config.import[0].client-id=&lt;client-id&gt;
+micronaut.config.import[0].tenant-id=&lt;tenant-id&gt;
+micronaut.config.import[0].client-secret=&lt;client-secret&gt;
+micronaut.config.import[0].retry-attempts=5
+micronaut.config.import[0].retry-delay=250ms</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">micronaut:
+  config:
+    import:
+      - provider: azure-key-vault
+        name: contoso-vault2
+        credential-mode: client-secret
+        client-id: &lt;client-id&gt;
+        tenant-id: &lt;tenant-id&gt;
+        client-secret: &lt;client-secret&gt;
+        retry-attempts: 5
+        retry-delay: 250ms</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[micronaut]
+  [micronaut.config]
+    [[micronaut.config.import]]
+      provider="azure-key-vault"
+      name="contoso-vault2"
+      credential-mode="client-secret"
+      client-id="&lt;client-id&gt;"
+      tenant-id="&lt;tenant-id&gt;"
+      client-secret="&lt;client-secret&gt;"
+      retry-attempts=5
+      retry-delay="250ms"</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">micronaut {
+  config {
+    'import' = [{
+        provider = "azure-key-vault"
+        name = "contoso-vault2"
+        credentialMode = "client-secret"
+        clientId = "&lt;client-id&gt;"
+        tenantId = "&lt;tenant-id&gt;"
+        clientSecret = "&lt;client-secret&gt;"
+        retryAttempts = 5
+        retryDelay = "250ms"
+      }]
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  micronaut {
+    config {
+      import = [{
+          provider = "azure-key-vault"
+          name = "contoso-vault2"
+          credential-mode = "client-secret"
+          client-id = "&lt;client-id&gt;"
+          tenant-id = "&lt;tenant-id&gt;"
+          client-secret = "&lt;client-secret&gt;"
+          retry-attempts = 5
+          retry-delay = "250ms"
+        }]
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "micronaut": {
+    "config": {
+      "import": [{
+          "provider": "azure-key-vault",
+          "name": "contoso-vault2",
+          "credential-mode": "client-secret",
+          "client-id": "&lt;client-id&gt;",
+          "tenant-id": "&lt;tenant-id&gt;",
+          "client-secret": "&lt;client-secret&gt;",
+          "retry-attempts": 5,
+          "retry-delay": "250ms"
+        }]
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>With the map-based syntax, <code>name</code> is expanded the same way as the URI path, so <code>contoso-vault2</code> resolves to <code><a href="https://contoso-vault2.vault.azure.net" class="bare">https://contoso-vault2.vault.azure.net</a></code>. You can also provide <code>vault-url</code> explicitly instead of <code>name</code>.</p>
+</div>
+<div class="paragraph">
+<p>The importer also supports credential customization options in the import declaration. For example, client-secret auth can be configured with:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">micronaut.config.import=azure-key-vault://contoso-vault2?credential-mode=client-secret&amp;client-id=&lt;client-id&gt;&amp;tenant-id=&lt;tenant-id&gt;&amp;client-secret=&lt;client-secret&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">micronaut:
+  config:
+    import: azure-key-vault://contoso-vault2?credential-mode=client-secret&amp;client-id=&lt;client-id&gt;&amp;tenant-id=&lt;tenant-id&gt;&amp;client-secret=&lt;client-secret&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[micronaut]
+  [micronaut.config]
+    import="azure-key-vault://contoso-vault2?credential-mode=client-secret&amp;client-id=&lt;client-id&gt;&amp;tenant-id=&lt;tenant-id&gt;&amp;client-secret=&lt;client-secret&gt;"</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">micronaut {
+  config {
+    'import' = "azure-key-vault://contoso-vault2?credential-mode=client-secret&amp;client-id=&lt;client-id&gt;&amp;tenant-id=&lt;tenant-id&gt;&amp;client-secret=&lt;client-secret&gt;"
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  micronaut {
+    config {
+      import = "azure-key-vault://contoso-vault2?credential-mode=client-secret&amp;client-id=&lt;client-id&gt;&amp;tenant-id=&lt;tenant-id&gt;&amp;client-secret=&lt;client-secret&gt;"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "micronaut": {
+    "config": {
+      "import": "azure-key-vault://contoso-vault2?credential-mode=client-secret&amp;client-id=&lt;client-id&gt;&amp;tenant-id=&lt;tenant-id&gt;&amp;client-secret=&lt;client-secret&gt;"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Supported <code>credential-mode</code> values are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>default</code> - uses <code>DefaultAzureCredential</code></p>
+</li>
+<li>
+<p><code>client-secret</code> - requires <code>client-id</code>, <code>tenant-id</code>, and <code>client-secret</code></p>
+</li>
+<li>
+<p><code>client-certificate</code> - requires <code>client-id</code>, <code>tenant-id</code>, and <code>certificate-path</code>; <code>certificate-password</code> may be supplied for PFX files</p>
+</li>
+<li>
+<p><code>username-password</code> - requires <code>client-id</code> plus username/password via URI user-info or <code>username</code> / <code>password</code> options</p>
+</li>
+<li>
+<p><code>managed-identity</code> - optionally accepts <code>managed-identity-client-id</code></p>
+</li>
+<li>
+<p><code>environment</code> - uses <code>EnvironmentCredential</code></p>
+</li>
+<li>
+<p><code>cli</code> - uses <code>AzureCliCredential</code></p>
+</li>
+<li>
+<p><code>intellij</code> - optionally accepts <code>tenant-id</code></p>
+</li>
+<li>
+<p><code>visual-studio-code</code> - optionally accepts <code>tenant-id</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For username/password mode, the user-info portion of the connection string is supported:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">micronaut.config.import=azure-key-vault://alice:secret@localhost/contoso-vault2?credential-mode=username-password&amp;client-id=&lt;client-id&gt;&amp;tenant-id=&lt;tenant-id&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">micronaut:
+  config:
+    import: azure-key-vault://alice:secret@localhost/contoso-vault2?credential-mode=username-password&amp;client-id=&lt;client-id&gt;&amp;tenant-id=&lt;tenant-id&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[micronaut]
+  [micronaut.config]
+    import="azure-key-vault://alice:secret@localhost/contoso-vault2?credential-mode=username-password&amp;client-id=&lt;client-id&gt;&amp;tenant-id=&lt;tenant-id&gt;"</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">micronaut {
+  config {
+    'import' = "azure-key-vault://alice:secret@localhost/contoso-vault2?credential-mode=username-password&amp;client-id=&lt;client-id&gt;&amp;tenant-id=&lt;tenant-id&gt;"
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  micronaut {
+    config {
+      import = "azure-key-vault://alice:secret@localhost/contoso-vault2?credential-mode=username-password&amp;client-id=&lt;client-id&gt;&amp;tenant-id=&lt;tenant-id&gt;"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "micronaut": {
+    "config": {
+      "import": "azure-key-vault://alice:secret@localhost/contoso-vault2?credential-mode=username-password&amp;client-id=&lt;client-id&gt;&amp;tenant-id=&lt;tenant-id&gt;"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The importer caches and reuses the underlying Key Vault client for repeated imports during configuration loading for the duration of import processing, and closes importer-managed clients when import processing finishes.</p>
+</div>
+<div class="paragraph">
+<p>Bootstrap-based distributed configuration remains available for compatibility, but it is deprecated and should only be used while migrating existing applications:</p>
 </div>
 <div class="openblock">
 <div class="title">bootstrap configuration</div>
@@ -1773,11 +2350,26 @@ And that the service account you designated your application has proper rights t
 </tr>
 </table>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Azure Key Vault configuration is loaded as a startup snapshot. This module does not currently provide automatic watch, polling, or live refresh support.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To enable Key Vault key signing support (for example, to sign JWT assertions without exposing private key material), see the "Signing with Key Vault Keys" section.</p>
+</div>
 
 <h1 id="azureBlobStorage"><a class="anchor" href="#azureBlobStorage"></a>8 Azure Blob Storage Support</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureBlobStorage.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureBlobStorage.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1803,7 +2395,8 @@ And that the service account you designated your application has proper rights t
     &lt;artifactId&gt;micronaut-object-storage-azure&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div></p>
+</div>
+</p>
 </div>
 <div class="paragraph">
 <p>For more information, check the <a href="https://micronaut-projects.github.io/micronaut-object-storage/latest/guide/#azure">Micronaut Object Storage Azure support</a> documentation.</p>
@@ -1812,7 +2405,7 @@ And that the service account you designated your application has proper rights t
 <h1 id="azureCosmosClient"><a class="anchor" href="#azureCosmosClient"></a>9 Azure Cosmos Client</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureCosmosClient.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureCosmosClient.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1836,13 +2429,14 @@ And that the service account you designated your application has proper rights t
     &lt;artifactId&gt;micronaut-azure-cosmos&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div></p>
+</div>
+</p>
 </div>
 
 <h2 id="azureCosmosClientConfiguration"><a class="anchor" href="#azureCosmosClientConfiguration"></a>9.1 Configuration</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureCosmosClient/azureCosmosClientConfiguration.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureCosmosClient/azureCosmosClientConfiguration.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1958,7 +2552,7 @@ azure {
 <h1 id="azureLogging"><a class="anchor" href="#azureLogging"></a>10 Azure Logging</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureLogging.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureLogging.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1981,13 +2575,14 @@ azure {
     &lt;artifactId&gt;micronaut-azure-logging&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div></p>
+</div>
+</p>
 </div>
 
 <h2 id="createAzureLoggingResources"><a class="anchor" href="#createAzureLoggingResources"></a>10.1 Create Azure Logging Resources</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureLogging/createAzureLoggingResources.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureLogging/createAzureLoggingResources.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2000,7 +2595,7 @@ azure {
 <h2 id="azureLoggingApplicationConfiguration"><a class="anchor" href="#azureLoggingApplicationConfiguration"></a>10.2 Application configuration</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureLogging/azureLoggingApplicationConfiguration.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureLogging/azureLoggingApplicationConfiguration.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2063,7 +2658,7 @@ In addition, you can enable or disable the appender, which defaults to being ena
 <h2 id="logbackConfiguration"><a class="anchor" href="#logbackConfiguration"></a>10.3 Logback Configuration</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureLogging/logbackConfiguration.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureLogging/logbackConfiguration.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2166,7 +2761,7 @@ In addition, you can enable or disable the appender, which defaults to being ena
 <h2 id="emergencyAppender"><a class="anchor" href="#emergencyAppender"></a>10.4 Emergency Appender</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureLogging/emergencyAppender.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureLogging/emergencyAppender.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2212,7 +2807,7 @@ Inside the <code>AzureAppender</code> element, add an <code>appender-ref</code> 
 <h2 id="browsingTheLogs"><a class="anchor" href="#browsingTheLogs"></a>10.5 Browsing the logs</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureLogging/browsingTheLogs.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureLogging/browsingTheLogs.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2228,7 +2823,7 @@ Inside the <code>AzureAppender</code> element, add an <code>appender-ref</code> 
 <h1 id="azureTracing"><a class="anchor" href="#azureTracing"></a>11 Azure Tracing</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureTracing.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureTracing.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2251,13 +2846,14 @@ Inside the <code>AzureAppender</code> element, add an <code>appender-ref</code> 
     &lt;artifactId&gt;micronaut-azure-tracing&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div></p>
+</div>
+</p>
 </div>
 
 <h2 id="azureTracingApplicationConfiguration"><a class="anchor" href="#azureTracingApplicationConfiguration"></a>11.1 Application configuration</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureTracing/azureTracingApplicationConfiguration.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureTracing/azureTracingApplicationConfiguration.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2298,7 +2894,7 @@ Inside the <code>AzureAppender</code> element, add an <code>appender-ref</code> 
 <h1 id="azureGuides"><a class="anchor" href="#azureGuides"></a>12 Guides</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/azureGuides.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureGuides.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2314,7 +2910,7 @@ Inside the <code>AzureAppender</code> element, add an <code>appender-ref</code> 
 <h1 id="repository"><a class="anchor" href="#repository"></a>13 Repository</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/5.12.x/src/main/docs/guide/repository.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/repository.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
