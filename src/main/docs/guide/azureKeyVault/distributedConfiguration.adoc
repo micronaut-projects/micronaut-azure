@@ -34,7 +34,7 @@ As an alternative to the connection-string form, the importer also supports the 
 ----
 micronaut:
   config:
-    import:
+    imports:
       - provider: azure-key-vault
         name: contoso-vault2
         credential-mode: client-secret
