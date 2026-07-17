@@ -163,13 +163,13 @@
         <h1>Micronaut Azure</h1>
         <p></p>
         <p>Micronaut projects for Microsoft Azure</p>
-        <p><strong>Version:</strong> 6.0.1-SNAPSHOT </p>
+        <p><strong>Version:</strong> 6.1.0-SNAPSHOT </p>
     </div>
     
 <h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/introduction.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/introduction.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -182,7 +182,7 @@
 <h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>2 Release History</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/releaseHistory.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/releaseHistory.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -198,7 +198,7 @@
 <h1 id="whatsNew"><a class="anchor" href="#whatsNew"></a>3 What's new?</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/whatsNew.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/whatsNew.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -215,7 +215,7 @@
 <h1 id="breaks"><a class="anchor" href="#breaks"></a>4 Breaking Changes</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/breaks.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/breaks.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -228,7 +228,7 @@
 <h1 id="azureSdk"><a class="anchor" href="#azureSdk"></a>5 Azure SDK</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureSdk.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureSdk.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -261,7 +261,7 @@
 <h2 id="credentials"><a class="anchor" href="#credentials"></a>5.1 Authentication</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureSdk/credentials.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureSdk/credentials.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -361,11 +361,7 @@ azure.credential.client-certificate.pem-certificate-path=&lt;path to pem certifi
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[azure]
-  [azure.credential]
-    [azure.credential.client-certificate]
-      client-id="&lt;client-id&gt;"
-      pem-certificate-path="&lt;path to pem certificate&gt;"</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">azure = {credential = {client-certificate = {client-id = "&lt;client-id&gt;", pem-certificate-path = "&lt;path to pem certificate&gt;"}}}</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -432,12 +428,7 @@ azure.credential.client-certificate.pfx-certificate-password=&lt;pfx certificate
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[azure]
-  [azure.credential]
-    [azure.credential.client-certificate]
-      client-id="&lt;client-id&gt;"
-      pfx-certificate-path="&lt;path to pfx certificate&gt;"
-      pfx-certificate-password="&lt;pfx certificate password&gt;"</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">azure = {credential = {client-certificate = {client-id = "&lt;client-id&gt;", pfx-certificate-path = "&lt;path to pfx certificate&gt;", pfx-certificate-password = "&lt;pfx certificate password&gt;"}}}</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -516,12 +507,7 @@ azure.credential.client-secret.secret=&lt;secret&gt;</code></pre>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[azure]
-  [azure.credential]
-    [azure.credential.client-secret]
-      client-id="&lt;client-id&gt;"
-      tenant-id="&lt;tenant-id&gt;"
-      secret="&lt;secret&gt;"</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">azure = {credential = {client-secret = {client-id = "&lt;client-id&gt;", tenant-id = "&lt;tenant-id&gt;", secret = "&lt;secret&gt;"}}}</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -597,12 +583,7 @@ azure.credential.username-password.password=&lt;password&gt;</code></pre>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[azure]
-  [azure.credential]
-    [azure.credential.username-password]
-      client-id="&lt;client-id&gt;"
-      username="&lt;username&gt;"
-      password="&lt;password&gt;"</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">azure = {credential = {username-password = {client-id = "&lt;client-id&gt;", username = "&lt;username&gt;", password = "&lt;password&gt;"}}}</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -677,10 +658,7 @@ azure.credential.username-password.password=&lt;password&gt;</code></pre>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[azure]
-  [azure.credential]
-    [azure.credential.managed-identity]
-      enabled=true</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">azure = {credential = {managed-identity = {enabled = true}}}</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -749,10 +727,7 @@ azure.credential.username-password.password=&lt;password&gt;</code></pre>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[azure]
-  [azure.credential]
-    [azure.credential.cli]
-      enabled=true</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">azure = {credential = {cli = {enabled = true}}}</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -818,10 +793,7 @@ azure.credential.username-password.password=&lt;password&gt;</code></pre>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[azure]
-  [azure.credential]
-    [azure.credential.intellij]
-      enabled=true</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">azure = {credential = {intellij = {enabled = true}}}</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -893,10 +865,7 @@ azure.credential.username-password.password=&lt;password&gt;</code></pre>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[azure]
-  [azure.credential]
-    [azure.credential.visual-studio-code]
-      enabled=true</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">azure = {credential = {visual-studio-code = {enabled = true}}}</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -971,11 +940,7 @@ azure.credential.storage-shared-key.account-key=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[azure]
-  [azure.credential]
-    [azure.credential.storage-shared-key]
-      account-name="devstoreaccount1"
-      account-key="Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw=="</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">azure = {credential = {storage-shared-key = {account-name = "devstoreaccount1", account-key = "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw=="}}}</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -1041,10 +1006,7 @@ azure.credential.storage-shared-key.account-key=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[azure]
-  [azure.credential]
-    [azure.credential.storage-shared-key]
-      connection-string="DefaultEndpointsProtocol=https;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=https://127.0.0.1:10000/devstoreaccount1;"</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">azure = {credential = {storage-shared-key = {connection-string = "DefaultEndpointsProtocol=https;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=https://127.0.0.1:10000/devstoreaccount1;"}}}</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -1092,7 +1054,7 @@ azure.credential.storage-shared-key.account-key=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1
 <h2 id="client"><a class="anchor" href="#client"></a>5.2 Client</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureSdk/client.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureSdk/client.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1136,7 +1098,7 @@ public class BlobServiceFactory {  // <b class="conum">(1)</b>
 <h1 id="azureFunction"><a class="anchor" href="#azureFunction"></a>6 Azure Function Support</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureFunction.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureFunction.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1149,7 +1111,7 @@ public class BlobServiceFactory {  // <b class="conum">(1)</b>
 <h2 id="simpleAzureFunctions"><a class="anchor" href="#simpleAzureFunctions"></a>6.1 Simple Azure Functions</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureFunction/simpleAzureFunctions.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureFunction/simpleAzureFunctions.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1332,7 +1294,7 @@ class BlobFunction extends AzureFunction { // <b class="conum">(1)</b>
 <h2 id="azureHttpFunctions"><a class="anchor" href="#azureHttpFunctions"></a>6.2 Azure HTTP Functions</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureFunction/azureHttpFunctions.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureFunction/azureHttpFunctions.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1502,7 +1464,7 @@ See the guide for <a href="https://guides.micronaut.io/latest/micronaut-azure-ht
 <h2 id="routePrefix"><a class="anchor" href="#routePrefix"></a>6.2.1 Function Route Prefix</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureFunction/azureHttpFunctions/routePrefix.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureFunction/azureHttpFunctions/routePrefix.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1556,7 +1518,7 @@ When you use Micronaut Azure HTTP Functions, you need to remove the api route pr
 <h2 id="controllerMethodParameters"><a class="anchor" href="#controllerMethodParameters"></a>6.2.2 Access the ExecutionContext</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureFunction/azureHttpFunctions/controllerMethodParameters.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureFunction/azureHttpFunctions/controllerMethodParameters.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1585,7 +1547,7 @@ When you use Micronaut Azure HTTP Functions, you need to remove the api route pr
 <h1 id="azureKeyVault"><a class="anchor" href="#azureKeyVault"></a>7 Azure Key Vault Support</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureKeyVault.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureKeyVault.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1717,14 +1679,7 @@ azure.key-vault.keys.signing.default-algorithm=RS256</code></pre>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[azure]
-  [azure.key-vault]
-    vault-url="https://your-vault.vault.azure.net"
-    [azure.key-vault.keys]
-      enabled=true
-      [azure.key-vault.keys.signing]
-        enabled=true
-        default-algorithm="RS256"</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">azure = {key-vault = {vault-url = "https://your-vault.vault.azure.net", keys = {enabled = true, signing = {enabled = true, default-algorithm = "RS256"}}}}</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -1817,7 +1772,7 @@ class JwtSigner {
 <h2 id="distributedConfiguration"><a class="anchor" href="#distributedConfiguration"></a>7.1 Distributed Configuration</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureKeyVault/distributedConfiguration.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureKeyVault/distributedConfiguration.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -1849,11 +1804,7 @@ micronaut.config.import=azure-key-vault://contoso-vault2</code></pre>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[micronaut]
-  [micronaut.application]
-    name="hello-world"
-  [micronaut.config]
-    import="azure-key-vault://contoso-vault2"</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">micronaut = {application = {name = "hello-world"}, config = {import = "azure-key-vault://contoso-vault2"}}</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -1936,9 +1887,7 @@ These options work for both URI-based and map-based declarations: <code>retry-at
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[micronaut]
-  [micronaut.config]
-    import="azure-key-vault://contoso-vault2?retry-attempts=5&amp;retry-delay=250ms&amp;retry-max-delay=3s&amp;retry-multiplier=1.5&amp;retry-jitter=0.2"</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">micronaut = {config = {import = "azure-key-vault://contoso-vault2?retry-attempts=5&amp;retry-delay=250ms&amp;retry-max-delay=3s&amp;retry-multiplier=1.5&amp;retry-jitter=0.2"}}</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -2008,17 +1957,7 @@ micronaut.config.import[0].retry-delay=250ms</code></pre>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[micronaut]
-  [micronaut.config]
-    [[micronaut.config.import]]
-      provider="azure-key-vault"
-      name="contoso-vault2"
-      credential-mode="client-secret"
-      client-id="&lt;client-id&gt;"
-      tenant-id="&lt;tenant-id&gt;"
-      client-secret="&lt;client-secret&gt;"
-      retry-attempts=5
-      retry-delay="250ms"</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">micronaut = {config = {import = [{provider = "azure-key-vault", name = "contoso-vault2", credential-mode = "client-secret", client-id = "&lt;client-id&gt;", tenant-id = "&lt;tenant-id&gt;", client-secret = "&lt;client-secret&gt;", retry-attempts = 5, retry-delay = "250ms"}]}}</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -2103,9 +2042,7 @@ micronaut.config.import[0].retry-delay=250ms</code></pre>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[micronaut]
-  [micronaut.config]
-    import="azure-key-vault://contoso-vault2?credential-mode=client-secret&amp;client-id=&lt;client-id&gt;&amp;tenant-id=&lt;tenant-id&gt;&amp;client-secret=&lt;client-secret&gt;"</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">micronaut = {config = {import = "azure-key-vault://contoso-vault2?credential-mode=client-secret&amp;client-id=&lt;client-id&gt;&amp;tenant-id=&lt;tenant-id&gt;&amp;client-secret=&lt;client-secret&gt;"}}</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -2194,9 +2131,7 @@ micronaut.config.import[0].retry-delay=250ms</code></pre>
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[micronaut]
-  [micronaut.config]
-    import="azure-key-vault://alice:secret@localhost/contoso-vault2?credential-mode=username-password&amp;client-id=&lt;client-id&gt;&amp;tenant-id=&lt;tenant-id&gt;"</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">micronaut = {config = {import = "azure-key-vault://alice:secret@localhost/contoso-vault2?credential-mode=username-password&amp;client-id=&lt;client-id&gt;&amp;tenant-id=&lt;tenant-id&gt;"}}</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -2262,14 +2197,8 @@ azure:
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[micronaut]
-  [micronaut.application]
-    name="hello-world"
-  [micronaut.config-client]
-    enabled=true
-[azure]
-  [azure.key-vault]
-    vault-url="&lt;key_vault_url&gt;"</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">micronaut = {application = {name = "hello-world"}, config-client = {enabled = true}}
+azure = {key-vault = {vault-url = "&lt;key_vault_url&gt;"}}</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -2369,7 +2298,7 @@ Azure Key Vault configuration is loaded as a startup snapshot. This module does 
 <h1 id="azureBlobStorage"><a class="anchor" href="#azureBlobStorage"></a>8 Azure Blob Storage Support</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureBlobStorage.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureBlobStorage.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2405,7 +2334,7 @@ Azure Key Vault configuration is loaded as a startup snapshot. This module does 
 <h1 id="azureCosmosClient"><a class="anchor" href="#azureCosmosClient"></a>9 Azure Cosmos Client</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureCosmosClient.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureCosmosClient.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2436,7 +2365,7 @@ Azure Key Vault configuration is loaded as a startup snapshot. This module does 
 <h2 id="azureCosmosClientConfiguration"><a class="anchor" href="#azureCosmosClientConfiguration"></a>9.1 Configuration</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureCosmosClient/azureCosmosClientConfiguration.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureCosmosClient/azureCosmosClientConfiguration.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2473,16 +2402,8 @@ azure:
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[micronaut]
-  [micronaut.application]
-    name="azure-cosmos-demo"
-[azure]
-  [azure.cosmos]
-    consistency-level="SESSION"
-    endpoint="&lt;endpoint-from-connectionstring&gt;"
-    key="&lt;key-from-connectionstring&gt;"
-    default-gateway-mode=true
-    endpoint-discovery-enabled=false</code></pre>
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">micronaut = {application = {name = "azure-cosmos-demo"}}
+azure = {cosmos = {consistency-level = "SESSION", endpoint = "&lt;endpoint-from-connectionstring&gt;", key = "&lt;key-from-connectionstring&gt;", default-gateway-mode = true, endpoint-discovery-enabled = false}}</code></pre>
 </div>
 </div>
 <div class="listingblock multi-language-sample">
@@ -2552,7 +2473,7 @@ azure {
 <h1 id="azureLogging"><a class="anchor" href="#azureLogging"></a>10 Azure Logging</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureLogging.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureLogging.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2582,7 +2503,7 @@ azure {
 <h2 id="createAzureLoggingResources"><a class="anchor" href="#createAzureLoggingResources"></a>10.1 Create Azure Logging Resources</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureLogging/createAzureLoggingResources.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureLogging/createAzureLoggingResources.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2595,7 +2516,7 @@ azure {
 <h2 id="azureLoggingApplicationConfiguration"><a class="anchor" href="#azureLoggingApplicationConfiguration"></a>10.2 Application configuration</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureLogging/azureLoggingApplicationConfiguration.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureLogging/azureLoggingApplicationConfiguration.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2658,7 +2579,7 @@ In addition, you can enable or disable the appender, which defaults to being ena
 <h2 id="logbackConfiguration"><a class="anchor" href="#logbackConfiguration"></a>10.3 Logback Configuration</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureLogging/logbackConfiguration.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureLogging/logbackConfiguration.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2761,7 +2682,7 @@ In addition, you can enable or disable the appender, which defaults to being ena
 <h2 id="emergencyAppender"><a class="anchor" href="#emergencyAppender"></a>10.4 Emergency Appender</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureLogging/emergencyAppender.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureLogging/emergencyAppender.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2807,7 +2728,7 @@ Inside the <code>AzureAppender</code> element, add an <code>appender-ref</code> 
 <h2 id="browsingTheLogs"><a class="anchor" href="#browsingTheLogs"></a>10.5 Browsing the logs</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureLogging/browsingTheLogs.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureLogging/browsingTheLogs.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2823,7 +2744,7 @@ Inside the <code>AzureAppender</code> element, add an <code>appender-ref</code> 
 <h1 id="azureTracing"><a class="anchor" href="#azureTracing"></a>11 Azure Tracing</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureTracing.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureTracing.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2853,7 +2774,7 @@ Inside the <code>AzureAppender</code> element, add an <code>appender-ref</code> 
 <h2 id="azureTracingApplicationConfiguration"><a class="anchor" href="#azureTracingApplicationConfiguration"></a>11.1 Application configuration</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureTracing/azureTracingApplicationConfiguration.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureTracing/azureTracingApplicationConfiguration.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2894,7 +2815,7 @@ Inside the <code>AzureAppender</code> element, add an <code>appender-ref</code> 
 <h1 id="azureGuides"><a class="anchor" href="#azureGuides"></a>12 Guides</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/azureGuides.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/azureGuides.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -2910,7 +2831,7 @@ Inside the <code>AzureAppender</code> element, add an <code>appender-ref</code> 
 <h1 id="repository"><a class="anchor" href="#repository"></a>13 Repository</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.0.x/src/main/docs/guide/repository.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-azure/edit/6.1.x/src/main/docs/guide/repository.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
