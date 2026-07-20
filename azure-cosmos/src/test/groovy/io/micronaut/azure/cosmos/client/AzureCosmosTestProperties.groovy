@@ -2,7 +2,10 @@ package io.micronaut.azure.cosmos.client
 
 import io.micronaut.test.support.TestPropertyProvider
 import org.testcontainers.containers.CosmosDBEmulatorContainer
+import org.testcontainers.containers.wait.strategy.Wait
 import org.testcontainers.utility.DockerImageName
+import spock.lang.AutoCleanup
+import spock.lang.Shared
 
 import java.nio.file.Files
 import java.nio.file.Path
@@ -17,11 +20,15 @@ trait AzureCosmosTestProperties implements TestPropertyProvider {
     private static final String PARTITION_COUNT_VAL = "1"
     private static final Duration STARTUP_TIMEOUT = Duration.ofMinutes(3)
 
+    @Shared
+    @AutoCleanup("stop")
+    CosmosDBEmulatorContainer emulator = new CosmosDBEmulatorContainer(DockerImageName.parse("mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:vnext-preview")
+            .asCompatibleSubstituteFor("mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:latest"))
+            .withCommand("--protocol", "https")
+            .waitingFor(Wait.forLogMessage(".*PostgreSQL=OK, Gateway=OK, Explorer=OK.*", 1).withStartupTimeout(STARTUP_TIMEOUT))
+
     @Override
     Map<String, String> getProperties() {
-        CosmosDBEmulatorContainer emulator = new CosmosDBEmulatorContainer(
-                DockerImageName.parse("mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator")
-        ).withEnv(PARTITION_COUNT_PROP, PARTITION_COUNT_VAL).withStartupTimeout(STARTUP_TIMEOUT)
         emulator.start()
         Path keyStoreFile = Files.createTempFile("azure-cosmos-emulator", ".keystore")
         KeyStore keyStore = emulator.buildNewKeyStore()
@@ -38,5 +45,9 @@ trait AzureCosmosTestProperties implements TestPropertyProvider {
                 'azure.cosmos.key'                       : emulator.getEmulatorKey(),
                 'azure.cosmos.consistency-level'         : 'SESSION'
         ]
+    }
+
+    def cleanupSpec() {
+        emulator?.close()
     }
 }
