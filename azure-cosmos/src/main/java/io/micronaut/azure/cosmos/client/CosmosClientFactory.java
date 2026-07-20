@@ -17,11 +17,14 @@ package io.micronaut.azure.cosmos.client;
 
 import com.azure.cosmos.CosmosAsyncClient;
 import com.azure.cosmos.CosmosClient;
+import com.azure.cosmos.CosmosClientBuilder;
+import com.azure.cosmos.CosmosItemSerializer;
 import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.core.annotation.Internal;
 import jakarta.inject.Singleton;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The Azure Cosmos Client factory.
@@ -33,29 +36,45 @@ import jakarta.inject.Singleton;
 @Internal
 final class CosmosClientFactory {
 
+    private final @Nullable CosmosItemSerializer customCosmosItemSerializer;
+
+    CosmosClientFactory(@Nullable CosmosItemSerializer customCosmosItemSerializer) {
+        this.customCosmosItemSerializer = customCosmosItemSerializer;
+    }
+
     /**
      * Creates sync Cosmos client.
      *
-     * @param configuration the Cosmos client configuration
+     * @param cosmosClientBuilder the Cosmos client builder
      * @return an instance of {@link CosmosClient}
      */
     @Bean(preDestroy = "close")
     @Singleton
+    @Requires(beans = CosmosClientBuilder.class)
+    CosmosClient buildCosmosClient(CosmosClientBuilder cosmosClientBuilder) {
+        return cosmosClientBuilder.buildClient();
+    }
+
+    @Singleton
     @Requires(beans = CosmosClientConfiguration.class)
-    CosmosClient buildCosmosClient(CosmosClientConfiguration configuration) {
-        return configuration.getCosmosClientBuilder().buildClient();
+    CosmosClientBuilder createCosmosClientBuilder(CosmosClientConfiguration configuration) {
+        CosmosClientBuilder cosmosClientBuilder = configuration.getCosmosClientBuilder();
+        if (this.customCosmosItemSerializer != null) {
+            cosmosClientBuilder = cosmosClientBuilder.customItemSerializer(this.customCosmosItemSerializer);
+        }
+        return cosmosClientBuilder;
     }
 
     /**
      * Creates async Cosmos client.
      *
-     * @param configuration the Cosmos client configuration
+     * @param cosmosClientBuilder the Cosmos client builder
      * @return an instance of {@link CosmosAsyncClient}
      */
     @Bean(preDestroy = "close")
     @Singleton
-    @Requires(beans = CosmosClientConfiguration.class)
-    CosmosAsyncClient buildCosmosAsyncClient(CosmosClientConfiguration configuration) {
-        return configuration.getCosmosClientBuilder().buildAsyncClient();
+    @Requires(beans = CosmosClientBuilder.class)
+    CosmosAsyncClient buildCosmosAsyncClient(CosmosClientBuilder cosmosClientBuilder) {
+        return cosmosClientBuilder.buildAsyncClient();
     }
 }

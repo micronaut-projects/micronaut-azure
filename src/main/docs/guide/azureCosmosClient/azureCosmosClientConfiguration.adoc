@@ -15,3 +15,6 @@ azure:
 
 ----
 https://docs.microsoft.com/en-us/java/api/com.azure.cosmos.cosmosclientbuilder?view=azure-java-stable[CosmosClientBuilder] will be available also when dependencies and configuration are added to the project.
+
+To customize item serialization, register a bean that extends https://learn.microsoft.com/en-us/java/api/com.azure.cosmos.cosmositemserializer?view=azure-java-stable[CosmosItemSerializer].
+The configured serializer is applied to the `CosmosClientBuilder` and used by both the synchronous and asynchronous Cosmos clients.

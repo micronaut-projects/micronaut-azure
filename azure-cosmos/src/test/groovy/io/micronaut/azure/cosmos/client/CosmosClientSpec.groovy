@@ -13,14 +13,11 @@ import com.azure.cosmos.models.PartitionKey
 import io.micronaut.context.ApplicationContext
 import org.testcontainers.DockerClientFactory
 import spock.lang.AutoCleanup
-import spock.lang.IgnoreIf
 import spock.lang.Requires
 import spock.lang.Shared
 import spock.lang.Specification
-import spock.util.environment.OperatingSystem
 
 @Requires({ DockerClientFactory.instance().isDockerAvailable() })
-@IgnoreIf(value = {  os.macOs || env["GITHUB_WORKFLOW"] }, reason = "https://github.com/Azure/azure-cosmos-db-emulator-docker/issues/56")
 class CosmosClientSpec extends Specification implements AzureCosmosTestProperties {
 
     @AutoCleanup
@@ -38,24 +35,31 @@ class CosmosClientSpec extends Specification implements AzureCosmosTestPropertie
         CosmosContainerResponse containerResponse = database.createContainerIfNotExists(containerProperties);
         CosmosContainer container = database.getContainer(containerResponse.getProperties().getId());
 
-        Person person = new Person()
-        person.id = UUID.randomUUID().toString()
-        person.name = "Some Name"
+        Person person = new Person(UUID.randomUUID().toString(), "Some Name")
 
         CosmosItemRequestOptions cosmosItemRequestOptions = new CosmosItemRequestOptions();
-        def partitionKey = new PartitionKey(person.getName())
+        def partitionKey = new PartitionKey(person.name())
         container.createItem(person, partitionKey, cosmosItemRequestOptions);
 
-        CosmosItemResponse<Person> loadedItem = container.readItem(person.getId(), partitionKey, Person.class);
+        CosmosItemResponse<Person> loadedItem = container.readItem(person.id(), partitionKey, Person.class);
 
         def asyncClient = context.getBean(CosmosAsyncClient.class)
         def asyncContainer = asyncClient.getDatabase(database.getId()).getContainer(containerResponse.getProperties().getId())
-        def asyncLoadedItem = asyncContainer.readItem(person.getId(), partitionKey, Person.class)
+        def asyncLoadedItem = asyncContainer.readItem(person.id(), partitionKey, Person.class)
 
         then:
         loadedItem.getItem().id == person.id
         loadedItem.getItem().name == person.name
 
         asyncLoadedItem.block().getItem().name == person.name
+
+        when:
+        def customSerializer = context.getBean(CustomCosmosItemSerializer)
+
+        then:
+        customSerializer.serializedItems.size() > 0
+        customSerializer.serializedItems.contains(person)
+        customSerializer.deserializedItems.size() > 0
+        customSerializer.deserializedItems.contains(person)
     }
 }
