@@ -28,8 +28,6 @@ import io.micronaut.http.bind.DefaultRequestBinderRegistry;
 import io.micronaut.http.bind.binders.DefaultBodyAnnotationBinder;
 import io.micronaut.http.bind.binders.RequestArgumentBinder;
 import io.micronaut.http.bind.binders.TypedRequestArgumentBinder;
-import io.micronaut.http.codec.MediaTypeCodecRegistry;
-import io.micronaut.servlet.http.ServletBinderRegistry;
 import jakarta.inject.Singleton;
 
 import java.util.List;
@@ -39,7 +37,7 @@ import java.util.logging.Logger;
 @Singleton
 @Internal
 @Replaces(DefaultRequestBinderRegistry.class)
-class AzureBinderRegistry<T> extends ServletBinderRegistry<T> {
+class AzureBinderRegistry<T> extends DefaultRequestBinderRegistry {
 
     private static final Argument<ExecutionContext> EXECUTION_CONTEXT_ARGUMENT = Argument.of(ExecutionContext.class);
     private static final Argument<TraceContext> TRACE_CONTEXT_ARGUMENT = Argument.of(TraceContext.class);
@@ -47,13 +45,12 @@ class AzureBinderRegistry<T> extends ServletBinderRegistry<T> {
     private static final Argument<HttpRequestMessage> REQUEST_MESSAGE_ARGUMENT = Argument.of(HttpRequestMessage.class);
 
     AzureBinderRegistry(
-        MediaTypeCodecRegistry mediaTypeCodecRegistry,
         ConversionService conversionService,
         List<RequestArgumentBinder> binders,
         DefaultBodyAnnotationBinder<T> defaultBodyAnnotationBinder
     ) {
-        super(mediaTypeCodecRegistry, conversionService, binders, defaultBodyAnnotationBinder);
-        this.byType.put(HttpRequestMessage.class, new TypedRequestArgumentBinder<HttpRequestMessage>() {
+        super(conversionService, binders, defaultBodyAnnotationBinder);
+        addArgumentBinder(new TypedRequestArgumentBinder<HttpRequestMessage>() {
             @Override
             public BindingResult<HttpRequestMessage> bind(
                 ArgumentConversionContext<HttpRequestMessage> context, HttpRequest<?> source) {
@@ -69,7 +66,7 @@ class AzureBinderRegistry<T> extends ServletBinderRegistry<T> {
                 return REQUEST_MESSAGE_ARGUMENT;
             }
         });
-        this.byType.put(ExecutionContext.class, new TypedRequestArgumentBinder<ExecutionContext>() {
+        addArgumentBinder(new TypedRequestArgumentBinder<ExecutionContext>() {
             @Override
             public BindingResult<ExecutionContext> bind(
                 ArgumentConversionContext<ExecutionContext> context, HttpRequest<?> source) {
@@ -85,7 +82,7 @@ class AzureBinderRegistry<T> extends ServletBinderRegistry<T> {
                 return EXECUTION_CONTEXT_ARGUMENT;
             }
         });
-        this.byType.put(Logger.class, new TypedRequestArgumentBinder<Logger>() {
+        addArgumentBinder(new TypedRequestArgumentBinder<Logger>() {
             @Override
             public BindingResult<Logger> bind(
                 ArgumentConversionContext<Logger> context, HttpRequest<?> source) {
@@ -100,7 +97,7 @@ class AzureBinderRegistry<T> extends ServletBinderRegistry<T> {
                 return LOGGER_ARGUMENT;
             }
         });
-        this.byType.put(TraceContext.class, new TypedRequestArgumentBinder<TraceContext>() {
+        addArgumentBinder(new TypedRequestArgumentBinder<TraceContext>() {
             @Override
             public BindingResult<TraceContext> bind(
                 ArgumentConversionContext<TraceContext> context, HttpRequest<?> source) {

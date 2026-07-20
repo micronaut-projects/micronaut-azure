@@ -28,7 +28,6 @@ import static ch.qos.logback.classic.Level.INFO
 @Property(name = 'azure.logging.dataCollectionEndpoint', value = 'test-dataCollectionEndpoint-from-application-config')
 @Property(name = 'azure.logging.ruleId', value = 'test-ruleId-from-application-config')
 @Property(name = 'azure.logging.streamName', value = 'test-streamName-from-application-config')
-@Stepwise
 class AzureLoggingSpec extends Specification {
     private final LoggerContext context = new LoggerContext()
     private final PatternLayout layout = new PatternLayout(context: context, pattern: '[%thread] %level %logger{20} - %msg%n%xThrowable')
@@ -47,23 +46,15 @@ class AzureLoggingSpec extends Specification {
     void setup() {
         layout.start()
         encoder.start()
-
-        var config = Stub(ApplicationConfiguration) {
-            getName() >> Optional.of('my-awesome-app')
-        }
-
-        var instance = Mock(EmbeddedServer)
-        instance.getHost() >> 'testHost'
-
-        new AzureLoggingClient(config, clientWrapper)
-                .onApplicationEvent(new ServerStartupEvent(instance))
     }
 
     void cleanup() {
         layout.stop()
         encoder.stop()
         appender.stop()
-        AzureLoggingClient.destroy()
+        if (AzureLoggingClient.isReady()) {
+            AzureLoggingClient.destroy()
+        }
     }
 
     void 'test Azure logging'() {
@@ -242,8 +233,12 @@ class AzureLoggingSpec extends Specification {
         String testSource = 'testSource'
         String testMessage = 'testMessage'
         LoggingEvent event = createEvent('name', INFO, testMessage, System.currentTimeMillis())
+        var instance = Mock(EmbeddedServer)
+
+        instance.getHost() >> 'testHost'
 
         when:
+        eventPublisher.publishEvent new ServerStartupEvent(instance)
         appender.subject = testSubject
         appender.source = testSource
         appender.start()

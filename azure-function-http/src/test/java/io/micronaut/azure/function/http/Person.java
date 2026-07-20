@@ -1,6 +1,8 @@
 package io.micronaut.azure.function.http;
+
 import io.micronaut.core.annotation.Creator;
 import io.micronaut.core.annotation.Introspected;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Introspected
 public class Person {
@@ -12,7 +14,7 @@ public class Person {
     }
 
     @Creator
-    public Person(String name, int age) {
+    public Person(@JsonProperty("name") String name, @JsonProperty("age") int age) {
         this.name = name;
         this.age = age;
     }

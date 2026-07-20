@@ -1,0 +1,38 @@
+/*
+ * Copyright 2017-2026 original authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package io.micronaut.azure.secretmanager.client;
+
+import com.azure.security.keyvault.keys.cryptography.models.SignatureAlgorithm;
+import io.micronaut.core.annotation.NonNull;
+
+/**
+ * Abstraction for performing signing operations with Azure Key Vault.
+ *
+ * @since 5.13.0
+ */
+public interface KeyVaultSigningClient {
+
+    /**
+     * Sign the given data using the key identified by {@code keyId}.
+     *
+     * @param keyId     the full key identifier
+     * @param algorithm the signature algorithm
+     * @param data      the data to sign
+     * @return the signature bytes
+     */
+    @NonNull
+    byte[] sign(@NonNull String keyId, @NonNull SignatureAlgorithm algorithm, @NonNull byte[] data);
+}

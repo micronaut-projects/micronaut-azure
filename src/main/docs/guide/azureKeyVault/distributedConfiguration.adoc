@@ -1,6 +1,85 @@
 You can leverage https://docs.micronaut.io/latest/guide/index.html#distributedConfiguration[Distributed Configuration] and rely on Azure Key Vault to store your Key/Value secret pairs.
 
-To enable it, add a bootstrap configuration file to `src/main/resources/bootstrap`:
+The preferred configuration path is `micronaut.config.import`.
+
+.application configuration
+[configuration]
+----
+micronaut:
+    application:
+        name: hello-world
+    config:
+        import: azure-key-vault://contoso-vault2
+----
+
+The `azure-key-vault://contoso-vault2` declaration activates Azure Key Vault config import without requiring `micronaut.config-client.enabled=true`. The vault name is expanded automatically to `https://contoso-vault2.vault.azure.net`.
+
+NOTE: `optional:azure-key-vault://contoso-vault2` may be used when Azure Key Vault configuration should not fail startup if the import cannot be resolved.
+
+Because the Azure Key Vault importer now extends Micronaut's standard `RetryablePropertySourceImporter`, you can apply the same retry settings supported by other remote config importers.
+These options work for both URI-based and map-based declarations: `retry-attempts` (or `retry-count`), `retry-delay`, `retry-max-delay`, `retry-multiplier`, and `retry-jitter`.
+
+For example, to retry transient startup failures when reaching the vault:
+
+[configuration]
+----
+micronaut:
+  config:
+    import: azure-key-vault://contoso-vault2?retry-attempts=5&retry-delay=250ms&retry-max-delay=3s&retry-multiplier=1.5&retry-jitter=0.2
+----
+
+As an alternative to the connection-string form, the importer also supports the provider-name map syntax:
+
+[configuration]
+----
+micronaut:
+  config:
+    import:
+      - provider: azure-key-vault
+        name: contoso-vault2
+        credential-mode: client-secret
+        client-id: <client-id>
+        tenant-id: <tenant-id>
+        client-secret: <client-secret>
+        retry-attempts: 5
+        retry-delay: 250ms
+----
+
+With the map-based syntax, `name` is expanded the same way as the URI path, so `contoso-vault2` resolves to `https://contoso-vault2.vault.azure.net`. You can also provide `vault-url` explicitly instead of `name`.
+
+The importer also supports credential customization options in the import declaration. For example, client-secret auth can be configured with:
+
+[configuration]
+----
+micronaut:
+  config:
+    import: azure-key-vault://contoso-vault2?credential-mode=client-secret&client-id=<client-id>&tenant-id=<tenant-id>&client-secret=<client-secret>
+----
+
+Supported `credential-mode` values are:
+
+* `default` - uses `DefaultAzureCredential`
+* `client-secret` - requires `client-id`, `tenant-id`, and `client-secret`
+* `client-certificate` - requires `client-id`, `tenant-id`, and `certificate-path`; `certificate-password` may be supplied for PFX files
+* `username-password` - requires `client-id` plus username/password via URI user-info or `username` / `password` options
+* `managed-identity` - optionally accepts `managed-identity-client-id`
+* `environment` - uses `EnvironmentCredential`
+* `cli` - uses `AzureCliCredential`
+* `intellij` - optionally accepts `tenant-id`
+* `visual-studio-code` - optionally accepts `tenant-id`
+
+For username/password mode, the user-info portion of the connection string is supported:
+
+[configuration]
+----
+micronaut:
+  config:
+    import: azure-key-vault://alice:secret@localhost/contoso-vault2?credential-mode=username-password&client-id=<client-id>&tenant-id=<tenant-id>
+----
+
+The importer caches and reuses the underlying Key Vault client for repeated imports during configuration loading for the duration of import processing, and closes importer-managed clients when import processing finishes.
+
+Bootstrap-based distributed configuration remains available for compatibility, but it is deprecated and should only be used while migrating existing applications:
 
 .bootstrap configuration
 [configuration]
@@ -22,3 +101,7 @@ image::key_vault_url.png[Key Vault URL]
 
 IMPORTANT: Make sure you have configured the correct credentials on your project following the <<azureSdk, Setting up Azure SDK >> section.
 And that the service account you designated your application has proper rights to read secrets. Follow the official link:https://docs.microsoft.com/en-us/azure/key-vault/general/rbac-guide?tabs=azure-cli[Access Control] guide for Azure Key Vault if you need more information.
+
+IMPORTANT: Azure Key Vault configuration is loaded as a startup snapshot. This module does not currently provide automatic watch, polling, or live refresh support.
+
+To enable Key Vault key signing support (for example, to sign JWT assertions without exposing private key material), see the "Signing with Key Vault Keys" section.
