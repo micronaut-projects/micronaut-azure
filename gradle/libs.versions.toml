@@ -11,7 +11,7 @@ json-smart = "2.6.0"
 commons-codec = "1.22.0"
 # Legacy Jackson 2 line used transitively by Azure SDK.
 # TODO: Can be removed when azure libraries are moved to Jackson 3
-jackson-core = "2.22.1"
+jackson-core = "2.22.2"
 # azure-cosmos 4.81.0 and 4.82.0 request micrometer-core 1.15.1
 micrometer-core = "1.15.12"
 
