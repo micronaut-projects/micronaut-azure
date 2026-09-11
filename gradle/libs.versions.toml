@@ -12,10 +12,12 @@ commons-codec = "1.22.0"
 # Legacy Jackson 2 line used transitively by Azure SDK.
 # TODO: Can be removed when azure libraries are moved to Jackson 3
 jackson-core = "2.22.1"
+# azure-cosmos 4.81.0 and 4.82.0 request micrometer-core 1.15.1
+micrometer-core = "1.15.12"
 
 # Micronaut
 micronaut-platform = "5.0.5"
-micronaut = "5.1.8"
+micronaut = "5.2.0"
 micronaut-logging = "2.1.0"
 micronaut-reactor = "4.1.0"
 micronaut-serde = "3.1.0"
@@ -46,6 +48,7 @@ managed-opentelemetry-autoconfigure = { module = "com.azure:azure-monitor-opente
 
 commons-codec = { module = "commons-codec:commons-codec", version.ref = "commons-codec" }
 jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson-core" }
+micrometer-core = { module = "io.micrometer:micrometer-core", version.ref = "micrometer-core" }
 azure-identity = { module = "com.azure:azure-identity" }
 azure-security-keyvault-secrets = { module = "com.azure:azure-security-keyvault-secrets" }
 azure-security-keyvault-keys = { module = "com.azure:azure-security-keyvault-keys" }
