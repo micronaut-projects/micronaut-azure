@@ -15,7 +15,7 @@ jackson-core = "2.22.1"
 
 # Micronaut
 micronaut-platform = "5.0.5"
-micronaut = "5.1.8"
+micronaut = "5.2.0"
 micronaut-logging = "2.1.0"
 micronaut-reactor = "4.1.0"
 micronaut-serde = "3.1.0"

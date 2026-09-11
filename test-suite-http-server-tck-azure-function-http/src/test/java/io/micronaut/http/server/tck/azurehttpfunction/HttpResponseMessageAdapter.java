@@ -34,10 +34,8 @@ import io.micronaut.http.cookie.Cookie;
 import io.micronaut.json.JsonMapper;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -61,21 +59,28 @@ public class HttpResponseMessageAdapter<T> implements MutableHttpResponse<T> {
     public HttpResponseMessageAdapter(
         HttpResponseMessage message,
         ConversionService conversionService,
-        JsonMapper jsonMapper,
-        Set<String> extraHeaders
+        JsonMapper jsonMapper
     ) {
         this.message = message;
         this.headers = new CaseInsensitiveMutableHttpHeaders(conversionService);
         this.jsonMapper = jsonMapper;
-        populateHeaders(HttpHeaders.STANDARD_HEADERS);
-        populateHeaders(extraHeaders);
+        populateHeaders();
     }
 
-    private void populateHeaders(Collection<String> standardHeaders) {
-        for (String header : standardHeaders) {
-            String value = message.getHeader(header);
-            if (value != null) {
-                headers.add(header, value);
+    private void populateHeaders() {
+        // HttpResponseMessage only exposes a header by name, so a fixed list of names would drop any other header the application sets
+        if (message instanceof HttpHeaders responseHeaders) {
+            for (String name : responseHeaders.names()) {
+                for (String value : responseHeaders.getAll(name)) {
+                    headers.add(name, value);
+                }
+            }
+        } else {
+            for (String name : HttpHeaders.STANDARD_HEADERS) {
+                String value = message.getHeader(name);
+                if (value != null) {
+                    headers.add(name, value);
+                }
             }
         }
     }
