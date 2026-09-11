@@ -12,6 +12,9 @@ plugins.withId("java") {
             implementation(libs.jackson.core) {
                 because("Bump transitive dependency version, fixes GHSA-72hv-8253-57qq")
             }
+            implementation(libs.micrometer.core) {
+                because("Bump transitive dependency version of azure-cosmos, fixes GHSA-g3pr-3p32-fp23 and GHSA-w737-wx49-qj23")
+            }
         }
     }
 }

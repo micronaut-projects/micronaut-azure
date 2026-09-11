@@ -9,7 +9,6 @@ import org.jspecify.annotations.NonNull;
 import io.micronaut.core.convert.ConversionService;
 import io.micronaut.core.type.Argument;
 import io.micronaut.core.util.StringUtils;
-import io.micronaut.http.HttpHeaders;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.client.exceptions.HttpClientResponseException;
@@ -21,7 +20,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 @SuppressWarnings("java:S2187") // Suppress because despite its name, this is not a Test
 public class AzureFunctionHttpServerUnderTest implements ServerUnderTest {
@@ -33,7 +31,6 @@ public class AzureFunctionHttpServerUnderTest implements ServerUnderTest {
     public AzureFunctionHttpServerUnderTest(@NonNull Map<String, Object> properties) {
         properties.putIfAbsent("micronaut.propagation", "thread-local");
         properties.put("endpoints.health.service-ready-indicator-enabled", StringUtils.FALSE);
-        properties.put("endpoints.refresh.enabled", StringUtils.FALSE);
         this.function = new Function(AzureFunction.defaultApplicationContextBuilder().properties(properties));
     }
 
@@ -44,8 +41,7 @@ public class AzureFunctionHttpServerUnderTest implements ServerUnderTest {
         HttpResponse<O> response = new HttpResponseMessageAdapter<>(
             responseMessage,
             function.getApplicationContext().getBean(ConversionService.class),
-            function.getApplicationContext().getBean(JsonMapper.class),
-            HEADERS_USED_IN_TEST_SUITE
+            function.getApplicationContext().getBean(JsonMapper.class)
         );
 
         if (LOG.isDebugEnabled()) {
@@ -79,12 +75,5 @@ public class AzureFunctionHttpServerUnderTest implements ServerUnderTest {
     public void close() throws IOException {
         function.close();
     }
-
-    private final static Set<String> HEADERS_USED_IN_TEST_SUITE = Set.of(
-        "X-Test-Filter",
-        "X-Captured-Remote-Address",
-        "X-HEAD-BODY",
-        HttpHeaders.ACCESS_CONTROL_ALLOW_PRIVATE_NETWORK
-    );
 
 }
