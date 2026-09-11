@@ -8,7 +8,7 @@ jakarta-inject-api = "2.0.1"
 logback-json-classic = "0.1.5"
 system-lambda = "1.2.1"
 json-smart = "2.6.0"
-commons-codec = "1.22.0"
+commons-codec = "1.22.1"
 # Legacy Jackson 2 line used transitively by Azure SDK.
 # TODO: Can be removed when azure libraries are moved to Jackson 3
 jackson-core = "2.22.2"
