@@ -15,7 +15,7 @@ snippet::example.MyHttpFunction[project-base="doc-examples/example", indent="0",
 <7> The body of the method should just invoke the `route` method of the super implementation.
 
 [.lang-python]
-WARNING: A Python class cannot subclass api:azure.function.http.AzureHttpFunction[]; the Python example above delegates to an `AzureHttpFunction` instance instead, which starts the Micronaut application context. Because the Azure Functions runtime instantiates the function class before that application context, and with it the Python runtime, exists, the function class deployed as the Azure Function entry point must be written in Java, Kotlin or Groovy; the controllers it routes to can be written in Python.
+WARNING: The Azure Functions runtime instantiates the function class before the Micronaut application context, and with it the Python runtime, exists, and reads the `@HttpTrigger` annotation of the parameter, which is not emitted for Python classes. The function class deployed as the Azure Function entry point must therefore be written in Java, Kotlin or Groovy; the controllers it routes to can be written in Python, and a Python function class like the one above can be used from a running application (for example in a test).
 
 With this in place you can write regular Micronaut controllers as documented in the https://docs.micronaut.io/latest/guide/index.html#httpServer[user guide] for the HTTP server and incoming function requests will be routed to the controllers and executed.
 

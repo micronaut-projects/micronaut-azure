@@ -11,6 +11,9 @@ class BlobEvent:
     content: str
 
 
+# TODO(python): the Java class extends AzureFunction, whose constructor starts the application context and injects
+# the function; a Python subclass compiles but is not injected (the constructor injects the Java adapter, not the
+# Python object) and, created as a bean, lives in the second application context, see DISABLED_TESTS.md
 class BlobFunction:  # <1>
     event_publisher: Annotated[ApplicationEventPublisher[BlobEvent], Inject]  # <2>
 
