@@ -18,3 +18,6 @@ snippet::example.BlobFunction[project-base="doc-examples/example", indent="0", s
 <2> Use can dependency inject fields with `@Inject`. In this case we publish an event.
 <3> You can specify the function bindings as per the Azure Function API
 <4> Injected objects can be used in your function code
+
+[.lang-python]
+WARNING: The Azure Functions runtime instantiates the function class itself, before any Micronaut application context, and with it the Python runtime, exists, and api:azure.function.AzureFunction[] starts the application context and injects the function in its constructor, which does not inject the attributes of a Python subclass. A Python function class like the one above is therefore a plain bean of a running application (for example in a test); the class deployed as the Azure Function entry point must be written in Java, Kotlin or Groovy.
