@@ -9,6 +9,9 @@ micronaut {
 
 micronautBuild {
     python {
+        // The Python compiler fixes this documentation relies on shipped with Micronaut core 5.2.3; the rest
+        // of the build stays on the core version of the catalog, only this project resolves the newer core.
+        compilerVersion.set(libs.versions.micronaut.python)
         // The Azure Functions runtime reads the @FunctionName/@HttpTrigger/... annotations reflectively
         compilerArgs.add("-Amicronaut.introspection.allowReflection=example.*")
     }
@@ -18,6 +21,7 @@ micronautBuild {
 // takes the (jar-resolved) compile classpath as its annotation processor path, so the Micronaut processors are
 // regular dependencies rather than annotationProcessor ones. The Python tests only run with -Ppython-ci.
 dependencies {
+    implementation(platform(libs.micronaut.core.python))
     // The Java test helper (example.support.FakeKeyVaultKeySigner) is processed by javac
     testAnnotationProcessor(mn.micronaut.inject.java)
 

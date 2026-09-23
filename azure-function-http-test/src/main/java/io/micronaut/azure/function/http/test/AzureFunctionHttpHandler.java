@@ -159,7 +159,7 @@ public class AzureFunctionHttpHandler implements HttpHandler {
     /**
      * Default execution context impl. used for testing.
      */
-    private static class DefaultExecutionContext implements ExecutionContext {
+    private static final class DefaultExecutionContext implements ExecutionContext {
 
         @Override
         public java.util.logging.Logger getLogger() {
