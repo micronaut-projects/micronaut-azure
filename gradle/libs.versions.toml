@@ -19,7 +19,7 @@ micrometer-core = "1.15.12"
 micronaut-platform = "5.1.5"
 micronaut = "5.2.2"
 # The Python compiler and runtime of doc-examples/example-python: only that project resolves this core version
-micronaut-python = "5.2.3"
+micronaut-python = "5.2.9"
 micronaut-logging = "2.1.0"
 micronaut-reactor = "4.2.0"
 micronaut-serde = "3.1.1"

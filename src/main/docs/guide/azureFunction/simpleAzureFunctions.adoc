@@ -12,7 +12,7 @@ dependency:io.micronaut:micronaut-inject-java[scope="annotationProcessor"]
 
 You can then write a function that subclasses api:azure.function.AzureFunction[] and it will be dependency injected when executed. For example:
 
-snippet::example.BlobFunction[project-base="doc-examples/example", indent="0", source="main"]
+snippet::example.BlobFunction[project-base="doc-examples/example", indent="0", source="main", languages="java,kotlin,groovy"]
 
 <1> The class subclasses api:azure.function.AzureFunction[]. Note that a zero argument public constructor is required
 <2> Use can dependency inject fields with `@Inject`. In this case we publish an event.
@@ -20,4 +20,4 @@ snippet::example.BlobFunction[project-base="doc-examples/example", indent="0", s
 <4> Injected objects can be used in your function code
 
 [.lang-python]
-WARNING: The Azure Functions runtime instantiates the function class itself, before any Micronaut application context, and with it the Python runtime, exists, and api:azure.function.AzureFunction[] starts the application context and injects the function in its constructor, which does not inject the attributes of a Python subclass. A Python function class like the one above is therefore a plain bean of a running application (for example in a test); the class deployed as the Azure Function entry point must be written in Java, Kotlin or Groovy.
+NOTE: The Azure Functions runtime instantiates the function class itself, before any Micronaut application context (and with it the Python runtime) exists, so the class deployed as the Azure Function entry point is a Java, Kotlin or Groovy class. A Python class may extend api:azure.function.AzureFunction[] and the trigger annotations are emitted on the generated class, but api:azure.function.AzureFunction[] injects itself in its constructor, which does not populate the attributes of a Python subclass, so the beans a Python function needs would have to be looked up from `getApplicationContext()`. Write the function class in Java, Kotlin or Groovy and keep the beans it uses in Python.

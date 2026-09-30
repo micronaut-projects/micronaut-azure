@@ -9,7 +9,7 @@ micronaut {
 
 micronautBuild {
     python {
-        // The Python compiler fixes this documentation relies on shipped with Micronaut core 5.2.3; the rest
+        // The Python compiler fixes this documentation relies on shipped with Micronaut core 5.2.9; the rest
         // of the build stays on the core version of the catalog, only this project resolves the newer core.
         compilerVersion.set(libs.versions.micronaut.python)
         // The Azure Functions runtime reads the @FunctionName/@HttpTrigger/... annotations reflectively
@@ -41,7 +41,6 @@ dependencies {
 
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
-    systemProperty("micronaut.python.pool.enabled", "false")
     // The blob service endpoint read by example.BlobServiceFactory
     environment("AZURE_BLOB_ENDPOINT", "https://example.blob.core.windows.net")
 }
