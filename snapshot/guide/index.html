@@ -255,6 +255,15 @@
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+runtime = [
+    <span class="hljs-string">"io.micronaut.azure:micronaut-azure-sdk"</span>,
+]</code></pre>
+</div>
+</div>
 </p>
 </div>
 
@@ -1069,11 +1078,54 @@ azure.credential.storage-shared-key.account-key=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1
 public class BlobServiceFactory {  // <b class="conum">(1)</b>
 
     @Singleton
-    public BlobServiceClient blobServiceClient(@NonNull TokenCredential tokenCredential){  // <b class="conum">(2)</b>
+    public BlobServiceClient blobServiceClient(@NonNull TokenCredential tokenCredential) {  // <b class="conum">(2)</b>
         return new BlobServiceClientBuilder()  // <b class="conum">(3)</b>
                 .credential(tokenCredential)
                 .endpoint(System.getenv("AZURE_BLOB_ENDPOINT"))
                 .buildClient();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">@Factory
+class BlobServiceFactory:  # <b class="conum">(1)</b>
+
+    @Singleton
+    def blob_service_client(self, token_credential: TokenCredential) -&gt; BlobServiceClient:  # <b class="conum">(2)</b>
+        return (BlobServiceClientBuilder()  # <b class="conum">(3)</b>
+                .credential(token_credential)
+                .endpoint(System.getenv("AZURE_BLOB_ENDPOINT"))
+                .buildClient())</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Factory
+class BlobServiceFactory { // <b class="conum">(1)</b>
+
+    @Singleton
+    fun blobServiceClient(tokenCredential: TokenCredential): BlobServiceClient { // <b class="conum">(2)</b>
+        return BlobServiceClientBuilder() // <b class="conum">(3)</b>
+            .credential(tokenCredential)
+            .endpoint(System.getenv("AZURE_BLOB_ENDPOINT"))
+            .buildClient()
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">@Factory
+class BlobServiceFactory {  // <b class="conum">(1)</b>
+
+    @Singleton
+    BlobServiceClient blobServiceClient(@NonNull TokenCredential tokenCredential) {  // <b class="conum">(2)</b>
+        return new BlobServiceClientBuilder()  // <b class="conum">(3)</b>
+                .credential(tokenCredential)
+                .endpoint(System.getenv("AZURE_BLOB_ENDPOINT"))
+                .buildClient()
     }
 }</code></pre>
 </div>
@@ -1141,6 +1193,15 @@ public class BlobServiceFactory {  // <b class="conum">(1)</b>
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+runtime = [
+    <span class="hljs-string">"io.micronaut.azure:micronaut-azure-function"</span>,
+]</code></pre>
+</div>
+</div>
 </p>
 </div>
 <div class="paragraph">
@@ -1162,6 +1223,15 @@ public class BlobServiceFactory {  // <b class="conum">(1)</b>
         &lt;artifactId&gt;micronaut-inject-java&lt;/artifactId&gt;
     &lt;/path&gt;
 &lt;/annotationProcessorPaths&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+build = [
+    <span class="hljs-string">"io.micronaut:micronaut-inject-java"</span>,
+]</code></pre>
 </div>
 </div>
 </p>
@@ -1290,6 +1360,18 @@ class BlobFunction extends AzureFunction { // <b class="conum">(1)</b>
 </tr>
 </table>
 </div>
+<div class="admonitionblock note lang-python">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The Azure Functions runtime instantiates the function class itself, before any Micronaut application context (and with it the Python runtime) exists, so the class deployed as the Azure Function entry point is a Java, Kotlin or Groovy class. A Python class may extend <a href="../api/io/micronaut/azure/function/AzureFunction.html">AzureFunction</a> and the trigger annotations are emitted on the generated class, but <a href="../api/io/micronaut/azure/function/AzureFunction.html">AzureFunction</a> injects itself in its constructor, which does not populate the attributes of a Python subclass, so the beans a Python function needs would have to be looked up from <code>getApplicationContext()</code>. Write the function class in Java, Kotlin or Groovy and keep the beans it uses in Python.
+</td>
+</tr>
+</table>
+</div>
 
 <h2 id="azureHttpFunctions"><a class="anchor" href="#azureHttpFunctions"></a>6.2 Azure HTTP Functions</h2>
 
@@ -1316,6 +1398,15 @@ class BlobFunction extends AzureFunction { // <b class="conum">(1)</b>
     &lt;groupId&gt;io.micronaut.azure&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-azure-function-http&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+runtime = [
+    <span class="hljs-string">"io.micronaut.azure:micronaut-azure-function-http"</span>,
+]</code></pre>
 </div>
 </div>
 </p>
@@ -1439,6 +1530,18 @@ class MyHttpFunction extends AzureHttpFunction { // <b class="conum">(1)</b>
 <tr>
 <td><i class="conum" data-value="7"></i><b>7</b></td>
 <td>The body of the method should just invoke the <code>route</code> method of the super implementation.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note lang-python">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The Azure Functions runtime instantiates the function class itself, before any Micronaut application context (and with it the Python runtime) exists, so the class deployed as the Azure Function entry point is a Java, Kotlin or Groovy class. The controllers it routes to can be written in Python, which is what the <code>example-python</code> tests of this repository exercise.
+</td>
 </tr>
 </table>
 </div>
@@ -1570,6 +1673,15 @@ To add support for Azure Key Vault to an existing project, add the following dep
     &lt;groupId&gt;io.micronaut.azure&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-azure-secret-manager&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+runtime = [
+    <span class="hljs-string">"io.micronaut.azure:micronaut-azure-secret-manager"</span>,
+]</code></pre>
 </div>
 </div>
 </p>
@@ -1739,28 +1851,94 @@ azure.key-vault.keys.signing.default-algorithm=RS256</code></pre>
 <div class="paragraph">
 <p>The <code>KeyVaultKeySigner</code> bean lets you sign arbitrary payloads:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock multi-language-sample">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Singleton
 class JwtSigner {
     private final KeyVaultKeySigner signer;
 
-    JwtSigner(KeyVaultKeySigner signer) {
+    JwtSigner(KeyVaultKeySigner signer) { // <b class="conum">(1)</b>
         this.signer = signer;
     }
 
     byte[] sign(byte[] payload) {
-        return signer.sign("jwt-signing-key", payload); // uses default algorithm
+        return signer.sign("jwt-signing-key", payload); // <b class="conum">(2)</b>
     }
 }</code></pre>
 </div>
 </div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">@Singleton
+class JwtSigner:
+
+    def __init__(self, signer: KeyVaultKeySigner):  # <b class="conum">(1)</b>
+        self.signer = signer
+
+    def sign(self, payload: bytes) -&gt; bytes:
+        return self.signer.sign("jwt-signing-key", payload)  # <b class="conum">(2)</b></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Singleton
+class JwtSigner(private val signer: KeyVaultKeySigner) { // <b class="conum">(1)</b>
+
+    fun sign(payload: ByteArray): ByteArray {
+        return signer.sign("jwt-signing-key", payload) // <b class="conum">(2)</b>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">@Singleton
+class JwtSigner {
+    private final KeyVaultKeySigner signer
+
+    JwtSigner(KeyVaultKeySigner signer) { // <b class="conum">(1)</b>
+        this.signer = signer
+    }
+
+    byte[] sign(byte[] payload) {
+        return signer.sign("jwt-signing-key", payload) // <b class="conum">(2)</b>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <code>KeyVaultKeySigner</code> bean is injected</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The payload is signed with the configured default algorithm</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>If you need to override the algorithm per call, use the overloaded method:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock multi-language-sample">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">byte[] signature = signer.sign("jwt-signing-key", SignatureAlgorithm.RS256, payload);</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">signature = self.signer.sign("jwt-signing-key", SignatureAlgorithm.RS256, payload)</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">val signature = signer.sign("jwt-signing-key", SignatureAlgorithm.RS256, payload)</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">byte[] signature = signer.sign("jwt-signing-key", SignatureAlgorithm.RS256, payload)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2325,6 +2503,15 @@ Azure Key Vault configuration is loaded as a startup snapshot. This module does 
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+runtime = [
+    <span class="hljs-string">"io.micronaut.objectstorage:micronaut-object-storage-azure"</span>,
+]</code></pre>
+</div>
+</div>
 </p>
 </div>
 <div class="paragraph">
@@ -2357,6 +2544,15 @@ Azure Key Vault configuration is loaded as a startup snapshot. This module does 
     &lt;groupId&gt;io.micronaut.azure&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-azure-cosmos&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+runtime = [
+    <span class="hljs-string">"io.micronaut.azure:micronaut-azure-cosmos"</span>,
+]</code></pre>
 </div>
 </div>
 </p>
@@ -2499,6 +2695,15 @@ The configured serializer is applied to the <code>CosmosClientBuilder</code> and
     &lt;groupId&gt;io.micronaut.azure&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-azure-logging&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+runtime = [
+    <span class="hljs-string">"io.micronaut.azure:micronaut-azure-logging"</span>,
+]</code></pre>
 </div>
 </div>
 </p>
@@ -2770,6 +2975,15 @@ Inside the <code>AzureAppender</code> element, add an <code>appender-ref</code> 
     &lt;groupId&gt;io.micronaut.azure&lt;/groupId&gt;
     &lt;artifactId&gt;micronaut-azure-tracing&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+runtime = [
+    <span class="hljs-string">"io.micronaut.azure:micronaut-azure-tracing"</span>,
+]</code></pre>
 </div>
 </div>
 </p>
