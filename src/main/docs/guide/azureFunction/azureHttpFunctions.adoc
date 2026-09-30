@@ -4,7 +4,7 @@ dependency:io.micronaut.azure:micronaut-azure-function-http[]
 
 You then need to define a function that subclasses api:azure.function.http.AzureHttpFunction[] and overrides the `invoke` method:
 
-snippet::example.MyHttpFunction[project-base="doc-examples/example", indent="0", source="main"]
+snippet::example.MyHttpFunction[project-base="doc-examples/example", indent="0", source="main", languages="java,kotlin,groovy"]
 
 <1> The function class subclasses api:azure.function.http.AzureHttpFunction[] and includes a zero argument constructor.
 <2> The function name can be whatever you prefer
@@ -13,6 +13,9 @@ snippet::example.MyHttpFunction[project-base="doc-examples/example", indent="0",
 <5> The auth level specifies who can access the function. Using `ANONYMOUS` allows everyone.
 <6> The received request optionally contains the raw bytes
 <7> The body of the method should just invoke the `route` method of the super implementation.
+
+[.lang-python]
+NOTE: The Azure Functions runtime instantiates the function class itself, before any Micronaut application context (and with it the Python runtime) exists, so the class deployed as the Azure Function entry point is a Java, Kotlin or Groovy class. The controllers it routes to can be written in Python, which is what the `example-python` tests of this repository exercise.
 
 With this in place you can write regular Micronaut controllers as documented in the https://docs.micronaut.io/latest/guide/index.html#httpServer[user guide] for the HTTP server and incoming function requests will be routed to the controllers and executed.
 

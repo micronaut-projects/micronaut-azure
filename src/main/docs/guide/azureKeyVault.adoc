@@ -35,27 +35,13 @@ azure:
 
 The `KeyVaultKeySigner` bean lets you sign arbitrary payloads:
 
-[source,java]
-----
-@Singleton
-class JwtSigner {
-    private final KeyVaultKeySigner signer;
+snippet::example.JwtSigner[project-base="doc-examples/example", indent="0", source="main", tags="class"]
 
-    JwtSigner(KeyVaultKeySigner signer) {
-        this.signer = signer;
-    }
-
-    byte[] sign(byte[] payload) {
-        return signer.sign("jwt-signing-key", payload); // uses default algorithm
-    }
-}
-----
+<1> The `KeyVaultKeySigner` bean is injected
+<2> The payload is signed with the configured default algorithm
 
 If you need to override the algorithm per call, use the overloaded method:
 
-[source,java]
-----
-byte[] signature = signer.sign("jwt-signing-key", SignatureAlgorithm.RS256, payload);
-----
+snippet::example.JwtSigner[project-base="doc-examples/example", indent="0", source="main", tags="algorithm"]
 
 Supported algorithms include RS256, RS384, RS512, PS256, PS384, PS512, ES256, ES384, and ES512, depending on your key type.
