@@ -142,6 +142,25 @@ public final class AzureFunctionHttpRequest<T> implements
         }
     }
 
+    /**
+     * Azure Functions hand over the whole body as a string, so its length is known even when the
+     * {@code Content-Length} header is absent. Reporting it lets body decoding see that a body is present.
+     *
+     * @return The content length
+     */
+    @Override
+    public long getContentLength() {
+        long contentLength = MutableServletHttpRequest.super.getContentLength();
+        if (contentLength >= 0) {
+            return contentLength;
+        }
+        try {
+            return getBodyBytes().length;
+        } catch (IOException e) {
+            return 0;
+        }
+    }
+
     private static HttpMethod parseMethod(Supplier<String> httpMethodConsumer) {
         try {
             return HttpMethod.valueOf(httpMethodConsumer.get());
