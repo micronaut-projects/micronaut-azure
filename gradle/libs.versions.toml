@@ -7,17 +7,17 @@ azurefunctions-plugin = "1.18.0"
 jakarta-inject-api = "2.0.1"
 logback-json-classic = "0.1.5"
 system-lambda = "1.2.1"
-json-smart = "2.6.0"
+json-smart = "2.6.1"
 commons-codec = "1.23.0"
 # Legacy Jackson 2 line used transitively by Azure SDK.
 # TODO: Can be removed when azure libraries are moved to Jackson 3
-jackson-core = "2.22.4"
+jackson-core = "2.23.0"
 # azure-cosmos 4.81.0 and 4.82.0 request micrometer-core 1.15.1
 micrometer-core = "1.17.2"
 
 # Micronaut
-micronaut-platform = "5.2.3"
-micronaut = "5.2.20"
+micronaut-platform = "5.2.5"
+micronaut = "5.2.22"
 # The Python compiler and runtime of doc-examples/example-python: only that project resolves this core version
 micronaut-python = "5.2.20"
 micronaut-logging = "2.1.0"
