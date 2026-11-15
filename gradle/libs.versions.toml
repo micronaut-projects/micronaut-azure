@@ -1,5 +1,5 @@
 [versions]
-managed-azure-sdk = "1.3.9"
+managed-azure-sdk = "1.3.10"
 managed-azure-functions-java-library = "3.3.0"
 managed-azure-cosmos = "4.83.0"
 managed-opentelemetry-autoconfigure = "1.8.0"
@@ -16,10 +16,10 @@ jackson-core = "2.23.0"
 micrometer-core = "1.17.2"
 
 # Micronaut
-micronaut-platform = "5.2.5"
-micronaut = "5.2.22"
+micronaut-platform = "5.2.6"
+micronaut = "5.2.23"
 # The Python compiler and runtime of doc-examples/example-python: only that project resolves this core version
-micronaut-python = "5.2.20"
+micronaut-python = "5.2.23"
 micronaut-logging = "2.1.0"
 micronaut-reactor = "4.3.0"
 micronaut-serde = "3.2.6"
